@@ -55,7 +55,7 @@ export default function LandingPage() {
   
   const getPrice = (planId: string) => {
     const plan = pricingPlans[planId]
-    if (!plan) return '$0'
+    if (!plan) return 0
     return billingCycle === 'monthly' ? plan.monthlyPrice : plan.annualPrice
   }
   

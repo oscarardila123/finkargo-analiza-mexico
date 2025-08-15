@@ -1,0 +1,188 @@
+   ▲ Next.js 15.4.5
+   - Local:        http://localhost:3000
+   - Network:      http://0.0.0.0:3000
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Ready in 1884ms
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 579ms (210 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 3.6s (781 modules)
+ GET / 200 in 4215ms
+ ✓ Compiled in 663ms (311 modules)
+ GET / 200 in 257ms
+ ✓ Compiled /api/auth/[...nextauth] in 356ms (469 modules)
+ ✓ Compiled in 342ms (298 modules)
+ GET /favicon.ico 200 in 1750ms
+ GET /api/auth/session 200 in 2216ms
+ ✓ Compiled in 669ms (1032 modules)
+ GET / 200 in 140ms
+ ✓ Compiled in 822ms (764 modules)
+ GET / 200 in 345ms
+ GET / 200 in 488ms
+ GET / 200 in 380ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /api/auth/[...nextauth] in 513ms (469 modules)
+ ✓ Compiled (720 modules)
+ GET /favicon.ico 200 in 1052ms
+ GET /api/auth/session 200 in 678ms
+ ✓ Compiled in 2.2s (764 modules)
+ ✓ Compiled in 562ms (764 modules)
+ ✓ Compiled in 482ms (764 modules)
+ ✓ Compiled in 501ms (764 modules)
+ ✓ Compiled in 429ms (764 modules)
+ ✓ Compiled in 443ms (764 modules)
+ ✓ Compiled in 520ms (764 modules)
+ ✓ Compiled in 418ms (764 modules)
+ ✓ Compiled in 538ms (764 modules)
+ GET / 200 in 844ms
+ GET / 200 in 284ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /api/auth/[...nextauth] in 1412ms (469 modules)
+ ✓ Compiled (720 modules)
+ GET /favicon.ico 200 in 2591ms
+ GET /api/auth/session 200 in 1390ms
+ GET / 200 in 667ms
+ ✓ Compiled in 893ms (764 modules)
+ GET / 200 in 229ms
+ ✓ Compiled in 500ms (764 modules)
+ GET / 200 in 138ms
+ ✓ Compiled in 448ms (764 modules)
+ GET / 200 in 128ms
+ GET / 200 in 456ms
+ GET / 200 in 241ms
+ GET / 200 in 243ms
+ GET / 200 in 205ms
+ ✓ Compiled in 742ms (764 modules)
+ GET / 200 in 144ms
+ GET / 200 in 408ms
+ GET / 200 in 152ms
+ GET / 200 in 125ms
+ GET / 200 in 129ms
+ GET / 200 in 158ms
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 561ms (469 modules)
+ ✓ Compiled (720 modules)
+ GET /favicon.ico 200 in 1086ms
+ GET /api/auth/session 200 in 880ms
+ GET / 200 in 466ms
+ GET /favicon.ico 200 in 178ms
+ GET /api/auth/session 200 in 15ms
+ GET / 200 in 423ms
+ GET /favicon.ico 200 in 33ms
+ GET /api/auth/session 200 in 27ms
+ ○ Compiling /precios ...
+ ✓ Compiled /precios in 924ms (1035 modules)
+ GET /precios 200 in 1101ms
+ GET /favicon.ico 200 in 35ms
+ ○ Compiling /features ...
+ ✓ Compiled /features in 565ms (1065 modules)
+ GET /features 200 in 812ms
+ GET /favicon.ico 200 in 25ms
+ ✓ Compiled /demo in 328ms (1080 modules)
+ GET /demo 200 in 479ms
+ GET /favicon.ico 200 in 24ms
+ GET /precios 200 in 51ms
+ GET /favicon.ico 200 in 10ms
+ ✓ Compiled in 3.7s (1036 modules)
+ GET /precios 200 in 231ms
+ ✓ Compiled in 809ms (1036 modules)
+ GET /precios 200 in 122ms
+ ✓ Compiled in 1024ms (1036 modules)
+ GET /precios 200 in 87ms
+ ✓ Compiled in 1055ms (1036 modules)
+ GET /precios 200 in 170ms
+ ✓ Compiled in 926ms (1036 modules)
+ GET /precios 200 in 96ms
+ ✓ Compiled in 773ms (1036 modules)
+ GET /precios 200 in 87ms
+ ✓ Compiled in 612ms (826 modules)
+ GET /precios 200 in 153ms
+ ✓ Compiled in 481ms (826 modules)
+ GET /precios 200 in 100ms
+ ✓ Compiled in 2.6s (1036 modules)
+ GET /precios 200 in 295ms
+ ✓ Compiled in 804ms (826 modules)
+ GET /precios 200 in 213ms
+ GET / 200 in 547ms
+ GET / 200 in 186ms
+ GET / 200 in 190ms
+ GET /precios 200 in 238ms
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 515ms (517 modules)
+ ✓ Compiled (768 modules)
+ GET /favicon.ico 200 in 1422ms
+ GET /api/auth/session 200 in 1210ms
+ GET /precios 200 in 508ms
+ GET /favicon.ico 200 in 136ms
+ GET /api/auth/session 200 in 26ms
+ GET / 200 in 48ms
+ GET /favicon.ico 200 in 25ms
+ GET /precios 200 in 47ms
+ GET /favicon.ico 200 in 21ms
+ GET /precios 200 in 432ms
+ GET /favicon.ico 200 in 67ms
+ GET /api/auth/session 200 in 68ms
+ ✓ Compiled in 1525ms (826 modules)
+ GET /precios 200 in 594ms
+ ✓ Compiled in 557ms (826 modules)
+ GET /precios 200 in 129ms
+ ✓ Compiled in 459ms (826 modules)
+ GET /precios 200 in 100ms
+ ✓ Compiled in 444ms (826 modules)
+ GET /precios 200 in 95ms
+ GET /precios 200 in 519ms
+ GET /precios 200 in 227ms
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 512ms (517 modules)
+ ✓ Compiled (768 modules)
+ GET /favicon.ico 200 in 1286ms
+ GET /api/auth/session 200 in 1130ms
+ ✓ Compiled in 510ms (1094 modules)
+ GET /precios 200 in 123ms
+ ✓ Compiled in 531ms (1094 modules)
+ GET /precios 200 in 142ms
+ ✓ Compiled in 851ms (1094 modules)
+ GET /precios 200 in 99ms
+ GET /precios 200 in 426ms
+ GET /precios 200 in 197ms
+ GET /favicon.ico 200 in 46ms
+ GET /api/auth/session 200 in 178ms
+ GET /precios 200 in 156ms
+ GET /favicon.ico 200 in 14ms
+ GET /api/auth/session 200 in 25ms
+ ✓ Compiled in 1456ms (826 modules)
+ GET /precios 200 in 294ms
+ GET /precios 200 in 432ms
+ GET / 200 in 63ms
+ ✓ Compiled /favicon.ico in 426ms (517 modules)
+ GET /favicon.ico 200 in 592ms
+ GET /features 200 in 168ms
+ GET /favicon.ico 200 in 13ms
+ GET /demo 200 in 37ms
+ GET /favicon.ico 200 in 9ms
+ ✓ Compiled in 2s (843 modules)
+ GET /demo 200 in 250ms
+ GET /demo 200 in 492ms
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 517ms (754 modules)
+ GET /api/auth/session 200 in 923ms
+ GET / 200 in 475ms
+ ✓ Compiled /favicon.ico in 261ms (768 modules)
+ GET /favicon.ico 200 in 460ms
+ GET /favicon.ico 200 in 6ms
+ GET / 200 in 535ms
+ GET /favicon.ico 200 in 19ms
+ GET /api/auth/session 200 in 170ms
+ ✓ Compiled in 1380ms (826 modules)
+ GET / 200 in 376ms
+ ✓ Compiled in 817ms (826 modules)
+ GET / 200 in 129ms
+ GET / 200 in 496ms
+ ✓ Compiled /favicon.ico in 202ms (517 modules)
+ GET /favicon.ico 200 in 343ms
+ ✓ Compiled /api/auth/[...nextauth] in 133ms (768 modules)
+ GET /api/auth/session 200 in 410ms
+ ✓ Compiled in 989ms (826 modules)
+ GET / 200 in 248ms

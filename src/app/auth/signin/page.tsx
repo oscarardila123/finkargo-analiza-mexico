@@ -39,7 +39,7 @@ export default function SignInPage() {
         router.push(from)
         router.refresh()
       }
-    } catch (error) {
+    } catch {
       setError("Error al iniciar sesión")
     } finally {
       setIsLoading(false)
@@ -50,7 +50,7 @@ export default function SignInPage() {
     setIsLoading(true)
     try {
       await signIn("google", { callbackUrl: from })
-    } catch (error) {
+    } catch {
       setError("Error al iniciar sesión con Google")
       setIsLoading(false)
     }

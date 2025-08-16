@@ -48,7 +48,7 @@ export async function GET(
     }
 
     // Format payment data for the frontend
-    const metadata = payment.metadata as any || {}
+    const metadata = (payment.metadata as Record<string, unknown>) || {}
     
     return NextResponse.json({
       success: true,

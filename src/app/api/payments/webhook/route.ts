@@ -75,15 +75,15 @@ export async function POST(request: NextRequest) {
     }
 
     // Update payment status
-    const updatedPayment = await prisma.payment.update({
+    await prisma.payment.update({
       where: { id: payment.id },
       data: {
-        status: paymentStatus as any,
+        status: paymentStatus as 'PENDING' | 'PAID' | 'FAILED' | 'CANCELLED',
         paidAt: transaction.status === 'APPROVED' ? new Date(transaction.finalized_at!) : null,
         failedAt: ['DECLINED', 'ERROR'].includes(transaction.status) ? new Date() : null,
         failureReason: transaction.status_message || null,
         metadata: {
-          ...payment.metadata as any,
+          ...(payment.metadata as Record<string, unknown>),
           webhookData: transaction,
           updatedAt: new Date().toISOString(),
         },

@@ -107,7 +107,7 @@ export async function POST(request: NextRequest) {
       data: {
         providerPaymentId: wompiPayment.id,
         metadata: {
-          ...payment.metadata as any,
+          ...(payment.metadata as Record<string, unknown>),
           wompiPayment,
         },
       },

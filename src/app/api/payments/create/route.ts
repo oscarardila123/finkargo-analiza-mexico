@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
     // Create Wompi payment
     const wompiPaymentData = {
       amount_in_cents: currency === 'COP' ? wompiClient.formatCOPAmount(totalAmount) : Math.round(totalAmount * 100),
-      currency: 'COP' as 'COP', // Wompi only supports COP
+      currency: 'COP' as const, // Wompi only supports COP
       customer_email: user.email,
       reference: reference,
       payment_method: {

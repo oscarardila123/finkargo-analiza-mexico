@@ -9,6 +9,12 @@ export default withAuth(
     const isAuthPage = req.nextUrl.pathname.startsWith("/auth")
     const isDashboard = req.nextUrl.pathname.startsWith("/dashboard")
     const isApiRoute = req.nextUrl.pathname.startsWith("/api")
+    const isPublicPage = ["/", "/features", "/precios", "/demo"].includes(req.nextUrl.pathname)
+
+    // Allow public pages without authentication
+    if (isPublicPage) {
+      return null
+    }
 
     if (isAuthPage) {
       if (isAuth) {
@@ -51,6 +57,12 @@ export default withAuth(
         
         if (req.nextUrl.pathname.startsWith("/api")) {
           return !!token
+        }
+
+        // Allow public pages
+        const isPublicPage = ["/", "/features", "/precios", "/demo"].includes(req.nextUrl.pathname)
+        if (isPublicPage) {
+          return true
         }
 
         return true

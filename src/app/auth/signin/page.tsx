@@ -11,6 +11,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Loader2, Mail, Sparkles, Shield, Check, ArrowRight } from "lucide-react"
 import { BrandIcon } from "@/components/ui/brand-icon"
 
+// Force dynamic rendering to avoid prerender issues with useSearchParams
+export const dynamic = 'force-dynamic'
+
 function SignInContent() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")

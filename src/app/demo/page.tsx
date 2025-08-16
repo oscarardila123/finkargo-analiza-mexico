@@ -7,7 +7,6 @@ import { Badge } from "@/components/ui/badge"
 import { BrandIcon } from "@/components/ui/brand-icon"
 import { ScrollToTop } from "@/components/ui/scroll-to-top"
 import {
-  Play,
   Calendar,
   Users,
   Clock,

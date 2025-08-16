@@ -110,7 +110,7 @@ export default function SuppliersPage() {
   }, [searchTerm, selectedCountry, selectedProduct, sortBy, suppliers])
 
   const filterAndSortSuppliers = () => {
-    let filtered = suppliers.filter(supplier => {
+    const filtered = suppliers.filter(supplier => {
       const matchesSearch = supplier.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            supplier.products.some(p => p.toLowerCase().includes(searchTerm.toLowerCase()))
       const matchesCountry = selectedCountry === "all" || supplier.country === selectedCountry

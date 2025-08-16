@@ -30,7 +30,7 @@ interface SubscriptionPlan {
   features: string[]
   reportsLimit: number
   usersLimit: number
-  icon: any
+  icon: React.ComponentType<{ className?: string }>
   popular?: boolean
 }
 
@@ -170,7 +170,7 @@ export default function SubscriptionPage() {
   }
 
   const getStatusBadge = (status: string) => {
-    const statusMap: Record<string, { label: string; variant: any }> = {
+    const statusMap: Record<string, { label: string; variant: 'default' | 'secondary' | 'destructive' | 'outline' }> = {
       'TRIAL': { label: 'Prueba', variant: 'secondary' },
       'ACTIVE': { label: 'Activo', variant: 'default' },
       'PAST_DUE': { label: 'Vencido', variant: 'destructive' },

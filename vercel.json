@@ -1,20 +1,10 @@
 {
-  "name": "finkargo-analiza",
+  "name": "finkargo-analiza-c",
   "version": 2,
   "builds": [
     {
       "src": "package.json",
       "use": "@vercel/next"
     }
-  ],
-  "env": {
-    "DATABASE_URL": "@database-url",
-    "NEXTAUTH_SECRET": "@nextauth-secret",
-    "NEXTAUTH_URL": "@nextauth-url",
-    "WOMPI_PUBLIC_KEY": "@wompi-public-key",
-    "WOMPI_PRIVATE_KEY": "@wompi-private-key",
-    "WOMPI_EVENTS_SECRET": "@wompi-events-secret",
-    "WOMPI_DEV_MODE": "@wompi-dev-mode",
-    "IVA_RATE": "@iva-rate"
-  }
+  ]
 }

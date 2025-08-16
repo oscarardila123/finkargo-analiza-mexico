@@ -75,7 +75,7 @@ export const config = {
   matcher: [
     // Only apply middleware to protected routes
     "/dashboard/:path*",
-    "/api/((?!auth).*)",
+    "/api/((?!auth|test-db).*)",
     "/checkout/:path*"
   ],
 }

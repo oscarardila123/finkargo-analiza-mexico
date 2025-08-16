@@ -35,7 +35,7 @@ interface PaymentDetails {
 export default function PaymentSuccessPage() {
   const searchParams = useSearchParams()
   const router = useRouter()
-  const { data: session, status } = useSession()
+  const { status } = useSession()
   
   const [loading, setLoading] = useState(true)
   const [payment, setPayment] = useState<PaymentDetails | null>(null)

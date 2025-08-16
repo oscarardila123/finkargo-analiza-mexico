@@ -479,7 +479,7 @@ export default function CheckoutPage() {
 
               <div className="text-center text-xs text-gray-700 space-y-2">
                 <p>
-                  Al hacer clic en "Completar pago", aceptas nuestros{" "}
+                  Al hacer clic en &quot;Completar pago&quot;, aceptas nuestros{" "}
                   <a href="#" className="text-primary underline">Términos de Servicio</a> y{" "}
                   <a href="#" className="text-primary underline">Política de Privacidad</a>
                 </p>

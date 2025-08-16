@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
 
     // Handle successful payment
     if (shouldActivateSubscription) {
-      const metadata = payment.metadata as any
+      const metadata = payment.metadata as Record<string, unknown>
       const plan = metadata.plan
       const billingCycle = metadata.billingCycle
 

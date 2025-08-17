@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { BrandIcon } from "@/components/ui/brand-icon"
 import { ScrollToTop } from "@/components/ui/scroll-to-top"
+import { ResponsiveHeader } from "@/components/ui/responsive-header"
 import {
   Calendar,
   Users,
@@ -25,37 +26,7 @@ import {
 export default function DemoPage() {
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-sm bg-white/95">
-        <div className="container-responsive h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-3">
-            <BrandIcon size="md" />
-            <div>
-              <span className="heading-sm text-brand-navy">Analiza</span>
-              <span className="body-sm text-brand-navy-dark font-medium ml-1">de Finkargo</span>
-            </div>
-          </Link>
-          <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/features" className="body-md text-secondary hover:text-brand-navy-dark transition-colors">
-              Beneficios
-            </Link>
-            <Link href="/precios" className="body-md text-secondary hover:text-brand-navy-dark transition-colors">
-              Precios
-            </Link>
-            <Link href="/demo" className="body-md text-brand-navy-dark font-semibold">
-              Demo
-            </Link>
-          </nav>
-          <div className="flex items-center space-x-4">
-            <Link href="/auth/signin">
-              <Button variant="ghost" className="text-secondary hover:bg-cyan-50 hover:text-brand-navy-dark transition-all">Iniciar Sesión</Button>
-            </Link>
-            <Link href="/auth/signup">
-              <Button className="btn-primary-gradient text-white">Comenzar Gratis</Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <ResponsiveHeader currentPage="demo" />
 
       {/* Hero Section */}
       <section className="py-16 lg:py-16 relative dots-decoration safe-area-padding">
@@ -75,75 +46,86 @@ export default function DemoPage() {
             </p>
           
             {/* Interactive Demo */}
-            <div className="max-w-6xl mx-auto mb-12 px-4">
-              <div className="business-card-elevated p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-cyan-50">
-                <div className="text-center mb-6">
-                  <Badge className="mb-4 px-4 py-2 bg-green-100 text-green-800 border border-green-200">
-                    🚀 Demo Interactivo - Pruébalo Ahora
-                  </Badge>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                    Explora Finkargo Analiza en Acción
-                  </h3>
-                  <p className="text-gray-600 max-w-2xl mx-auto">
-                    Interactúa con nuestra plataforma real. Descubre cómo empresas como TechSolutions SAS 
-                    encontraron 15 nuevos proveedores y redujeron costos en 35%.
-                  </p>
-                </div>
-                
-                <div className="demo-container bg-white rounded-xl shadow-lg overflow-hidden" style={{height: '600px'}}>
-                  <div 
-                    className="w-full h-full"
-                    dangerouslySetInnerHTML={{
-                      __html: `<iframe
-                        src="https://finkargo.storylane.io/share/ypfww7pp2fs4"
-                        class="w-full h-full border-0"
-                        allow="fullscreen; autoplay; encrypted-media"
-                        loading="lazy"
-                        title="Finkargo Analiza - Demo Interactivo"
-                        style="border: none;">
-                      </iframe>`
-                    }}
-                  />
-                </div>
-                
-                <div className="mt-6">
-                  <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-600 mb-4">
-                    <div className="flex items-center">
-                      <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
-                      Sin registro requerido
-                    </div>
-                    <div className="flex items-center">
-                      <Clock className="w-4 h-4 mr-2 text-blue-500" />
-                      5 minutos de exploración
-                    </div>
-                    <div className="flex items-center">
-                      <Eye className="w-4 h-4 mr-2 text-purple-500" />
-                      Datos reales anonimizados
-                    </div>
+            <div className="max-w-7xl mx-auto mb-12 px-4">
+              <div className="relative group">
+                {/* Enhanced container with modern design */}
+                <div className="relative bg-white p-4 sm:p-6 lg:p-8 rounded-3xl shadow-2xl border border-gray-200/50 backdrop-blur-sm bg-white/95">
+                  {/* Gradient overlay for modern look */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-green-500/5 to-cyan-500/5 rounded-3xl"></div>
+                  
+                  <div className="relative z-10 text-center mb-6 sm:mb-8">
+                    <Badge className="mb-4 sm:mb-6 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-green-100 to-blue-100 text-green-800 border border-green-200 shadow-lg">
+                      🚀 Demo Interactivo - Pruébalo Ahora
+                    </Badge>
+                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">
+                      Explora <span className="bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">Finkargo Analiza</span> en Acción
+                    </h3>
+                    <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                      Interactúa con nuestra plataforma real. Descubre cómo empresas como AVIANCA 
+                      optimizaron su cadena de suministro y mejoraron eficiencia operativa en 25%.
+                    </p>
                   </div>
                   
-                  {/* Progressive Guide */}
-                  <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 mt-4">
-                    <h4 className="font-semibold text-gray-900 mb-3 text-center">🎯 Guía del Demo Interactivo</h4>
-                    <div className="grid md:grid-cols-3 gap-3 text-xs">
-                      <div className="bg-white rounded-lg p-3 text-center">
-                        <div className="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center mx-auto mb-2 text-xs font-bold">1</div>
-                        <div className="font-medium text-gray-800">Explorar Dashboard</div>
-                        <div className="text-gray-600 mt-1">Conoce la interfaz principal</div>
+                  {/* Improved demo container with better aspect ratio */}
+                  <div className="relative z-10 bg-black rounded-2xl overflow-hidden shadow-inner" style={{aspectRatio: '16/10', minHeight: '500px'}}>
+                    <div 
+                      className="w-full h-full"
+                      dangerouslySetInnerHTML={{
+                        __html: `<iframe
+                          src="https://finkargo.storylane.io/share/ypfww7pp2fs4"
+                          class="w-full h-full border-0"
+                          allow="fullscreen; autoplay; encrypted-media"
+                          loading="lazy"
+                          title="Finkargo Analiza - Demo Interactivo"
+                          style="border: none; min-height: 500px;">
+                        </iframe>`
+                      }}
+                    />
+                  </div>
+                  
+                  {/* Enhanced features and guide section */}
+                  <div className="relative z-10 mt-6 sm:mt-8">
+                    <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-6 text-xs sm:text-sm text-gray-600 mb-6">
+                      <div className="flex items-center justify-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-100">
+                        <CheckCircle className="w-4 h-4 mr-2 text-green-500 flex-shrink-0" />
+                        <span>Sin registro requerido</span>
                       </div>
-                      <div className="bg-white rounded-lg p-3 text-center">
-                        <div className="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto mb-2 text-xs font-bold">2</div>
-                        <div className="font-medium text-gray-800">Buscar Proveedores</div>
-                        <div className="text-gray-600 mt-1">Prueba la búsqueda inteligente</div>
+                      <div className="flex items-center justify-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-100">
+                        <Clock className="w-4 h-4 mr-2 text-blue-500 flex-shrink-0" />
+                        <span>5 minutos de exploración</span>
                       </div>
-                      <div className="bg-white rounded-lg p-3 text-center">
-                        <div className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center mx-auto mb-2 text-xs font-bold">3</div>
-                        <div className="font-medium text-gray-800">Analizar Competencia</div>
-                        <div className="text-gray-600 mt-1">Ve reportes en tiempo real</div>
+                      <div className="flex items-center justify-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-100">
+                        <Eye className="w-4 h-4 mr-2 text-purple-500 flex-shrink-0" />
+                        <span>Datos reales anonimizados</span>
+                      </div>
+                    </div>
+                    
+                    {/* Enhanced Progressive Guide */}
+                    <div className="bg-gradient-to-r from-blue-50 via-green-50 to-purple-50 rounded-2xl p-4 sm:p-6 border border-blue-100/50">
+                      <h4 className="font-semibold text-gray-900 mb-4 sm:mb-6 text-center text-base sm:text-lg">🎯 Guía del Demo Interactivo</h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+                        <div className="bg-white rounded-xl p-4 sm:p-6 text-center shadow-sm border border-blue-100/50 hover:shadow-md transition-shadow">
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-sm sm:text-base font-bold shadow-lg">1</div>
+                          <div className="font-semibold text-gray-800 text-sm sm:text-base mb-2">Explorar Dashboard</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Conoce la interfaz principal</div>
+                        </div>
+                        <div className="bg-white rounded-xl p-4 sm:p-6 text-center shadow-sm border border-green-100/50 hover:shadow-md transition-shadow">
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-green-500 to-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-sm sm:text-base font-bold shadow-lg">2</div>
+                          <div className="font-semibold text-gray-800 text-sm sm:text-base mb-2">Buscar Proveedores</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Prueba la búsqueda inteligente</div>
+                        </div>
+                        <div className="bg-white rounded-xl p-4 sm:p-6 text-center shadow-sm border border-purple-100/50 hover:shadow-md transition-shadow">
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-sm sm:text-base font-bold shadow-lg">3</div>
+                          <div className="font-semibold text-gray-800 text-sm sm:text-base mb-2">Analizar Competencia</div>
+                          <div className="text-gray-600 text-xs sm:text-sm">Ve reportes en tiempo real</div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                
+                {/* Subtle glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/10 via-green-400/10 to-purple-400/10 rounded-3xl blur-2xl group-hover:blur-xl transition-all duration-500 -z-10"></div>
               </div>
             </div>
           </div>
@@ -161,7 +143,7 @@ export default function DemoPage() {
               ¡Increíble! Ahora da el <span className="text-brand-navy-dark font-bold">siguiente paso</span>
             </h2>
             <p className="body-lg text-gray-600 mb-12 max-w-2xl mx-auto">
-              Has visto el poder de Finkargo Analiza. Únete a las 500+ empresas colombianas 
+              Has visto el poder de Finkargo Analiza. Únete a las 160+ empresas colombianas 
               que ya transformaron su estrategia comercial.
             </p>
             
@@ -205,7 +187,7 @@ export default function DemoPage() {
                 </div>
                 <div className="flex items-center">
                   <Users className="w-4 h-4 mr-2 text-blue-500" />
-                  +500 empresas confían
+                  +160 empresas confían
                 </div>
                 <div className="flex items-center">
                   <BarChart3 className="w-4 h-4 mr-2 text-purple-500" />
@@ -431,7 +413,7 @@ export default function DemoPage() {
               <span className="text-brand-navy-dark">destacado</span>
             </h2>
             <p className="body-lg text-gray-700">
-              Ve cómo TechSolutions SAS optimizó su cadena de suministro
+              Ve cómo AVIANCA optimizó sus importaciones internacionales
             </p>
           </div>
 
@@ -441,18 +423,18 @@ export default function DemoPage() {
                 <div className="w-16 h-16 bg-brand-coral/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <TrendingUp className="h-8 w-8 text-brand-coral" />
                 </div>
-                <CardTitle className="heading-lg text-brand-navy">TechSolutions SAS</CardTitle>
-                <p className="body-md text-gray-700">Importadora de componentes electrónicos - Bogotá</p>
+                <CardTitle className="heading-lg text-brand-navy">AVIANCA</CardTitle>
+                <p className="body-md text-gray-700">Aerolínea colombiana líder en Latinoamérica - Bogotá</p>
               </CardHeader>
               <CardContent>
                 <div className="grid md:grid-cols-3 gap-8 text-center">
                   <div>
-                    <div className="text-4xl font-bold text-brand-coral mb-2">35%</div>
-                    <p className="body-md text-gray-700">Reducción en costos de importación</p>
+                    <div className="text-4xl font-bold text-brand-coral mb-2">25%</div>
+                    <p className="body-md text-gray-700">Mejora en eficiencia operativa</p>
                   </div>
                   <div>
-                    <div className="text-4xl font-bold text-brand-navy-dark mb-2">15</div>
-                    <p className="body-md text-gray-700">Nuevos proveedores identificados</p>
+                    <div className="text-4xl font-bold text-brand-navy-dark mb-2">12</div>
+                    <p className="body-md text-gray-700">Proveedores optimizados</p>
                   </div>
                   <div>
                     <div className="text-4xl font-bold text-brand-navy mb-2">3</div>
@@ -462,9 +444,9 @@ export default function DemoPage() {
                 
                 <div className="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
                   <p className="body-md text-gray-700 italic text-center">
-                    "Con Finkargo Analiza identificamos proveedores en Asia que no conocíamos y optimizamos toda nuestra cadena de suministro. El ROI fue inmediato."
+                    "Finkargo Analiza nos permitió optimizar nuestras importaciones de componentes y repuestos aeronáuticos. Mejoramos visibilidad del mercado internacional."
                   </p>
-                  <p className="text-center mt-4 heading-sm text-brand-navy">- Carlos Mejía, Gerente General</p>
+                  <p className="text-center mt-4 heading-sm text-brand-navy">- Directora de Compras, AVIANCA</p>
                 </div>
               </CardContent>
             </Card>

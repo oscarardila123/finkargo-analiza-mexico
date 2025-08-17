@@ -65,18 +65,18 @@ interface MarketAnalysis {
 // Mock data - in production this would come from Aduanas database
 const mockMarketAnalysis: MarketAnalysis = {
   topImporters: [
-    { name: "Tech Solutions SAS", value: 2450000, percentage: 15.2, trend: 12.5 },
-    { name: "Global Import Co.", value: 1890000, percentage: 11.7, trend: -3.2 },
-    { name: "Digital Components Ltda", value: 1650000, percentage: 10.3, trend: 8.7 },
-    { name: "Electronics Colombia", value: 1320000, percentage: 8.2, trend: 22.1 },
-    { name: "Import Pro SAS", value: 1180000, percentage: 7.3, trend: -5.1 },
+    { name: "AVIANCA", value: 2450000, percentage: 15.2, trend: 12.5 },
+    { name: "AUTOGERMANA SAS", value: 1890000, percentage: 11.7, trend: -3.2 },
+    { name: "SSANGYONG MOTOR COLOMBIA SA", value: 1650000, percentage: 10.3, trend: 8.7 },
+    { name: "UMO S.A.S", value: 1320000, percentage: 8.2, trend: 22.1 },
+    { name: "DISAMETALES S.A.S", value: 1180000, percentage: 7.3, trend: -5.1 },
   ],
   topSuppliers: [
     { name: "Shenzhen Electronics Co.", country: "China", value: 3200000, percentage: 19.8 },
-    { name: "Samsung Electronics", country: "Corea del Sur", value: 2850000, percentage: 17.6 },
+    { name: "Asian Electronics Manufacturing", country: "Corea del Sur", value: 2850000, percentage: 17.6 },
     { name: "Taiwan Semiconductor", country: "Taiwán", value: 2100000, percentage: 13.0 },
-    { name: "Intel Corporation", country: "Estados Unidos", value: 1750000, percentage: 10.8 },
-    { name: "European Tech GmbH", country: "Alemania", value: 1450000, percentage: 9.0 },
+    { name: "American Tech Solutions", country: "Estados Unidos", value: 1750000, percentage: 10.8 },
+    { name: "German Industrial Components", country: "Alemania", value: 1450000, percentage: 9.0 },
   ],
   topProducts: [
     { description: "Componentes electrónicos", tariffPosition: "8542.31.00", value: 4200000, percentage: 26.0 },

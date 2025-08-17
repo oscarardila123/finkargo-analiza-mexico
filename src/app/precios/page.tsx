@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { BrandIcon } from "@/components/ui/brand-icon"
 import { ScrollToTop } from "@/components/ui/scroll-to-top"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { ResponsiveHeader } from "@/components/ui/responsive-header"
 import {
   CheckCircle,
   X,
@@ -190,26 +191,26 @@ const paymentMethods = [
 
 const testimonials = [
   {
-    name: "Carlos Mejía",
-    company: "ImportColombia SAS",
-    role: "Gerente General",
-    content: "El plan Professional nos ayudó a identificar 15 nuevos proveedores en Asia que redujeron nuestros costos en 35%. El ROI fue inmediato.",
+    name: "Gerente de Importaciones",
+    company: "SSANGYONG MOTOR COLOMBIA SA",
+    role: "Equipo Comercial",
+    content: "Con el plan Professional identificamos proveedores de autopartes en Asia que nos ayudaron a reducir costos de importación en 18%. El retorno fue rápido.",
     rating: 5,
     plan: "Professional"
   },
   {
-    name: "Ana Rodríguez",
-    company: "TechSolutions Ltda",
-    role: "Directora de Compras",
-    content: "La integración con nuestra ERP a través de la API del plan Enterprise nos ahorró 20 horas semanales en análisis manual.",
+    name: "Coordinadora de Compras",
+    company: "ARGESA SAS",
+    role: "Departamento de Compras",
+    content: "La integración con nuestros sistemas mediante la API del plan Enterprise optimizó nuestros procesos de compras internacionales significativamente.",
     rating: 5,
     plan: "Enterprise"
   },
   {
-    name: "Luis Herrera",
-    company: "StartupColombia",
-    role: "Fundador",
-    content: "Comenzamos con el plan gratuito y en 3 meses ya habíamos escalado a Professional. Los datos de Aduanas son increíbles.",
+    name: "Director Comercial",
+    company: "NEW AGE COLOMBIA",
+    role: "Equipo Directivo",
+    content: "Iniciamos con el plan Starter y rápidamente escalamos a Professional. Los datos de Aduanas nos dieron ventaja competitiva.",
     rating: 5,
     plan: "Starter → Professional"
   }
@@ -245,47 +246,17 @@ export default function PricingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-section">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-sm bg-white/95">
-        <div className="container-responsive h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-3">
-            <BrandIcon size="md" />
-            <div>
-              <span className="heading-sm text-brand-navy">Analiza</span>
-              <span className="body-sm text-brand-navy-dark font-medium ml-1">de Finkargo</span>
-            </div>
-          </Link>
-          <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/features" className="body-md text-secondary hover:text-brand-navy-dark transition-colors">
-              Beneficios
-            </Link>
-            <Link href="/precios" className="body-md text-brand-navy-dark font-semibold">
-              Precios
-            </Link>
-            <Link href="/demo" className="body-md text-secondary hover:text-brand-navy-dark transition-colors">
-              Demo
-            </Link>
-          </nav>
-          <div className="flex items-center space-x-4">
-            <Link href="/auth/signin">
-              <Button variant="ghost" className="text-secondary hover:bg-cyan-50 hover:text-brand-navy-dark transition-all">Iniciar Sesión</Button>
-            </Link>
-            <Link href="/auth/signup">
-              <Button className="btn-primary-gradient text-white">Comenzar Gratis</Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-section overflow-x-hidden">
+      <ResponsiveHeader currentPage="precios" />
 
       {/* Hero Section */}
-      <section className="py-4 lg:py-6 relative dots-decoration">
-        <div className="container mx-auto px-4 text-center">
+      <section className="py-6 sm:py-8 lg:py-12 relative dots-decoration">
+        <div className="container-responsive text-center">
           <div className="relative z-10">
-            <Badge className="mb-4 px-6 py-3 bg-brand-coral/10 text-brand-coral border border-brand-coral/20">
+            <Badge className="mb-4 sm:mb-6 px-4 sm:px-6 py-2 sm:py-3 bg-brand-coral/10 text-brand-coral border border-brand-coral/20 text-xs sm:text-sm">
               🎯 PLANES PARA EL MERCADO COLOMBIANO
             </Badge>
-            <h1 className="heading-display text-gray-600 mb-4">
+            <h1 className="text-2xl sm:text-3xl lg:text-5xl xl:text-6xl text-gray-600 mb-4 font-bold leading-tight px-4">
               Elige el plan perfecto
               <br />
               <span className="text-brand-navy-dark font-bold">para tu negocio</span>
@@ -776,7 +747,7 @@ export default function PricingPage() {
             ¿Listo para comenzar?
           </h2>
           <p className="body-lg mb-8 max-w-2xl mx-auto" style={{color: '#ffffff'}}>
-            Únete a más de 500+ empresas colombianas que ya transformaron su estrategia de importación y exportación
+            Únete a más de 160+ empresas colombianas que ya transformaron su estrategia de importación y exportación
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link href="/auth/signup">

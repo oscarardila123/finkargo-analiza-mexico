@@ -18,6 +18,14 @@ export const metadata: Metadata = {
   title: "Finkargo Analiza - Inteligencia Comercial para Colombia",
   description: "Plataforma B2B SaaS de inteligencia de mercado basada en datos de aduanas colombianas para importadores, exportadores y agentes de carga.",
   keywords: "inteligencia comercial, importaciones Colombia, exportaciones, Aduanas, proveedores internacionales, análisis de mercado",
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 export default function RootLayout({

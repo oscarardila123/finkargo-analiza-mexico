@@ -24,7 +24,9 @@ import {
   Zap,
   Database,
   Eye,
-  Award
+  Award,
+  Menu,
+  X
 } from "lucide-react"
 
 interface PricingPlan {
@@ -48,6 +50,7 @@ const pricingPlans: Record<string, PricingPlan> = {
 
 export default function LandingPage() {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('annual')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   
   const formatPrice = (price: number) => {
     return `$${price.toLocaleString('es-CO')}`
@@ -68,14 +71,16 @@ export default function LandingPage() {
       {/* Header */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-sm bg-white/95">
         <div className="container-responsive h-16 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
+          <Link href="/" className="flex items-center space-x-3">
             <BrandIcon size="md" />
             <div>
               <span className="heading-sm text-brand-navy">Analiza</span>
               <span className="body-sm text-brand-navy-dark font-medium ml-1">de Finkargo</span>
             </div>
-          </div>
-          <nav className="hidden md:flex items-center space-x-8">
+          </Link>
+          
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center space-x-8">
             <Link href="/features" className="body-md text-secondary hover:text-brand-navy-dark transition-colors">
               Beneficios
             </Link>
@@ -86,7 +91,9 @@ export default function LandingPage() {
               Demo
             </Link>
           </nav>
-          <div className="flex items-center space-x-4">
+          
+          {/* Desktop Auth Buttons */}
+          <div className="hidden lg:flex items-center space-x-4">
             <Link href="/auth/signin">
               <Button variant="ghost" className="text-secondary hover:bg-cyan-50 hover:text-brand-navy-dark transition-all">Iniciar Sesión</Button>
             </Link>
@@ -94,20 +101,77 @@ export default function LandingPage() {
               <Button className="btn-primary-gradient text-white">Comenzar Gratis</Button>
             </Link>
           </div>
+          
+          {/* Mobile Menu Button */}
+          <div className="lg:hidden">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2"
+            >
+              {mobileMenuOpen ? (
+                <X className="h-6 w-6 text-brand-navy-dark" />
+              ) : (
+                <Menu className="h-6 w-6 text-brand-navy-dark" />
+              )}
+            </Button>
+          </div>
         </div>
+        
+        {/* Mobile Navigation Menu */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden bg-white border-t border-gray-200 shadow-lg">
+            <div className="container-responsive py-4 space-y-4">
+              <Link 
+                href="/features" 
+                className="block py-3 px-4 text-gray-700 hover:bg-gray-50 hover:text-brand-navy-dark rounded-lg transition-all"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Beneficios
+              </Link>
+              <Link 
+                href="/precios" 
+                className="block py-3 px-4 text-gray-700 hover:bg-gray-50 hover:text-brand-navy-dark rounded-lg transition-all"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Precios
+              </Link>
+              <Link 
+                href="/demo" 
+                className="block py-3 px-4 text-gray-700 hover:bg-gray-50 hover:text-brand-navy-dark rounded-lg transition-all"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Demo
+              </Link>
+              <div className="border-t border-gray-200 pt-4 space-y-2">
+                <Link href="/auth/signin" onClick={() => setMobileMenuOpen(false)}>
+                  <Button variant="ghost" className="w-full justify-start text-secondary hover:bg-cyan-50 hover:text-brand-navy-dark">
+                    Iniciar Sesión
+                  </Button>
+                </Link>
+                <Link href="/auth/signup" onClick={() => setMobileMenuOpen(false)}>
+                  <Button className="w-full btn-primary-gradient text-white">
+                    Comenzar Gratis
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Hero Section */}
-      <section className="py-12 bg-gradient-section dots-decoration">
+      <section className="py-8 sm:py-12 lg:py-16 bg-gradient-section dots-decoration">
         <div className="container-responsive">
           <div className="text-center relative z-10 layout-stable">
             {/* Main Badge with Dark Text */}
-            <Badge className="mb-8 px-8 py-3 bg-white border border-gray-800 text-gray-600 font-bold tracking-wide shadow-lg">
+            <Badge className="mb-6 sm:mb-8 px-4 sm:px-8 py-2 sm:py-3 bg-white border border-gray-800 text-gray-600 font-bold tracking-wide shadow-lg text-xs sm:text-sm">
               🇨🇴 FINKARGO ANALIZA - TU ALIADO FINANCIERO
             </Badge>
             
             {/* Main Heading with Strong Contrast */}
-            <h1 className="heading-display text-gray-600 mb-6 px-4 max-w-5xl mx-auto font-bold">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-gray-600 mb-6 px-4 max-w-5xl mx-auto font-bold leading-tight">
               El aliado financiero,
               <br />
               <span className="text-gray-600 font-black">confiable y útil</span>
@@ -116,57 +180,58 @@ export default function LandingPage() {
             </h1>
             
             {/* Description with Dark Text */}
-            <p className="body-lg text-gray-600 mb-8 max-w-4xl mx-auto px-4 leading-relaxed font-medium">
+            <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-8 max-w-4xl mx-auto px-4 leading-relaxed font-medium">
               Transforma tu estrategia de importación con inteligencia comercial avanzada. 
               Analiza competidores, encuentra proveedores confiables y toma decisiones financieras inteligentes 
               con datos oficiales de Aduanas.
             </p>
             
             {/* Feature Badges with Dark Text */}
-            <div className="flex flex-wrap items-center justify-center gap-6 mb-12 px-4">
-              <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-gray-200 shadow-sm">
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span className="text-sm font-bold text-gray-600">Datos de Aduanas Oficiales</span>
+            <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-6 mb-8 sm:mb-12 px-4">
+              <div className="flex items-center gap-2 bg-white px-3 sm:px-4 py-2 rounded-full border border-gray-200 shadow-sm w-full sm:w-auto justify-center">
+                <div className="w-3 h-3 bg-green-500 rounded-full flex-shrink-0"></div>
+                <span className="text-xs sm:text-sm font-bold text-gray-600">Datos de Aduanas Oficiales</span>
               </div>
-              <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-gray-200 shadow-sm">
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span className="text-sm font-bold text-gray-600">Soporte 100% Colombia</span>
+              <div className="flex items-center gap-2 bg-white px-3 sm:px-4 py-2 rounded-full border border-gray-200 shadow-sm w-full sm:w-auto justify-center">
+                <div className="w-3 h-3 bg-green-500 rounded-full flex-shrink-0"></div>
+                <span className="text-xs sm:text-sm font-bold text-gray-600">Soporte 100% Colombia</span>
               </div>
-              <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-gray-200 shadow-sm">
+              <div className="flex items-center gap-2 bg-white px-3 sm:px-4 py-2 rounded-full border border-gray-200 shadow-sm w-full sm:w-auto justify-center">
                 <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span className="text-sm font-bold text-gray-600">500+ Empresas Confían</span>
+                <span className="text-sm font-bold text-gray-600">160+ Empresas Confían</span>
               </div>
             </div>
             
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 px-4">
-              <Link href="/auth/signup">
-                <Button size="lg" className="btn-primary-gradient text-white px-8 py-4 body-lg font-bold">
-                  <Zap className="mr-2 h-5 w-5" />
+            <div className="flex flex-col gap-4 sm:gap-6 justify-center items-center mb-8 sm:mb-16 px-4">
+              <Link href="/auth/signup" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full sm:w-auto btn-primary-gradient text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold">
+                  <Zap className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                   Comenzar Gratis
                 </Button>
               </Link>
-              <Link href="/demo">
-                <Button variant="outline" size="lg" className="px-8 py-4 body-lg border-2 border-gray-900 bg-white text-gray-600 hover:bg-gray-900 hover:text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
-                  <Play className="mr-2 h-5 w-5" />
-                  Ver Demo en Vivo (2 min)
+              <Link href="/demo" className="w-full sm:w-auto">
+                <Button variant="outline" size="lg" className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg border-2 border-gray-900 bg-white text-gray-600 hover:bg-gray-900 hover:text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+                  <Play className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                  <span className="hidden sm:inline">Ver Demo en Vivo (2 min)</span>
+                  <span className="sm:hidden">Ver Demo (2 min)</span>
                 </Button>
               </Link>
             </div>
             
             {/* Trust Indicators with Dark Text */}
-            <div className="flex flex-wrap items-center justify-center gap-6 px-4">
-              <div className="flex items-center bg-white px-3 py-2 rounded-lg border border-gray-200 shadow-sm">
-                <CheckCircle className="h-4 w-4 text-green-600 mr-2" />
-                <span className="text-sm font-bold text-gray-600">Sin tarjeta de crédito</span>
+            <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-6 px-4">
+              <div className="flex items-center bg-white px-3 py-2 rounded-lg border border-gray-200 shadow-sm w-full sm:w-auto justify-center">
+                <CheckCircle className="h-4 w-4 text-green-600 mr-2 flex-shrink-0" />
+                <span className="text-xs sm:text-sm font-bold text-gray-600">Sin tarjeta de crédito</span>
               </div>
-              <div className="flex items-center bg-white px-3 py-2 rounded-lg border border-gray-200 shadow-sm">
-                <CheckCircle className="h-4 w-4 text-green-600 mr-2" />
-                <span className="text-sm font-bold text-gray-600">Configuración en 2 minutos</span>
+              <div className="flex items-center bg-white px-3 py-2 rounded-lg border border-gray-200 shadow-sm w-full sm:w-auto justify-center">
+                <CheckCircle className="h-4 w-4 text-green-600 mr-2 flex-shrink-0" />
+                <span className="text-xs sm:text-sm font-bold text-gray-600">Configuración en 2 minutos</span>
               </div>
-              <div className="flex items-center bg-white px-3 py-2 rounded-lg border border-gray-200 shadow-sm">
-                <CheckCircle className="h-4 w-4 text-green-600 mr-2" />
-                <span className="text-sm font-bold text-gray-600">Soporte en español</span>
+              <div className="flex items-center bg-white px-3 py-2 rounded-lg border border-gray-200 shadow-sm w-full sm:w-auto justify-center">
+                <CheckCircle className="h-4 w-4 text-green-600 mr-2 flex-shrink-0" />
+                <span className="text-xs sm:text-sm font-bold text-gray-600">Soporte en español</span>
               </div>
             </div>
           </div>
@@ -178,7 +243,7 @@ export default function LandingPage() {
         <div className="container-responsive text-center">
           <div className="mb-12">
             <Badge className="mb-6 px-6 py-3 bg-brand-navy/10 text-brand-navy border border-brand-navy/20 mx-auto">
-              📈 MÁS DE 500 EMPRESAS CONFÍAN
+              📈 MÁS DE 160 EMPRESAS CONFÍAN
             </Badge>
             <h3 className="heading-lg text-gray-600 mb-4">
               El aliado financiero preferido por <span className="text-brand-navy-dark font-bold">empresas líderes</span>
@@ -188,12 +253,12 @@ export default function LandingPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {[
-              { name: "TechSolutions SAS", city: "Bogotá", industry: "Tecnología", icon: "💻" },
-              { name: "GlobalTrade Colombia", city: "Medellín", industry: "Comercio Exterior", icon: "🌐" },
-              { name: "ImportPro Ltda", city: "Cali", industry: "Logística", icon: "📦" },
-              { name: "Digital Commerce", city: "Barranquilla", industry: "E-commerce", icon: "🛒" },
-              { name: "ElectroImport", city: "Cartagena", industry: "Electrónicos", icon: "⚡" },
-              { name: "Fashion International", city: "Bucaramanga", industry: "Textil", icon: "👔" }
+              { name: "AVIANCA", city: "Bogotá", industry: "Aviación", icon: "✈️" },
+              { name: "AUTOGERMANA SAS", city: "Bogotá", industry: "Automotriz", icon: "🚗" },
+              { name: "MEGA DISTRIBUIDORES SAS", city: "Bogotá", industry: "Distribución", icon: "📦" },
+              { name: "UMO S.A.S", city: "Bogotá", industry: "Industrial", icon: "🏭" },
+              { name: "DISAMETALES S.A.S", city: "Bogotá", industry: "Metalmecánica", icon: "⚙️" },
+              { name: "PRODUCABLES S.A.S", city: "Bogotá", industry: "Manufactura", icon: "🔧" }
             ].map((company, i) => (
               <div key={i} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 hover:border-brand-navy-dark/30">
                 <div className="flex items-center justify-between mb-4">
@@ -213,7 +278,7 @@ export default function LandingPage() {
           <div className="mt-16 bg-gradient-to-r from-brand-cyan/10 via-white to-brand-coral/10 rounded-2xl p-8 max-w-4xl mx-auto">
             <div className="grid md:grid-cols-4 gap-8 text-center">
               <div>
-                <div className="text-3xl font-bold text-brand-navy-dark mb-2">500+</div>
+                <div className="text-3xl font-bold text-brand-navy-dark mb-2">160+</div>
                 <p className="text-sm text-gray-600">Empresas Activas</p>
               </div>
               <div>
@@ -234,85 +299,77 @@ export default function LandingPage() {
       </section>
 
       {/* Platform Overview Video */}
-      <section className="py-16 bg-white relative overflow-hidden">
-        {/* Decorative vectors */}
-        <div className="absolute top-16 right-12 opacity-4 pointer-events-none">
-          <BrandIcon size="xl" />
+      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 relative overflow-hidden">
+        {/* Modern decorative elements */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-cyan-500/5"></div>
+        <div className="absolute top-10 right-10 opacity-20 pointer-events-none">
+          <div className="w-32 h-32 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full blur-3xl"></div>
         </div>
-        <div className="absolute bottom-20 left-10 opacity-3 pointer-events-none">
-          <Database className="w-16 h-16 text-blue-500" />
-        </div>
-        <div className="absolute top-1/3 left-1/4 opacity-2 pointer-events-none">
-          <Globe className="w-14 h-14 text-cyan-400" />
-        </div>
-        <div className="absolute top-12 left-16 opacity-3 pointer-events-none">
-          <svg className="w-16 h-16" viewBox="0 0 124 112" fill="none">
-            <path d="M86.7734 0.00767596H37.2266C32.7789 0.00767596 28.6652 2.41025 26.4413 6.30964L1.66788 49.7019C-0.55596 53.6013 -0.55596 58.3987 1.66788 62.2981L26.4413 105.698C28.6652 109.597 32.7789 112 37.2266 112H86.7734C91.2211 112 95.3348 109.597 97.5587 105.698L122.332 62.2981C124.556 58.3987 124.556 53.6013 122.332 49.7019L97.5587 6.30197C95.3348 2.40258 91.2211 0 86.7734 0" fill="#5479F7"/>
-          </svg>
-        </div>
-        <div className="absolute bottom-16 right-20 opacity-4 pointer-events-none">
-          <svg className="w-12 h-12" viewBox="0 0 218 218" fill="none">
-            <path d="M109 0L109 218" stroke="#f97316" strokeWidth="27" strokeLinecap="round"/>
-            <path d="M218 109L0 109" stroke="#f97316" strokeWidth="27" strokeLinecap="round"/>
-            <path d="M190.917 27.0833L27.0834 190.917" stroke="#f97316" strokeWidth="27" strokeLinecap="round"/>
-            <path d="M190.917 190.917L27.0833 27.0833" stroke="#f97316" strokeWidth="27" strokeLinecap="round"/>
-            <path d="M54.1667 13.5417L163.833 204.458" stroke="#f97316" strokeWidth="27" strokeLinecap="round"/>
-            <path d="M163.833 13.5417L54.1667 204.458" stroke="#f97316" strokeWidth="27" strokeLinecap="round"/>
-          </svg>
+        <div className="absolute bottom-10 left-10 opacity-20 pointer-events-none">
+          <div className="w-24 h-24 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full blur-2xl"></div>
         </div>
         
         <div className="container-responsive relative z-10">
-          <div className="text-center mb-12">
-            <Badge className="mb-6 px-6 py-3 bg-purple-100 text-purple-800 border border-purple-200 mx-auto">
-              🚀 CONOCE LA PLATAFORMA
+          <div className="text-center mb-8 sm:mb-12">
+            <Badge className="mb-4 sm:mb-6 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-purple-100 to-blue-100 text-purple-800 border border-purple-200 mx-auto shadow-lg">
+              🎥 CONOCE LA PLATAFORMA EN ACCIÓN
             </Badge>
-            <h2 className="heading-xl text-gray-900 mb-4">
-              Una plataforma diseñada <span className="text-brand-navy-dark font-bold">a la medida</span>
-              <br />para dominar el comercio internacional
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-gray-900 mb-4 sm:mb-6 font-bold leading-tight px-4">
+              Ve cómo <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Finkargo Analiza</span>
+              <br />transforma tu estrategia comercial
             </h2>
-            <p className="body-lg text-gray-600 max-w-3xl mx-auto">
-              70% de las empresas toman mejores decisiones con Business Intelligence (BI). 
-              Para quienes no temen ir más allá y buscan transformar su estrategia comercial.
+            <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-4 leading-relaxed">
+              Descubre en 2 minutos cómo empresas líderes optimizan sus importaciones 
+              con inteligencia comercial avanzada y datos oficiales de Aduanas.
             </p>
           </div>
           
-          <div className="max-w-4xl mx-auto">
-            <div className="business-card-elevated p-4 rounded-2xl bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-100">
-              <div className="video-container bg-gray-100 rounded-xl overflow-hidden shadow-inner">
-                <iframe
-                  src="https://drive.google.com/file/d/1lGML28-DKFsj0ked0hYkAJV-yX2C4Qcw/preview?usp=embed_facebook"
-                  className="w-full"
-                  style={{height: '400px'}}
-                  allow="autoplay; encrypted-media; picture-in-picture"
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  sandbox="allow-scripts allow-same-origin allow-presentation"
-                  title="Finkargo Analiza - Plataforma de Business Intelligence para Comercio Internacional"
-                ></iframe>
-              </div>
-              
-              <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl">
-                <div className="grid md:grid-cols-3 gap-4 text-center">
-                  <div>
-                    <div className="text-2xl font-bold text-blue-600">70%</div>
-                    <div className="text-sm text-gray-600">Mejores Decisiones con BI</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-purple-600">2 min</div>
-                    <div className="text-sm text-gray-600">Overview Completo</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-green-600">500+</div>
-                    <div className="text-sm text-gray-600">Empresas Confían</div>
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="relative group">
+              {/* Modern video container with better shadows and gradients */}
+              <div className="relative bg-white p-3 sm:p-6 lg:p-8 rounded-3xl shadow-2xl border border-gray-200/50 backdrop-blur-sm bg-white/90">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/5 to-cyan-500/10 rounded-3xl"></div>
+                
+                {/* Video with improved aspect ratio and no cutting */}
+                <div className="relative z-10 bg-black rounded-2xl overflow-hidden shadow-inner" style={{aspectRatio: '16/10'}}>
+                  <iframe
+                    src="https://drive.google.com/file/d/1lGML28-DKFsj0ked0hYkAJV-yX2C4Qcw/preview?usp=embed_facebook"
+                    className="w-full h-full"
+                    allow="autoplay; encrypted-media; picture-in-picture"
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    sandbox="allow-scripts allow-same-origin allow-presentation"
+                    title="Finkargo Analiza - Plataforma de Business Intelligence para Comercio Internacional"
+                  ></iframe>
+                </div>
+                
+                {/* Enhanced stats section */}
+                <div className="relative z-10 mt-6 sm:mt-8 p-4 sm:p-6 bg-gradient-to-r from-blue-50 via-purple-50 to-cyan-50 rounded-2xl border border-blue-100/50">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-center">
+                    <div className="group hover:scale-105 transition-transform duration-200">
+                      <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">70%</div>
+                      <div className="text-xs sm:text-sm text-gray-600 font-medium mt-1">Mejores Decisiones con BI</div>
+                    </div>
+                    <div className="group hover:scale-105 transition-transform duration-200">
+                      <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">2 min</div>
+                      <div className="text-xs sm:text-sm text-gray-600 font-medium mt-1">Overview Completo</div>
+                    </div>
+                    <div className="group hover:scale-105 transition-transform duration-200">
+                      <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">160+</div>
+                      <div className="text-xs sm:text-sm text-gray-600 font-medium mt-1">Empresas Confían</div>
+                    </div>
                   </div>
                 </div>
               </div>
+              
+              {/* Subtle glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 rounded-3xl blur-2xl group-hover:blur-xl transition-all duration-500 -z-10"></div>
             </div>
             
-            <div className="text-center mt-8">
+            <div className="text-center mt-8 sm:mt-12">
               <Link href="/demo">
-                <Button size="lg" className="px-8 py-4 bg-brand-navy hover:bg-brand-navy-dark text-white font-bold">
+                <Button size="lg" className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-200">
                   <span className="mr-2">🚀</span>
                   Prueba el Demo Interactivo
                 </Button>
@@ -558,7 +615,7 @@ export default function LandingPage() {
                 <h3 className="heading-lg mb-8 text-center text-brand-navy">Resultados Comprobados</h3>
                 <div className="grid grid-cols-2 gap-6">
                   <div className="text-center">
-                    <div className="text-3xl font-bold mb-2 text-brand-navy-dark">500+</div>
+                    <div className="text-3xl font-bold mb-2 text-brand-navy-dark">160+</div>
                     <div className="body-sm text-gray-700 font-medium">Empresas Activas</div>
                   </div>
                   <div className="text-center">
@@ -591,10 +648,10 @@ export default function LandingPage() {
               🇨🇴 CASOS DE ÉXITO COLOMBIA
             </Badge>
             <h2 className="heading-xl text-gray-600 mb-6">
-              Tu aliado <span className="text-brand-navy-dark font-bold">confiable</span> desde 2019
+              Tu aliado <span className="text-brand-navy-dark font-bold">confiable</span> desde 2022
             </h2>
             <p className="body-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Más de 500 empresas colombianas confían en Finkargo como su aliado financiero para importaciones inteligentes
+              Más de 160 empresas colombianas confían en Finkargo como su aliado financiero para importaciones inteligentes
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -607,15 +664,15 @@ export default function LandingPage() {
                   <Badge className="ml-3 bg-brand-navy-dark/10 text-brand-navy-dark text-xs">CONFIABLE</Badge>
                 </div>
                 <blockquote className="text-gray-700 mb-6 leading-relaxed italic">
-                  "Finkargo es nuestro aliado más confiable. Los datos de Aduanas oficiales nos permitieron encontrar 15 proveedores nuevos en Asia y <span className="font-semibold text-brand-navy-dark">reducir costos 35%</span> en 6 meses."
+                  "Con Finkargo Analiza optimizamos nuestra cadena de suministro internacional. Los datos de Aduanas nos ayudaron a identificar proveedores alternativos y <span className="font-semibold text-brand-navy-dark">reducir costos operativos 28%</span> este año."
                 </blockquote>
                 <div className="flex items-center">
                   <div className="w-12 h-12 bg-gradient-to-br from-brand-cyan/20 to-brand-cyan/10 rounded-xl flex items-center justify-center mr-4">
-                    <span className="font-bold text-brand-navy-dark">MC</span>
+                    <span className="font-bold text-brand-navy-dark">A</span>
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-600">María Cardona</div>
-                    <div className="text-sm text-gray-600">CEO, TechSolutions SAS</div>
+                    <div className="font-semibold text-gray-600">Directora de Compras</div>
+                    <div className="text-sm text-gray-600">AVIANCA</div>
                     <div className="text-xs text-brand-navy-dark font-medium">Bogotá, Colombia</div>
                   </div>
                 </div>
@@ -631,16 +688,16 @@ export default function LandingPage() {
                   <Badge className="ml-3 bg-brand-coral/10 text-brand-coral text-xs">ÚTIL</Badge>
                 </div>
                 <blockquote className="text-gray-700 mb-6 leading-relaxed italic">
-                  "La herramienta más útil para comercio exterior. En 8 meses identificamos nichos que nadie veía y <span className="font-semibold text-brand-coral">crecimos 85%</span>. Su equipo en Medellín es excepcional."
+                  "Finkargo Analiza nos permite monitorear el mercado automotriz en tiempo real. Identificamos oportunidades de importación que <span className="font-semibold text-brand-coral">mejoraron nuestra competitividad 40%</span>. El soporte es excelente."
                 </blockquote>
                 <div className="flex items-center">
                   <div className="w-12 h-12 bg-gradient-to-br from-brand-coral/20 to-brand-coral/10 rounded-xl flex items-center justify-center mr-4">
-                    <span className="font-bold text-brand-coral">JR</span>
+                    <span className="font-bold text-brand-coral">AG</span>
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-600">Javier Rodríguez</div>
-                    <div className="text-sm text-gray-600">Director, GlobalTrade Colombia</div>
-                    <div className="text-xs text-brand-coral font-medium">Medellín, Colombia</div>
+                    <div className="font-semibold text-gray-600">Gerente de Importaciones</div>
+                    <div className="text-sm text-gray-600">AUTOGERMANA SAS</div>
+                    <div className="text-xs text-brand-coral font-medium">Bogotá, Colombia</div>
                   </div>
                 </div>
               </CardContent>
@@ -655,16 +712,16 @@ export default function LandingPage() {
                   <Badge className="ml-3 bg-brand-navy/10 text-brand-navy text-xs">FINANCIERO</Badge>
                 </div>
                 <blockquote className="text-gray-700 mb-6 leading-relaxed italic">
-                  "Nuestro mejor aliado financiero. Anticipamos tendencias, optimizamos inventario y <span className="font-semibold text-brand-navy">ahorramos $2.1B COP</span> en un año. ROI inmediato."
+                  "La plataforma nos da visibilidad completa del mercado de distribución. Optimizamos compras internacionales y <span className="font-semibold text-brand-navy">mejoramos márgenes 22%</span>. ROI muy positivo."
                 </blockquote>
                 <div className="flex items-center">
                   <div className="w-12 h-12 bg-gradient-to-br from-brand-navy/20 to-brand-navy/10 rounded-xl flex items-center justify-center mr-4">
-                    <span className="font-bold text-brand-navy">LM</span>
+                    <span className="font-bold text-brand-navy">MD</span>
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-600">Laura Martínez</div>
-                    <div className="text-sm text-gray-600">CFO, ImportPro Ltda</div>
-                    <div className="text-xs text-brand-navy font-medium">Cali, Colombia</div>
+                    <div className="font-semibold text-gray-600">Gerente Financiero</div>
+                    <div className="text-sm text-gray-600">MEGA DISTRIBUIDORES SAS</div>
+                    <div className="text-xs text-brand-navy font-medium">Bogotá, Colombia</div>
                   </div>
                 </div>
               </CardContent>
@@ -956,7 +1013,7 @@ export default function LandingPage() {
             <br />más <span className="text-white font-bold">confiable y útil</span> de Colombia?
           </h2>
           <p className="body-lg mb-12 opacity-90 max-w-4xl mx-auto leading-relaxed">
-            Únete a las 500+ empresas colombianas que transformaron su estrategia de importación 
+            Únete a las 160+ empresas colombianas que transformaron su estrategia de importación 
             con Finkargo Analiza. Tu éxito financiero comienza hoy.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
@@ -1024,7 +1081,7 @@ export default function LandingPage() {
                 </div>
               </div>
               <p className="text-gray-600 mb-4 leading-relaxed">
-                El aliado financiero, confiable y útil del importador colombiano desde 2019.
+                El aliado financiero, confiable y útil del importador colombiano desde 2022.
               </p>
               <p className="text-gray-600 font-medium">
                 🇨🇴 100% Hecho en Colombia
@@ -1076,7 +1133,7 @@ export default function LandingPage() {
               <div className="flex items-center gap-6 text-sm">
                 <span className="text-brand-navy-dark font-medium">🇨🇴 Bogotá, Colombia</span>
                 <span className="text-gray-600">|</span>
-                <span className="text-gray-600 font-semibold">✅ 500+ Empresas Confían</span>
+                <span className="text-gray-600 font-semibold">✅ 160+ Empresas Confían</span>
                 <span className="text-gray-600">|</span>
                 <span className="text-brand-coral font-medium">📊 Datos de Aduanas Oficiales</span>
               </div>

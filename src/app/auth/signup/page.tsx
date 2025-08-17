@@ -43,6 +43,15 @@ export default function SignUpPage() {
     e.preventDefault()
     
     if (step === 1) {
+      // Validaciones del paso 1
+      if (!formData.name.trim()) {
+        setError("El nombre completo es obligatorio")
+        return
+      }
+      if (!formData.email.trim()) {
+        setError("El correo electrónico es obligatorio")
+        return
+      }
       if (formData.password !== formData.confirmPassword) {
         setError("Las contraseñas no coinciden")
         return
@@ -53,6 +62,36 @@ export default function SignUpPage() {
       }
       setStep(2)
       setError("")
+      return
+    }
+
+    // Validaciones del paso 2
+    if (!formData.companyName.trim()) {
+      setError("El nombre de la empresa es obligatorio")
+      return
+    }
+    if (!formData.nit.trim()) {
+      setError("El NIT es obligatorio")
+      return
+    }
+    if (!formData.companyEmail.trim()) {
+      setError("El correo empresarial es obligatorio")
+      return
+    }
+    if (!formData.city.trim()) {
+      setError("La ciudad es obligatoria")
+      return
+    }
+    if (!formData.phone.trim()) {
+      setError("El teléfono es obligatorio")
+      return
+    }
+    if (!formData.industryType.trim()) {
+      setError("El tipo de industria es obligatorio")
+      return
+    }
+    if (!formData.companySize.trim()) {
+      setError("El tamaño de empresa es obligatorio")
       return
     }
 
@@ -84,7 +123,7 @@ export default function SignUpPage() {
   const renderStep1 = () => (
     <div className="space-y-6">
       <div className="space-y-2">
-        <Label htmlFor="name">Nombre completo</Label>
+        <Label htmlFor="name">Nombre completo <span className="text-red-500">*</span></Label>
         <Input
           id="name"
           type="text"
@@ -96,7 +135,7 @@ export default function SignUpPage() {
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="email">Correo electrónico</Label>
+        <Label htmlFor="email">Correo electrónico <span className="text-red-500">*</span></Label>
         <Input
           id="email"
           type="email"
@@ -108,7 +147,7 @@ export default function SignUpPage() {
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="password">Contraseña</Label>
+        <Label htmlFor="password">Contraseña <span className="text-red-500">*</span></Label>
         <Input
           id="password"
           type="password"
@@ -120,7 +159,7 @@ export default function SignUpPage() {
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="confirmPassword">Confirmar contraseña</Label>
+        <Label htmlFor="confirmPassword">Confirmar contraseña <span className="text-red-500">*</span></Label>
         <Input
           id="confirmPassword"
           type="password"
@@ -138,7 +177,7 @@ export default function SignUpPage() {
     <div className="space-y-6">
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="companyName">Nombre de la empresa *</Label>
+          <Label htmlFor="companyName">Nombre de la empresa <span className="text-red-500">*</span></Label>
           <Input
             id="companyName"
             type="text"
@@ -150,7 +189,7 @@ export default function SignUpPage() {
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="nit">NIT</Label>
+          <Label htmlFor="nit">NIT <span className="text-red-500">*</span></Label>
           <Input
             id="nit"
             type="text"
@@ -158,12 +197,13 @@ export default function SignUpPage() {
             className="placeholder:text-gray-400"
             value={formData.nit}
             onChange={(e) => handleInputChange("nit", e.target.value)}
+            required
           />
         </div>
       </div>
       
       <div className="space-y-2">
-        <Label htmlFor="companyEmail">Correo empresarial *</Label>
+        <Label htmlFor="companyEmail">Correo empresarial <span className="text-red-500">*</span></Label>
         <Input
           id="companyEmail"
           type="email"
@@ -177,7 +217,7 @@ export default function SignUpPage() {
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="city">Ciudad</Label>
+          <Label htmlFor="city">Ciudad <span className="text-red-500">*</span></Label>
           <Input
             id="city"
             type="text"
@@ -185,10 +225,11 @@ export default function SignUpPage() {
             className="placeholder:text-gray-400"
             value={formData.city}
             onChange={(e) => handleInputChange("city", e.target.value)}
+            required
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="phone">Teléfono</Label>
+          <Label htmlFor="phone">Teléfono <span className="text-red-500">*</span></Label>
           <Input
             id="phone"
             type="tel"
@@ -196,12 +237,13 @@ export default function SignUpPage() {
             className="placeholder:text-gray-400"
             value={formData.phone}
             onChange={(e) => handleInputChange("phone", e.target.value)}
+            required
           />
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="industryType">Tipo de industria</Label>
+        <Label htmlFor="industryType">Tipo de industria <span className="text-red-500">*</span></Label>
         <Input
           id="industryType"
           type="text"
@@ -209,13 +251,14 @@ export default function SignUpPage() {
           className="placeholder:text-gray-400"
           value={formData.industryType}
           onChange={(e) => handleInputChange("industryType", e.target.value)}
+          required
         />
       </div>
 
       <div className="space-y-6">
         <div className="space-y-2">
-          <Label htmlFor="companySize">Tamaño de empresa</Label>
-          <Select onValueChange={(value) => handleInputChange("companySize", value)}>
+          <Label htmlFor="companySize">Tamaño de empresa <span className="text-red-500">*</span></Label>
+          <Select value={formData.companySize} onValueChange={(value) => handleInputChange("companySize", value)} required>
             <SelectTrigger className="placeholder:text-gray-400">
               <SelectValue placeholder="Seleccionar" />
             </SelectTrigger>
@@ -273,7 +316,7 @@ export default function SignUpPage() {
             </div>
             <div className="space-y-6">
               <h1 className="text-4xl font-bold leading-tight">
-                Únete a las <span className="text-orange-300">500+ empresas</span><br />
+                Únete a las <span className="text-orange-300">160+ empresas</span><br />
                 que transformaron su<br />
                 <span className="text-cyan-300">comercio exterior</span>
               </h1>
@@ -318,6 +361,9 @@ export default function SignUpPage() {
                   : "Información de tu empresa para completar el registro"
                 }
               </CardDescription>
+              <p className="text-sm text-gray-500 mt-2">
+                Los campos marcados con <span className="text-red-500">*</span> son obligatorios
+              </p>
               <div className="flex justify-center mt-6">
                 <div className="flex space-x-3">
                   <div className={`w-4 h-4 rounded-full transition-all ${step >= 1 ? 'bg-blue-600 shadow-lg' : 'bg-gray-300'}`} />

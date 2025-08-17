@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { BrandIcon } from "@/components/ui/brand-icon"
+import { ResponsiveHeader } from "@/components/ui/responsive-header"
 import {
   Database,
   Target,
@@ -19,50 +20,20 @@ import { ScrollToTop } from "@/components/ui/scroll-to-top"
 
 export default function FeaturesPage() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-sm bg-white/95">
-        <div className="container-responsive h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-3">
-            <BrandIcon size="md" />
-            <div>
-              <span className="heading-sm text-brand-navy">Analiza</span>
-              <span className="body-sm text-brand-navy-dark font-medium ml-1">de Finkargo</span>
-            </div>
-          </Link>
-          <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/features" className="body-md text-brand-navy-dark font-semibold">
-              Beneficios
-            </Link>
-            <Link href="/precios" className="body-md text-secondary hover:text-brand-navy-dark transition-colors">
-              Precios
-            </Link>
-            <Link href="/demo" className="body-md text-secondary hover:text-brand-navy-dark transition-colors">
-              Demo
-            </Link>
-          </nav>
-          <div className="flex items-center space-x-4">
-            <Link href="/auth/signin">
-              <Button variant="ghost" className="text-secondary hover:bg-cyan-50 hover:text-brand-navy-dark transition-all">Iniciar Sesión</Button>
-            </Link>
-            <Link href="/auth/signup">
-              <Button className="btn-primary-gradient text-white">Comenzar Gratis</Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-white overflow-x-hidden">
+      <ResponsiveHeader currentPage="features" />
 
       {/* Hero Section */}
-      <section className="py-16 lg:py-12">
-        <div className="container mx-auto px-4 text-center">
-          <Badge variant="secondary" className="mb-6 px-4 py-2">
+      <section className="py-8 sm:py-12 lg:py-16">
+        <div className="container-responsive text-center">
+          <Badge variant="secondary" className="mb-4 sm:mb-6 px-3 sm:px-4 py-2 text-xs sm:text-sm">
             ⚡ La plataforma más avanzada de Colombia
           </Badge>
-          <h1 className="text-4xl lg:text-6xl font-bold text-gray-600 mb-6">
+          <h1 className="text-2xl sm:text-3xl lg:text-5xl xl:text-6xl font-bold text-gray-600 mb-4 sm:mb-6 px-4 leading-tight">
             ¿Por qué elegir 
             <span className="text-gray-600 bg-clip-text bg-gradient-to-r from-primary to-secondary"> Finkargo Analiza?</span>
           </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 max-w-3xl mx-auto px-4 leading-relaxed">
             La única plataforma que combina inteligencia artificial con datos oficiales de Aduanas para darte ventaja competitiva real
           </p>
         </div>
@@ -99,8 +70,8 @@ export default function FeaturesPage() {
           </svg>
         </div>
         
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-3 gap-8 mb-16">
+        <div className="container-responsive relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12 sm:mb-16">
             <Card className="border-0 shadow-xl hover:shadow-2xl transition-shadow">
               <CardHeader>
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
@@ -123,7 +94,7 @@ export default function FeaturesPage() {
                   </li>
                   <li className="flex items-center text-sm">
                     <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                    Histórico de 5+ años
+                    Histórico de 2+ años
                   </li>
                 </ul>
               </CardContent>
@@ -236,7 +207,7 @@ export default function FeaturesPage() {
           </div>
 
           {/* Stats */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             <div className="text-center">
               <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Clock className="h-8 w-8 text-yellow-600" />
@@ -310,7 +281,7 @@ export default function FeaturesPage() {
               <h3 className="text-2xl font-bold mb-6">Resultados Comprobados</h3>
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center">
-                  <div className="text-3xl font-bold mb-2">500+</div>
+                  <div className="text-3xl font-bold mb-2">160+</div>
                   <div className="text-white opacity-90">Empresas Activas</div>
                 </div>
                 <div className="text-center">
@@ -338,7 +309,7 @@ export default function FeaturesPage() {
             ¿Listo para transformar tu negocio?
           </h2>
           <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-            Únete a más de 500+ empresas colombianas que ya optimizan su comercio exterior con Finkargo Analiza
+            Únete a más de 160+ empresas colombianas que ya optimizan su comercio exterior con Finkargo Analiza
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link href="/auth/signup">

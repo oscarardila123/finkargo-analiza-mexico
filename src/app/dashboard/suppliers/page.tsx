@@ -47,7 +47,7 @@ const mockSuppliers: Supplier[] = [
     avgPrice: 45.50,
     lastImport: "2024-01-15",
     reliability: 4.8,
-    topImporters: ["Tech Solutions SAS", "Digital Components Ltda", "Electronics Import Co"]
+    topImporters: ["DISAMETALES S.A.S", "PRODUCABLES S.A.S", "NEW AGE COLOMBIA"]
   },
   {
     id: "2",
@@ -59,7 +59,7 @@ const mockSuppliers: Supplier[] = [
     avgPrice: 28.75,
     lastImport: "2024-01-20",
     reliability: 4.6,
-    topImporters: ["Fashion Import SAS", "Textiles Premium Ltda", "Moda Internacional"]
+    topImporters: ["AVIANCA", "MEGA DISTRIBUIDORES SAS", "ARGESA SAS"]
   },
   {
     id: "3",
@@ -71,7 +71,7 @@ const mockSuppliers: Supplier[] = [
     avgPrice: 125.00,
     lastImport: "2024-01-22",
     reliability: 4.9,
-    topImporters: ["Aceros Colombia SAS", "Metalúrgica Nacional", "Steel Import Co"]
+    topImporters: ["AUTOGERMANA SAS", "SSANGYONG MOTOR COLOMBIA SA", "UMO S.A.S"]
   },
   {
     id: "4",
@@ -83,7 +83,7 @@ const mockSuppliers: Supplier[] = [
     avgPrice: 15.25,
     lastImport: "2024-01-18",
     reliability: 4.4,
-    topImporters: ["Alimentos Asia SAS", "Import Food Colombia", "Gourmet Ingredients"]
+    topImporters: ["REFRICENTRO IMPORT SAS", "AVIANCA", "NEW AGE COLOMBIA"]
   },
 ]
 

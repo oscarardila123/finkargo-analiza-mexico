@@ -74,7 +74,7 @@ export class WompiClient {
       publicKey: process.env.WOMPI_PUBLIC_KEY!,
       privateKey: process.env.WOMPI_PRIVATE_KEY!,
       eventsSecret: process.env.WOMPI_EVENTS_SECRET!,
-      baseUrl: process.env.WOMPI_DEV_MODE === 'true' 
+      baseUrl: process.env.WOMPI_DEV_MODE?.trim() === 'true' 
         ? 'https://sandbox.wompi.co/v1' 
         : 'https://production.wompi.co/v1'
     }
@@ -94,7 +94,7 @@ export class WompiClient {
 
   async createPayment(paymentData: CreatePaymentRequest): Promise<WompiPayment> {
     // Development mode simulation - check for dev mode regardless of NODE_ENV
-    if (process.env.WOMPI_DEV_MODE === 'true') {
+    if (process.env.WOMPI_DEV_MODE?.trim() === 'true') {
       console.log('🎭 WOMPI SIMULATION MODE - Creating fake payment')
       return this.createFakePayment(paymentData)
     }
@@ -246,7 +246,7 @@ export class WompiClient {
   }
 
   isTestEnvironment(): boolean {
-    return process.env.WOMPI_DEV_MODE === 'true'
+    return process.env.WOMPI_DEV_MODE?.trim() === 'true'
   }
 }
 

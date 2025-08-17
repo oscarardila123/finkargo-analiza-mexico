@@ -46,8 +46,8 @@ export function MainFooter() {
             <div>
               <h4 className="text-white font-bold text-lg mb-4">Empresa</h4>
               <ul className="space-y-2">
-                <li><a href="https://finkargo.com/nosotros/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Sobre Nosotros</a></li>
-                <li><a href="https://finkargo.com/blog/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Blog</a></li>
+                <li><a href="https://www.finkargo.com/nosotros/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Sobre Nosotros</a></li>
+                <li><a href="https://devsite.finkargo.com/blog/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Blog</a></li>
               </ul>
             </div>
             <div>
@@ -55,11 +55,11 @@ export function MainFooter() {
               <ul className="space-y-2">
                 <li><a href="#" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Centro de Ayuda</a></li>
                 <li><a href="https://api.whatsapp.com/send?phone=573222235280&text=%C2%A1Hola!%20Somos%20Finkargo.%0A%0AEscribe%20tu%20mensaje.%20" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Contacto</a></li>
-                <li><a href="https://finkargo.com/politicas_privacidad/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Políticas de Privacidad</a></li>
-                <li><a href="https://finkargo.com/aviso_privacidad/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Aviso de Privacidad</a></li>
-                <li><a href="https://finkargo.com/terminos-condiciones-servicios-analiza/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Términos y Condiciones</a></li>
-                <li><a href="https://finkargo.com/tratamiento_datos_sensibles/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Datos Sensibles</a></li>
-                <li><a href="https://finkargo.com/tratamiento_datos_personales/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Datos Personales</a></li>
+                <li><a href="https://www.finkargo.com/politicas_privacidad/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Políticas de Privacidad</a></li>
+                <li><a href="https://www.finkargo.com/aviso_privacidad/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Aviso de Privacidad</a></li>
+                <li><a href="https://devsite.finkargo.com/terminos-condiciones-servicios-analiza/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Términos y Condiciones</a></li>
+                <li><a href="https://www.finkargo.com/tratamiento_datos_sensibles/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Datos Sensibles</a></li>
+                <li><a href="https://www.finkargo.com/tratamiento_datos_personales/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Datos Personales</a></li>
               </ul>
             </div>
           </div>

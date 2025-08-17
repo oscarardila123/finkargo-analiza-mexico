@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { BrandIcon } from "@/components/ui/brand-icon"
-import { ScrollToTop } from "@/components/ui/scroll-to-top"
+import { MainFooter } from "@/components/ui/main-footer"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { ResponsiveHeader } from "@/components/ui/responsive-header"
 import {
@@ -770,59 +770,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 border-t border-gray-700">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8 lg:gap-12">
-            <div>
-              <Link href="/" className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-brand-navy rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">F</span>
-                </div>
-                <div>
-                  <span className="heading-sm">Finkargo</span>
-                  <span className="body-sm text-brand-navy-dark ml-1">Analiza</span>
-                </div>
-              </Link>
-              <p className="text-gray-300 body-sm">
-                La plataforma de inteligencia comercial más avanzada de Colombia.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-white font-bold text-lg mb-4">Producto</h4>
-              <ul className="space-y-2">
-                <li><Link href="/features" className="text-gray-300 hover:text-white transition-colors duration-200 block mb-2">Características</Link></li>
-                <li><Link href="/precios" className="text-gray-300 hover:text-white transition-colors duration-200 block mb-2">Precios</Link></li>
-                <li><Link href="/demo" className="text-gray-300 hover:text-white transition-colors duration-200 block mb-2">Demo</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-bold text-lg mb-4">Empresa</h4>
-              <ul className="space-y-2">
-                <li><a href="https://www.finkargo.com/nosotros/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors duration-200 block mb-2">Sobre Nosotros</a></li>
-                <li><a href="https://devsite.finkargo.com/blog/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors duration-200 block mb-2">Blog</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-bold text-lg mb-4">Soporte</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-gray-300 hover:text-white transition-colors duration-200 block mb-2">Centro de Ayuda</a></li>
-                <li><a href="https://api.whatsapp.com/send?phone=573222235280&text=%C2%A1Hola!%20Somos%20Finkargo.%0A%0AEscribe%20tu%20mensaje.%20" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors duration-200 block mb-2">Contacto</a></li>
-                <li><a href="https://devsite.finkargo.com/terminos-condiciones-servicios-analiza/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors duration-200 block mb-2">Términos</a></li>
-                <li><a href="https://www.finkargo.com/politicas_privacidad/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors duration-200 block mb-2">Políticas de Privacidad</a></li>
-                <li><a href="https://www.finkargo.com/aviso_privacidad/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors duration-200 block mb-2">Aviso de Privacidad</a></li>
-                <li><a href="https://www.finkargo.com/tratamiento_datos_sensibles/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors duration-200 block mb-2">Datos Sensibles</a></li>
-                <li><a href="https://www.finkargo.com/tratamiento_datos_personales/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors duration-200 block mb-2">Datos Personales</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-700 mt-8 pt-8 text-center body-sm text-gray-300">
-            <p>&copy; 2024 Finkargo Analiza. Todos los derechos reservados.</p>
-          </div>
-        </div>
-      </footer>
-      
-      <ScrollToTop />
+      <MainFooter />
     </div>
   )
 }

@@ -16,7 +16,7 @@ import {
   Users,
   CheckCircle
 } from "lucide-react"
-import { ScrollToTop } from "@/components/ui/scroll-to-top"
+import { MainFooter } from "@/components/ui/main-footer"
 
 export default function FeaturesPage() {
   return (
@@ -330,59 +330,7 @@ export default function FeaturesPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 border-t border-gray-700">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8 lg:gap-12">
-            <div>
-              <Link href="/" className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">F</span>
-                </div>
-                <div>
-                  <span className="text-xl font-bold">Finkargo</span>
-                  <span className="text-sm text-primary ml-1">Analiza</span>
-                </div>
-              </Link>
-              <p className="text-gray-600 text-sm">
-                La plataforma de inteligencia comercial más avanzada de Colombia.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-white font-bold text-lg mb-4">Producto</h4>
-              <ul className="space-y-2">
-                <li><Link href="/features" className="hover:text-white transition-colors">Características</Link></li>
-                <li><Link href="/precios" className="hover:text-white transition-colors">Precios</Link></li>
-                <li><Link href="/demo" className="hover:text-white transition-colors">Demo</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-bold text-lg mb-4">Empresa</h4>
-              <ul className="space-y-2">
-                <li><a href="https://www.finkargo.com/nosotros/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Sobre Nosotros</a></li>
-                <li><a href="https://devsite.finkargo.com/blog/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Blog</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-bold text-lg mb-4">Soporte</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="hover:text-white transition-colors">Centro de Ayuda</a></li>
-                <li><a href="https://api.whatsapp.com/send?phone=573222235280&text=%C2%A1Hola!%20Somos%20Finkargo.%0A%0AEscribe%20tu%20mensaje.%20" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Contacto</a></li>
-                <li><a href="https://devsite.finkargo.com/terminos-condiciones-servicios-analiza/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Términos</a></li>
-                <li><a href="https://www.finkargo.com/politicas_privacidad/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Políticas de Privacidad</a></li>
-                <li><a href="https://www.finkargo.com/aviso_privacidad/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Aviso de Privacidad</a></li>
-                <li><a href="https://www.finkargo.com/tratamiento_datos_sensibles/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Datos Sensibles</a></li>
-                <li><a href="https://www.finkargo.com/tratamiento_datos_personales/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Datos Personales</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-600">
-            <p>&copy; 2024 Finkargo Analiza. Todos los derechos reservados.</p>
-          </div>
-        </div>
-      </footer>
-      
-      <ScrollToTop />
+      <MainFooter />
     </div>
   )
 }

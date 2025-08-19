@@ -92,6 +92,11 @@ export async function GET() {
     // Try a simple query
     const result = await prisma.$queryRaw`SELECT 1 as test`
     
+    // Convert BigInt to string for JSON serialization
+    const serializedResult = JSON.parse(JSON.stringify(result, (key, value) =>
+      typeof value === 'bigint' ? value.toString() : value
+    ))
+    
     // Test if tables exist
     let tablesStatus = {}
     
@@ -121,7 +126,7 @@ export async function GET() {
       database: {
         url: dbUrl ? `${dbUrl.substring(0, 20)}...` : "undefined",
         connection: "successful",
-        query_result: result,
+        query_result: serializedResult,
         tables: tablesStatus
       },
       environment: process.env.NODE_ENV,

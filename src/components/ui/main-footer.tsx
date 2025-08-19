@@ -46,8 +46,8 @@ export function MainFooter() {
             <div>
               <h4 className="text-white font-bold text-lg mb-4">Empresa</h4>
               <ul className="space-y-2">
-                <li><a href="/api/redirect/sobre-nosotros" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Sobre Nosotros</a></li>
-                <li><a href="/api/redirect/blog" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Blog</a></li>
+                <li><Link href="/sobre-nosotros" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Sobre Nosotros</Link></li>
+                <li><Link href="/blog" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Blog</Link></li>
               </ul>
             </div>
             <div>
@@ -55,11 +55,11 @@ export function MainFooter() {
               <ul className="space-y-2">
                 <li><a href="#" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Centro de Ayuda</a></li>
                 <li><a href="https://api.whatsapp.com/send?phone=573222235280&text=%C2%A1Hola!%20Somos%20Finkargo.%0A%0AEscribe%20tu%20mensaje.%20" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Contacto</a></li>
-                <li><a href="/api/redirect/politicas-privacidad" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Políticas de Privacidad</a></li>
-                <li><a href="/api/redirect/aviso-privacidad" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Aviso de Privacidad</a></li>
-                <li><a href="/api/redirect/terminos-condiciones" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Términos y Condiciones</a></li>
-                <li><a href="/api/redirect/datos-sensibles" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Datos Sensibles</a></li>
-                <li><a href="/api/redirect/datos-personales" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Datos Personales</a></li>
+                <li><Link href="/politicas-privacidad" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Políticas de Privacidad</Link></li>
+                <li><Link href="/aviso-privacidad" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Aviso de Privacidad</Link></li>
+                <li><Link href="/terminos-condiciones" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Términos y Condiciones</Link></li>
+                <li><Link href="/datos-sensibles" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Datos Sensibles</Link></li>
+                <li><Link href="/datos-personales" className="text-gray-600 hover:text-white transition-colors duration-200 block mb-2">Datos Personales</Link></li>
               </ul>
             </div>
           </div>

@@ -11,18 +11,39 @@ export async function POST(request: NextRequest) {
     console.log("Database connection successful")
     
     // Test if tables exist
-    const companies = await prisma.company.findFirst()
-    console.log("Companies table accessible:", companies !== undefined)
+    let tablesAccessible = true
+    let tableErrors = []
     
-    const users = await prisma.user.findFirst()
-    console.log("Users table accessible:", users !== undefined)
+    try {
+      const companies = await prisma.company.findFirst()
+      console.log("Companies table accessible:", true)
+    } catch (error) {
+      console.log("Companies table accessible:", false, error.message)
+      tablesAccessible = false
+      tableErrors.push("companies: " + error.message)
+    }
     
-    const subscriptions = await prisma.subscription.findFirst()
-    console.log("Subscriptions table accessible:", subscriptions !== undefined)
+    try {
+      const users = await prisma.user.findFirst()
+      console.log("Users table accessible:", true)
+    } catch (error) {
+      console.log("Users table accessible:", false, error.message)
+      tablesAccessible = false
+      tableErrors.push("users: " + error.message)
+    }
+    
+    try {
+      const subscriptions = await prisma.subscription.findFirst()
+      console.log("Subscriptions table accessible:", true)
+    } catch (error) {
+      console.log("Subscriptions table accessible:", false, error.message)
+      tablesAccessible = false
+      tableErrors.push("subscriptions: " + error.message)
+    }
     
     return NextResponse.json({
-      status: "debug_success",
-      message: "All database checks passed",
+      status: tablesAccessible ? "debug_success" : "debug_partial",
+      message: tablesAccessible ? "All database checks passed" : "Database connected but tables have issues",
       receivedData: {
         companyName: body.companyName,
         email: body.email,
@@ -30,7 +51,8 @@ export async function POST(request: NextRequest) {
       },
       database: {
         connected: true,
-        tablesAccessible: true
+        tablesAccessible: tablesAccessible,
+        tableErrors: tableErrors
       },
       environment: process.env.NODE_ENV,
       timestamp: new Date().toISOString()

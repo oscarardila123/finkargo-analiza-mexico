@@ -11,8 +11,8 @@ export const prisma = globalForPrisma.prisma ?? new PrismaClient({
       url: process.env.DATABASE_URL
     }
   },
-  // Fix for Supabase/PostgreSQL prepared statement conflicts
-  ...(process.env.NODE_ENV === "production" && {
+  // Fix for Supabase/PostgreSQL prepared statement conflicts in production and staging
+  ...((process.env.NODE_ENV === "production" || process.env.VERCEL_ENV) && process.env.DATABASE_URL?.includes('postgresql') && {
     datasources: {
       db: {
         url: process.env.DATABASE_URL + (process.env.DATABASE_URL?.includes('?') ? '&' : '?') + 'pgbouncer=true&connection_limit=1'

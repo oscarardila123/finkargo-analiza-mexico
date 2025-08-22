@@ -4,16 +4,32 @@ import bcrypt from "bcryptjs"
 
 export async function POST(request: NextRequest) {
   try {
-    const { token, email, password } = await request.json()
+    const { token, email: rawEmail, password } = await request.json()
+    
+    // Decode email in case it's URL encoded
+    const email = rawEmail ? decodeURIComponent(rawEmail) : null
 
     if (!token || !email || !password) {
       return NextResponse.json({ message: "Token, email, and password are required" }, { status: 400 })
     }
+    
+    console.log('🔧 Reset password attempt:', { email, token: token.substring(0, 16) + '...' })
 
     if (password.length < 6) {
       return NextResponse.json({ message: "Password must be at least 6 characters long" }, { status: 400 })
     }
 
+    // First, let's see what tokens exist for this email
+    const allTokensForEmail = await prisma.verificationToken.findMany({
+      where: { identifier: email },
+      select: { token: true, expires: true, identifier: true }
+    })
+    console.log('🔍 Tokens existentes para email:', allTokensForEmail.map(t => ({ 
+      token: t.token.substring(0, 16) + '...', 
+      expires: t.expires,
+      identifier: t.identifier
+    })))
+    
     // Find the verification token
     const verificationToken = await prisma.verificationToken.findUnique({
       where: {
@@ -23,6 +39,8 @@ export async function POST(request: NextRequest) {
         },
       },
     })
+    
+    console.log('🔍 Token encontrado:', verificationToken ? 'SÍ' : 'NO')
 
     if (!verificationToken) {
       return NextResponse.json({ message: "Invalid or expired token" }, { status: 400 })

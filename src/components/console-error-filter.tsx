@@ -18,7 +18,14 @@ const GOOGLE_DRIVE_WARNINGS = [
   'Failed to load resource: the server responded with a status of 401',
   'Failed to load resource: the server responded with a status of 403',
   'net::ERR_BLOCKED_BY_CLIENT',
-  'net::ERR_FAILED'
+  'net::ERR_FAILED',
+  'accounts.google.com',
+  'AT755718135199441',
+  'Unauthorized',
+  'aria-hidden',
+  'was preloaded using link preload but not used',
+  'react-dom-client.development.js',
+  'Download the React DevTools'
 ]
 
 export function ConsoleErrorFilter() {

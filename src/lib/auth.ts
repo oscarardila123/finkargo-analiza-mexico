@@ -2,13 +2,39 @@ import { NextAuthOptions } from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import CredentialsProvider from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google"
+import EmailProvider from "next-auth/providers/email"
 import { prisma } from "@/lib/prisma"
+import { sendPasswordResetEmail } from "@/lib/email"
 import bcrypt from "bcryptjs"
 import { UserRole } from "@/generated/prisma"
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as any,
   providers: [
+    EmailProvider({
+      server: "resend",
+      from: process.env.EMAIL_FROM || "Finkargo Analiza <noreply@finkargo.com>",
+      maxAge: 24 * 60 * 60, // 24 hours
+      async sendVerificationRequest({ identifier: email, url, provider }) {
+        console.log('📧 Creando token para:', email)
+        console.log('📧 URL original:', url.substring(0, 100) + '...')
+        
+        // Extract token from original URL
+        const urlParams = new URLSearchParams(url.split('?')[1])
+        const originalToken = urlParams.get('token')
+        console.log('📧 Token original extraído:', originalToken?.substring(0, 16) + '...')
+        
+        const resetUrl = url.replace('/api/auth/callback/email', '/auth/reset-password')
+        console.log('📧 URL reset:', resetUrl.substring(0, 100) + '...')
+        
+        // Extract token from reset URL to verify
+        const resetParams = new URLSearchParams(resetUrl.split('?')[1])
+        const resetToken = resetParams.get('token')
+        console.log('📧 Token en reset URL:', resetToken?.substring(0, 16) + '...')
+        
+        await sendPasswordResetEmail(email, resetUrl)
+      },
+    }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
@@ -70,6 +96,7 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/auth/signin",
     error: "/auth/error",
+    verifyRequest: "/auth/verify-request",
   },
   session: {
     strategy: "jwt",

@@ -5,6 +5,7 @@ interface WompiConfig {
   publicKey: string
   privateKey: string
   eventsSecret: string
+  integritySecret: string
   baseUrl: string
 }
 
@@ -70,49 +71,90 @@ export class WompiClient {
   private config: WompiConfig
 
   constructor() {
+    const environment = process.env.WOMPI_ENVIRONMENT?.trim() || 'simulation'
+    
     this.config = {
       publicKey: process.env.WOMPI_PUBLIC_KEY!,
       privateKey: process.env.WOMPI_PRIVATE_KEY!,
       eventsSecret: process.env.WOMPI_EVENTS_SECRET!,
-      baseUrl: process.env.WOMPI_DEV_MODE?.trim() === 'true' 
-        ? 'https://sandbox.wompi.co/v1' 
-        : 'https://production.wompi.co/v1'
+      integritySecret: process.env.WOMPI_INTEGRITY_SECRET!,
+      baseUrl: environment === 'production' 
+        ? 'https://production.wompi.co/v1' 
+        : 'https://sandbox.wompi.co/v1'
     }
 
-    if (!this.config.publicKey || !this.config.privateKey) {
-      throw new Error('Wompi credentials not configured')
+    // Only validate credentials for real Wompi integration
+    if (environment !== 'simulation' && (!this.config.publicKey || !this.config.privateKey)) {
+      throw new Error(`Wompi credentials not configured for ${environment} environment`)
     }
   }
 
   private getAuthHeaders() {
-    const credentials = Buffer.from(`${this.config.privateKey}:`).toString('base64')
+    // Wompi uses Bearer authentication, not Basic auth
     return {
-      'Authorization': `Basic ${credentials}`,
+      'Authorization': `Bearer ${this.config.privateKey}`,
       'Content-Type': 'application/json',
     }
   }
 
   async createPayment(paymentData: CreatePaymentRequest): Promise<WompiPayment> {
-    // Development mode simulation - check for dev mode regardless of NODE_ENV
-    if (process.env.WOMPI_DEV_MODE?.trim() === 'true') {
+    const environment = process.env.WOMPI_ENVIRONMENT?.trim() || 'simulation'
+    
+    // Simulation mode for local development
+    if (environment === 'simulation') {
       console.log('🎭 WOMPI SIMULATION MODE - Creating fake payment')
       return this.createFakePayment(paymentData)
     }
 
+    // Real Wompi integration for sandbox or production
+    console.log(`🚀 WOMPI ${environment.toUpperCase()} MODE - Creating real payment`)
+    console.log('Payment data being sent:', JSON.stringify(paymentData, null, 2))
+    console.log('API URL:', `${this.config.baseUrl}/transactions`)
+
     try {
-      const response = await fetch(`${this.config.baseUrl}/transactions`, {
-        method: 'POST',
+      // Try to create a Payment Link instead of direct transaction
+      const paymentLinkData = {
+        name: `Pago Finkargo - ${paymentData.reference}`,
+        description: `Suscripción Finkargo Analiza`,
+        single_use: true,
+        collect_shipping: false,
+        amount_in_cents: paymentData.amount_in_cents,
+        currency: paymentData.currency
+      }
+      
+      console.log('Creating payment link with data:', JSON.stringify(paymentLinkData, null, 2))
+      
+      const response = await fetch(`${this.config.baseUrl}/payment_links`, {
+        method: 'POST', 
         headers: this.getAuthHeaders(),
-        body: JSON.stringify(paymentData),
+        body: JSON.stringify(paymentLinkData),
       })
 
       if (!response.ok) {
         const error = await response.json()
-        throw new Error(`Wompi payment creation failed: ${error.error?.reason || response.statusText}`)
+        console.error('Wompi API Error Response:', JSON.stringify(error, null, 2))
+        const errorMessage = error.error?.reason || error.error?.type || error.message || response.statusText
+        throw new Error(`Wompi payment creation failed: ${errorMessage}`)
       }
 
-      const payment = await response.json()
-      return payment.data as WompiPayment
+      const paymentLink = await response.json()
+      console.log('Payment link created:', paymentLink)
+      
+      // Return in format expected by our app
+      return {
+        id: paymentLink.data.id,
+        created_at: new Date().toISOString(),
+        amount_in_cents: paymentData.amount_in_cents,
+        reference: paymentData.reference,
+        customer_email: paymentData.customer_email,
+        currency: 'COP',
+        payment_method_type: 'CARD',
+        payment_method: { type: 'CARD' },
+        status: 'PENDING',
+        payment_link: {
+          checkout_url: paymentLink.data.payment_url // This is the URL to redirect to
+        }
+      } as WompiPayment
     } catch (error) {
       console.error('Error creating Wompi payment:', error)
       throw error
@@ -246,7 +288,23 @@ export class WompiClient {
   }
 
   isTestEnvironment(): boolean {
-    return process.env.WOMPI_DEV_MODE?.trim() === 'true'
+    return process.env.WOMPI_ENVIRONMENT?.trim() === 'sandbox'
+  }
+
+  getEnvironment(): 'simulation' | 'sandbox' | 'production' {
+    const env = process.env.WOMPI_ENVIRONMENT?.trim()
+    if (env === 'production' || env === 'sandbox') return env
+    return 'simulation'
+  }
+
+  getEnvironmentLabel(): string {
+    const environment = this.getEnvironment()
+    const labels = {
+      'simulation': '🎭 Simulación Local',
+      'sandbox': '🧪 Sandbox (Pruebas)',
+      'production': '🚀 Producción'
+    }
+    return labels[environment]
   }
 }
 

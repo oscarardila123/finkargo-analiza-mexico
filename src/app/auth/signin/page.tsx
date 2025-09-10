@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { ArrowLeft, Home } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -66,6 +67,20 @@ function SignInContent() {
       <div className="absolute top-0 left-0 w-96 h-96 bg-orange-400/20 rounded-full blur-3xl -translate-x-48 -translate-y-48"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl translate-x-48 translate-y-48"></div>
       
+      {/* Back to Home Button */}
+      <div className="absolute top-4 left-4 z-20">
+        <Link href="/">
+          <Button 
+            variant="ghost" 
+            className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border border-white/20 transition-all duration-300 flex items-center gap-2 px-4 py-2 rounded-xl shadow-lg"
+          >
+            <Home className="h-5 w-5" />
+            <span className="hidden sm:inline font-medium">Volver al inicio</span>
+            <span className="sm:hidden font-medium">Inicio</span>
+          </Button>
+        </Link>
+      </div>
+      
       <div className="min-h-screen flex items-center justify-center p-4 relative z-10">
         <div className="w-full max-w-5xl grid lg:grid-cols-2 gap-8 items-center">
           {/* Left side - Branding */}
@@ -79,31 +94,31 @@ function SignInContent() {
             </div>
             <div className="space-y-6">
               <h1 className="text-4xl font-bold leading-tight">
-                Bienvenido de vuelta a tu<br />
-                <span className="text-orange-300">aliado financiero</span><br />
-                <span className="text-cyan-300">más confiable</span>
+                La plataforma que te entrega<br />
+                <span className="text-orange-300">datos del comercio exterior</span><br />
+                para tomar <span className="text-cyan-300">mejores decisiones</span>
               </h1>
-              <p className="text-xl opacity-90">
-                Accede a la plataforma de inteligencia comercial más avanzada de Colombia
+              <p className="text-xl opacity-90 leading-relaxed text-justify">
+                Una plataforma diseñada a la medida, para quienes no temen ir más allá, para quienes buscan dominar el juego del comercio internacional.
               </p>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-green-400 rounded-full flex items-center justify-center">
                     <Shield className="w-5 h-5 text-white" />
                   </div>
-                  <span>Datos de Aduanas 100% oficiales y seguros</span>
+                  <span>Datos 100% confiables y reales</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-green-400 rounded-full flex items-center justify-center">
                     <Sparkles className="w-5 h-5 text-white" />
                   </div>
-                  <span>Análisis de mercado en tiempo real</span>
+                  <span>Acceso a datos para mejorar la planificación de compras internacionales</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-green-400 rounded-full flex items-center justify-center">
                     <Check className="w-5 h-5 text-white" />
                   </div>
-                  <span>Soporte especializado en español</span>
+                  <span>Soporte especializado con expertos en data y comercio exterior</span>
                 </div>
               </div>
             </div>

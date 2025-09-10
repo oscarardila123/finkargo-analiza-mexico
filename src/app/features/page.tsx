@@ -14,7 +14,12 @@ import {
   Shield,
   Award,
   Users,
-  CheckCircle
+  CheckCircle,
+  BarChart3,
+  Route,
+  MapPin,
+  Calendar,
+  Expand
 } from "lucide-react"
 import { MainFooter } from "@/components/ui/main-footer"
 
@@ -157,144 +162,250 @@ export default function FeaturesPage() {
             </Card>
           </div>
 
-          {/* Predictive Analytics Feature */}
-          <div className="mt-16 mb-16">
-            <div className="max-w-4xl mx-auto">
-              <Card className="border-0 shadow-2xl bg-gradient-to-r from-blue-50 to-purple-50">
-                <CardHeader className="text-center pb-6">
-                  <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <Clock className="h-8 w-8 text-blue-600" />
-                  </div>
-                  <CardTitle className="text-2xl">Predice la Demanda</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600 mb-6 text-center max-w-2xl mx-auto">
-                    Utiliza la información consolidada de los reportes para planificar tus importaciones aprovechando temporadas como Navidad, Año Nuevo Chino, Black Friday y otras fechas comerciales y logísticas.
-                  </p>
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <ul className="space-y-3">
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
-                        <span>Planificación de temporadas altas</span>
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
-                        <span>Análisis de tendencias estacionales</span>
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
-                        <span>Optimización de inventarios</span>
-                      </li>
-                    </ul>
-                    <ul className="space-y-3">
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
-                        <span>Predicción de demanda por producto</span>
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
-                        <span>Alertas de fechas comerciales clave</span>
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
-                        <span>Reportes consolidados históricos</span>
-                      </li>
-                    </ul>
-                  </div>
-                </CardContent>
-              </Card>
+          {/* Additional Features */}
+          <div className="mt-20 mb-16">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-4xl font-bold text-gray-800 mb-4">Características Avanzadas</h2>
+                <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                  Herramientas adicionales que potencian tu análisis de comercio exterior
+                </p>
+              </div>
+              
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 group">
+                  <CardHeader className="text-center">
+                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <Clock className="h-8 w-8 text-white" />
+                    </div>
+                    <CardTitle className="text-xl text-gray-800">Predice la Demanda</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 text-center">
+                      Planifica importaciones aprovechando temporadas como Navidad, Año Nuevo Chino y Black Friday.
+                    </p>
+                  </CardContent>
+                </Card>
+                
+                <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 group">
+                  <CardHeader className="text-center">
+                    <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <Database className="h-8 w-8 text-white" />
+                    </div>
+                    <CardTitle className="text-xl text-gray-800">Datos Oficiales</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 text-center">
+                      Acceso directo a información verificada de Aduanas con actualizaciones automáticas.
+                    </p>
+                  </CardContent>
+                </Card>
+                
+                <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 group">
+                  <CardHeader className="text-center">
+                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <TrendingUp className="h-8 w-8 text-white" />
+                    </div>
+                    <CardTitle className="text-xl text-gray-800">Análisis Predictivo</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 text-center">
+                      IA avanzada para identificar tendencias y oportunidades antes que tu competencia.
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Clock className="h-8 w-8 text-yellow-600" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="text-center group hover:scale-105 transition-transform duration-300">
+              <div className="w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl">
+                <Clock className="h-10 w-10 text-white" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Ahorra 80% del Tiempo</h3>
+              <h3 className="text-2xl font-bold mb-3 text-gray-800">80%</h3>
+              <h4 className="text-lg font-semibold mb-2 text-gray-700">Ahorro de Tiempo</h4>
               <p className="text-gray-600 text-sm">Lo que antes tomaba semanas, ahora toma minutos</p>
             </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <DollarSign className="h-8 w-8 text-red-600" />
+            
+            <div className="text-center group hover:scale-105 transition-transform duration-300">
+              <div className="w-20 h-20 bg-gradient-to-br from-red-400 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl">
+                <DollarSign className="h-10 w-10 text-white" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Reduce Costos 45%</h3>
+              <h3 className="text-2xl font-bold mb-3 text-gray-800">45%</h3>
+              <h4 className="text-lg font-semibold mb-2 text-gray-700">Reducción de Costos</h4>
               <p className="text-gray-600 text-sm">Encuentra mejores precios y optimiza tu cadena</p>
             </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <TrendingUp className="h-8 w-8 text-blue-600" />
+            
+            <div className="text-center group hover:scale-105 transition-transform duration-300">
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl">
+                <TrendingUp className="h-10 w-10 text-white" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Aumenta Ventas 60%</h3>
+              <h3 className="text-2xl font-bold mb-3 text-gray-800">60%</h3>
+              <h4 className="text-lg font-semibold mb-2 text-gray-700">Aumento en Ventas</h4>
               <p className="text-gray-600 text-sm">Identifica oportunidades que otros no ven</p>
             </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="h-8 w-8 text-green-600" />
+            
+            <div className="text-center group hover:scale-105 transition-transform duration-300">
+              <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl">
+                <Shield className="h-10 w-10 text-white" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">100% Seguro</h3>
+              <h3 className="text-2xl font-bold mb-3 text-gray-800">100%</h3>
+              <h4 className="text-lg font-semibold mb-2 text-gray-700">Seguro</h4>
               <p className="text-gray-600 text-sm">Datos encriptados y cumplimiento normativo</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Colombian Focus */}
-      <section className="py-16 bg-gradient-to-br from-blue-50 to-cyan-50">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <Badge className="mb-4">🇨🇴 Especializado en Colombia</Badge>
-              <h2 className="text-4xl font-bold text-gray-600 mb-6">
-                Diseñado específicamente para el mercado colombiano
-              </h2>
-              <p className="text-lg text-gray-600 mb-8">
-                No somos una herramienta genérica. Finkargo Analiza está construida desde cero para entender las particularidades del comercio exterior colombiano.
-              </p>
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                    <Award className="h-5 w-5 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2">Integración Aduanas Nativa</h3>
-                    <p className="text-gray-600">
-                      Única plataforma con acceso directo y autorizado a los sistemas de Aduanas. Datos 100% oficiales y verificados.
-                    </p>
+      {/* Finkargo Analiza Focus */}
+      <section className="py-16 bg-gradient-to-br from-blue-50 to-cyan-50 relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-blue-300/20 to-transparent rounded-full blur-2xl"></div>
+        <div className="absolute bottom-0 right-0 w-28 h-28 bg-gradient-to-tl from-cyan-300/20 to-transparent rounded-full blur-xl"></div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          {/* Header Section */}
+          <div className="text-center mb-12">
+            <Badge className="mb-4 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white text-sm font-bold shadow-lg inline-block">
+              🔥 FINKARGO ANALIZA
+            </Badge>
+            <h1 className="text-5xl font-black text-blue-700 mb-3">
+              ANALIZA
+            </h1>
+            <p className="text-xl font-bold text-gray-800 mb-4">Descubre. Compara. Decide.</p>
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">
+              Diseñado específicamente para el mercado colombiano
+            </h2>
+            <p className="text-lg text-gray-600 max-w-4xl mx-auto">
+              No somos una herramienta genérica. Finkargo Analiza está construida desde cero para entender las particularidades del comercio exterior colombiano.
+            </p>
+          </div>
+          
+          {/* Main Grid Layout */}
+          <div className="grid lg:grid-cols-3 gap-8 items-start max-w-7xl mx-auto">
+            {/* Left Column - First 3 Features */}
+            <div className="lg:col-span-2">
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Benchmark competitivo */}
+                <div className="group hover:bg-white p-5 rounded-2xl transition-all duration-300 shadow-sm hover:shadow-lg bg-white/50">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                      <BarChart3 className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-lg font-bold text-blue-700 mb-1">Benchmark competitivo</h3>
+                      <p className="text-sm text-gray-600 leading-relaxed">
+                        Descubre qué pagan tus competidores por productos idénticos. Negocia mejores precios.
+                      </p>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                    <Users className="h-5 w-5 text-primary" />
+                
+                {/* Rutas optimizadas */}
+                <div className="group hover:bg-white p-5 rounded-2xl transition-all duration-300 shadow-sm hover:shadow-lg bg-white/50">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                      <Route className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-lg font-bold text-blue-700 mb-1">Rutas optimizadas</h3>
+                      <p className="text-sm text-gray-600 leading-relaxed">
+                        Identifica rutas logísticas más eficientes y proveedores alternativos con mejores condiciones.
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2">Soporte Local Experto</h3>
-                    <p className="text-gray-600">
-                      Equipo especializado en Bogotá que entiende tu negocio, regulaciones locales y particularidades del mercado colombiano.
-                    </p>
+                </div>
+                
+                {/* Nuevos mercados */}
+                <div className="group hover:bg-white p-5 rounded-2xl transition-all duration-300 shadow-sm hover:shadow-lg bg-white/50">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                      <MapPin className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-lg font-bold text-blue-700 mb-1">Nuevos mercados</h3>
+                      <p className="text-sm text-gray-600 leading-relaxed">
+                        Detecta oportunidades emergentes y productos con potencial antes que tu competencia.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Planificación estratégica */}
+                <div className="group hover:bg-white p-5 rounded-2xl transition-all duration-300 shadow-sm hover:shadow-lg bg-white/50">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                      <Calendar className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-lg font-bold text-blue-700 mb-1">Planificación estratégica</h3>
+                      <p className="text-sm text-gray-600 leading-relaxed">
+                        Anticipa cuellos de botella logísticos. Optimiza importaciones para fechas clave.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Expansión regional - Full Width */}
+                <div className="md:col-span-2 group hover:bg-white p-5 rounded-2xl transition-all duration-300 shadow-sm hover:shadow-lg bg-white/50">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                      <Expand className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-lg font-bold text-blue-700 mb-1">Expansión regional</h3>
+                      <p className="text-sm text-gray-600 leading-relaxed">
+                        Compara mercados en Colombia y México. Replica estrategias exitosas en múltiples países.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl p-8 text-white">
-              <h3 className="text-2xl font-bold mb-6">Resultados Comprobados</h3>
-              <div className="grid grid-cols-2 gap-6">
-                <div className="text-center">
-                  <div className="text-3xl font-bold mb-2">160+</div>
-                  <div className="text-white opacity-90">Empresas Activas</div>
+            
+            {/* Right Column - Results Card */}
+            <div>
+              <div className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 rounded-3xl p-10 text-white shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105">
+                <div className="text-center mb-8">
+                  <h3 className="text-3xl font-bold mb-4">Resultados Comprobados</h3>
+                  <div className="w-16 h-1 bg-white/30 mx-auto rounded-full"></div>
                 </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold mb-2">$2.3B</div>
-                  <div className="text-white opacity-90">Volumen Analizado</div>
+                
+                <div className="grid grid-cols-2 gap-8">
+                  <div className="text-center group">
+                    <div className="text-5xl font-black mb-3 bg-gradient-to-br from-white to-blue-100 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
+                      160+
+                    </div>
+                    <div className="text-white/90 font-semibold text-lg">Empresas Activas</div>
+                  </div>
+                  
+                  <div className="text-center group">
+                    <div className="text-5xl font-black mb-3 bg-gradient-to-br from-white to-blue-100 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
+                      $2.3B
+                    </div>
+                    <div className="text-white/90 font-semibold text-lg">Volumen Analizado</div>
+                  </div>
+                  
+                  <div className="text-center group">
+                    <div className="text-5xl font-black mb-3 bg-gradient-to-br from-white to-blue-100 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
+                      45%
+                    </div>
+                    <div className="text-white/90 font-semibold text-lg">Reducción Costos</div>
+                  </div>
+                  
+                  <div className="text-center group">
+                    <div className="text-5xl font-black mb-3 bg-gradient-to-br from-white to-blue-100 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
+                      60%
+                    </div>
+                    <div className="text-white/90 font-semibold text-lg">Crecimiento Promedio</div>
+                  </div>
                 </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold mb-2">45%</div>
-                  <div className="text-white opacity-90">Reducción Costos</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold mb-2">60%</div>
-                  <div className="text-white opacity-90">Crecimiento Promedio</div>
+                
+                {/* Brand Icon at bottom */}
+                <div className="mt-10 text-center opacity-70">
+                  <BrandIcon size="lg" className="mx-auto" />
                 </div>
               </div>
             </div>

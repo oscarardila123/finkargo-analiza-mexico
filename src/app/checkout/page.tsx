@@ -22,66 +22,65 @@ import {
   AlertCircle,
   Crown,
   Target,
-  BarChart3
+  BarChart3,
+  Globe,
+  Users
 } from "lucide-react"
 
 interface PlanDetails {
   id: string
   name: string
-  monthlyPriceCOP: number
-  annualPriceCOP: number
-  monthlyPriceUSD: number
-  annualPriceUSD: number
+  period: string
+  priceCOP: number
+  priceUSD: number
   features: string[]
 }
 
 const plans: Record<string, PlanDetails> = {
-  basic: {
-    id: "basic",
-    name: "Basic",
-    monthlyPriceCOP: 149000,
-    annualPriceCOP: 1341000,
-    monthlyPriceUSD: 37,
-    annualPriceUSD: 333,
+  trimestral: {
+    id: "trimestral",
+    name: "Trimestral",
+    period: "3 meses",
+    priceCOP: 650000,
+    priceUSD: 163,
     features: [
-      "1,000 consultas mensuales",
-      "Búsqueda avanzada de proveedores",
-      "Análisis de competidores con alertas",
+      "Acceso completo a la plataforma",
+      "Análisis de importaciones y exportaciones",
+      "Búsqueda avanzada de empresas",
       "Reportes personalizables",
-      "Exportación a Excel y PDF",
-      "Soporte por chat y email"
+      "Soporte técnico especializado",
+      "Actualizaciones en tiempo real"
     ]
   },
-  professional: {
-    id: "professional",
-    name: "Professional",
-    monthlyPriceCOP: 349000,
-    annualPriceCOP: 3141000,
-    monthlyPriceUSD: 87,
-    annualPriceUSD: 785,
+  anual: {
+    id: "anual",
+    name: "Anual",
+    period: "12 meses",
+    priceCOP: 1000000,
+    priceUSD: 250,
     features: [
-      "5,000 consultas mensuales",
-      "Base completa de proveedores (50K+)",
-      "Análisis avanzado de competidores",
-      "Alertas en tiempo real",
-      "Reportes personalizados",
-      "Soporte prioritario"
-    ]
-  },
-  enterprise: {
-    id: "enterprise",
-    name: "Enterprise",
-    monthlyPriceCOP: 799000,
-    annualPriceCOP: 7192000,
-    monthlyPriceUSD: 199,
-    annualPriceUSD: 1791,
-    features: [
-      "Consultas ilimitadas",
-      "IA predictiva avanzada",
-      "Integraciones personalizadas",
+      "Todo lo del plan trimestral",
+      "Análisis predictivo avanzado",
+      "Integraciones API personalizadas",
       "Account manager dedicado",
-      "Soporte 24/7",
-      "SLA garantizado"
+      "Capacitación especializada",
+      "Soporte prioritario 24/7",
+      "Reportes ejecutivos mensuales"
+    ]
+  },
+  semestral: {
+    id: "semestral",
+    name: "Semestral",
+    period: "6 meses",
+    priceCOP: 800000,
+    priceUSD: 200,
+    features: [
+      "Todo lo del plan trimestral",
+      "Alertas personalizadas",
+      "Dashboard ejecutivo",
+      "Exportación de datos ilimitada",
+      "Soporte técnico preferencial",
+      "Análisis competitivo avanzado"
     ]
   }
 }
@@ -97,10 +96,11 @@ function CheckoutContent() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const [paymentMethod, setPaymentMethod] = useState("credit_card")
+  const [wompiEnvironment, setWompiEnvironment] = useState("🎭 Simulación Local")
+  const [cardToken, setCardToken] = useState("")
   
   // Get URL parameters
-  const planId = searchParams.get("plan") || "basic"
-  const billingCycle = (searchParams.get("billing") as "monthly" | "annual") || "annual"
+  const planId = searchParams.get("plan") || "trimestral"
   const currency = (searchParams.get("currency") as "COP" | "USD") || "COP"
   
   const selectedPlan = plans[planId]
@@ -111,6 +111,19 @@ function CheckoutContent() {
       router.push(`/auth/signin?from=${encodeURIComponent(currentUrl)}`)
     }
   }, [status, router])
+
+  useEffect(() => {
+    // Fetch Wompi environment from API
+    fetch('/api/wompi/environment')
+      .then(res => res.json())
+      .then(data => {
+        setWompiEnvironment(data.label)
+      })
+      .catch(error => {
+        console.error('Error fetching Wompi environment:', error)
+      })
+  }, [])
+
 
   if (status === "loading") {
     return (
@@ -136,11 +149,7 @@ function CheckoutContent() {
   }
 
   const getPrice = () => {
-    if (billingCycle === "monthly") {
-      return currency === "COP" ? selectedPlan.monthlyPriceCOP : selectedPlan.monthlyPriceUSD
-    } else {
-      return currency === "COP" ? selectedPlan.annualPriceCOP : selectedPlan.annualPriceUSD
-    }
+    return currency === "COP" ? selectedPlan.priceCOP : selectedPlan.priceUSD
   }
 
   const formatPrice = (price: number) => {
@@ -152,14 +161,23 @@ function CheckoutContent() {
   }
 
   const getSavings = () => {
-    if (billingCycle === "monthly") return 0
-    const monthlyTotal = currency === "COP" 
-      ? selectedPlan.monthlyPriceCOP * 12 
-      : selectedPlan.monthlyPriceUSD * 12
-    const annualPrice = currency === "COP" 
-      ? selectedPlan.annualPriceCOP 
-      : selectedPlan.annualPriceUSD
-    return monthlyTotal - annualPrice
+    // Calculate savings based on plan type compared to monthly equivalent
+    if (planId === "trimestral") {
+      const monthlyEquivalent = currency === "COP" ? 250000 * 3 : 63 * 3
+      const currentPrice = currency === "COP" ? selectedPlan.priceCOP : selectedPlan.priceUSD
+      return monthlyEquivalent - currentPrice
+    }
+    if (planId === "anual") {
+      const monthlyEquivalent = currency === "COP" ? 250000 * 12 : 63 * 12
+      const currentPrice = currency === "COP" ? selectedPlan.priceCOP : selectedPlan.priceUSD
+      return monthlyEquivalent - currentPrice
+    }
+    if (planId === "semestral") {
+      const monthlyEquivalent = currency === "COP" ? 250000 * 6 : 63 * 6
+      const currentPrice = currency === "COP" ? selectedPlan.priceCOP : selectedPlan.priceUSD
+      return monthlyEquivalent - currentPrice
+    }
+    return 0
   }
 
   const handlePayment = async () => {
@@ -167,7 +185,7 @@ function CheckoutContent() {
     setError("")
     
     try {
-      // Create payment intent
+      // Create payment on server and get checkout URL
       const response = await fetch("/api/payments/create", {
         method: "POST",
         headers: {
@@ -175,10 +193,14 @@ function CheckoutContent() {
         },
         body: JSON.stringify({
           planId,
-          billingCycle,
           currency,
           paymentMethod,
-          amount: getPrice()
+          amount: getPrice(),
+          period: selectedPlan.period,
+          customerData: {
+            fullName: session?.user?.name || "",
+            phoneNumber: "3163336666"
+          }
         }),
       })
       
@@ -213,12 +235,24 @@ function CheckoutContent() {
       {/* Header */}
       <header className="bg-white/10 backdrop-blur-sm border-b border-white/20 relative z-10">
         <div className="container mx-auto px-4 h-16 flex items-center">
-          <Link href="/precios" className="flex items-center text-white hover:text-white/80 transition-colors">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Volver a planes
+          <Link href="/precios">
+            <Button 
+              variant="ghost" 
+              className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border border-white/20 transition-all duration-300 flex items-center gap-2 px-4 py-2 rounded-xl shadow-lg font-medium hover:shadow-xl"
+            >
+              <ArrowLeft className="h-5 w-5" />
+              <span className="hidden sm:inline">Volver a planes</span>
+              <span className="sm:hidden">Planes</span>
+            </Button>
           </Link>
           <div className="flex-1 text-center">
             <span className="text-lg font-semibold text-white">Checkout Seguro</span>
+            {/* Wompi Environment Indicator */}
+            <div className="mt-1">
+              <span className="text-xs text-white/70 bg-white/10 px-2 py-1 rounded-full">
+                {wompiEnvironment}
+              </span>
+            </div>
           </div>
           <div className="flex items-center space-x-2">
             <Shield className="h-4 w-4 text-green-400" />
@@ -236,13 +270,13 @@ function CheckoutContent() {
               <Card className="bg-white/95 backdrop-blur-sm border-0 shadow-2xl">
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    {selectedPlan.id === 'basic' && <BarChart3 className="w-5 h-5 mr-2 text-blue-600" />}
-                    {selectedPlan.id === 'professional' && <Target className="w-5 h-5 mr-2 text-primary" />}
-                    {selectedPlan.id === 'enterprise' && <Crown className="w-5 h-5 mr-2 text-purple-600" />}
+                    {selectedPlan.id === 'trimestral' && <BarChart3 className="w-5 h-5 mr-2 text-blue-600" />}
+                    {selectedPlan.id === 'anual' && <Crown className="w-5 h-5 mr-2 text-purple-600" />}
+                    {selectedPlan.id === 'semestral' && <Target className="w-5 h-5 mr-2 text-primary" />}
                     Plan {selectedPlan.name}
                   </CardTitle>
                   <CardDescription>
-                    Facturación {billingCycle === 'monthly' ? 'mensual' : 'anual'}
+                    Periodo: {selectedPlan.period}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -265,9 +299,9 @@ function CheckoutContent() {
                       <span>{formatPrice(getPrice())}</span>
                     </div>
                     
-                    {billingCycle === 'annual' && getSavings() > 0 && (
+                    {getSavings() > 0 && (
                       <div className="flex justify-between text-sm text-green-600">
-                        <span>Descuento anual</span>
+                        <span>Descuento por periodo extendido</span>
                         <span>-{formatPrice(getSavings())}</span>
                       </div>
                     )}
@@ -285,12 +319,12 @@ function CheckoutContent() {
                     <span>{formatPrice(getPrice())}</span>
                   </div>
 
-                  {billingCycle === 'annual' && (
+                  {getSavings() > 0 && (
                     <div className="bg-green-50 p-3 rounded-lg">
                       <div className="flex items-center text-green-800">
                         <CheckCircle className="h-4 w-4 mr-2" />
                         <span className="text-sm font-medium">
-                          Ahorras {formatPrice(getSavings())} pagando anualmente
+                          Ahorras {formatPrice(getSavings())} con el plan {selectedPlan.name.toLowerCase()}
                         </span>
                       </div>
                     </div>
@@ -354,58 +388,55 @@ function CheckoutContent() {
                         
                         <div>
                           <Label htmlFor="cardNumber">Número de tarjeta</Label>
-                          <Input
+                          <input
                             id="cardNumber"
+                            type="text"
                             placeholder="1234 5678 9012 3456"
-                            className="font-mono placeholder:text-gray-400"
-                            maxLength={19}
-                            onChange={(e) => {
-                              const value = e.target.value.replace(/\D/g, '')
-                              const formattedValue = value.replace(/(\d{4})(?=\d)/g, '$1 ')
-                              e.target.value = formattedValue
-                            }}
+                            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 font-mono placeholder:text-gray-400"
                           />
                         </div>
                         
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-3 gap-4">
                           <div>
-                            <Label htmlFor="expiry">Fecha de vencimiento</Label>
-                            <Input
-                              id="expiry"
-                              placeholder="MM/AA"
-                              className="font-mono placeholder:text-gray-400"
-                              maxLength={5}
-                              onChange={(e) => {
-                                const value = e.target.value.replace(/\D/g, '')
-                                let formattedValue = value
-                                if (value.length >= 2) {
-                                  formattedValue = value.slice(0, 2) + '/' + value.slice(2, 4)
-                                }
-                                e.target.value = formattedValue
-                              }}
+                            <Label htmlFor="cardExpMonth">Mes</Label>
+                            <input
+                              id="cardExpMonth"
+                              type="text"
+                              placeholder="MM"
+                              maxLength={2}
+                              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 font-mono placeholder:text-gray-400"
                             />
                           </div>
                           <div>
-                            <Label htmlFor="cvv">CVV</Label>
-                            <Input
-                              id="cvv"
+                            <Label htmlFor="cardExpYear">Año</Label>
+                            <input
+                              id="cardExpYear"
+                              type="text"
+                              placeholder="AA"
+                              maxLength={2}
+                              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 font-mono placeholder:text-gray-400"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="cardCvc">CVV</Label>
+                            <input
+                              id="cardCvc"
+                              type="text"
                               placeholder="123"
-                              className="font-mono placeholder:text-gray-400"
                               maxLength={4}
-                              onChange={(e) => {
-                                e.target.value = e.target.value.replace(/\D/g, '')
-                              }}
+                              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 font-mono placeholder:text-gray-400"
                             />
                           </div>
                         </div>
 
                         <div>
-                          <Label htmlFor="cardName">Nombre en la tarjeta</Label>
-                          <Input
-                            id="cardName"
+                          <Label htmlFor="cardHolder">Nombre en la tarjeta</Label>
+                          <input
+                            id="cardHolder"
+                            type="text"
                             placeholder="Nombre completo"
-                            className="placeholder:text-gray-400"
                             defaultValue={session?.user?.name || ""}
+                            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-gray-400"
                           />
                         </div>
 
@@ -480,15 +511,21 @@ function CheckoutContent() {
                 )}
               </Button>
 
-              <div className="text-center text-xs text-gray-700 space-y-2">
-                <p>
-                  Al hacer clic en &quot;Completar pago&quot;, aceptas nuestros{" "}
-                  <a href="#" className="text-primary underline">Términos de Servicio</a> y{" "}
-                  <a href="#" className="text-primary underline">Política de Privacidad</a>
-                </p>
-                <p>
-                  Puedes cancelar tu suscripción en cualquier momento desde tu dashboard
-                </p>
+              <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <div className="text-center text-xs text-gray-700 space-y-2">
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    <span className="font-medium text-green-800">Cancelación sin compromiso</span>
+                  </div>
+                  <p>
+                    Al hacer clic en "Completar pago", aceptas nuestros{" "}
+                    <a href="/terminos-condiciones" target="_blank" rel="noopener noreferrer" className="text-primary underline font-medium hover:text-primary/80 transition-colors">Términos de Servicio</a> y{" "}
+                    <a href="/politicas-privacidad" target="_blank" rel="noopener noreferrer" className="text-primary underline font-medium hover:text-primary/80 transition-colors">Política de Privacidad</a>
+                  </p>
+                  <p className="text-gray-600">
+                    ✅ Sin permanencia mínima • ✅ Cancela cuando quieras • ✅ Soporte en español
+                  </p>
+                </div>
               </div>
 
               {/* Security badges */}

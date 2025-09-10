@@ -137,6 +137,13 @@ model Payment {
   failedAt        DateTime?      @map("failed_at")
   failureReason   String?        @map("failure_reason")
   invoiceUrl      String?        @map("invoice_url")
+  
+  // Campos específicos para Wompi
+  wompiReference  String?        @unique @map("wompi_reference")
+  wompiCheckoutUrl String?       @map("wompi_checkout_url")
+  planType        String?        @map("plan_type") // trimestral, semestral, anual
+  customerEmail   String?        @map("customer_email")
+  
   createdAt       DateTime       @default(now()) @map("created_at")
   updatedAt       DateTime       @updatedAt @map("updated_at")
   
@@ -269,6 +276,9 @@ enum SubscriptionPlan {
   BASIC
   PROFESSIONAL
   ENTERPRISE
+  TRIMESTRAL
+  SEMESTRAL
+  ANUAL
 }
 
 enum SubscriptionStatus {

@@ -4,31 +4,39 @@ import { wompiClient } from "@/lib/wompi"
 
 export async function POST(request: NextRequest) {
   try {
+    const environment = wompiClient.getEnvironment()
+    console.log(`📥 Webhook received in ${environment} mode`)
+    
     const body = await request.text()
     const signature = request.headers.get('x-signature')
     const timestamp = request.headers.get('x-timestamp')
 
-    if (!signature || !timestamp) {
-      console.error('Missing webhook signature or timestamp')
-      return NextResponse.json(
-        { error: "Firma requerida" },
-        { status: 400 }
-      )
-    }
+    // Skip signature verification in simulation mode
+    if (environment !== 'simulation') {
+      if (!signature || !timestamp) {
+        console.error('Missing webhook signature or timestamp')
+        return NextResponse.json(
+          { error: "Firma requerida" },
+          { status: 400 }
+        )
+      }
 
-    // Verify webhook signature
-    const isValidSignature = wompiClient.verifyWebhookSignature(
-      body,
-      signature,
-      timestamp
-    )
-
-    if (!isValidSignature) {
-      console.error('Invalid webhook signature')
-      return NextResponse.json(
-        { error: "Firma inválida" },
-        { status: 400 }
+      // Verify webhook signature
+      const isValidSignature = wompiClient.verifyWebhookSignature(
+        body,
+        signature,
+        timestamp
       )
+
+      if (!isValidSignature) {
+        console.error('Invalid webhook signature')
+        return NextResponse.json(
+          { error: "Firma inválida" },
+          { status: 400 }
+        )
+      }
+    } else {
+      console.log('🎭 Simulation mode: Skipping webhook signature verification')
     }
 
     const webhookData = JSON.parse(body)

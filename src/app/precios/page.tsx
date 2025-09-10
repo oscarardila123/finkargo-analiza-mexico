@@ -9,6 +9,7 @@ import { BrandIcon } from "@/components/ui/brand-icon"
 import { MainFooter } from "@/components/ui/main-footer"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { ResponsiveHeader } from "@/components/ui/responsive-header"
+import { CheckoutButton } from "@/components/ui/checkout-button"
 import {
   CheckCircle,
   X,
@@ -33,132 +34,65 @@ import {
 interface PricingTier {
   id: string
   name: string
-  description: string
-  monthlyPriceCOP: number
-  annualPriceCOP: number
-  monthlyPriceUSD: number
-  annualPriceUSD: number
+  period: string
+  priceCOP: number
+  priceUSD: number
   popular?: boolean
   features: string[]
-  limits: {
-    queries: string
-    users: string
-    exports: string
-    support: string
-  }
   cta: string
   wompiPlanId?: string
 }
 
 const pricingTiers: PricingTier[] = [
   {
-    id: "starter",
-    name: "Starter",
-    description: "Perfecto para emprendedores y pequeñas empresas",
-    monthlyPriceCOP: 0,
-    annualPriceCOP: 0,
-    monthlyPriceUSD: 0,
-    annualPriceUSD: 0,
+    id: "trimestral",
+    name: "Trimestral",
+    period: "3 meses",
+    priceCOP: 650000,
+    priceUSD: 163,
     features: [
-      "100 consultas mensuales",
-      "Búsqueda básica de proveedores",
-      "Análisis básico de competidores",
-      "Reportes estándar",
-      "Exportación a PDF",
-      "Soporte por email"
+      "Acceso a actualizaciones mensuales durante 3 meses",
+      "Una descarga a Excel por mes y consultas ilimitadas",
+      "Tour guiado",
+      "Soporte en línea 24/7",
+      "Un usuario"
     ],
-    limits: {
-      queries: "100/mes",
-      users: "1 usuario",
-      exports: "5/mes",
-      support: "Email"
-    },
-    cta: "Comenzar Gratis"
+    cta: "Comenzar Ahora",
+    wompiPlanId: "trimestral"
   },
   {
-    id: "basic",
-    name: "Basic",
-    description: "Ideal para pequeñas empresas que necesitan más datos",
-    monthlyPriceCOP: 149000,
-    annualPriceCOP: 1341000, // 25% descuento anual
-    monthlyPriceUSD: 37,
-    annualPriceUSD: 333, // 25% descuento anual
-    features: [
-      "1,000 consultas mensuales",
-      "Búsqueda avanzada de proveedores",
-      "Análisis de competidores con alertas",
-      "Reportes personalizables",
-      "Exportación a Excel y PDF",
-      "Soporte por chat y email",
-      "Dashboard básico"
-    ],
-    limits: {
-      queries: "1,000/mes",
-      users: "2 usuarios",
-      exports: "50/mes",
-      support: "Chat + Email"
-    },
-    cta: "Comenzar Prueba Gratis",
-    wompiPlanId: "basic-monthly"
-  },
-  {
-    id: "professional",
-    name: "Professional", 
-    description: "Para empresas en crecimiento que necesitan más datos",
-    monthlyPriceCOP: 349000,
-    annualPriceCOP: 3141000, // 25% descuento anual
-    monthlyPriceUSD: 87,
-    annualPriceUSD: 785, // 25% descuento anual
+    id: "anual",
+    name: "Anual",
+    period: "12 meses",
+    priceCOP: 1000000,
+    priceUSD: 250,
     popular: true,
     features: [
-      "5,000 consultas mensuales",
-      "Base completa de proveedores (50K+)",
-      "Análisis avanzado de competidores",
-      "Alertas en tiempo real",
-      "Reportes personalizados",
-      "Exportación avanzada (Excel, API)",
-      "Análisis de tendencias",
-      "Dashboard ejecutivo",
-      "Soporte prioritario"
+      "Acceso a actualizaciones mensuales durante 12 meses",
+      "Descargas a Excel y consultas ilimitadas",
+      "Capacitaciones ilimitadas",
+      "Soporte en línea 24/7",
+      "Hasta tres usuarios"
     ],
-    limits: {
-      queries: "5,000/mes",
-      users: "5 usuarios",
-      exports: "Ilimitado",
-      support: "Chat + Email"
-    },
-    cta: "Comenzar Prueba Gratis",
-    wompiPlanId: "professional-monthly"
+    cta: "Comenzar Ahora",
+    wompiPlanId: "anual"
   },
   {
-    id: "enterprise",
-    name: "Enterprise",
-    description: "Para grandes empresas con necesidades avanzadas", 
-    monthlyPriceCOP: 799000,
-    annualPriceCOP: 7192000, // 25% descuento anual
-    monthlyPriceUSD: 199,
-    annualPriceUSD: 1791, // 25% descuento anual
+    id: "semestral",
+    name: "Semestral",
+    period: "6 meses",
+    priceCOP: 800000,
+    priceUSD: 200,
     features: [
-      "Consultas ilimitadas",
-      "IA predictiva avanzada",
-      "Integraciones personalizadas",
-      "Análisis multi-empresa",
-      "API completa",
-      "Reportes white-label",
-      "Dashboard ejecutivo personalizado",
-      "Account manager dedicado",
-      "Soporte 24/7",
-      "Capacitación personalizada",
-      "SLA garantizado"
+      "Acceso a actualizaciones mensuales durante 6 meses",
+      "Dos descargas a Excel por mes y consultas ilimitadas",
+      "Tour guiado",
+      "Tres capacitaciones de la plataforma",
+      "Soporte en línea 24/7",
+      "Un usuario"
     ],
-    limits: {
-      queries: "Ilimitado",
-      users: "Ilimitado",
-      exports: "Ilimitado",
-      support: "24/7 + Phone"
-    },
-    cta: "Contactar Ventas",
-    wompiPlanId: "enterprise-monthly"
+    cta: "Comenzar Ahora",
+    wompiPlanId: "semestral"
   }
 ]
 
@@ -217,8 +151,7 @@ const testimonials = [
 ]
 
 export default function PricingPage() {
-  const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('annual')
-  const [currency, setCurrency] = useState<'COP' | 'USD'>('COP')
+  // Moneda fija en pesos colombianos
 
   const formatPrice = (price: number, curr: 'COP' | 'USD') => {
     if (price === 0) return 'Gratis'
@@ -231,18 +164,7 @@ export default function PricingPage() {
   }
 
   const getPrice = (tier: PricingTier) => {
-    if (billingCycle === 'monthly') {
-      return currency === 'COP' ? tier.monthlyPriceCOP : tier.monthlyPriceUSD
-    } else {
-      return currency === 'COP' ? tier.annualPriceCOP : tier.annualPriceUSD
-    }
-  }
-
-  const getSavings = (tier: PricingTier) => {
-    if (tier.monthlyPriceCOP === 0) return 0
-    const monthlyTotal = currency === 'COP' ? tier.monthlyPriceCOP * 12 : tier.monthlyPriceUSD * 12
-    const annualPrice = currency === 'COP' ? tier.annualPriceCOP : tier.annualPriceUSD
-    return Math.round(((monthlyTotal - annualPrice) / monthlyTotal) * 100)
+    return tier.priceCOP
   }
 
   return (
@@ -266,90 +188,16 @@ export default function PricingPage() {
               métodos de pago locales (PSE, Efecty, Bancolombia) y soporte 100% en español.
             </p>
             
-            {/* Live State Indicator */}
-            <div className="flex items-center justify-center gap-6 mb-6 text-sm">
-              <div className="flex items-center gap-2 px-4 py-2 bg-brand-navy-dark/10 rounded-full">
-                <div className="w-2 h-2 bg-brand-navy-dark rounded-full animate-pulse" />
-                <span className="text-brand-navy-dark font-medium">
-                  {billingCycle === 'monthly' ? 'Pago Mensual' : 'Pago Anual (-25%)'}
-                </span>
-              </div>
+            {/* Colombian Currency Indicator */}
+            <div className="flex items-center justify-center mb-6 text-sm">
               <div className="flex items-center gap-2 px-4 py-2 bg-brand-coral/10 rounded-full">
                 <div className="w-2 h-2 bg-brand-coral rounded-full animate-pulse" />
                 <span className="text-brand-coral font-medium">
-                  {currency === 'COP' ? 'Pesos Colombianos' : 'Dólares USD'}
+                  🇨🇴 Precios en Pesos Colombianos
                 </span>
               </div>
             </div>
           
-            {/* Billing Toggle */}
-            {/* Enhanced Billing & Currency Toggle */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-4">
-              <div className="bg-white rounded-2xl p-2 shadow-lg border border-gray-100">
-                <div className="flex items-center bg-gray-50 rounded-xl p-1">
-                  <button
-                    onClick={() => setBillingCycle('monthly')}
-                    className={`px-8 py-4 body-md font-semibold rounded-xl transition-all duration-300 relative ${
-                      billingCycle === 'monthly'
-                        ? 'bg-white text-brand-navy-dark shadow-lg transform scale-[1.02] border border-brand-navy-dark/20'
-                        : 'text-gray-700 hover:text-brand-navy-dark hover:bg-white/50'
-                    }`}
-                  >
-                    💳 Mensual
-                    {billingCycle === 'monthly' && (
-                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-brand-navy-dark rounded-full animate-pulse" />
-                    )}
-                  </button>
-                  <button
-                    onClick={() => setBillingCycle('annual')}
-                    className={`px-8 py-4 body-md font-semibold rounded-xl transition-all duration-300 relative ${
-                      billingCycle === 'annual'
-                        ? 'bg-white text-brand-navy-dark shadow-lg transform scale-[1.02] border border-brand-navy-dark/20'
-                        : 'text-gray-700 hover:text-brand-navy-dark hover:bg-white/50'
-                    }`}
-                  >
-                    📅 Anual
-                    {billingCycle === 'annual' && (
-                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-brand-navy-dark rounded-full animate-pulse" />
-                    )}
-                    <Badge className="ml-3 text-xs bg-gradient-to-r from-green-500 to-green-600 text-white font-bold animate-bounce">
-                      -25% 💰
-                    </Badge>
-                  </button>
-                </div>
-              </div>
-              
-              <div className="bg-white rounded-2xl p-2 shadow-lg border border-gray-100">
-                <div className="flex items-center bg-gray-50 rounded-xl p-1">
-                  <button
-                    onClick={() => setCurrency('COP')}
-                    className={`px-6 py-4 body-md font-semibold rounded-xl transition-all duration-300 relative ${
-                      currency === 'COP'
-                        ? 'bg-white text-brand-coral shadow-lg transform scale-[1.02] border border-brand-coral/20'
-                        : 'text-gray-700 hover:text-brand-coral hover:bg-white/50'
-                    }`}
-                  >
-                    🇨🇴 Pesos
-                    {currency === 'COP' && (
-                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-brand-coral rounded-full animate-pulse" />
-                    )}
-                  </button>
-                  <button
-                    onClick={() => setCurrency('USD')}
-                    className={`px-6 py-4 body-md font-semibold rounded-xl transition-all duration-300 relative ${
-                      currency === 'USD'
-                        ? 'bg-white text-brand-coral shadow-lg transform scale-[1.02] border border-brand-coral/20'
-                        : 'text-gray-700 hover:text-brand-coral hover:bg-white/50'
-                    }`}
-                  >
-                    💵 Dólares
-                    {currency === 'USD' && (
-                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-brand-coral rounded-full animate-pulse" />
-                    )}
-                  </button>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -374,7 +222,6 @@ export default function PricingPage() {
           <div className="pricing-grid max-w-7xl mx-auto overflow-visible" style={{paddingTop: '2rem'}}>
             {pricingTiers.map((tier) => {
               const price = getPrice(tier)
-              const savings = getSavings(tier)
               
               return (
                 <Card 
@@ -395,74 +242,29 @@ export default function PricingPage() {
                       </div>
                     )}
                     <div className="flex items-center justify-center mb-4">
-                      {tier.id === 'starter' && <Zap className="w-8 h-8 text-brand-navy-dark" />}
-                      {tier.id === 'basic' && <BarChart3 className="w-8 h-8 text-brand-coral" />}
-                      {tier.id === 'professional' && <Target className="w-8 h-8 text-brand-navy-dark" />}
-                      {tier.id === 'enterprise' && <Crown className="w-8 h-8 text-brand-coral" />}
+                      {tier.id === 'trimestral' && <Clock className="w-8 h-8 text-brand-navy-dark" />}
+                      {tier.id === 'semestral' && <BarChart3 className="w-8 h-8 text-brand-coral" />}
+                      {tier.id === 'anual' && <Award className="w-8 h-8 text-brand-navy-dark" />}
                     </div>
                     <CardTitle className="heading-md text-brand-navy mb-3 px-3 text-center font-bold">{tier.name}</CardTitle>
-                    <CardDescription className="body-sm text-center px-3 min-h-[3.5rem] flex items-center justify-center leading-relaxed text-gray-600">
-                      {tier.description}
+                    <CardDescription className="body-sm text-center px-3 min-h-[2rem] flex items-center justify-center leading-relaxed text-gray-600">
+                      {tier.period}
                     </CardDescription>
                     
                     <div className="mt-8">
                       <div className="text-3xl lg:text-4xl font-bold text-brand-navy leading-tight">
                         <div className="break-words text-center px-2 text-brand-navy">
-                          {formatPrice(price, currency)}
+                          {formatPrice(price, 'COP')}
                         </div>
-                        {price > 0 && (
-                          <span className="body-md font-normal text-gray-700 block mt-2 text-center">
-                            /{billingCycle === 'monthly' ? 'mes' : 'año'}
-                          </span>
-                        )}
+                        <span className="body-md font-normal text-gray-700 block mt-2 text-center">
+                          COP
+                        </span>
                       </div>
-                      
-                      {billingCycle === 'annual' && savings > 0 && (
-                        <div className="mt-3 text-center">
-                          <Badge className="bg-gradient-to-r from-green-500 to-green-600 text-white shadow-sm animate-pulse">
-                            💰 Ahorras {savings}% anual
-                          </Badge>
-                        </div>
-                      )}
-                      
-                      {billingCycle === 'annual' && price > 0 && (
-                        <p className="body-sm text-gray-700 mt-3 text-center px-3 bg-gray-50 rounded-lg py-2 mx-2">
-                          📅 {formatPrice(
-                            Math.round(price / 12), 
-                            currency
-                          )}/mes facturado anualmente
-                        </p>
-                      )}
                     </div>
                   </CardHeader>
 
                   <CardContent className="flex-1 flex flex-col px-6 py-4">
                     <div className="space-y-4 flex-1">
-                      {/* Limits */}
-                      <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-4 border">
-                        <h4 className="body-md font-semibold mb-4 text-center text-gray-700 flex items-center justify-center gap-2">
-                          📊 Límites del Plan
-                        </h4>
-                        <div className="space-y-2">
-                          <div className="flex justify-between items-center">
-                            <span className="body-sm text-gray-700">Consultas:</span>
-                            <span className="body-sm font-medium text-right">{tier.limits.queries}</span>
-                          </div>
-                          <div className="flex justify-between items-center">
-                            <span className="body-sm text-gray-700">Usuarios:</span>
-                            <span className="body-sm font-medium text-right">{tier.limits.users}</span>
-                          </div>
-                          <div className="flex justify-between items-center">
-                            <span className="body-sm text-gray-700">Exportes:</span>
-                            <span className="body-sm font-medium text-right">{tier.limits.exports}</span>
-                          </div>
-                          <div className="flex justify-between items-center">
-                            <span className="body-sm text-gray-700">Soporte:</span>
-                            <span className="body-sm font-medium text-right">{tier.limits.support}</span>
-                          </div>
-                        </div>
-                      </div>
-
                       {/* Features */}
                       <div className="space-y-4">
                         <h4 className="body-md font-semibold text-center text-gray-700 flex items-center justify-center gap-2">
@@ -492,24 +294,17 @@ export default function PricingPage() {
                             {tier.cta}
                           </Button>
                         </Link>
-                      ) : tier.id === 'enterprise' ? (
-                        <div>
-                          <a href="https://meetings.hubspot.com/karol-rubio1?uuid=44d82d7b-eb62-49c0-9e52-813fdc8511a6&utm_source=website&utm_medium=cta&utm_campaign=enterprise_sales" target="_blank" rel="noopener noreferrer">
-                            <Button className="w-full h-12 body-md font-medium mb-3 bg-white border-2 border-gray-900 text-gray-600 hover:bg-gray-900 hover:text-white" variant="outline">
-                              📅 {tier.cta}
-                            </Button>
-                          </a>
-                          <a href="https://api.whatsapp.com/send?phone=573222235280&text=Hola%2C%20me%20interesa%20el%20plan%20Enterprise%20de%20Finkargo%20Analiza.%20Me%20gustar%C3%ADa%20hablar%20con%20ventas%20para%20conocer%20m%C3%A1s%20detalles.%20&utm_source=website&utm_medium=whatsapp" target="_blank" rel="noopener noreferrer" className="block w-full text-center py-2 px-4 border border-gray-900 rounded-lg text-gray-600 hover:bg-gray-900 hover:text-white text-sm transition-colors">
-                            💬 Consulta Rápida por WhatsApp
-                          </a>
-                        </div>
                       ) : (
                         <div>
-                          <Link href={`/checkout?plan=${tier.id}&billing=${billingCycle}&currency=${currency}`} className="block mb-3">
-                            <Button className={`w-full h-12 body-md font-medium ${tier.popular ? 'bg-brand-navy text-white hover:bg-brand-navy-dark' : 'bg-white border-2 border-gray-900 text-gray-600 hover:bg-gray-900 hover:text-white'}`} variant={tier.popular ? "default" : "outline"}>
-                              {tier.cta}
-                            </Button>
-                          </Link>
+                          <CheckoutButton
+                            plan={tier.id}
+                            amount={price}
+                            currency="COP"
+                            className={`w-full h-12 body-md font-medium mb-3 ${tier.popular ? 'bg-brand-navy text-white hover:bg-brand-navy-dark' : 'bg-white border-2 border-gray-900 text-gray-600 hover:bg-gray-900 hover:text-white'}`}
+                            variant={tier.popular ? "default" : "outline"}
+                          >
+                            {tier.cta}
+                          </CheckoutButton>
                           <a href="https://meetings.hubspot.com/karol-rubio1?uuid=44d82d7b-eb62-49c0-9e52-813fdc8511a6&utm_source=website&utm_medium=cta&utm_campaign=demo_request" target="_blank" rel="noopener noreferrer" className="block w-full text-center py-2 px-4 border border-gray-900 rounded-lg text-gray-600 hover:bg-gray-900 hover:text-white text-sm transition-colors">
                             📅 Agendar Demo Personalizada
                           </a>
@@ -520,6 +315,15 @@ export default function PricingPage() {
                 </Card>
               )
             })}
+          </div>
+        </div>
+        
+        {/* Promoción especial */}
+        <div className="max-w-4xl mx-auto mt-12 px-4">
+          <div className="bg-gradient-to-r from-purple-100 to-pink-100 border-2 border-purple-200 rounded-2xl p-8 text-center shadow-lg">
+            <p className="text-lg font-semibold text-gray-800">
+              Si superaste tu uso con nuestro cupo de Finkargo en <span className="text-2xl font-bold text-purple-600">USD 80.000</span> tienes <span className="text-2xl font-bold text-green-600">50%</span> de descuento en tu activación anual
+            </p>
           </div>
         </div>
       </section>

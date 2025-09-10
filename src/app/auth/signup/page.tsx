@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { Loader2, Sparkles, Shield, Check } from "lucide-react"
+import { Loader2, Sparkles, Shield, Check, Home } from "lucide-react"
 import { BrandIcon } from "@/components/ui/brand-icon"
 
 export default function SignUpPage() {
@@ -302,6 +302,20 @@ export default function SignUpPage() {
       <div className="absolute inset-0 bg-black/10"></div>
       <div className="absolute top-0 left-0 w-96 h-96 bg-orange-400/20 rounded-full blur-3xl -translate-x-48 -translate-y-48"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl translate-x-48 translate-y-48"></div>
+      
+      {/* Back to Home Button */}
+      <div className="absolute top-4 left-4 z-20">
+        <Link href="/">
+          <Button 
+            variant="ghost" 
+            className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border border-white/20 transition-all duration-300 flex items-center gap-2 px-4 py-2 rounded-xl shadow-lg"
+          >
+            <Home className="h-5 w-5" />
+            <span className="hidden sm:inline font-medium">Volver al inicio</span>
+            <span className="sm:hidden font-medium">Inicio</span>
+          </Button>
+        </Link>
+      </div>
       
       <div className="min-h-screen flex items-center justify-center p-4 relative z-10">
         <div className="w-full max-w-4xl grid lg:grid-cols-2 gap-8 items-center">

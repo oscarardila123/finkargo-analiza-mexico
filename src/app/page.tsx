@@ -29,41 +29,68 @@ import {
   X
 } from "lucide-react"
 
-interface PricingPlan {
+interface PricingTier {
+  id: string
   name: string
-  monthlyPrice: number
-  annualPrice: number
+  period: string
+  priceCOP: number
+  priceUSD: number
+  popular?: boolean
+  features: string[]
 }
 
-const pricingPlans: Record<string, PricingPlan> = {
-  confiable: {
-    name: 'Confiable',
-    monthlyPrice: 499000,
-    annualPrice: 374250
+const pricingTiers: PricingTier[] = [
+  {
+    id: "trimestral",
+    name: "Trimestral",
+    period: "3 meses",
+    priceCOP: 650000,
+    priceUSD: 163,
+    features: [
+      "Acceso completo a la plataforma",
+      "Análisis de competidores",
+      "Base de datos de proveedores",
+      "Reportes básicos",
+      "Soporte por email"
+    ]
   },
-  financiero: {
-    name: 'Financiero', 
-    monthlyPrice: 1499000,
-    annualPrice: 1124250
+  {
+    id: "anual",
+    name: "Anual",
+    period: "12 meses",
+    priceCOP: 1000000,
+    priceUSD: 250,
+    popular: true,
+    features: [
+      "Todo lo del plan Trimestral",
+      "Alertas en tiempo real",
+      "Reportes avanzados",
+      "Análisis predictivo",
+      "Soporte prioritario WhatsApp",
+      "Descuentos especiales"
+    ]
+  },
+  {
+    id: "semestral",
+    name: "Semestral",
+    period: "6 meses",
+    priceCOP: 800000,
+    priceUSD: 200,
+    features: [
+      "Todo lo del plan Trimestral",
+      "Análisis de mercado",
+      "Reportes personalizados",
+      "Consultas ilimitadas",
+      "Soporte telefónico"
+    ]
   }
-}
+]
 
 export default function LandingPage() {
-  const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('annual')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   
   const formatPrice = (price: number) => {
     return `$${price.toLocaleString('es-CO')}`
-  }
-  
-  const getPrice = (planId: string) => {
-    const plan = pricingPlans[planId]
-    if (!plan) return 0
-    return billingCycle === 'monthly' ? plan.monthlyPrice : plan.annualPrice
-  }
-  
-  const getSavingsPercentage = () => {
-    return 25 // 25% savings for annual billing
   }
   
   return (
@@ -734,264 +761,200 @@ export default function LandingPage() {
       <section id="pricing" className="py-12 bg-gradient-section">
         <div className="container-responsive">
           <div className="section-header">
-            {/* Pricing Badge with Dark Text */}
             <Badge className="mb-6 px-6 py-3 bg-white border border-gray-900 text-gray-600 font-bold mx-auto shadow-lg">
               💰 PRECIOS ESPECIALES COLOMBIA
             </Badge>
             
-            {/* Section Title */}
             <h2 className="heading-xl text-gray-600 mb-6 font-bold">Tu aliado financiero a medida</h2>
             
-            {/* Description with Dark Text */}
             <p className="body-lg text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed font-medium">
               Planes diseñados para empresas colombianas. Precios en COP, pagos locales, soporte en español.
             </p>
             
-            {/* Enhanced Pricing Toggle with Better Contrast */}
-            <div className="flex flex-col items-center gap-4 mb-8">
-              {/* Current Selection Indicator */}
-              <div className="bg-white px-6 py-3 rounded-full border border-gray-300 shadow-sm">
-                <span className="text-sm font-bold text-gray-600">
-                  {billingCycle === 'monthly' ? '💳 Pago Mensual Seleccionado' : '📅 Pago Anual Seleccionado (-25% Descuento)'}
-                </span>
-              </div>
+            <div className="bg-gradient-to-r from-orange-50 via-yellow-50 to-orange-50 border border-orange-200 rounded-2xl p-8 max-w-5xl mx-auto mb-12 shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+              {/* Decorative background */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-300/20 to-yellow-300/20 rounded-full blur-2xl"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-yellow-300/20 to-orange-300/20 rounded-full blur-xl"></div>
               
-              {/* Toggle Buttons */}
-              <div className="inline-flex items-center bg-white rounded-2xl p-2 shadow-lg border-2 border-gray-300">
-                <button 
-                  onClick={() => setBillingCycle('monthly')}
-                  className={`px-8 py-4 text-sm font-bold rounded-xl transition-all duration-300 ${
-                    billingCycle === 'monthly' 
-                      ? 'bg-gray-900 text-white shadow-lg transform scale-105'
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-600'
-                  }`}
-                >
-                  💳 Mensual
-                </button>
-                <button 
-                  onClick={() => setBillingCycle('annual')}
-                  className={`px-8 py-4 text-sm font-bold rounded-xl transition-all duration-300 relative ${
-                    billingCycle === 'annual'
-                      ? 'bg-gray-900 text-white shadow-lg transform scale-105'
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-600'
-                  }`}
-                >
-                  📅 Anual
-                  <Badge className="ml-2 text-xs bg-green-500 text-white font-bold animate-pulse">
-                    -25% 💰
-                  </Badge>
-                </button>
-              </div>
-              
-              {/* Price Preview */}
-              <div className="bg-white px-6 py-4 rounded-xl border border-gray-200 shadow-md">
-                <div className="text-center">
-                  <p className="text-sm font-bold text-gray-600 mb-2">Vista Previa de Precios:</p>
-                  <div className="flex items-center justify-center gap-8">
-                    <div className="text-center">
-                      <div className="text-lg font-black text-gray-600">{formatPrice(getPrice('confiable'))}</div>
-                      <div className="text-xs font-medium text-gray-700">Plan Confiable</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-lg font-black text-gray-600">{formatPrice(getPrice('financiero'))}</div>
-                      <div className="text-xs font-medium text-gray-700">Plan Financiero</div>
+              <div className="relative z-10">
+                <div className="flex items-center justify-center gap-4 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
+                    <span className="text-white font-bold text-xl">🚀</span>
+                  </div>
+                  <div className="text-center">
+                    <h3 className="text-2xl font-bold text-orange-800 mb-1">Oferta Especial de Lanzamiento</h3>
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
+                      <span className="text-sm font-semibold text-orange-600 uppercase tracking-wide">Tiempo Limitado</span>
+                      <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
                     </div>
                   </div>
-                  <p className="text-xs font-medium text-gray-600 mt-2">
-                    COP/{billingCycle === 'monthly' ? 'mes' : 'mes facturado anualmente'}
-                    {billingCycle === 'annual' && (
-                      <span className="text-green-600 font-bold"> ¡Ahorras 25%!</span>
-                    )}
+                </div>
+                <div className="text-center">
+                  <p className="text-orange-700 text-lg leading-relaxed">
+                    Si superaste tu uso con nuestro <span className="font-bold text-orange-800">cupo de Finkargo en USD $80.000</span>
                   </p>
+                  <div className="mt-4 p-4 bg-gradient-to-r from-orange-100 to-yellow-100 rounded-xl border border-orange-200">
+                    <p className="text-2xl font-bold text-orange-800 mb-2">💰 50% DE DESCUENTO</p>
+                    <p className="text-orange-700 font-medium">En tu activación anual</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           
-          <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {/* Plan Aliado */}
-            <Card className="business-card-elevated interactive-card hover:shadow-xl transition-all duration-300 border border-gray-200">
-              <CardHeader className="text-center pb-6 px-6 pt-8">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Zap className="h-8 w-8 text-brand-navy" />
-                </div>
-                <CardTitle className="text-2xl font-bold text-brand-navy mb-2">Aliado</CardTitle>
-                <CardDescription className="text-gray-600 text-base">Para emprendedores que inician</CardDescription>
-                <div className="mt-6">
-                  <div className="text-4xl font-bold text-brand-navy">$0</div>
-                  <p className="text-sm text-gray-600 mt-2 font-medium">Gratis para siempre</p>
-                </div>
-              </CardHeader>
-              <CardContent className="px-6">
-                <div className="space-y-4 mb-8">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">100 consultas mensuales</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">Búsqueda básica de proveedores</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">Reportes estándar PDF</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">Soporte por email</span>
-                  </div>
-                </div>
-                <Link href="/auth/signup">
-                  <Button className="w-full h-12" variant="outline">Comenzar Gratis</Button>
-                </Link>
-              </CardContent>
-            </Card>
-
-            {/* Plan Confiable - Más Popular */}
-            <Card className="business-card-elevated interactive-card shadow-xl border-2 border-brand-cyan hover:shadow-2xl transition-all duration-300 transform lg:scale-105">
-              <CardHeader className="text-center pb-6 px-6 pt-8">
-                <div className="bg-gradient-to-r from-brand-cyan to-brand-coral text-white text-xs font-semibold px-3 py-1 rounded-full mb-4 inline-block">
-                  Más Popular
-                </div>
-                <div className="w-16 h-16 bg-gradient-to-br from-brand-cyan/20 to-brand-cyan/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Shield className="h-8 w-8 text-brand-navy-dark" />
-                </div>
-                <CardTitle className="text-2xl font-bold text-brand-navy-dark mb-2">Confiable</CardTitle>
-                <CardDescription className="text-gray-600 text-base">Perfecto para empresas en crecimiento</CardDescription>
-                <div className="mt-6">
-                  {billingCycle === 'annual' && (
-                    <div className="flex items-center justify-center gap-2">
-                      <span className="text-lg text-gray-600 line-through">{formatPrice(pricingPlans.confiable.monthlyPrice)}</span>
-                      <Badge className="bg-brand-coral/10 text-brand-coral text-xs">-{getSavingsPercentage()}%</Badge>
+          <div className="pricing-grid max-w-7xl mx-auto">
+            {pricingTiers.map((tier, index) => (
+              <Card 
+                key={tier.id}
+                className={`business-card-elevated interactive-card hover:shadow-2xl transition-all duration-500 relative overflow-hidden group ${
+                  tier.popular 
+                    ? 'border-2 border-brand-cyan shadow-2xl transform lg:scale-105 bg-gradient-to-br from-white via-cyan-50/30 to-blue-50/30' 
+                    : 'border border-gray-200 hover:border-brand-navy/30'
+                }`}
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                {/* Decorative background elements */}
+                <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-100/50 to-transparent rounded-full blur-xl group-hover:scale-110 transition-transform duration-500"></div>
+                <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-cyan-100/50 to-transparent rounded-full blur-lg group-hover:scale-110 transition-transform duration-500"></div>
+                
+                <CardHeader className="text-center pb-6 px-6 pt-8 relative z-10">
+                  {tier.popular && (
+                    <div className="bg-gradient-to-r from-brand-cyan via-blue-500 to-brand-coral text-white text-sm font-bold px-4 py-2 rounded-full mb-6 inline-block shadow-lg animate-pulse">
+                      ⭐ Más Popular
                     </div>
                   )}
-                  <div className="text-4xl font-bold text-brand-navy-dark">{formatPrice(getPrice('confiable'))}</div>
-                  <p className="text-sm text-gray-600 mt-1">
-                    COP/{billingCycle === 'monthly' ? 'mes' : 'mes facturado anualmente'}
-                  </p>
-                  {billingCycle === 'annual' && (
-                    <p className="text-xs text-gray-600 mt-2">{formatPrice(pricingPlans.confiable.monthlyPrice)} COP/mes sin compromiso</p>
-                  )}
-                </div>
-              </CardHeader>
-              <CardContent className="px-6">
-                <div className="space-y-4 mb-8">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700 font-medium">2.000 consultas mensuales</span>
+                  
+                  <div className={`w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300 ${
+                    tier.popular 
+                      ? 'bg-gradient-to-br from-brand-cyan via-blue-500 to-brand-cyan shadow-cyan-200'
+                      : tier.id === 'trimestral'
+                        ? 'bg-gradient-to-br from-blue-500 to-blue-600 shadow-blue-200'
+                        : 'bg-gradient-to-br from-indigo-500 to-purple-600 shadow-indigo-200'
+                  }`}>
+                    {tier.id === 'trimestral' && <Clock className="h-10 w-10 text-white" />}
+                    {tier.id === 'anual' && <Shield className="h-10 w-10 text-white" />}
+                    {tier.id === 'semestral' && <Target className="h-10 w-10 text-white" />}
                   </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">Análisis avanzado competidores</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">Base completa proveedores</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">Alertas tiempo real</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">Reportes personalizados</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">Soporte WhatsApp prioritario</span>
-                  </div>
-                </div>
-                <Link href="/auth/signup?plan=confiable">
-                  <Button className="w-full h-12 bg-gradient-to-r from-brand-cyan to-brand-cyan/90 hover:shadow-lg transition-all">Comenzar Prueba 14 Días</Button>
-                </Link>
-              </CardContent>
-            </Card>
-
-            {/* Plan Financiero */}
-            <Card className="business-card-elevated interactive-card hover:shadow-xl transition-all duration-300 border border-gray-200">
-              <CardHeader className="text-center pb-6 px-6 pt-8">
-                <div className="w-16 h-16 bg-gradient-to-br from-brand-navy/20 to-brand-navy/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Building2 className="h-8 w-8 text-brand-navy" />
-                </div>
-                <CardTitle className="text-2xl font-bold text-brand-navy mb-2">Financiero</CardTitle>
-                <CardDescription className="text-gray-600 text-base">Para grandes corporaciones</CardDescription>
-                <div className="mt-6">
-                  {billingCycle === 'annual' && (
-                    <div className="flex items-center justify-center gap-2">
-                      <span className="text-lg text-gray-600 line-through">{formatPrice(pricingPlans.financiero.monthlyPrice)}</span>
-                      <Badge className="bg-brand-coral/10 text-brand-coral text-xs">-{getSavingsPercentage()}%</Badge>
+                  
+                  <CardTitle className={`text-3xl font-bold mb-3 ${
+                    tier.popular ? 'text-brand-cyan' : 'text-brand-navy-dark'
+                  }`}>
+                    {tier.name}
+                  </CardTitle>
+                  
+                  <CardDescription className="text-gray-600 text-lg font-medium mb-6 bg-gray-50 px-4 py-2 rounded-full">
+                    📅 {tier.period}
+                  </CardDescription>
+                  
+                  <div className="space-y-3">
+                    <div className={`text-5xl font-black mb-2 ${
+                      tier.popular ? 'text-brand-cyan' : 'text-brand-navy-dark'
+                    }`}>
+                      {formatPrice(tier.priceCOP)}
                     </div>
-                  )}
-                  <div className="text-4xl font-bold text-brand-navy">{formatPrice(getPrice('financiero'))}</div>
-                  <p className="text-sm text-gray-600 mt-1">
-                    COP/{billingCycle === 'monthly' ? 'mes' : 'mes facturado anualmente'}
-                  </p>
-                  {billingCycle === 'annual' && (
-                    <p className="text-xs text-gray-600 mt-2">{formatPrice(pricingPlans.financiero.monthlyPrice)} COP/mes sin compromiso</p>
-                  )}
-                </div>
-              </CardHeader>
-              <CardContent className="px-6">
-                <div className="space-y-4 mb-8">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700 font-medium">Consultas ilimitadas</span>
+                    <div className="text-base font-semibold text-gray-600 bg-gradient-to-r from-gray-100 to-gray-50 px-4 py-2 rounded-full">
+                      🇨🇴 COP por {tier.period}
+                    </div>
+                    <div className="text-sm text-gray-500 bg-blue-50 px-3 py-1 rounded-full inline-block">
+                      💵 ≈ ${tier.priceUSD} USD
+                    </div>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">IA predictiva avanzada</span>
+                </CardHeader>
+                
+                <CardContent className="px-6 relative z-10">
+                  <div className="space-y-4 mb-8">
+                    {tier.features.map((feature, featureIndex) => (
+                      <div 
+                        key={featureIndex} 
+                        className="flex items-start gap-4 p-3 bg-gradient-to-r from-green-50 to-transparent rounded-xl hover:from-green-100 transition-colors duration-200"
+                      >
+                        <div className="w-6 h-6 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm">
+                          <CheckCircle className="h-4 w-4 text-white" />
+                        </div>
+                        <span className="text-sm text-gray-700 font-medium leading-relaxed">{feature}</span>
+                      </div>
+                    ))}
                   </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">API completa e integraciones</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">Análisis multi-empresa</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">Account Manager dedicado</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">Soporte 24/7 + Teléfono</span>
-                  </div>
-                </div>
-                <a href="https://api.whatsapp.com/send?phone=573222235280&text=Hola%2C%20me%20interesa%20el%20plan%20Financiero%20de%20Finkargo%20Analiza.%20" target="_blank" rel="noopener noreferrer" className="block">
-                  <Button className="w-full h-12" variant="outline">
-                    <span className="mr-2">💬</span>
-                    Contactar Ventas
-                  </Button>
-                </a>
-              </CardContent>
-            </Card>
+                  
+                  <Link href={`/precios`}>
+                    <Button 
+                      className={`w-full h-14 text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 ${
+                        tier.popular 
+                          ? 'bg-gradient-to-r from-brand-cyan via-blue-500 to-brand-cyan hover:from-brand-cyan hover:to-blue-600 text-white border-0'
+                          : 'bg-white border-2 border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white'
+                      }`}
+                    >
+                      {tier.popular ? (
+                        <><Star className="mr-2 h-5 w-5" />Elegir Plan Popular</>
+                      ) : (
+                        <><ArrowRight className="mr-2 h-5 w-5" />Ver Detalles Completos</>
+                      )}
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
           </div>
           
-          <div className="text-center mt-16">
-            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-8 max-w-4xl mx-auto border border-blue-100">
-              <h3 className="heading-md text-gray-600 mb-6">Todos los planes incluyen:</h3>
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="flex items-center justify-center gap-3 p-4 bg-white rounded-xl shadow-sm">
-                  <Shield className="h-6 w-6 text-green-500" />
-                  <span className="text-sm font-medium text-gray-700">Datos de Aduanas 100% Seguros</span>
+          <div className="text-center mt-20">
+            <div className="bg-gradient-to-br from-blue-50 via-cyan-50 to-purple-50 rounded-3xl p-10 max-w-6xl mx-auto border border-blue-200 shadow-xl relative overflow-hidden">
+              {/* Decorative elements */}
+              <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-blue-300/20 to-transparent rounded-full blur-2xl"></div>
+              <div className="absolute bottom-0 right-0 w-28 h-28 bg-gradient-to-tl from-cyan-300/20 to-transparent rounded-full blur-xl"></div>
+              
+              <div className="relative z-10">
+                <div className="mb-8">
+                  <h3 className="text-3xl font-bold text-gray-800 mb-4">🎯 Todos los planes incluyen</h3>
+                  <p className="text-gray-600 text-lg">Beneficios garantizados sin importar el plan que elijas</p>
                 </div>
-                <div className="flex items-center justify-center gap-3 p-4 bg-white rounded-xl shadow-sm">
-                  <Users className="h-6 w-6 text-green-500" />
-                  <span className="text-sm font-medium text-gray-700">Soporte en Español</span>
-                </div>
-                <div className="flex items-center justify-center gap-3 p-4 bg-white rounded-xl shadow-sm">
-                  <CheckCircle className="h-6 w-6 text-green-500" />
-                  <span className="text-sm font-medium text-gray-700">Sin Permanencia Mínima</span>
+                
+                <div className="grid md:grid-cols-3 gap-8">
+                  <div className="group">
+                    <div className="flex flex-col items-center gap-4 p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border border-green-100">
+                      <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <Shield className="h-8 w-8 text-white" />
+                      </div>
+                      <div className="text-center">
+                        <h4 className="font-bold text-gray-800 mb-2">🔒 Datos Certificados</h4>
+                        <p className="text-sm text-gray-600">Información oficial de Aduanas 100% verificada y segura</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="group">
+                    <div className="flex flex-col items-center gap-4 p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border border-blue-100">
+                      <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <Users className="h-8 w-8 text-white" />
+                      </div>
+                      <div className="text-center">
+                        <h4 className="font-bold text-gray-800 mb-2">🇨🇴 Soporte Local</h4>
+                        <p className="text-sm text-gray-600">Atención en español con expertos colombianos</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="group">
+                    <div className="flex flex-col items-center gap-4 p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border border-purple-100">
+                      <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <CheckCircle className="h-8 w-8 text-white" />
+                      </div>
+                      <div className="text-center">
+                        <h4 className="font-bold text-gray-800 mb-2">✨ Sin Compromisos</h4>
+                        <p className="text-sm text-gray-600">Cancela cuando quieras, sin penalizaciones</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
             
-            <div className="mt-12">
+            <div className="mt-16">
               <Link href="/precios">
-                <Button size="lg" className="px-8 py-4 bg-brand-navy hover:bg-brand-navy-dark text-white hover:shadow-xl transition-all duration-300 border-2 border-brand-navy-dark shadow-lg font-bold">
-                  Ver Comparación Completa
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                <Button size="lg" className="px-12 py-6 text-xl bg-gradient-to-r from-brand-navy via-blue-600 to-brand-navy hover:from-brand-navy-dark hover:to-blue-700 text-white hover:shadow-2xl transition-all duration-500 border-0 shadow-xl font-bold transform hover:scale-105 rounded-2xl">
+                  <Eye className="mr-3 h-6 w-6" />
+                  Ver Comparación Detallada
+                  <ArrowRight className="ml-3 h-6 w-6" />
                 </Button>
               </Link>
             </div>

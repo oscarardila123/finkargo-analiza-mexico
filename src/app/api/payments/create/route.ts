@@ -19,13 +19,14 @@ export async function POST(request: NextRequest) {
     const {
       amount,
       planId,
-      billingCycle,
       currency,
       paymentMethod,
       customerData,
+      period,
+      cardToken
     } = body
 
-    if (!amount || !planId || !billingCycle || !currency || !paymentMethod) {
+    if (!amount || !planId || !currency || !paymentMethod) {
       return NextResponse.json(
         { error: "Faltan campos obligatorios" },
         { status: 400 }
@@ -68,10 +69,10 @@ export async function POST(request: NextRequest) {
         status: 'PENDING',
         provider: 'WOMPI',
         paymentMethod: paymentMethod,
-        description: `Suscripción ${planId} - ${billingCycle === 'annual' ? 'Anual' : 'Mensual'}`,
+        description: `Suscripción ${planId} - ${period || planId}`,
         metadata: {
           planId,
-          billingCycle,
+          period: period || planId,
           currency,
           subtotal: parseFloat(amount),
           ivaAmount,
@@ -82,16 +83,13 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    // Create Wompi payment
+    // Create Wompi payment data - Payment Link will be created
     const wompiPaymentData = {
       amount_in_cents: currency === 'COP' ? wompiClient.formatCOPAmount(totalAmount) : Math.round(totalAmount * 100),
-      currency: 'COP' as const, // Wompi only supports COP
+      currency: 'COP' as const,
       customer_email: user.email,
       reference: reference,
-      payment_method: {
-        type: paymentMethod.toUpperCase() as 'CARD' | 'PSE' | 'NEQUI',
-        installments: paymentMethod === 'credit_card' ? 1 : undefined
-      },
+      // No payment_method - let user choose in Wompi checkout
       customer_data: {
         full_name: customerData?.fullName || user.name || '',
         phone_number: customerData?.phoneNumber || user.company.phone || '',
@@ -122,7 +120,7 @@ export async function POST(request: NextRequest) {
           paymentId: payment.id,
           amount: totalAmount,
           planId,
-          billingCycle,
+          period: period || planId,
         },
       },
     })

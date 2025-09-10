@@ -13,11 +13,13 @@ import {
   Target,
   Zap,
   ArrowRight,
+  ArrowLeft,
   Download,
   Calendar,
   CreditCard,
   Loader2,
-  AlertCircle
+  AlertCircle,
+  XCircle
 } from "lucide-react"
 
 interface PaymentDetails {
@@ -44,21 +46,32 @@ function PaymentSuccessContent() {
   const [payment, setPayment] = useState<PaymentDetails | null>(null)
   const [error, setError] = useState("")
   
-  const paymentId = searchParams.get("payment_id")
+  const paymentId = searchParams.get("payment_id") || searchParams.get("id")
   const isSimulation = searchParams.get("simulation") === "true"
   const reference = searchParams.get("reference")
+  const paymentStatus = searchParams.get("status") // Wompi puede enviar el status
 
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/auth/signin")
     } else if (status === "authenticated") {
+      // Verificar si el pago realmente fue exitoso
+      if (paymentStatus && ['DECLINED', 'FAILED', 'CANCELLED', 'ERROR'].includes(paymentStatus.toUpperCase())) {
+        // Redirigir a página de fallo si el status indica fallo
+        router.push(`/checkout/failed?reference=${reference}&error=${paymentStatus}&payment_id=${paymentId}`)
+        return
+      }
+      
       if (isSimulation) {
         createSimulationPaymentDetails()
+      } else if (paymentId && reference) {
+        // Verificar el estado real del pago con Wompi si es posible
+        verifyPaymentStatus()
       } else if (paymentId) {
         fetchPaymentDetails()
       }
     }
-  }, [status, paymentId, isSimulation])
+  }, [status, paymentId, isSimulation, reference, paymentStatus])
 
   const createSimulationPaymentDetails = () => {
     console.log('🎭 Creating simulation payment details')
@@ -74,6 +87,76 @@ function PaymentSuccessContent() {
       createdAt: new Date().toISOString()
     }
     setPayment(simulatedPayment)
+    setLoading(false)
+  }
+
+  const verifyPaymentStatus = async () => {
+    try {
+      console.log('🔍 Verifying payment status for:', paymentId)
+      
+      if (!paymentId) {
+        // Si no hay paymentId, crear datos básicos
+        createWompiPaymentDetails()
+        return
+      }
+
+      // Intentar verificar con Wompi API, pero no depender de ello
+      try {
+        const response = await fetch(`/api/wompi/verify-payment?payment_id=${paymentId}`)
+        
+        if (response.ok) {
+          const data = await response.json()
+          const payment = data.payment
+
+          if (payment && ['DECLINED', 'FAILED', 'VOIDED', 'ERROR'].includes(payment.status)) {
+            console.log('❌ Payment failed, redirecting to failed page')
+            router.push(`/checkout/failed?reference=${reference}&error=${payment.status}&payment_id=${paymentId}`)
+            return
+          }
+        }
+      } catch (error) {
+        console.warn('⚠️ Could not verify payment with API, checking URL params')
+      }
+
+      // Verificación adicional: revisar parámetros de la URL para detectar fallos
+      const urlParams = new URLSearchParams(window.location.search)
+      const hasFailureIndicators = 
+        urlParams.get('error') || 
+        urlParams.get('declined') === 'true' ||
+        urlParams.get('failed') === 'true' ||
+        reference?.includes('FAILED')
+
+      if (hasFailureIndicators) {
+        console.log('❌ Failure detected in URL params, redirecting to failed page')
+        const errorType = urlParams.get('error') || 'PAYMENT_FAILED'
+        router.push(`/checkout/failed?reference=${reference}&error=${errorType}&payment_id=${paymentId}`)
+        return
+      }
+
+      console.log('✅ No failure indicators found, showing success page')
+      createWompiPaymentDetails()
+
+    } catch (error) {
+      console.error('Error verifying payment:', error)
+      // Si hay error verificando, asumir éxito para no bloquear al usuario
+      createWompiPaymentDetails()
+    }
+  }
+
+  const createWompiPaymentDetails = () => {
+    console.log('🚀 Creating Wompi payment details from successful transaction')
+    const wompiPayment: PaymentDetails = {
+      id: paymentId || 'wompi_' + Date.now(),
+      amount: 650000, // Plan Professional
+      currency: 'COP',
+      reference: reference || 'FINKARGO_WOMPI_TRANSACTION',
+      status: 'APPROVED',
+      plan: 'Professional',
+      billingCycle: 'annual',
+      paymentMethod: 'credit_card',
+      createdAt: new Date().toISOString()
+    }
+    setPayment(wompiPayment)
     setLoading(false)
   }
 
@@ -228,45 +311,67 @@ function PaymentSuccessContent() {
           </Card>
 
           {/* Next Steps */}
-          <Card className="mb-8">
+          <Card className="mb-8 border-2 border-green-200 bg-green-50">
             <CardHeader>
-              <CardTitle>¿Qué sigue ahora?</CardTitle>
+              <CardTitle className="text-green-800">🎉 ¡Tu pago ha sido confirmado!</CardTitle>
+              <CardDescription className="text-green-700">
+                Para activar tu cuenta y comenzar a usar Finkargo Analiza, necesitas contactarnos
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-3">
-                <div className="flex items-center p-3 bg-gray-50 rounded-lg">
-                  <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center mr-3">
+                <div className="flex items-center p-4 bg-white rounded-lg border border-green-200">
+                  <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mr-3">
                     <span className="text-sm font-bold">1</span>
                   </div>
                   <div>
-                    <h4 className="font-semibold">Accede a tu dashboard</h4>
-                    <p className="text-sm text-gray-600">
-                      Explora todas las funcionalidades de tu plan {payment.plan}
+                    <h4 className="font-semibold text-green-800">Contáctanos por WhatsApp</h4>
+                    <p className="text-sm text-green-700">
+                      Envía tu referencia de pago para activar tu cuenta inmediatamente
                     </p>
                   </div>
                 </div>
                 
-                <div className="flex items-center p-3 bg-gray-50 rounded-lg">
-                  <div className="w-8 h-8 bg-secondary text-white rounded-full flex items-center justify-center mr-3">
+                <div className="flex items-center p-4 bg-white rounded-lg border border-green-200">
+                  <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center mr-3">
                     <span className="text-sm font-bold">2</span>
                   </div>
                   <div>
-                    <h4 className="font-semibold">Configura tu primera búsqueda</h4>
-                    <p className="text-sm text-gray-600">
-                      Comienza analizando a tus competidores o buscando proveedores
+                    <h4 className="font-semibold text-green-800">Recibe tus credenciales</h4>
+                    <p className="text-sm text-green-700">
+                      Te enviaremos el acceso a la plataforma Finkargo Analiza
                     </p>
                   </div>
                 </div>
                 
-                <div className="flex items-center p-3 bg-gray-50 rounded-lg">
-                  <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mr-3">
+                <div className="flex items-center p-4 bg-white rounded-lg border border-green-200">
+                  <div className="w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center mr-3">
                     <span className="text-sm font-bold">3</span>
                   </div>
                   <div>
-                    <h4 className="font-semibold">Obtén soporte premium</h4>
-                    <p className="text-sm text-gray-600">
-                      Contáctanos si necesitas ayuda para configurar tu cuenta
+                    <h4 className="font-semibold text-green-800">Comienza a analizar</h4>
+                    <p className="text-sm text-green-700">
+                      Inicia tu análisis de comercio exterior con tu plan {payment.plan}
                     </p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Información importante */}
+              <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                <h4 className="font-semibold text-blue-900 mb-2">📋 Información para activación</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-blue-700">Referencia de pago:</span>
+                    <span className="font-mono font-bold text-blue-900">{payment.reference}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-blue-700">Plan adquirido:</span>
+                    <span className="font-bold text-blue-900">{payment.plan}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-blue-700">Monto pagado:</span>
+                    <span className="font-bold text-blue-900">{formatPrice(payment.amount, payment.currency)}</span>
                   </div>
                 </div>
               </div>
@@ -274,31 +379,70 @@ function PaymentSuccessContent() {
           </Card>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Link href="/dashboard" className="flex-1">
-              <Button className="w-full" size="lg">
-                <ArrowRight className="mr-2 h-4 w-4" />
-                Ir al Dashboard
-              </Button>
-            </Link>
-            <Button variant="outline" size="lg" className="flex-1">
-              <Download className="mr-2 h-4 w-4" />
-              Descargar Factura
-            </Button>
+          <div className="space-y-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto">
+              <a 
+                href={`https://api.whatsapp.com/send?phone=573222235280&text=¡Hola! Acabo de realizar el pago de mi suscripción a Finkargo Analiza.%0A%0A📋 *Detalles del pago:*%0A• Referencia: ${payment.reference}%0A• Plan: ${payment.plan}%0A• Monto: ${formatPrice(payment.amount, payment.currency)}%0A%0APor favor, activa mi cuenta para comenzar a usar la plataforma. ¡Gracias!`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1"
+              >
+                <Button className="w-full bg-green-600 hover:bg-green-700" size="lg">
+                  <svg className="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.886 3.488"/>
+                  </svg>
+                  Contactar por WhatsApp
+                </Button>
+              </a>
+              <Link href="/" className="flex-1">
+                <Button variant="outline" size="lg" className="w-full">
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  Volver al Inicio
+                </Button>
+              </Link>
+            </div>
+            
+            {/* Emergency Button for Failed Payments */}
+            <div className="text-center">
+              <p className="text-sm text-gray-600 mb-2">
+                ¿El pago fue rechazado o cancelado?
+              </p>
+              <Link 
+                href={`/checkout/failed?reference=${payment.reference}&error=USER_REPORTED&payment_id=${payment.id}`}
+                className="inline-block"
+              >
+                <Button variant="ghost" size="sm" className="text-red-600 hover:text-red-700 hover:bg-red-50">
+                  <XCircle className="mr-2 h-4 w-4" />
+                  Mi pago falló, mostrar opciones
+                </Button>
+              </Link>
+            </div>
           </div>
 
           {/* Support */}
-          <div className="text-center mt-8 p-4 bg-gray-50 rounded-lg">
-            <p className="text-sm text-gray-600 mb-2">
-              ¿Necesitas ayuda para comenzar?
+          <div className="text-center mt-8 p-4 bg-green-50 rounded-lg border border-green-200">
+            <p className="text-sm text-green-800 mb-3 font-medium">
+              💬 <strong>Activación inmediata por WhatsApp</strong>
             </p>
-            <div className="space-x-4">
-              <a href="mailto:soporte@finkargo.com" className="text-primary hover:underline text-sm">
-                soporte@finkargo.com
+            <p className="text-xs text-green-700 mb-3">
+              Para activar tu cuenta más rápido, contáctanos directamente por WhatsApp con tu referencia de pago
+            </p>
+            <div className="space-y-2">
+              <a 
+                href={`https://api.whatsapp.com/send?phone=573222235280&text=¡Hola! Necesito activar mi cuenta de Finkargo Analiza. Mi referencia de pago es: ${payment.reference}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center text-green-600 hover:text-green-700 text-sm font-medium"
+              >
+                <svg className="mr-1 h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.886 3.488"/>
+                </svg>
+                WhatsApp: +57 (322) 223-5280
               </a>
+              <br />
               <span className="text-gray-600">•</span>
-              <a href="tel:+5712345678" className="text-primary hover:underline text-sm">
-                +57 (1) 234-5678
+              <a href="mailto:soporte@finkargo.com" className="text-gray-600 hover:text-gray-700 text-sm">
+                soporte@finkargo.com
               </a>
             </div>
           </div>

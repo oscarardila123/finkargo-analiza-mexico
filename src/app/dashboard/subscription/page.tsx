@@ -17,8 +17,44 @@ import {
   Crown,
   Zap,
   Building,
+  AlertCircle,
+  CheckCircle,
+  Clock,
+  XCircle,
 } from "lucide-react"
 import { toast } from "sonner"
+import Link from "next/link"
+
+interface SubscriptionData {
+  id: string
+  plan: string
+  status: string
+  currentPeriodStart: string
+  currentPeriodEnd: string
+  billingCycle: string
+  reportsLimit: number
+  usersLimit: number
+  reportsUsed: number
+  cancelAtPeriodEnd?: boolean
+  canceledAt?: string
+  createdAt: string
+  updatedAt: string
+}
+
+interface PaymentData {
+  id: string
+  amount: number
+  currency: string
+  status: string
+  provider: string
+  description: string
+  planType: string
+  customerEmail: string
+  createdAt: string
+  paidAt?: string
+  failedAt?: string
+  failureReason?: string
+}
 
 interface SubscriptionPlan {
   id: string
@@ -36,60 +72,63 @@ interface SubscriptionPlan {
 
 const plans: SubscriptionPlan[] = [
   {
-    id: 'BASIC',
-    name: 'Básico',
-    price: { monthly: 149000, yearly: 1490000 },
+    id: 'TRIMESTRAL',
+    name: 'Plan Trimestral',
+    price: { monthly: 216667, yearly: 2600000 },
     features: [
-      'Hasta 10 reportes mensuales',
-      'Análisis básico de importaciones',
+      'Hasta 50 reportes mensuales',
+      'Análisis de importaciones',
       'Búsqueda de proveedores',
       'Soporte por email',
-      '1 usuario incluido',
+      'Hasta 3 usuarios',
+      'Duración: 3 meses',
     ],
-    reportsLimit: 10,
-    usersLimit: 1,
+    reportsLimit: 50,
+    usersLimit: 3,
     icon: FileText,
   },
   {
-    id: 'PROFESSIONAL',
-    name: 'Profesional',
-    price: { monthly: 349000, yearly: 3490000 },
+    id: 'SEMESTRAL',
+    name: 'Plan Semestral',
+    price: { monthly: 208333, yearly: 5000000 },
     features: [
-      'Hasta 50 reportes mensuales',
+      'Hasta 100 reportes mensuales',
       'Análisis avanzado de competidores',
       'Alertas de mercado',
       'Reportes personalizados',
-      'API de acceso',
       'Hasta 5 usuarios',
+      'Duración: 6 meses',
       'Soporte prioritario',
     ],
-    reportsLimit: 50,
+    reportsLimit: 100,
     usersLimit: 5,
     icon: TrendingUp,
     popular: true,
   },
   {
-    id: 'ENTERPRISE',
-    name: 'Empresarial',
-    price: { monthly: 799000, yearly: 7990000 },
+    id: 'ANUAL',
+    name: 'Plan Anual',
+    price: { monthly: 175000, yearly: 8400000 },
     features: [
-      'Reportes ilimitados',
+      'Hasta 200 reportes mensuales',
       'Análisis predictivo con IA',
       'Dashboard ejecutivo',
-      'Integración personalizada',
+      'API de acceso',
       'Soporte dedicado 24/7',
-      'Usuarios ilimitados',
+      'Hasta 10 usuarios',
+      'Duración: 12 meses',
       'Onboarding personalizado',
     ],
-    reportsLimit: 999,
-    usersLimit: 999,
+    reportsLimit: 200,
+    usersLimit: 10,
     icon: Crown,
   },
 ]
 
 export default function SubscriptionPage() {
   const { data: session } = useSession()
-  const [currentSubscription, setCurrentSubscription] = useState<any>(null)
+  const [currentSubscription, setCurrentSubscription] = useState<SubscriptionData | null>(null)
+  const [payments, setPayments] = useState<PaymentData[]>([])
   const [loading, setLoading] = useState(true)
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly')
 
@@ -103,9 +142,19 @@ export default function SubscriptionPage() {
       if (response.ok) {
         const data = await response.json()
         setCurrentSubscription(data.subscription)
+        setPayments(data.payments || [])
+        console.log('📊 Dashboard data loaded:', {
+          hasSubscription: !!data.subscription,
+          plan: data.subscription?.plan,
+          status: data.subscription?.status,
+          paymentsCount: data.payments?.length || 0
+        })
+      } else {
+        console.error('Error response:', response.status)
       }
     } catch (error) {
       console.error('Error fetching subscription:', error)
+      toast.error('Error al cargar los datos de suscripción')
     } finally {
       setLoading(false)
     }
@@ -116,44 +165,17 @@ export default function SubscriptionPage() {
       const plan = plans.find(p => p.id === planId)
       if (!plan) return
 
-      const amount = billingCycle === 'yearly' ? plan.price.yearly : plan.price.monthly
-      
-      const response = await fetch('/api/payments/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          amount: amount,
-          plan: planId,
-          billingCycle: billingCycle.toUpperCase(),
-          paymentMethod: {
-            type: 'CARD',
-          },
-          customerData: {
-            fullName: session?.user?.name,
-          },
-        }),
-      })
-
-      if (!response.ok) {
-        throw new Error('Error al crear el pago')
+      // Redirigir a checkout con los parámetros del plan
+      const planTypeMap: Record<string, string> = {
+        'TRIMESTRAL': 'trimestral',
+        'SEMESTRAL': 'semestral', 
+        'ANUAL': 'anual'
       }
-
-      const data = await response.json()
       
-      // Redirect to Wompi payment page or show payment form
-      if (data.wompiPayment?.id) {
-        // In a real implementation, you would redirect to Wompi's payment page
-        // or show an embedded payment form
-        toast.success('Redirigiendo a la pasarela de pago...')
-        
-        // For demo purposes, we'll show a success message
-        setTimeout(() => {
-          toast.success('¡Suscripción actualizada exitosamente!')
-          fetchSubscription()
-        }, 2000)
-      }
+      const planType = planTypeMap[planId] || 'trimestral'
+      const checkoutUrl = `/checkout-simple?plan=${planType}`
+      
+      window.location.href = checkoutUrl
 
     } catch (error) {
       console.error('Error upgrading subscription:', error)
@@ -170,15 +192,44 @@ export default function SubscriptionPage() {
   }
 
   const getStatusBadge = (status: string) => {
+    const statusMap: Record<string, { label: string; variant: 'default' | 'secondary' | 'destructive' | 'outline'; icon: React.ComponentType<{ className?: string }> }> = {
+      'TRIAL': { label: 'Prueba', variant: 'secondary', icon: Clock },
+      'ACTIVE': { label: 'Activo', variant: 'default', icon: CheckCircle },
+      'PAST_DUE': { label: 'Vencido', variant: 'destructive', icon: AlertCircle },
+      'CANCELED': { label: 'Cancelado', variant: 'outline', icon: XCircle },
+    }
+    
+    const config = statusMap[status] || { label: status, variant: 'outline', icon: AlertCircle }
+    const IconComponent = config.icon
+    
+    return (
+      <Badge variant={config.variant} className="flex items-center gap-1">
+        <IconComponent className="w-3 h-3" />
+        {config.label}
+      </Badge>
+    )
+  }
+
+  const getPaymentStatusBadge = (status: string) => {
     const statusMap: Record<string, { label: string; variant: 'default' | 'secondary' | 'destructive' | 'outline' }> = {
-      'TRIAL': { label: 'Prueba', variant: 'secondary' },
-      'ACTIVE': { label: 'Activo', variant: 'default' },
-      'PAST_DUE': { label: 'Vencido', variant: 'destructive' },
+      'PENDING': { label: 'Pendiente', variant: 'secondary' },
+      'PROCESSING': { label: 'Procesando', variant: 'secondary' },
+      'COMPLETED': { label: 'Completado', variant: 'default' },
+      'FAILED': { label: 'Fallido', variant: 'destructive' },
       'CANCELED': { label: 'Cancelado', variant: 'outline' },
     }
     
     const config = statusMap[status] || { label: status, variant: 'outline' }
     return <Badge variant={config.variant}>{config.label}</Badge>
+  }
+
+  const getPlanDisplayName = (plan: string) => {
+    const planMap: Record<string, string> = {
+      'TRIMESTRAL': 'Plan Trimestral',
+      'SEMESTRAL': 'Plan Semestral',
+      'ANUAL': 'Plan Anual'
+    }
+    return planMap[plan] || plan
   }
 
   if (loading) {

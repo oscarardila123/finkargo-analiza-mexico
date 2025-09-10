@@ -9,7 +9,7 @@ export default withAuth(
     const isAuthPage = req.nextUrl.pathname.startsWith("/auth")
     const isDashboard = req.nextUrl.pathname.startsWith("/dashboard")
     const isApiRoute = req.nextUrl.pathname.startsWith("/api")
-    const isPublicPage = ["/", "/features", "/precios", "/demo"].includes(req.nextUrl.pathname)
+    const isPublicPage = ["/", "/features", "/precios", "/demo", "/checkout-simple"].includes(req.nextUrl.pathname)
 
     // Allow public pages without authentication
     if (isPublicPage) {
@@ -60,7 +60,7 @@ export default withAuth(
         }
 
         // Allow public pages
-        const isPublicPage = ["/", "/features", "/precios", "/demo"].includes(req.nextUrl.pathname)
+        const isPublicPage = ["/", "/features", "/precios", "/demo", "/checkout-simple"].includes(req.nextUrl.pathname)
         if (isPublicPage) {
           return true
         }
@@ -75,7 +75,7 @@ export const config = {
   matcher: [
     // Only apply middleware to protected routes
     "/dashboard/:path*",
-    "/api/((?!auth|test-db|test-wompi|health|db-setup|db-init-simple|staging-diagnostic).*)",
+    "/api/((?!auth|test-db|test-wompi|health|db-setup|db-init-simple|staging-diagnostic|wompi|webhooks).*)",
     "/checkout/:path*"
   ],
 }

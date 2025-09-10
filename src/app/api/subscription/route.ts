@@ -1,28 +1,31 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth"
-import { prisma } from "@/lib/prisma"
+import { PrismaClient } from '@/generated/prisma'
+
+const prisma = new PrismaClient()
 
 export async function GET() {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session?.user?.id) {
+    if (!session?.user?.email) {
       return NextResponse.json(
         { error: "No autorizado" },
         { status: 401 }
       )
     }
 
+    // Buscar usuario por email
     const user = await prisma.user.findUnique({
-      where: { id: session.user.id },
+      where: { email: session.user.email },
       include: {
         company: {
           include: {
             subscription: true,
             payments: {
               orderBy: { createdAt: 'desc' },
-              take: 5,
+              take: 10,
             },
           },
         },
@@ -36,8 +39,43 @@ export async function GET() {
       )
     }
 
+    // Si no tiene suscripción, devolver datos básicos
+    let subscriptionData = null
+    if (user.company.subscription) {
+      const subscription = user.company.subscription
+      
+      // Calcular límites según el plan
+      const planLimits = getPlanLimits(subscription.plan)
+      
+      // Simular uso de reportes (en el futuro esto vendrá de una tabla de uso real)
+      const reportsUsed = Math.floor(Math.random() * planLimits.reportsLimit * 0.7)
+
+      subscriptionData = {
+        id: subscription.id,
+        plan: subscription.plan,
+        status: subscription.status,
+        currentPeriodStart: subscription.currentPeriodStart,
+        currentPeriodEnd: subscription.currentPeriodEnd,
+        billingCycle: subscription.billingCycle,
+        reportsLimit: planLimits.reportsLimit,
+        usersLimit: planLimits.usersLimit,
+        reportsUsed: reportsUsed,
+        cancelAtPeriodEnd: subscription.cancelAtPeriodEnd,
+        canceledAt: subscription.canceledAt,
+        createdAt: subscription.createdAt,
+        updatedAt: subscription.updatedAt
+      }
+    }
+
+    console.log('📊 Subscription data retrieved:', {
+      companyId: user.company.id,
+      hasSubscription: !!user.company.subscription,
+      plan: user.company.subscription?.plan || 'none',
+      status: user.company.subscription?.status || 'none'
+    })
+
     return NextResponse.json({
-      subscription: user.company.subscription,
+      subscription: subscriptionData,
       payments: user.company.payments,
       company: {
         id: user.company.id,
@@ -47,11 +85,39 @@ export async function GET() {
     })
 
   } catch (error) {
-    console.error('Subscription fetch error:', error)
+    console.error('❌ Subscription fetch error:', error)
     return NextResponse.json(
       { error: "Error interno del servidor" },
       { status: 500 }
     )
+  }
+}
+
+/**
+ * Obtiene los límites según el plan de suscripción
+ */
+function getPlanLimits(plan: string) {
+  switch (plan) {
+    case 'TRIMESTRAL':
+      return {
+        reportsLimit: 50,
+        usersLimit: 3
+      }
+    case 'SEMESTRAL':
+      return {
+        reportsLimit: 100,
+        usersLimit: 5
+      }
+    case 'ANUAL':
+      return {
+        reportsLimit: 200,
+        usersLimit: 10
+      }
+    default:
+      return {
+        reportsLimit: 10,
+        usersLimit: 1
+      }
   }
 }
 

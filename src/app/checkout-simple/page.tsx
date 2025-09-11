@@ -388,25 +388,27 @@ function CheckoutSimpleContent() {
                   )}
                 </Button>
 
-                {/* Environment Note */}
-                <div className="text-center bg-blue-50 p-3 rounded-lg border border-blue-200">
-                  <p className="text-xs text-blue-800">
-                    <strong>🔧 Modo Testing (Producción + Pruebas)</strong><br />
-                    Credenciales de producción con funciones de testing habilitadas
-                  </p>
-                  <div className="mt-2 flex justify-center gap-2">
-                    <Link href="/test-cards" target="_blank">
-                      <Button variant="ghost" size="sm" className="text-xs">
-                        💳 Ver tarjetas de prueba
-                      </Button>
-                    </Link>
-                    <Link href="/checkout/success?reference=TEST_SUCCESS&simulation=false&id=TEST_ID" target="_blank">
-                      <Button variant="ghost" size="sm" className="text-xs">
-                        ✅ Ver página de éxito
-                      </Button>
-                    </Link>
+                {/* Environment Note - Only show in local development */}
+                {process.env.NODE_ENV === 'development' && (
+                  <div className="text-center bg-blue-50 p-3 rounded-lg border border-blue-200">
+                    <p className="text-xs text-blue-800">
+                      <strong>🔧 Modo Testing (Desarrollo Local)</strong><br />
+                      Ambiente de desarrollo con funciones de testing
+                    </p>
+                    <div className="mt-2 flex justify-center gap-2">
+                      <Link href="/test-cards" target="_blank">
+                        <Button variant="ghost" size="sm" className="text-xs">
+                          💳 Ver tarjetas de prueba
+                        </Button>
+                      </Link>
+                      <Link href="/checkout/success?reference=TEST_SUCCESS&simulation=false&id=TEST_ID" target="_blank">
+                        <Button variant="ghost" size="sm" className="text-xs">
+                          ✅ Ver página de éxito
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
-                </div>
+                )}
               </CardContent>
             </Card>
 

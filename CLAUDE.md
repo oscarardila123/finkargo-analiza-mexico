@@ -92,35 +92,63 @@ src/
 - **v1.x.1**: Hotfixes and patches
 - **v2.0.0**: Major architectural changes
 
-### Branch Strategy
+### Branch Strategy & Deployment Flow
+```
+development → staging → main/production
+```
+
+- **development**: Active development branch for new features
+- **staging**: Testing and validation environment  
 - **main**: Stable production-ready code
-- **development**: Integration branch for new features
-- **feature/***: Individual feature development
-- **hotfix/***: Critical fixes for production
+- **feature/***: Individual feature development (branch from development)
+- **hotfix/***: Critical fixes for production (branch from main)
+
+### Environment Mapping
+- **development branch** → Local development (SQLite)
+- **staging branch** → Staging environment (PostgreSQL) - https://finkargo-analiza-c.vercel.app
+- **main branch** → Production environment (PostgreSQL) - https://finkargo-analiza.vercel.app
 
 ## 🛠️ Common Development Tasks
 
-### Add New Page
+### Start New Feature Development
 ```bash
-# Create page component
-touch src/app/new-page/page.tsx
-# Add to navigation if needed
-# Test and commit
+git checkout development
+git pull origin development
+git checkout -b feature/your-feature-name
+# Make changes
+git commit -m "feat: your feature description"
+git push origin feature/your-feature-name
+# Create PR to development branch
 ```
 
-### Update Design System
+### Deploy to Staging
 ```bash
-# Modify tailwind.config.ts
-# Update components in src/components/ui/
-# Test across all pages
+git checkout staging
+git merge development
+git push origin staging
+# Verify changes at https://finkargo-analiza-c.vercel.app
 ```
 
 ### Deploy to Production
 ```bash
 git checkout main
-git merge development
+git merge staging
 git tag -a v1.x.x -m "Release version x.x.x"
 git push origin main --tags
+# Verify changes at https://finkargo-analiza.vercel.app
+```
+
+### Hotfix for Production
+```bash
+git checkout main
+git checkout -b hotfix/fix-description
+# Make critical fix
+git commit -m "fix: critical issue description"
+git checkout main
+git merge hotfix/fix-description
+git checkout staging
+git merge main  # Keep staging in sync
+git push origin main staging
 ```
 
 ## 📞 Support & Documentation

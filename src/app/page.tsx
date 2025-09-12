@@ -7,6 +7,16 @@ import { Badge } from "@/components/ui/badge"
 import { BrandIcon } from "@/components/ui/brand-icon"
 import { MainFooter } from "@/components/ui/main-footer"
 import { useState } from "react"
+import { useSession, signOut } from "next-auth/react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+  DropdownMenuLabel,
+} from "@/components/ui/dropdown-menu"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   BarChart3,
   TrendingUp,
@@ -26,7 +36,12 @@ import {
   Eye,
   Award,
   Menu,
-  X
+  X,
+  User,
+  ChevronDown,
+  LogOut,
+  CreditCard as SubscriptionIcon,
+  Settings
 } from "lucide-react"
 
 interface PricingTier {
@@ -88,6 +103,7 @@ const pricingTiers: PricingTier[] = [
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { data: session, status } = useSession()
   
   const formatPrice = (price: number) => {
     return `$${price.toLocaleString('es-CO')}`
@@ -121,12 +137,75 @@ export default function LandingPage() {
           
           {/* Desktop Auth Buttons */}
           <div className="hidden lg:flex items-center space-x-4">
-            <Link href="/auth/signin">
-              <Button variant="ghost" className="text-secondary hover:bg-cyan-50 hover:text-brand-navy-dark transition-all">Iniciar Sesión</Button>
-            </Link>
-            <Link href="/auth/signup">
-              <Button className="btn-primary-gradient text-white">Comenzar Gratis</Button>
-            </Link>
+            {session ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button 
+                    variant="ghost" 
+                    className="flex items-center gap-2 px-3 py-2 rounded-full bg-gradient-to-r from-blue-50 to-cyan-50 hover:from-blue-100 hover:to-cyan-100 border border-blue-200 hover:border-blue-300 transition-all duration-200 shadow-sm hover:shadow-md"
+                  >
+                    <Avatar className="h-8 w-8 border-2 border-white shadow-sm">
+                      <AvatarImage src={session.user?.image || undefined} />
+                      <AvatarFallback className="bg-gradient-to-br from-blue-500 to-cyan-500 text-white font-semibold">
+                        {session.user?.name?.charAt(0)?.toUpperCase() || session.user?.email?.charAt(0)?.toUpperCase() || 'U'}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="hidden xl:block text-left">
+                      <p className="text-sm font-semibold text-gray-900">{session.user?.name || 'Usuario'}</p>
+                      <p className="text-xs text-gray-600">{session.user?.email}</p>
+                    </div>
+                    <ChevronDown className="h-4 w-4 text-gray-600 ml-1" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-64 p-2 shadow-xl border border-gray-100">
+                  <DropdownMenuLabel className="px-3 py-2">
+                    <div className="flex items-center gap-3">
+                      <Avatar className="h-10 w-10 border-2 border-gray-200">
+                        <AvatarImage src={session.user?.image || undefined} />
+                        <AvatarFallback className="bg-gradient-to-br from-blue-500 to-cyan-500 text-white font-semibold">
+                          {session.user?.name?.charAt(0)?.toUpperCase() || session.user?.email?.charAt(0)?.toUpperCase() || 'U'}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="flex flex-col">
+                        <p className="text-sm font-semibold text-gray-900">{session.user?.name || 'Usuario'}</p>
+                        <p className="text-xs text-gray-600">{session.user?.email}</p>
+                      </div>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator className="my-2" />
+                  <DropdownMenuItem asChild className="cursor-pointer">
+                    <Link href="/suscripcion" className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-blue-50 transition-colors">
+                      <div className="p-2 bg-blue-100 rounded-lg">
+                        <SubscriptionIcon className="h-4 w-4 text-blue-600" />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-sm font-medium">Suscripción</span>
+                        <span className="text-xs text-gray-500">Gestiona tu plan</span>
+                      </div>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator className="my-2" />
+                  <DropdownMenuItem 
+                    onClick={() => signOut()} 
+                    className="cursor-pointer flex items-center gap-3 px-3 py-2 rounded-md hover:bg-red-50 text-red-600 transition-colors"
+                  >
+                    <div className="p-2 bg-red-100 rounded-lg">
+                      <LogOut className="h-4 w-4" />
+                    </div>
+                    <span className="text-sm font-medium">Cerrar Sesión</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                <Link href="/auth/signin">
+                  <Button variant="ghost" className="text-secondary hover:bg-cyan-50 hover:text-brand-navy-dark transition-all">Iniciar Sesión</Button>
+                </Link>
+                <Link href="/auth/signup">
+                  <Button className="btn-primary-gradient text-white">Comenzar Gratis</Button>
+                </Link>
+              </>
+            )}
           </div>
           
           {/* Mobile Menu Button */}
@@ -172,16 +251,63 @@ export default function LandingPage() {
                 Demo
               </Link>
               <div className="border-t border-gray-200 pt-4 space-y-2">
-                <Link href="/auth/signin" onClick={() => setMobileMenuOpen(false)}>
-                  <Button variant="ghost" className="w-full justify-start text-secondary hover:bg-cyan-50 hover:text-brand-navy-dark">
-                    Iniciar Sesión
-                  </Button>
-                </Link>
-                <Link href="/auth/signup" onClick={() => setMobileMenuOpen(false)}>
-                  <Button className="w-full btn-primary-gradient text-white">
-                    Comenzar Gratis
-                  </Button>
-                </Link>
+                {session ? (
+                  <>
+                    <div className="px-4 py-3 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg mx-2">
+                      <div className="flex items-center gap-3">
+                        <Avatar className="h-12 w-12 border-2 border-white shadow-md">
+                          <AvatarImage src={session.user?.image || undefined} />
+                          <AvatarFallback className="bg-gradient-to-br from-blue-500 to-cyan-500 text-white font-semibold text-lg">
+                            {session.user?.name?.charAt(0)?.toUpperCase() || session.user?.email?.charAt(0)?.toUpperCase() || 'U'}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <p className="font-semibold text-gray-900">{session.user?.name || 'Usuario'}</p>
+                          <p className="text-sm text-gray-600">{session.user?.email}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="px-2 space-y-1">
+                      <Link href="/suscripcion" onClick={() => setMobileMenuOpen(false)}>
+                        <Button variant="ghost" className="w-full justify-start gap-3 py-3 hover:bg-blue-50">
+                          <div className="p-2 bg-blue-100 rounded-lg">
+                            <SubscriptionIcon className="h-4 w-4 text-blue-600" />
+                          </div>
+                          <div className="text-left">
+                            <p className="font-medium">Suscripción</p>
+                            <p className="text-xs text-gray-500">Gestiona tu plan</p>
+                          </div>
+                        </Button>
+                      </Link>
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start gap-3 py-3 hover:bg-red-50 text-red-600"
+                        onClick={() => {
+                          setMobileMenuOpen(false)
+                          signOut()
+                        }}
+                      >
+                        <div className="p-2 bg-red-100 rounded-lg">
+                          <LogOut className="h-4 w-4" />
+                        </div>
+                        <span className="font-medium">Cerrar Sesión</span>
+                      </Button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <Link href="/auth/signin" onClick={() => setMobileMenuOpen(false)}>
+                      <Button variant="ghost" className="w-full justify-start text-secondary hover:bg-cyan-50 hover:text-brand-navy-dark">
+                        Iniciar Sesión
+                      </Button>
+                    </Link>
+                    <Link href="/auth/signup" onClick={() => setMobileMenuOpen(false)}>
+                      <Button className="w-full btn-primary-gradient text-white">
+                        Comenzar Gratis
+                      </Button>
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -280,7 +406,7 @@ export default function LandingPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {[
-              { name: "AVIANCA", city: "Bogotá", industry: "Aviación", icon: "✈️" },
+              { name: "SPRAY SOLUTIONS INT", city: "Bogotá", industry: "Soluciones Industriales", icon: "🏢" },
               { name: "AUTOGERMANA SAS", city: "Bogotá", industry: "Automotriz", icon: "🚗" },
               { name: "MEGA DISTRIBUIDORES SAS", city: "Bogotá", industry: "Distribución", icon: "📦" },
               { name: "UMO S.A.S", city: "Bogotá", industry: "Industrial", icon: "🏭" },
@@ -594,7 +720,7 @@ export default function LandingPage() {
                 Diseñado específicamente
                 <br />para el <span className="text-brand-navy-dark">mercado colombiano</span>
               </h2>
-              <p className="body-lg text-gray-700 font-medium mb-8">
+              <p className="body-lg text-gray-700 font-medium mb-8 text-justify">
                 No somos una herramienta genérica. Finkargo Analiza está construida desde cero 
                 para entender las particularidades del comercio exterior colombiano.
               </p>
@@ -605,7 +731,7 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h3 className="heading-sm mb-2">Integración Aduanas Nativa</h3>
-                    <p className="body-md text-gray-700">
+                    <p className="body-md text-gray-700 text-justify">
                       Única plataforma con acceso directo y autorizado a los sistemas de Aduanas. 
                       Datos 100% oficiales y verificados.
                     </p>
@@ -617,7 +743,7 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h3 className="heading-sm mb-2">Soporte Local Experto</h3>
-                    <p className="body-md text-gray-700">
+                    <p className="body-md text-gray-700 text-justify">
                       Equipo especializado en Bogotá que entiende tu negocio, regulaciones locales 
                       y particularidades del mercado colombiano.
                     </p>
@@ -629,7 +755,7 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h3 className="heading-sm mb-2">Análisis Sectorial Profundo</h3>
-                    <p className="body-md text-gray-700">
+                    <p className="body-md text-gray-700 text-justify">
                       Insights específicos por sectores clave: textil, agroindustria, tecnología, 
                       químicos, manufacturero y más.
                     </p>
@@ -690,16 +816,16 @@ export default function LandingPage() {
                   ))}
                   <Badge className="ml-3 bg-brand-navy-dark/10 text-brand-navy-dark text-xs">CONFIABLE</Badge>
                 </div>
-                <blockquote className="text-gray-700 mb-6 leading-relaxed italic">
-                  "Con Finkargo Analiza optimizamos nuestra cadena de suministro internacional. Los datos de Aduanas nos ayudaron a identificar proveedores alternativos y <span className="font-semibold text-brand-navy-dark">reducir costos operativos 28%</span> este año."
+                <blockquote className="text-gray-700 mb-6 leading-relaxed italic text-justify">
+                  "Lo que más me ha gustado de la plataforma son las tablas que te ayudan a sacar conclusiones de manera fácil y rápida. <span className="font-semibold text-brand-navy-dark">Nos ha reducido la segregación de datos</span>, con esta plataforma podemos revisar información de manera fácil y rápida. 100% es una plataforma muy práctica y todos los importadores deben tenerla."
                 </blockquote>
                 <div className="flex items-center">
                   <div className="w-12 h-12 bg-gradient-to-br from-brand-cyan/20 to-brand-cyan/10 rounded-xl flex items-center justify-center mr-4">
-                    <span className="font-bold text-brand-navy-dark">A</span>
+                    <span className="font-bold text-brand-navy-dark">S</span>
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-600">Directora de Compras</div>
-                    <div className="text-sm text-gray-600">AVIANCA</div>
+                    <div className="font-semibold text-gray-600">Gerente de Compras</div>
+                    <div className="text-sm text-gray-600">SPRAY SOLUTIONS INT</div>
                     <div className="text-xs text-brand-navy-dark font-medium">Bogotá, Colombia</div>
                   </div>
                 </div>
@@ -714,7 +840,7 @@ export default function LandingPage() {
                   ))}
                   <Badge className="ml-3 bg-brand-coral/10 text-brand-coral text-xs">ÚTIL</Badge>
                 </div>
-                <blockquote className="text-gray-700 mb-6 leading-relaxed italic">
+                <blockquote className="text-gray-700 mb-6 leading-relaxed italic text-justify">
                   "Finkargo Analiza nos permite monitorear el mercado automotriz en tiempo real. Identificamos oportunidades de importación que <span className="font-semibold text-brand-coral">mejoraron nuestra competitividad 40%</span>. El soporte es excelente."
                 </blockquote>
                 <div className="flex items-center">
@@ -738,7 +864,7 @@ export default function LandingPage() {
                   ))}
                   <Badge className="ml-3 bg-brand-navy/10 text-brand-navy text-xs">FINANCIERO</Badge>
                 </div>
-                <blockquote className="text-gray-700 mb-6 leading-relaxed italic">
+                <blockquote className="text-gray-700 mb-6 leading-relaxed italic text-justify">
                   "La plataforma nos da visibilidad completa del mercado de distribución. Optimizamos compras internacionales y <span className="font-semibold text-brand-navy">mejoramos márgenes 22%</span>. ROI muy positivo."
                 </blockquote>
                 <div className="flex items-center">
@@ -996,7 +1122,7 @@ export default function LandingPage() {
           
           {/* Dual Channel Strategy */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
-            <a href="https://meetings.hubspot.com/karol-rubio1?uuid=44d82d7b-eb62-49c0-9e52-813fdc8511a6&utm_source=website&utm_medium=cta&utm_campaign=demo_request" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 px-8 py-4 bg-white/20 backdrop-blur-sm text-white border border-white/30 rounded-lg hover:bg-white/30 transition-all duration-300">
+            <a href="https://calendar.app.google/TB83Ve6pahwVP9Jo9" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 px-8 py-4 bg-white/20 backdrop-blur-sm text-white border border-white/30 rounded-lg hover:bg-white/30 transition-all duration-300">
               <span className="text-xl">📅</span>
               <span className="font-medium">Agendar Demo (30 min)</span>
             </a>
@@ -1007,7 +1133,7 @@ export default function LandingPage() {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-8 justify-center text-sm text-white/80 mb-12">
-            <p className="text-center">📋 Demo personalizada con Karol Rubio, especialista comercial</p>
+            <p className="text-center">📋 Demo personalizada con Carlos Ospina, especialista comercial</p>
             <p className="text-center">⚡ Respuesta inmediata para consultas específicas</p>
           </div>
           

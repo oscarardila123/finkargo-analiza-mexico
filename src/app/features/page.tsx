@@ -45,7 +45,7 @@ export default function FeaturesPage() {
       </section>
 
       {/* Main Features */}
-      <section className="py-16 bg-white relative overflow-hidden">
+      <section className="pt-4 pb-16 bg-white relative overflow-hidden">
         {/* Decorative vectors */}
         <div className="absolute top-12 right-16 opacity-4 pointer-events-none">
           <Database className="w-16 h-16 text-blue-600" />
@@ -85,7 +85,7 @@ export default function FeaturesPage() {
                 <CardTitle className="text-xl">Datos Oficiales de Aduanas</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 mb-4">
+                <p className="text-gray-600 mb-4 text-justify">
                   Acceso exclusivo a la base de datos más completa de importaciones y exportaciones de Colombia, actualizada mensualmente.
                 </p>
                 <ul className="space-y-2">
@@ -113,7 +113,7 @@ export default function FeaturesPage() {
                 <CardTitle className="text-xl">Analiza tu Competencia</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 mb-4">
+                <p className="text-gray-600 mb-4 text-justify">
                   Visualiza las importaciones, precios, fletes, entre otros, que pagan tus competidores y toma decisiones para reducir costos.
                 </p>
                 <ul className="space-y-2">
@@ -141,7 +141,7 @@ export default function FeaturesPage() {
                 <CardTitle className="text-xl">Obtén Insights de Alto Impacto</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 mb-4">
+                <p className="text-gray-600 mb-4 text-justify">
                   Identifica tu porcentaje de participación en tu sector y nuevas oportunidades en el mercado al evaluar a tus proveedores potenciales.
                 </p>
                 <ul className="space-y-2">

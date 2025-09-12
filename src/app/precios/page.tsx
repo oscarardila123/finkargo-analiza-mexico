@@ -305,7 +305,7 @@ export default function PricingPage() {
                           >
                             {tier.cta}
                           </CheckoutButton>
-                          <a href="https://meetings.hubspot.com/karol-rubio1?uuid=44d82d7b-eb62-49c0-9e52-813fdc8511a6&utm_source=website&utm_medium=cta&utm_campaign=demo_request" target="_blank" rel="noopener noreferrer" className="block w-full text-center py-2 px-4 border border-gray-900 rounded-lg text-gray-600 hover:bg-gray-900 hover:text-white text-sm transition-colors">
+                          <a href="https://calendar.app.google/TB83Ve6pahwVP9Jo9" target="_blank" rel="noopener noreferrer" className="block w-full text-center py-2 px-4 border border-gray-900 rounded-lg text-gray-600 hover:bg-gray-900 hover:text-white text-sm transition-colors">
                             📅 Agendar Demo Personalizada
                           </a>
                         </div>
@@ -560,7 +560,7 @@ export default function PricingPage() {
                 Comenzar Gratis
               </Button>
             </Link>
-            <a href="https://meetings.hubspot.com/karol-rubio1?uuid=44d82d7b-eb62-49c0-9e52-813fdc8511a6&utm_source=website&utm_medium=cta&utm_campaign=sales_meeting" target="_blank" rel="noopener noreferrer">
+            <a href="https://calendar.app.google/TB83Ve6pahwVP9Jo9" target="_blank" rel="noopener noreferrer">
               <Button 
                 variant="outline" 
                 size="lg" 

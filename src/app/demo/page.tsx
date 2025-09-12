@@ -61,8 +61,8 @@ export default function DemoPage() {
                       Explora <span className="bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">Finkargo Analiza</span> en Acción
                     </h3>
                     <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                      Interactúa con nuestra plataforma real. Descubre cómo empresas como AVIANCA 
-                      optimizaron su cadena de suministro y mejoraron eficiencia operativa en 25%.
+                      Interactúa con nuestra plataforma real. Descubre cómo empresas como SPRAY SOLUTIONS INT 
+                      optimizaron su cadena de suministro y mejoraron eficiencia operativa en 35%.
                     </p>
                   </div>
                   
@@ -171,7 +171,7 @@ export default function DemoPage() {
                 <p className="text-gray-600 mb-6">
                   Agenda una sesión de 30 minutos adaptada a tu industria específica.
                 </p>
-                <a href="https://meetings.hubspot.com/karol-rubio1?uuid=44d82d7b-eb62-49c0-9e52-813fdc8511a6&utm_source=website&utm_medium=cta&utm_campaign=demo_request" target="_blank" rel="noopener noreferrer">
+                <a href="https://calendar.app.google/TB83Ve6pahwVP9Jo9" target="_blank" rel="noopener noreferrer">
                   <Button variant="outline" className="w-full py-3 border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white font-bold">
                     Agendar Demo VIP
                   </Button>
@@ -354,13 +354,13 @@ export default function DemoPage() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <div className="text-center">
-                <a href="https://meetings.hubspot.com/karol-rubio1?uuid=44d82d7b-eb62-49c0-9e52-813fdc8511a6&utm_source=website&utm_medium=cta&utm_campaign=demo_request" target="_blank" rel="noopener noreferrer">
+                <a href="https://calendar.app.google/TB83Ve6pahwVP9Jo9" target="_blank" rel="noopener noreferrer">
                   <Button size="lg" className="px-8 py-4 body-lg bg-brand-coral text-white hover:bg-brand-coral/90">
                     <span className="mr-2">📅</span>
                     Agendar Demo Personalizada
                   </Button>
                 </a>
-                <p className="text-sm text-gray-600 mt-2">Demo de 30 min con Karol Rubio, especialista comercial</p>
+                <p className="text-sm text-gray-600 mt-2">Demo de 30 min con Carlos Ospina, especialista comercial</p>
               </div>
               <div className="text-center">
                 <a href="https://api.whatsapp.com/send?phone=573222235280&text=Hola%2C%20tengo%20una%20consulta%20específica%20sobre%20Finkargo%20Analiza.%20&utm_source=website&utm_medium=whatsapp" target="_blank" rel="noopener noreferrer">
@@ -413,40 +413,42 @@ export default function DemoPage() {
               <span className="text-brand-navy-dark">destacado</span>
             </h2>
             <p className="body-lg text-gray-700">
-              Ve cómo AVIANCA optimizó sus importaciones internacionales
+              Conoce cómo SPRAY SOLUTIONS INT optimizó sus importaciones internacionales
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            <Card className="business-card-elevated">
-              <CardHeader className="text-center pb-8">
-                <div className="w-16 h-16 bg-brand-coral/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <TrendingUp className="h-8 w-8 text-brand-coral" />
+          <div className="max-w-5xl mx-auto">
+            <Card className="business-card-elevated overflow-hidden bg-gradient-to-br from-white to-gray-50/50">
+              <CardHeader className="text-center pb-10 bg-gradient-to-r from-blue-600/5 to-purple-600/5">
+                <div className="w-20 h-20 bg-gradient-to-br from-brand-coral to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <TrendingUp className="h-10 w-10 text-white" />
                 </div>
-                <CardTitle className="heading-lg text-brand-navy">AVIANCA</CardTitle>
-                <p className="body-md text-gray-700">Aerolínea colombiana líder en Latinoamérica - Bogotá</p>
+                <CardTitle className="text-3xl font-bold text-brand-navy mb-3">SPRAY SOLUTIONS INT</CardTitle>
+                <p className="text-lg text-gray-600 max-w-md mx-auto">Empresa especializada en soluciones industriales avanzadas</p>
+                <p className="text-sm text-brand-navy-dark font-medium mt-2">📍 Bogotá, Colombia</p>
               </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-3 gap-8 text-center">
-                  <div>
-                    <div className="text-4xl font-bold text-brand-coral mb-2">25%</div>
-                    <p className="body-md text-gray-700">Mejora en eficiencia operativa</p>
+              <CardContent className="py-12">
+                <div className="max-w-4xl mx-auto">
+                  <blockquote className="text-center mb-8">
+                    <p className="text-2xl text-gray-700 leading-relaxed font-medium mb-6 italic">
+                      “Lo que más me ha gustado de la plataforma son las <span className="text-brand-navy font-semibold">tablas que te ayudan a sacar conclusiones de manera fácil y rápida</span>. Nos ha reducido la segregación de datos, con esta plataforma podemos revisar información de manera fácil y rápida. 100% es una plataforma muy práctica y todos los importadores deben tenerla.”
+                    </p>
+                  </blockquote>
+                  <div className="border-t border-blue-200 pt-6">
+                    <div className="flex items-center justify-center">
+                      <div className="w-12 h-12 bg-gradient-to-br from-brand-navy to-blue-600 rounded-full flex items-center justify-center mr-4">
+                        <span className="font-bold text-white text-lg">S</span>
+                      </div>
+                      <div className="text-center">
+                        <p className="font-bold text-brand-navy text-lg">Gerente de Compras</p>
+                        <p className="text-brand-navy-dark font-medium">SPRAY SOLUTIONS INT</p>
+                      </div>
+                    </div>
+                    <div className="text-center mt-4">
+                      <p className="text-brand-coral font-semibold text-lg">★★★★★ 100% Recomendado</p>
+                      <p className="text-gray-600 text-sm mt-1">"Todos los importadores deben tenerla"</p>
+                    </div>
                   </div>
-                  <div>
-                    <div className="text-4xl font-bold text-brand-navy-dark mb-2">12</div>
-                    <p className="body-md text-gray-700">Proveedores optimizados</p>
-                  </div>
-                  <div>
-                    <div className="text-4xl font-bold text-brand-navy mb-2">3</div>
-                    <p className="body-md text-gray-700">Semanas para implementar</p>
-                  </div>
-                </div>
-                
-                <div className="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
-                  <p className="body-md text-gray-700 italic text-center">
-                    "Finkargo Analiza nos permitió optimizar nuestras importaciones de componentes y repuestos aeronáuticos. Mejoramos visibilidad del mercado internacional."
-                  </p>
-                  <p className="text-center mt-4 heading-sm text-brand-navy">- Directora de Compras, AVIANCA</p>
                 </div>
               </CardContent>
             </Card>
@@ -472,7 +474,7 @@ export default function DemoPage() {
                 Comenzar Gratis
               </Button>
             </Link>
-            <a href="https://meetings.hubspot.com/karol-rubio1?uuid=44d82d7b-eb62-49c0-9e52-813fdc8511a6&utm_source=website&utm_medium=cta&utm_campaign=demo_request" target="_blank" rel="noopener noreferrer">
+            <a href="https://calendar.app.google/TB83Ve6pahwVP9Jo9" target="_blank" rel="noopener noreferrer">
               <Button 
                 variant="outline" 
                 size="lg" 
@@ -491,7 +493,7 @@ export default function DemoPage() {
             </div>
             <div className="flex items-center">
               <CheckCircle className="h-4 w-4 mr-2" />
-              Configuración en 2 minutos
+              Configuración en 48 horas
             </div>
             <div className="flex items-center">
               <CheckCircle className="h-4 w-4 mr-2" />

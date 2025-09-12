@@ -23,7 +23,7 @@ function SignInContent() {
   
   const router = useRouter()
   const searchParams = useSearchParams()
-  const from = searchParams.get("from") || "/dashboard"
+  const from = searchParams.get("from") || "/"
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

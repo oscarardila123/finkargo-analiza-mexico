@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { BrandIcon } from "@/components/ui/brand-icon"
 import { MainFooter } from "@/components/ui/main-footer"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { ResponsiveHeader } from "@/components/ui/responsive-header"
+import { MainHeader } from "@/components/ui/main-header"
 import { CheckoutButton } from "@/components/ui/checkout-button"
 import {
   CheckCircle,
@@ -169,7 +169,7 @@ export default function PricingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-section overflow-x-hidden">
-      <ResponsiveHeader currentPage="precios" />
+      <MainHeader />
 
       {/* Hero Section */}
       <section className="py-6 sm:py-8 lg:py-12 relative dots-decoration">

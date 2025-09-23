@@ -1,10 +1,10 @@
-import { ResponsiveHeader } from "@/components/ui/responsive-header"
+import { MainHeader } from "@/components/ui/main-header"
 import { MainFooter } from "@/components/ui/main-footer"
 
 export default function DatosSensiblesPage() {
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
-      <ResponsiveHeader />
+      <MainHeader />
 
       {/* Hero Section */}
       <section className="py-12 bg-gradient-to-br from-blue-50 to-cyan-50">

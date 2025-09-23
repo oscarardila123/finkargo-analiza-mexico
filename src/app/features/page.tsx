@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { BrandIcon } from "@/components/ui/brand-icon"
-import { ResponsiveHeader } from "@/components/ui/responsive-header"
+import { MainHeader } from "@/components/ui/main-header"
 import {
   Database,
   Target,
@@ -26,7 +26,7 @@ import { MainFooter } from "@/components/ui/main-footer"
 export default function FeaturesPage() {
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
-      <ResponsiveHeader currentPage="features" />
+      <MainHeader />
 
       {/* Hero Section */}
       <section className="py-8 sm:py-12 lg:py-16">

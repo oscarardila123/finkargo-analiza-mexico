@@ -210,21 +210,64 @@ export default function SuscripcionPage() {
   }
 
   const getStatusBadge = (status: string) => {
-    const statusMap: Record<string, { label: string; variant: 'default' | 'secondary' | 'destructive' | 'outline'; icon: React.ComponentType<{ className?: string }>; color: string }> = {
-      'TRIAL': { label: 'Prueba', variant: 'secondary', icon: Clock, color: 'text-yellow-600' },
-      'ACTIVE': { label: 'Activo', variant: 'default', icon: CheckCircle, color: 'text-green-600' },
-      'PAST_DUE': { label: 'Vencido', variant: 'destructive', icon: AlertCircle, color: 'text-red-600' },
-      'CANCELED': { label: 'Cancelado', variant: 'outline', icon: XCircle, color: 'text-gray-600' },
+    const statusMap: Record<string, { 
+      label: string; 
+      variant: 'default' | 'secondary' | 'destructive' | 'outline'; 
+      icon: React.ComponentType<{ className?: string }>; 
+      color: string;
+      bgColor: string;
+      borderColor: string;
+    }> = {
+      'TRIAL': { 
+        label: 'Período de Prueba', 
+        variant: 'default', 
+        icon: Zap, 
+        color: 'text-orange-700',
+        bgColor: 'bg-orange-100',
+        borderColor: 'border-orange-300'
+      },
+      'ACTIVE': { 
+        label: 'Activo', 
+        variant: 'default', 
+        icon: CheckCircle, 
+        color: 'text-green-700',
+        bgColor: 'bg-green-100',
+        borderColor: 'border-green-300'
+      },
+      'INACTIVE': { 
+        label: 'Inactivo', 
+        variant: 'destructive', 
+        icon: XCircle, 
+        color: 'text-red-700',
+        bgColor: 'bg-red-100',
+        borderColor: 'border-red-300'
+      },
+      'PAST_DUE': { 
+        label: 'Vencido', 
+        variant: 'destructive', 
+        icon: AlertCircle, 
+        color: 'text-red-700',
+        bgColor: 'bg-red-100',
+        borderColor: 'border-red-300'
+      },
+      'CANCELED': { 
+        label: 'Cancelado', 
+        variant: 'outline', 
+        icon: XCircle, 
+        color: 'text-gray-600',
+        bgColor: 'bg-gray-100',
+        borderColor: 'border-gray-300'
+      },
     }
     
-    const config = statusMap[status] || { label: status, variant: 'outline', icon: AlertCircle, color: 'text-gray-600' }
+    const config = statusMap[status] || statusMap['INACTIVE']
     const IconComponent = config.icon
     
     return (
-      <Badge variant={config.variant} className={`flex items-center gap-1 ${config.color}`}>
-        <IconComponent className="w-3 h-3" />
+      <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full font-medium text-sm ${config.bgColor} ${config.color} border ${config.borderColor}`}>
+        <IconComponent className="w-4 h-4" />
         {config.label}
-      </Badge>
+      </div>
     )
   }
 
@@ -314,16 +357,26 @@ export default function SuscripcionPage() {
           {/* Current Subscription Status */}
           {currentSubscription && (
             <Card className="mb-12 shadow-xl border-0 overflow-hidden">
-              <div className={`h-2 bg-gradient-to-r ${currentSubscription.status === 'ACTIVE' ? 'from-green-500 to-emerald-500' : 'from-gray-400 to-gray-500'}`}></div>
+              <div className={`h-2 bg-gradient-to-r ${
+                currentSubscription.status === 'ACTIVE' 
+                  ? 'from-green-500 to-emerald-500' 
+                  : currentSubscription.status === 'TRIAL'
+                  ? 'from-orange-500 to-yellow-500'
+                  : 'from-red-500 to-pink-500'
+              }`}></div>
               <CardHeader className="bg-gradient-to-r from-gray-50 to-white">
                 <div className="flex items-center justify-between">
                   <div>
                     <CardTitle className="text-2xl flex items-center gap-3">
                       <Shield className="h-6 w-6 text-blue-600" />
-                      Tu Plan Actual
+                      {currentSubscription.status === 'TRIAL' 
+                        ? 'Tu Período de Prueba'
+                        : 'Tu Plan Actual'}
                     </CardTitle>
                     <p className="text-gray-600 mt-2">
-                      {getPlanDisplayName(currentSubscription.plan)}
+                      {currentSubscription.status === 'TRIAL'
+                        ? 'Explora todas las funcionalidades de Finkargo Analiza'
+                        : getPlanDisplayName(currentSubscription.plan)}
                     </p>
                   </div>
                   {getStatusBadge(currentSubscription.status)}
@@ -338,27 +391,87 @@ export default function SuscripcionPage() {
                       {new Date(currentSubscription.currentPeriodStart).toLocaleDateString('es-CO')}
                     </p>
                   </div>
-                  <div className="text-center p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl">
-                    <CheckCircle className="h-8 w-8 text-green-600 mx-auto mb-3" />
+                  <div className={`text-center p-6 rounded-2xl ${
+                    currentSubscription.status === 'ACTIVE' 
+                      ? 'bg-gradient-to-br from-green-50 to-emerald-50'
+                      : currentSubscription.status === 'TRIAL'
+                      ? 'bg-gradient-to-br from-orange-50 to-yellow-50'
+                      : 'bg-gradient-to-br from-red-50 to-pink-50'
+                  }`}>
+                    {currentSubscription.status === 'ACTIVE' ? (
+                      <CheckCircle className="h-8 w-8 text-green-600 mx-auto mb-3" />
+                    ) : currentSubscription.status === 'TRIAL' ? (
+                      <Zap className="h-8 w-8 text-orange-600 mx-auto mb-3" />
+                    ) : (
+                      <XCircle className="h-8 w-8 text-red-600 mx-auto mb-3" />
+                    )}
                     <p className="text-sm text-gray-600 mb-1">Estado del Plan</p>
-                    <p className="text-lg font-semibold text-green-600">
-                      {currentSubscription.status === 'ACTIVE' ? 'Activo' : 'Inactivo'}
+                    <p className={`text-lg font-semibold ${
+                      currentSubscription.status === 'ACTIVE' 
+                        ? 'text-green-600'
+                        : currentSubscription.status === 'TRIAL'
+                        ? 'text-orange-600'
+                        : 'text-red-600'
+                    }`}>
+                      {currentSubscription.status === 'ACTIVE' 
+                        ? 'Activo' 
+                        : currentSubscription.status === 'TRIAL'
+                        ? 'En Prueba'
+                        : 'Inactivo'}
                     </p>
                   </div>
                   <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl">
                     <Clock className="h-8 w-8 text-purple-600 mx-auto mb-3" />
-                    <p className="text-sm text-gray-600 mb-1">Próxima Renovación</p>
+                    <p className="text-sm text-gray-600 mb-1">
+                      {currentSubscription.status === 'TRIAL' 
+                        ? 'Fin del Período de Prueba'
+                        : 'Próxima Renovación'}
+                    </p>
                     <p className="text-lg font-semibold">
                       {new Date(currentSubscription.currentPeriodEnd).toLocaleDateString('es-CO')}
                     </p>
+                    {currentSubscription.status === 'TRIAL' && (
+                      <p className="text-xs text-orange-600 mt-2 font-medium">
+                        Activa tu plan para continuar
+                      </p>
+                    )}
                   </div>
                 </div>
+                
+                {/* Special CTA for Trial Users */}
+                {currentSubscription.status === 'TRIAL' && (
+                  <div className="mt-6 p-4 bg-gradient-to-r from-orange-100 to-yellow-100 border-2 border-orange-300 rounded-xl">
+                    <div className="flex items-center justify-between flex-wrap gap-4">
+                      <div className="flex items-center gap-3">
+                        <Zap className="h-8 w-8 text-orange-600" />
+                        <div>
+                          <p className="font-semibold text-gray-900">
+                            ¡Activa tu plan antes de que termine tu prueba!
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            No pierdas acceso a todas las funcionalidades premium
+                          </p>
+                        </div>
+                      </div>
+                      <Button 
+                        onClick={() => {
+                          const plansSection = document.getElementById('plans-section')
+                          plansSection?.scrollIntoView({ behavior: 'smooth' })
+                        }}
+                        className="bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white shadow-lg"
+                      >
+                        Ver Planes Disponibles
+                        <ChevronRight className="h-4 w-4 ml-1" />
+                      </Button>
+                    </div>
+                  </div>
+                )}
               </CardContent>
             </Card>
           )}
 
           {/* Plans Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <div id="plans-section" className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {plans.map((plan) => {
               const Icon = plan.icon
               const currentPlan = currentSubscription?.plan?.toLowerCase() === plan.id.toLowerCase()

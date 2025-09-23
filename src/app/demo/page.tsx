@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { BrandIcon } from "@/components/ui/brand-icon"
 import { MainFooter } from "@/components/ui/main-footer"
-import { ResponsiveHeader } from "@/components/ui/responsive-header"
+import { MainHeader } from "@/components/ui/main-header"
 import {
   Calendar,
   Users,
@@ -26,7 +26,7 @@ import {
 export default function DemoPage() {
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
-      <ResponsiveHeader currentPage="demo" />
+      <MainHeader />
 
       {/* Hero Section */}
       <section className="py-16 lg:py-16 relative dots-decoration safe-area-padding">

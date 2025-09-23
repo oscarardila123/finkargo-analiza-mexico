@@ -1,11 +1,11 @@
-import { ResponsiveHeader } from "@/components/ui/responsive-header"
+import { MainHeader } from "@/components/ui/main-header"
 import { MainFooter } from "@/components/ui/main-footer"
 import { Users, Target, TrendingUp, Shield, Award } from "lucide-react"
 
 export default function SobreNosotrosPage() {
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
-      <ResponsiveHeader />
+      <MainHeader />
 
       {/* Hero Section */}
       <section className="py-16 bg-gradient-to-br from-blue-50 to-cyan-50">

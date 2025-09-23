@@ -9,6 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { BrandIcon } from '@/components/ui/brand-icon'
+import { Input } from '@/components/ui/input'
 import { 
   CheckCircle, 
   CreditCard, 
@@ -24,7 +25,9 @@ import {
   Globe,
   Smartphone,
   Banknote,
-  AlertCircle
+  AlertCircle,
+  Tag,
+  Percent
 } from 'lucide-react'
 
 interface PlanDetails {
@@ -123,11 +126,19 @@ function CheckoutSimpleContent() {
   
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [couponCode, setCouponCode] = useState('')
+  const [appliedCoupon, setAppliedCoupon] = useState<any>(null)
+  const [couponLoading, setCouponLoading] = useState(false)
+  const [couponError, setCouponError] = useState<string | null>(null)
 
   // Get URL parameters with defaults
   const planId = searchParams.get("plan") || "trimestral"
   const currency = (searchParams.get("currency") as "COP" | "USD") || "COP"
-  const amount = Number(searchParams.get("amount")) || plans[planId]?.priceCOP || 650000
+  const baseAmount = Number(searchParams.get("amount")) || plans[planId]?.priceCOP || 650000
+  
+  // Calculate amount with discount
+  const discount = appliedCoupon ? (baseAmount * appliedCoupon.discount / 100) : 0
+  const amount = baseAmount - discount
 
   const selectedPlan = plans[planId]
 
@@ -161,6 +172,51 @@ function CheckoutSimpleContent() {
     )
   }
 
+  const handleApplyCoupon = async () => {
+    if (!couponCode.trim()) {
+      setCouponError('Por favor ingresa un código de cupón')
+      return
+    }
+
+    setCouponLoading(true)
+    setCouponError(null)
+
+    try {
+      const response = await fetch('/api/coupons/validate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          couponCode: couponCode.trim(),
+          planId: planId
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok || !data.valid) {
+        setCouponError(data.error || 'Código de cupón inválido')
+        setAppliedCoupon(null)
+      } else {
+        setAppliedCoupon(data)
+        setCouponError(null)
+      }
+    } catch (err) {
+      console.error('Error validating coupon:', err)
+      setCouponError('Error al validar el cupón')
+      setAppliedCoupon(null)
+    } finally {
+      setCouponLoading(false)
+    }
+  }
+
+  const handleRemoveCoupon = () => {
+    setAppliedCoupon(null)
+    setCouponCode('')
+    setCouponError(null)
+  }
+
   const handlePayment = async () => {
     setIsLoading(true)
     setError(null)
@@ -172,9 +228,12 @@ function CheckoutSimpleContent() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          amount: amount,
+          amount: amount, // Amount with discount applied
           plan_name: selectedPlan.name,
-          customer_email: session?.user?.email || 'cliente@ejemplo.com'
+          customer_email: session?.user?.email || 'cliente@ejemplo.com',
+          coupon_code: appliedCoupon?.code || null,
+          original_amount: baseAmount,
+          discount_percentage: appliedCoupon?.discount || 0
         }),
       })
 
@@ -256,10 +315,27 @@ function CheckoutSimpleContent() {
                   {selectedPlan.description}
                 </CardDescription>
                 <div className="mt-6">
-                  <div className="text-5xl font-bold text-blue-600 mb-2">
-                    {formatCurrency(amount)}
-                  </div>
-                  <p className="text-gray-600">
+                  {appliedCoupon ? (
+                    <>
+                      <div className="text-lg text-gray-500 line-through mb-1">
+                        {formatCurrency(baseAmount)}
+                      </div>
+                      <div className="text-5xl font-bold text-blue-600 mb-2">
+                        {formatCurrency(amount)}
+                      </div>
+                      <Badge className="bg-green-100 text-green-800 border-green-200">
+                        <Percent className="w-3 h-3 mr-1" />
+                        {appliedCoupon.discount}% de descuento aplicado
+                      </Badge>
+                    </>
+                  ) : (
+                    <>
+                      <div className="text-5xl font-bold text-blue-600 mb-2">
+                        {formatCurrency(amount)}
+                      </div>
+                    </>
+                  )}
+                  <p className="text-gray-600 mt-2">
                     Facturación por {selectedPlan.period}
                   </p>
                 </div>
@@ -321,6 +397,111 @@ function CheckoutSimpleContent() {
                         </div>
                       </div>
                     ))}
+                  </div>
+                </div>
+
+                <Separator />
+
+                {/* Coupon Section - Only show for annual plans */}
+                {planId === 'anual' && (
+                  <>
+                    <div>
+                      <h3 className="font-semibold mb-4 flex items-center gap-2">
+                        <Tag className="h-5 w-5 text-blue-600" />
+                        Cupón de descuento
+                      </h3>
+                      
+                      {!appliedCoupon ? (
+                        <div className="space-y-3">
+                          <div className="flex gap-2">
+                            <Input
+                              placeholder="Ingresa tu código de cupón"
+                              value={couponCode}
+                              onChange={(e) => setCouponCode(e.target.value)}
+                              onKeyPress={(e) => e.key === 'Enter' && handleApplyCoupon()}
+                              disabled={couponLoading}
+                              className="flex-1"
+                            />
+                            <Button
+                              onClick={handleApplyCoupon}
+                              disabled={couponLoading || !couponCode.trim()}
+                              variant="outline"
+                              className="min-w-[100px]"
+                            >
+                              {couponLoading ? (
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                              ) : (
+                                'Aplicar'
+                              )}
+                            </Button>
+                          </div>
+                          
+                          {couponError && (
+                            <div className="text-sm text-red-600 flex items-center gap-1">
+                              <AlertCircle className="h-4 w-4" />
+                              {couponError}
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <div className="flex items-center gap-2 mb-1">
+                                <CheckCircle className="h-5 w-5 text-green-600" />
+                                <span className="font-medium text-green-900">
+                                  ¡Cupón aplicado exitosamente!
+                                </span>
+                              </div>
+                              <p className="text-sm text-green-700">
+                                {appliedCoupon.description}
+                              </p>
+                              <div className="mt-2 flex items-center gap-2">
+                                <Percent className="h-4 w-4 text-green-600" />
+                                <span className="text-lg font-bold text-green-900">
+                                  {appliedCoupon.discount}% de descuento
+                                </span>
+                              </div>
+                            </div>
+                            <Button
+                              onClick={handleRemoveCoupon}
+                              variant="ghost"
+                              size="sm"
+                              className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                            >
+                              Quitar
+                            </Button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    <Separator />
+                  </>
+                )}
+
+                {/* Order Summary */}
+                <div>
+                  <h3 className="font-semibold mb-4">Resumen del pedido</h3>
+                  <div className="space-y-3 bg-gray-50 p-4 rounded-lg">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Plan {selectedPlan.name}</span>
+                      <span className="font-medium">{formatCurrency(baseAmount)}</span>
+                    </div>
+                    
+                    {appliedCoupon && (
+                      <>
+                        <div className="flex justify-between text-green-600">
+                          <span>Descuento ({appliedCoupon.discount}%)</span>
+                          <span className="font-medium">-{formatCurrency(discount)}</span>
+                        </div>
+                        <Separator className="my-2" />
+                      </>
+                    )}
+                    
+                    <div className="flex justify-between text-lg font-bold">
+                      <span>Total a pagar</span>
+                      <span className="text-blue-600">{formatCurrency(amount)}</span>
+                    </div>
                   </div>
                 </div>
 

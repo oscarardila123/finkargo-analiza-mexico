@@ -1,4 +1,4 @@
-import { ResponsiveHeader } from "@/components/ui/responsive-header"
+import { MainHeader } from "@/components/ui/main-header"
 import { MainFooter } from "@/components/ui/main-footer"
 import { Calendar, Tag, ArrowRight } from "lucide-react"
 
@@ -63,7 +63,7 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
-      <ResponsiveHeader />
+      <MainHeader />
 
       {/* Hero Section */}
       <section className="py-16 bg-gradient-to-br from-blue-50 to-cyan-50">

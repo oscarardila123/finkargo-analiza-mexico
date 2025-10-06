@@ -184,6 +184,22 @@ export default function LandingPage() {
                       </div>
                     </Link>
                   </DropdownMenuItem>
+                  {(session?.user as any)?.role === 'ADMIN' && (
+                    <>
+                      <DropdownMenuSeparator className="my-2" />
+                      <DropdownMenuItem asChild className="cursor-pointer">
+                        <Link href="/admin" className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-purple-50 transition-colors">
+                          <div className="p-2 bg-purple-100 rounded-lg">
+                            <Shield className="h-4 w-4 text-purple-600" />
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-sm font-medium">Panel Admin</span>
+                            <span className="text-xs text-gray-500">Gestión del sistema</span>
+                          </div>
+                        </Link>
+                      </DropdownMenuItem>
+                    </>
+                  )}
                   <DropdownMenuSeparator className="my-2" />
                   <DropdownMenuItem 
                     onClick={() => signOut()} 
@@ -279,6 +295,19 @@ export default function LandingPage() {
                           </div>
                         </Button>
                       </Link>
+                      {(session?.user as any)?.role === 'ADMIN' && (
+                        <Link href="/admin" onClick={() => setMobileMenuOpen(false)}>
+                          <Button variant="ghost" className="w-full justify-start gap-3 py-3 hover:bg-purple-50">
+                            <div className="p-2 bg-purple-100 rounded-lg">
+                              <Shield className="h-4 w-4 text-purple-600" />
+                            </div>
+                            <div className="text-left">
+                              <p className="font-medium">Panel Admin</p>
+                              <p className="text-xs text-gray-500">Gestión del sistema</p>
+                            </div>
+                          </Button>
+                        </Link>
+                      )}
                       <Button
                         variant="ghost"
                         className="w-full justify-start gap-3 py-3 hover:bg-red-50 text-red-600"

@@ -109,7 +109,7 @@ export async function POST(request: NextRequest) {
           name,
           email,
           password: hashedPassword,
-          role: "ADMIN", // First user is admin
+          role: "VIEWER", // New users start as VIEWER, only admin can upgrade
           companyId: company.id,
         },
       })
@@ -130,7 +130,7 @@ export async function POST(request: NextRequest) {
           userId: user.id,
           action: "USER_REGISTERED",
           metadata: {
-            role: "ADMIN",
+            role: "VIEWER",
             registrationMethod: "email",
           },
         },

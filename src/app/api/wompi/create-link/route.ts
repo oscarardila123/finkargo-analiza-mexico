@@ -45,13 +45,56 @@ export async function POST(request: NextRequest) {
     // Obtener información del usuario y empresa
     const user = await prisma.user.findUnique({
       where: { email: session.user.email },
-      include: { company: true }
+      include: { 
+        company: {
+          include: {
+            subscription: true,
+            payments: {
+              where: {
+                status: 'COMPLETED'
+              },
+              orderBy: {
+                createdAt: 'desc'
+              }
+            }
+          }
+        }
+      }
     })
 
     if (!user || !user.company) {
       return NextResponse.json(
         { error: 'Usuario o empresa no encontrados' },
         { status: 404 }
+      )
+    }
+
+    // Validar si ya tiene una suscripción activa
+    if (user.company.subscription && user.company.subscription.status === 'ACTIVE') {
+      return NextResponse.json(
+        { 
+          error: 'Ya tienes una suscripción activa',
+          details: `Tu suscripción ${user.company.subscription.plan} está activa hasta ${user.company.subscription.currentPeriodEnd.toLocaleDateString('es-CO')}`
+        },
+        { status: 400 }
+      )
+    }
+
+    // Validar si ya tiene un pago completado reciente (últimos 30 días)
+    const recentPayment = user.company.payments.find(payment => {
+      const paymentDate = new Date(payment.createdAt)
+      const thirtyDaysAgo = new Date()
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
+      return paymentDate > thirtyDaysAgo
+    })
+
+    if (recentPayment) {
+      return NextResponse.json(
+        { 
+          error: 'Ya realizaste un pago recientemente',
+          details: `Tienes un pago de ${formatPrice(recentPayment.amount)} COP realizado el ${recentPayment.createdAt.toLocaleDateString('es-CO')}. Si necesitas cambiar tu plan, contacta a soporte.`
+        },
+        { status: 400 }
       )
     }
 

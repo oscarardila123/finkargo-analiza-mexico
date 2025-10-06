@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Bell, ChevronDown, LogOut, Settings, User } from "lucide-react"
+import { Bell, ChevronDown, LogOut, Settings, User, Shield } from "lucide-react"
 import Link from "next/link"
 
 export function Header() {
@@ -93,6 +93,17 @@ export function Header() {
                 Configuración
               </Link>
             </DropdownMenuItem>
+            {(session?.user as any)?.role === 'ADMIN' && (
+              <>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link href="/admin" className="flex items-center text-purple-600 hover:text-purple-700">
+                    <Shield className="mr-2 h-4 w-4" />
+                    Panel de Administración
+                  </Link>
+                </DropdownMenuItem>
+              </>
+            )}
             <DropdownMenuSeparator />
             <DropdownMenuItem
               className="text-red-600 focus:text-red-600"

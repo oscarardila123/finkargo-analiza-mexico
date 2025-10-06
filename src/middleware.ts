@@ -8,6 +8,7 @@ export default withAuth(
     const isAuth = !!token
     const isAuthPage = req.nextUrl.pathname.startsWith("/auth")
     const isDashboard = req.nextUrl.pathname.startsWith("/dashboard")
+    const isAdmin = req.nextUrl.pathname.startsWith("/admin")
     const isApiRoute = req.nextUrl.pathname.startsWith("/api")
     const isPublicPage = ["/", "/features", "/precios", "/demo", "/checkout-simple"].includes(req.nextUrl.pathname)
 
@@ -23,7 +24,7 @@ export default withAuth(
       return null
     }
 
-    if (!isAuth && isDashboard) {
+    if (!isAuth && (isDashboard || isAdmin)) {
       let from = req.nextUrl.pathname
       if (req.nextUrl.search) {
         from += req.nextUrl.search
@@ -32,6 +33,18 @@ export default withAuth(
       return NextResponse.redirect(
         new URL(`/auth/signin?from=${encodeURIComponent(from)}`, req.url)
       )
+    }
+
+    // Protect admin routes
+    if (isAdmin) {
+      if (!isAuth) {
+        return NextResponse.redirect(new URL("/auth/signin", req.url))
+      }
+      
+      const userRole = token?.role as string
+      if (userRole !== "ADMIN") {
+        return NextResponse.redirect(new URL("/", req.url))
+      }
     }
 
     if (isDashboard && isAuth) {
@@ -75,6 +88,7 @@ export const config = {
   matcher: [
     // Only apply middleware to protected routes
     "/dashboard/:path*",
+    "/admin/:path*",
     "/api/((?!auth|test-db|test-wompi|health|db-setup|db-init-simple|staging-diagnostic|wompi|webhooks).*)",
     "/checkout/:path*"
   ],

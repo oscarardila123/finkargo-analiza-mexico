@@ -10,12 +10,12 @@ import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { BrandIcon } from '@/components/ui/brand-icon'
 import { Input } from '@/components/ui/input'
-import { 
-  CheckCircle, 
-  CreditCard, 
-  ArrowRight, 
+import {
+  CheckCircle,
+  CreditCard,
+  ArrowRight,
   ArrowLeft,
-  Loader2, 
+  Loader2,
   Shield,
   Clock,
   Crown,
@@ -27,7 +27,9 @@ import {
   Banknote,
   AlertCircle,
   Tag,
-  Percent
+  Percent,
+  Building2,
+  Zap
 } from 'lucide-react'
 
 interface PlanDetails {
@@ -47,75 +49,134 @@ const plans: Record<string, PlanDetails> = {
     id: "trimestral",
     name: "Plan Trimestral",
     period: "3 meses",
-    priceCOP: 650000,
-    priceUSD: 163,
+    priceCOP: 0,
+    priceUSD: 1100,
     icon: Clock,
     description: "Perfecto para proyectos a corto plazo",
     features: [
-      "Acceso completo a la plataforma durante 3 meses",
-      "Una descarga a Excel por mes",
-      "Consultas ilimitadas",
-      "Tour guiado personalizado",
-      "Soporte en línea 24/7",
-      "Un usuario autorizado"
+      "Acceso completo a toda la base de datos",
+      "Todas las fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas ilimitadas a Excel",
+      "Soporte prioritario 24/7",
+      "Capacitaciones incluidas"
     ]
   },
-  anual: {
-    id: "anual",
-    name: "Plan Anual",
-    period: "12 meses",
-    priceCOP: 1000000,
-    priceUSD: 250,
-    icon: Award,
-    description: "La mejor opción para empresas",
-    popular: true,
+  "full-trimestral": {
+    id: "full-trimestral",
+    name: "Plan Trimestral",
+    period: "3 meses",
+    priceCOP: 0,
+    priceUSD: 1100,
+    icon: Clock,
+    description: "Perfecto para proyectos a corto plazo",
     features: [
-      "Acceso completo durante 12 meses",
-      "Descargas a Excel ilimitadas",
-      "Consultas ilimitadas",
-      "Capacitaciones ilimitadas",
+      "Acceso completo a toda la base de datos",
+      "Todas las fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas ilimitadas a Excel",
       "Soporte prioritario 24/7",
-      "Hasta tres usuarios",
-      "Account manager dedicado"
+      "Capacitaciones incluidas"
     ]
   },
   semestral: {
     id: "semestral",
     name: "Plan Semestral",
     period: "6 meses",
-    priceCOP: 800000,
-    priceUSD: 200,
+    priceCOP: 0,
+    priceUSD: 2000,
     icon: BarChart3,
     description: "Equilibrio perfecto entre tiempo y valor",
     features: [
-      "Acceso completo durante 6 meses",
-      "Dos descargas a Excel por mes",
-      "Consultas ilimitadas",
-      "Tour guiado y tres capacitaciones",
-      "Soporte técnico especializado",
-      "Un usuario autorizado"
+      "Acceso completo a toda la base de datos",
+      "Todas las fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas ilimitadas a Excel",
+      "Soporte prioritario 24/7",
+      "Capacitaciones ilimitadas"
+    ]
+  },
+  "full-semestral": {
+    id: "full-semestral",
+    name: "Plan Semestral",
+    period: "6 meses",
+    priceCOP: 0,
+    priceUSD: 2000,
+    icon: BarChart3,
+    description: "Equilibrio perfecto entre tiempo y valor",
+    features: [
+      "Acceso completo a toda la base de datos",
+      "Todas las fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas ilimitadas a Excel",
+      "Soporte prioritario 24/7",
+      "Capacitaciones ilimitadas"
+    ]
+  },
+  anual: {
+    id: "anual",
+    name: "Plan Anual",
+    period: "12 meses",
+    priceCOP: 0,
+    priceUSD: 2900,
+    icon: Award,
+    description: "La mejor opción para empresas",
+    popular: true,
+    features: [
+      "Acceso completo a toda la base de datos",
+      "Todas las fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas ilimitadas a Excel",
+      "Soporte prioritario 24/7",
+      "Capacitaciones ilimitadas",
+      "Asesoría estratégica trimestral"
+    ]
+  },
+  "full-anual": {
+    id: "full-anual",
+    name: "Plan Anual",
+    period: "12 meses",
+    priceCOP: 0,
+    priceUSD: 2900,
+    icon: Award,
+    description: "La mejor opción para empresas",
+    popular: true,
+    features: [
+      "Acceso completo a toda la base de datos",
+      "Todas las fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas ilimitadas a Excel",
+      "Soporte prioritario 24/7",
+      "Capacitaciones ilimitadas",
+      "Asesoría estratégica trimestral"
     ]
   }
 }
 
 const paymentMethods = [
   {
-    id: "credit_card",
+    id: "card",
     name: "Tarjeta de Crédito/Débito",
     icon: CreditCard,
     description: "Visa, Mastercard, American Express"
   },
   {
-    id: "pse",
-    name: "PSE",
+    id: "oxxo",
+    name: "OXXO",
     icon: Banknote,
-    description: "Pago Seguro en Línea"
+    description: "Pago en efectivo en tiendas OXXO"
   },
   {
-    id: "cash",
-    name: "Efectivo",
-    icon: Smartphone,
-    description: "Efecty, Baloto, PagaTodo"
+    id: "spei",
+    name: "SPEI",
+    icon: Building2,
+    description: "Transferencias bancarias mexicanas"
+  },
+  {
+    id: "link",
+    name: "Link",
+    icon: Zap,
+    description: "Pago rápido con Stripe Link"
   }
 ]
 
@@ -133,8 +194,8 @@ function CheckoutSimpleContent() {
 
   // Get URL parameters with defaults
   const planId = searchParams.get("plan") || "trimestral"
-  const currency = (searchParams.get("currency") as "COP" | "USD") || "COP"
-  const baseAmount = Number(searchParams.get("amount")) || plans[planId]?.priceCOP || 650000
+  const currency = (searchParams.get("currency") as "COP" | "USD") || "USD"
+  const baseAmount = Number(searchParams.get("amount")) || plans[planId]?.priceUSD || 1100
   
   // Calculate amount with discount
   const discount = appliedCoupon ? (baseAmount * appliedCoupon.discount / 100) : 0
@@ -222,30 +283,32 @@ function CheckoutSimpleContent() {
     setError(null)
 
     try {
-      const response = await fetch('/api/wompi/create-link', {
+      const response = await fetch('/api/stripe/create-checkout-session', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           amount: amount, // Amount with discount applied
-          plan_name: selectedPlan.name,
-          customer_email: session?.user?.email || 'cliente@ejemplo.com',
-          coupon_code: appliedCoupon?.code || null,
-          original_amount: baseAmount,
-          discount_percentage: appliedCoupon?.discount || 0
+          planId: planId,
+          planName: selectedPlan.name,
+          currency: currency.toLowerCase(),
+          period: selectedPlan.period,
+          couponCode: appliedCoupon?.code || null,
+          originalAmount: baseAmount,
+          discountPercentage: appliedCoupon?.discount || 0
         }),
       })
 
       if (!response.ok) {
         const errorData = await response.json()
-        throw new Error(errorData.error || 'Error al crear el link de pago')
+        throw new Error(errorData.error || 'Error al crear la sesión de pago')
       }
 
       const data = await response.json()
 
-      if (data.checkout_url) {
-        window.location.href = data.checkout_url
+      if (data.checkoutSession?.url) {
+        window.location.href = data.checkoutSession.url
       } else {
         throw new Error('No se recibió URL de pago')
       }
@@ -533,8 +596,8 @@ function CheckoutSimpleContent() {
                     </span>
                   </div>
                   <p className="text-sm text-green-700">
-                    Tus datos están protegidos con encriptación de grado militar. 
-                    Procesado por Wompi, certificado PCI DSS Level 1.
+                    Tus datos están protegidos con encriptación de grado militar.
+                    Procesado por Stripe, certificado PCI DSS Level 1.
                   </p>
                 </div>
 
@@ -601,7 +664,7 @@ function CheckoutSimpleContent() {
               </div>
               <div className="flex flex-col items-center p-3">
                 <Globe className="h-6 w-6 text-blue-500 mb-2" />
-                <span className="text-xs text-gray-600">Wompi Certified</span>
+                <span className="text-xs text-gray-600">Stripe Certified</span>
               </div>
               <div className="flex flex-col items-center p-3">
                 <Crown className="h-6 w-6 text-orange-500 mb-2" />

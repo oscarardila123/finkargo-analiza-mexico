@@ -52,7 +52,6 @@ interface PricingPlan {
   id: string
   name: string
   period: string
-  priceCOP: number
   priceUSD: number
   features: string[]
   popular?: boolean
@@ -66,54 +65,54 @@ const plans: PricingPlan[] = [
     id: 'trimestral',
     name: 'Trimestral',
     period: '3 meses',
-    priceCOP: 650000,
-    priceUSD: 163,
+    priceUSD: 1100,
     features: [
-      'Acceso a actualizaciones mensuales durante 3 meses',
-      'Una descarga a Excel por mes y consultas ilimitadas',
-      'Tour guiado',
-      'Soporte en línea 24/7',
-      'Un usuario'
+      'Acceso completo a toda la base de datos',
+      'Todas las fracciones arancelarias',
+      'Actualizaciones mensuales',
+      'Descargas ilimitadas a Excel',
+      'Soporte prioritario 24/7',
+      'Capacitaciones incluidas'
     ],
     icon: Calendar,
     gradient: 'from-green-500 to-emerald-600',
     borderColor: 'border-green-500'
   },
   {
+    id: 'semestral',
+    name: 'Semestral',
+    period: '6 meses',
+    priceUSD: 2000,
+    features: [
+      'Acceso completo a toda la base de datos',
+      'Todas las fracciones arancelarias',
+      'Actualizaciones mensuales',
+      'Descargas ilimitadas a Excel',
+      'Soporte prioritario 24/7',
+      'Capacitaciones ilimitadas'
+    ],
+    icon: TrendingUp,
+    gradient: 'from-purple-600 to-pink-600',
+    borderColor: 'border-purple-600'
+  },
+  {
     id: 'anual',
     name: 'Anual',
     period: '12 meses',
-    priceCOP: 1000000,
-    priceUSD: 250,
+    priceUSD: 2900,
     features: [
-      'Acceso a actualizaciones mensuales durante 12 meses',
-      'Descargas a Excel y consultas ilimitadas',
+      'Acceso completo a toda la base de datos',
+      'Todas las fracciones arancelarias',
+      'Actualizaciones mensuales',
+      'Descargas ilimitadas a Excel',
+      'Soporte prioritario 24/7',
       'Capacitaciones ilimitadas',
-      'Soporte en línea 24/7',
-      'Hasta tres usuarios'
+      'Asesoría estratégica trimestral'
     ],
     popular: true,
     icon: Crown,
     gradient: 'from-blue-600 to-cyan-600',
     borderColor: 'border-blue-600'
-  },
-  {
-    id: 'semestral',
-    name: 'Semestral',
-    period: '6 meses',
-    priceCOP: 800000,
-    priceUSD: 200,
-    features: [
-      'Acceso a actualizaciones mensuales durante 6 meses',
-      'Dos descargas a Excel por mes y consultas ilimitadas',
-      'Tour guiado',
-      'Tres capacitaciones de la plataforma',
-      'Soporte en línea 24/7',
-      'Un usuario'
-    ],
-    icon: TrendingUp,
-    gradient: 'from-purple-600 to-pink-600',
-    borderColor: 'border-purple-600'
   }
 ]
 
@@ -126,23 +125,23 @@ const paymentMethods = [
     bgColor: "bg-blue-50"
   },
   {
-    name: "PSE",
-    icon: Building,
-    description: "Pago Seguro en Línea - Bancos colombianos",
+    name: "OXXO",
+    icon: Banknote,
+    description: "Pago en efectivo en tiendas OXXO",
     color: "text-green-600",
     bgColor: "bg-green-50"
   },
   {
-    name: "Efectivo",
-    icon: Banknote,
-    description: "Efecty, Baloto, PagaTodo",
+    name: "SPEI",
+    icon: Building,
+    description: "Transferencias bancarias mexicanas",
     color: "text-purple-600",
     bgColor: "bg-purple-50"
   },
   {
-    name: "Bancolombia QR",
-    icon: Smartphone,
-    description: "Pago rápido con código QR",
+    name: "Link",
+    icon: Zap,
+    description: "Pago rápido con Stripe Link",
     color: "text-orange-600",
     bgColor: "bg-orange-50"
   }
@@ -153,7 +152,6 @@ export default function SuscripcionPage() {
   const router = useRouter()
   const [currentSubscription, setCurrentSubscription] = useState<SubscriptionData | null>(null)
   const [loading, setLoading] = useState(true)
-  const [selectedCurrency, setSelectedCurrency] = useState<'COP' | 'USD'>('COP')
 
   // Redirect if not authenticated
   useEffect(() => {
@@ -164,21 +162,33 @@ export default function SuscripcionPage() {
   }, [status, router])
 
   useEffect(() => {
-    if (session) {
+    // Solo hacer fetch si está completamente autenticado
+    if (status === "authenticated" && session) {
       fetchSubscription()
+    } else if (status === "loading") {
+      // Aún cargando la sesión, no hacer nada
+      return
+    } else {
+      // No autenticado
+      setLoading(false)
     }
-  }, [session])
+  }, [session, status])
 
   const fetchSubscription = async () => {
     try {
       const response = await fetch('/api/subscription')
+
       if (response.ok) {
         const data = await response.json()
         setCurrentSubscription(data.subscription)
+      } else if (response.status === 401) {
+        // No autorizado - simplemente no cargar la suscripción
+        // No redirigir porque el usuario ya está en la página de suscripción
+        console.log('No subscription found or not authorized')
       }
     } catch (error) {
       console.error('Error fetching subscription:', error)
-      toast.error('Error al cargar los datos de suscripción')
+      // No mostrar error al usuario si no hay suscripción
     } finally {
       setLoading(false)
     }
@@ -186,7 +196,12 @@ export default function SuscripcionPage() {
 
   const handleUpgrade = async (planId: string) => {
     try {
-      const checkoutUrl = `/checkout-simple?plan=${planId}`
+      const selectedPlan = plans.find(p => p.id === planId)
+      if (!selectedPlan) {
+        toast.error('Plan no encontrado')
+        return
+      }
+      const checkoutUrl = `/checkout-simple?plan=${planId}&amount=${selectedPlan.priceUSD}&currency=USD`
       window.location.href = checkoutUrl
     } catch (error) {
       console.error('Error upgrading subscription:', error)
@@ -194,17 +209,10 @@ export default function SuscripcionPage() {
     }
   }
 
-  const formatPrice = (price: number, currency: 'COP' | 'USD') => {
-    if (currency === 'USD') {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 0,
-      }).format(price)
-    }
-    return new Intl.NumberFormat('es-CO', {
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'COP',
+      currency: 'USD',
       minimumFractionDigits: 0,
     }).format(price)
   }
@@ -349,7 +357,7 @@ export default function SuscripcionPage() {
               Elige el Plan Perfecto para Tu Empresa
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Accede a datos confiables de Aduanas y optimiza tus importaciones con inteligencia de mercado
+              Accede a datos verificados y confiables para optimizar tus importaciones con inteligencia de mercado
             </p>
           </div>
 
@@ -475,7 +483,7 @@ export default function SuscripcionPage() {
             {plans.map((plan) => {
               const Icon = plan.icon
               const currentPlan = currentSubscription?.plan?.toLowerCase() === plan.id.toLowerCase()
-              const price = plan.priceCOP
+              const price = plan.priceUSD
 
               return (
                 <Card 
@@ -513,7 +521,7 @@ export default function SuscripcionPage() {
                     <p className="text-sm text-gray-600 mb-4">{plan.period}</p>
                     <div className="space-y-1">
                       <p className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-                        {formatPrice(price, 'COP')}
+                        {formatPrice(price)}
                       </p>
                       <p className="text-xs text-gray-500">
                         Pago único por {plan.period.toLowerCase()}
@@ -568,7 +576,7 @@ export default function SuscripcionPage() {
                 Métodos de Pago Disponibles
               </CardTitle>
               <CardDescription className="text-base">
-                Procesamos pagos de forma segura a través de Wompi
+                Procesamos pagos de forma segura a través de Stripe
               </CardDescription>
             </CardHeader>
             <CardContent className="pt-8">

@@ -89,7 +89,7 @@ export const config = {
     // Only apply middleware to protected routes
     "/dashboard/:path*",
     "/admin/:path*",
-    "/api/((?!auth|test-db|test-wompi|health|db-setup|db-init-simple|staging-diagnostic|wompi|webhooks).*)",
+    "/api/((?!auth|test-db|health|db-setup|db-init-simple|staging-diagnostic|webhooks|subscription|stripe|coupons).*)",
     "/checkout/:path*"
   ],
 }

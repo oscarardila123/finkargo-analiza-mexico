@@ -35,64 +35,235 @@ interface PricingTier {
   id: string
   name: string
   period: string
-  priceCOP: number
   priceUSD: number
   popular?: boolean
   features: string[]
   cta: string
   wompiPlanId?: string
+  category: 'full' | 'sector'
+  fractionsRange?: string
 }
 
-const pricingTiers: PricingTier[] = [
+// Full Access Plans
+const fullAccessPlans: PricingTier[] = [
   {
-    id: "trimestral",
+    id: "full-trimestral",
     name: "Trimestral",
     period: "3 meses",
-    priceCOP: 650000,
-    priceUSD: 163,
+    priceUSD: 1100,
+    category: 'full',
     features: [
-      "Acceso a actualizaciones mensuales durante 3 meses",
-      "Una descarga a Excel por mes y consultas ilimitadas",
-      "Tour guiado",
-      "Soporte en línea 24/7",
-      "Un usuario"
+      "Acceso completo a toda la base de datos",
+      "Todas las fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas ilimitadas a Excel",
+      "Consultas ilimitadas",
+      "Soporte prioritario 24/7",
+      "Capacitaciones incluidas"
     ],
     cta: "Comenzar Ahora",
-    wompiPlanId: "trimestral"
+    wompiPlanId: "full-trimestral"
   },
   {
-    id: "anual",
-    name: "Anual",
-    period: "12 meses",
-    priceCOP: 1000000,
-    priceUSD: 250,
-    popular: true,
-    features: [
-      "Acceso a actualizaciones mensuales durante 12 meses",
-      "Descargas a Excel y consultas ilimitadas",
-      "Capacitaciones ilimitadas",
-      "Soporte en línea 24/7",
-      "Hasta tres usuarios"
-    ],
-    cta: "Comenzar Ahora",
-    wompiPlanId: "anual"
-  },
-  {
-    id: "semestral",
+    id: "full-semestral",
     name: "Semestral",
     period: "6 meses",
-    priceCOP: 800000,
-    priceUSD: 200,
+    priceUSD: 2000,
+    category: 'full',
     features: [
-      "Acceso a actualizaciones mensuales durante 6 meses",
-      "Dos descargas a Excel por mes y consultas ilimitadas",
-      "Tour guiado",
-      "Tres capacitaciones de la plataforma",
-      "Soporte en línea 24/7",
-      "Un usuario"
+      "Acceso completo a toda la base de datos",
+      "Todas las fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas ilimitadas a Excel",
+      "Consultas ilimitadas",
+      "Soporte prioritario 24/7",
+      "Capacitaciones ilimitadas"
     ],
     cta: "Comenzar Ahora",
-    wompiPlanId: "semestral"
+    wompiPlanId: "full-semestral"
+  },
+  {
+    id: "full-anual",
+    name: "Anual",
+    period: "12 meses",
+    priceUSD: 2900,
+    category: 'full',
+    popular: true,
+    features: [
+      "Acceso completo a toda la base de datos",
+      "Todas las fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas ilimitadas a Excel",
+      "Consultas ilimitadas",
+      "Soporte prioritario 24/7",
+      "Capacitaciones ilimitadas",
+      "Asesoría estratégica trimestral"
+    ],
+    cta: "Comenzar Ahora",
+    wompiPlanId: "full-anual"
+  }
+]
+
+// Sector Subscription Plans
+const sectorPlans: PricingTier[] = [
+  // 1-20 fracciones
+  {
+    id: "sector-1-20-trimestral",
+    name: "Trimestral",
+    period: "3 meses",
+    priceUSD: 650,
+    category: 'sector',
+    fractionsRange: "1-20",
+    features: [
+      "1-20 fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas a Excel",
+      "Consultas ilimitadas",
+      "Soporte en línea 24/7"
+    ],
+    cta: "Comenzar Ahora",
+    wompiPlanId: "sector-1-20-trimestral"
+  },
+  {
+    id: "sector-1-20-semestral",
+    name: "Semestral",
+    period: "6 meses",
+    priceUSD: 1100,
+    category: 'sector',
+    fractionsRange: "1-20",
+    features: [
+      "1-20 fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas a Excel",
+      "Consultas ilimitadas",
+      "Soporte en línea 24/7"
+    ],
+    cta: "Comenzar Ahora",
+    wompiPlanId: "sector-1-20-semestral"
+  },
+  {
+    id: "sector-1-20-anual",
+    name: "Anual",
+    period: "12 meses",
+    priceUSD: 1500,
+    category: 'sector',
+    fractionsRange: "1-20",
+    features: [
+      "1-20 fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas ilimitadas a Excel",
+      "Consultas ilimitadas",
+      "Soporte en línea 24/7",
+      "Capacitaciones incluidas"
+    ],
+    cta: "Comenzar Ahora",
+    wompiPlanId: "sector-1-20-anual"
+  },
+  // 21-40 fracciones
+  {
+    id: "sector-21-40-trimestral",
+    name: "Trimestral",
+    period: "3 meses",
+    priceUSD: 800,
+    category: 'sector',
+    fractionsRange: "21-40",
+    features: [
+      "21-40 fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas a Excel",
+      "Consultas ilimitadas",
+      "Soporte en línea 24/7"
+    ],
+    cta: "Comenzar Ahora",
+    wompiPlanId: "sector-21-40-trimestral"
+  },
+  {
+    id: "sector-21-40-semestral",
+    name: "Semestral",
+    period: "6 meses",
+    priceUSD: 1550,
+    category: 'sector',
+    fractionsRange: "21-40",
+    features: [
+      "21-40 fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas a Excel",
+      "Consultas ilimitadas",
+      "Soporte en línea 24/7"
+    ],
+    cta: "Comenzar Ahora",
+    wompiPlanId: "sector-21-40-semestral"
+  },
+  {
+    id: "sector-21-40-anual",
+    name: "Anual",
+    period: "12 meses",
+    priceUSD: 1900,
+    category: 'sector',
+    fractionsRange: "21-40",
+    features: [
+      "21-40 fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas ilimitadas a Excel",
+      "Consultas ilimitadas",
+      "Soporte en línea 24/7",
+      "Capacitaciones incluidas"
+    ],
+    cta: "Comenzar Ahora",
+    wompiPlanId: "sector-21-40-anual"
+  },
+  // 41-60 fracciones
+  {
+    id: "sector-41-60-trimestral",
+    name: "Trimestral",
+    period: "3 meses",
+    priceUSD: 900,
+    category: 'sector',
+    fractionsRange: "41-60",
+    features: [
+      "41-60 fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas a Excel",
+      "Consultas ilimitadas",
+      "Soporte en línea 24/7"
+    ],
+    cta: "Comenzar Ahora",
+    wompiPlanId: "sector-41-60-trimestral"
+  },
+  {
+    id: "sector-41-60-semestral",
+    name: "Semestral",
+    period: "6 meses",
+    priceUSD: 1980,
+    category: 'sector',
+    fractionsRange: "41-60",
+    features: [
+      "41-60 fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas a Excel",
+      "Consultas ilimitadas",
+      "Soporte en línea 24/7"
+    ],
+    cta: "Comenzar Ahora",
+    wompiPlanId: "sector-41-60-semestral"
+  },
+  {
+    id: "sector-41-60-anual",
+    name: "Anual",
+    period: "12 meses",
+    priceUSD: 2500,
+    category: 'sector',
+    fractionsRange: "41-60",
+    features: [
+      "41-60 fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas ilimitadas a Excel",
+      "Consultas ilimitadas",
+      "Soporte en línea 24/7",
+      "Capacitaciones incluidas"
+    ],
+    cta: "Comenzar Ahora",
+    wompiPlanId: "sector-41-60-anual"
   }
 ]
 
@@ -104,21 +275,21 @@ const paymentMethods = [
     available: true
   },
   {
-    name: "PSE",
+    name: "OXXO",
     icon: Banknote,
-    description: "Pago Seguro en Línea - Bancos colombianos",
+    description: "Pago en efectivo en tiendas OXXO",
     available: true
   },
   {
-    name: "Efectivo",
-    icon: Smartphone,
-    description: "Efecty, Baloto, PagaTodo",
+    name: "SPEI",
+    icon: Building2,
+    description: "Transferencias bancarias mexicanas",
     available: true
   },
   {
-    name: "Bancolombia QR",
-    icon: Smartphone,
-    description: "Pago rápido con código QR",
+    name: "Link",
+    icon: Zap,
+    description: "Pago rápido con Stripe Link",
     available: true
   }
 ]
@@ -126,7 +297,7 @@ const paymentMethods = [
 const testimonials = [
   {
     name: "Gerente de Importaciones",
-    company: "SSANGYONG MOTOR COLOMBIA SA",
+    company: "SSANGYONG MOTOR MÉXICO SA",
     role: "Equipo Comercial",
     content: "Con el plan Professional identificamos proveedores de autopartes en Asia que nos ayudaron a reducir costos de importación en 18%. El retorno fue rápido.",
     rating: 5,
@@ -142,29 +313,19 @@ const testimonials = [
   },
   {
     name: "Director Comercial",
-    company: "NEW AGE COLOMBIA",
+    company: "NEW AGE MÉXICO",
     role: "Equipo Directivo",
-    content: "Iniciamos con el plan Starter y rápidamente escalamos a Professional. Los datos de Aduanas nos dieron ventaja competitiva.",
+    content: "Iniciamos con el plan Starter y rápidamente escalamos a Professional. Los datos verificados nos dieron ventaja competitiva.",
     rating: 5,
     plan: "Starter → Professional"
   }
 ]
 
 export default function PricingPage() {
-  // Moneda fija en pesos colombianos
+  const [selectedCategory, setSelectedCategory] = useState<'full' | 'sector'>('full')
 
-  const formatPrice = (price: number, curr: 'COP' | 'USD') => {
-    if (price === 0) return 'Gratis'
-    
-    if (curr === 'COP') {
-      return `$${price.toLocaleString('es-CO')}`
-    } else {
-      return `$${price.toLocaleString('en-US')}`
-    }
-  }
-
-  const getPrice = (tier: PricingTier) => {
-    return tier.priceCOP
+  const formatPrice = (priceUSD: number) => {
+    return `$${priceUSD.toLocaleString('en-US')} USD`
   }
 
   return (
@@ -176,7 +337,7 @@ export default function PricingPage() {
         <div className="container-responsive text-center">
           <div className="relative z-10">
             <Badge className="mb-4 sm:mb-6 px-4 sm:px-6 py-2 sm:py-3 bg-brand-coral/10 text-brand-coral border border-brand-coral/20 text-xs sm:text-sm">
-              🎯 PLANES PARA EL MERCADO COLOMBIANO
+              🎯 PLANES PARA EL MERCADO MEXICANO
             </Badge>
             <h1 className="text-2xl sm:text-3xl lg:text-5xl xl:text-6xl text-gray-600 mb-4 font-bold leading-tight px-4">
               Elige el plan perfecto
@@ -184,18 +345,34 @@ export default function PricingPage() {
               <span className="text-brand-navy-dark font-bold">para tu negocio</span>
             </h1>
             <p className="body-lg text-gray-600 mb-4 max-w-4xl mx-auto leading-relaxed">
-              Diseñado específicamente para empresas colombianas. Precios en pesos colombianos, 
-              métodos de pago locales (PSE, Efecty, Bancolombia) y soporte 100% en español.
+              Acceso completo o por sector. Precios en dólares,
+              métodos de pago locales y soporte 100% en español.
             </p>
-            
-            {/* Colombian Currency Indicator */}
-            <div className="flex items-center justify-center mb-6 text-sm">
-              <div className="flex items-center gap-2 px-4 py-2 bg-brand-coral/10 rounded-full">
-                <div className="w-2 h-2 bg-brand-coral rounded-full animate-pulse" />
-                <span className="text-brand-coral font-medium">
-                  🇨🇴 Precios en Pesos Colombianos
-                </span>
-              </div>
+
+            {/* Category Selector */}
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <button
+                onClick={() => setSelectedCategory('full')}
+                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+                  selectedCategory === 'full'
+                    ? 'bg-brand-navy text-white shadow-lg'
+                    : 'bg-white text-gray-600 hover:bg-gray-50'
+                }`}
+              >
+                <Crown className="w-5 h-5 inline mr-2" />
+                Full Access
+              </button>
+              <button
+                onClick={() => setSelectedCategory('sector')}
+                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+                  selectedCategory === 'sector'
+                    ? 'bg-brand-navy text-white shadow-lg'
+                    : 'bg-white text-gray-600 hover:bg-gray-50'
+                }`}
+              >
+                <Target className="w-5 h-5 inline mr-2" />
+                Por Sector
+              </button>
             </div>
           
           </div>
@@ -219,9 +396,14 @@ export default function PricingPage() {
         </div>
         
         <div className="container-responsive overflow-visible relative z-10">
-          <div className="pricing-grid max-w-7xl mx-auto overflow-visible" style={{paddingTop: '2rem'}}>
-            {pricingTiers.map((tier) => {
-              const price = getPrice(tier)
+          {/* Full Access Plans */}
+          {selectedCategory === 'full' && (
+            <>
+              <h2 className="text-3xl font-bold text-center mb-8 text-brand-navy">
+                Acceso Completo
+              </h2>
+              <div className="pricing-grid max-w-7xl mx-auto overflow-visible" style={{paddingTop: '2rem'}}>
+                {fullAccessPlans.map((tier) => {
               
               return (
                 <Card 
@@ -254,11 +436,8 @@ export default function PricingPage() {
                     <div className="mt-8">
                       <div className="text-3xl lg:text-4xl font-bold text-brand-navy leading-tight">
                         <div className="break-words text-center px-2 text-brand-navy">
-                          {formatPrice(price, 'COP')}
+                          {formatPrice(tier.priceUSD)}
                         </div>
-                        <span className="body-md font-normal text-gray-700 block mt-2 text-center">
-                          COP
-                        </span>
                       </div>
                     </div>
                   </CardHeader>
@@ -298,14 +477,14 @@ export default function PricingPage() {
                         <div>
                           <CheckoutButton
                             plan={tier.id}
-                            amount={price}
-                            currency="COP"
+                            amount={tier.priceUSD}
+                            currency="USD"
                             className={`w-full h-12 body-md font-medium mb-3 ${tier.popular ? 'bg-brand-navy text-white hover:bg-brand-navy-dark' : 'bg-white border-2 border-gray-900 text-gray-600 hover:bg-gray-900 hover:text-white'}`}
                             variant={tier.popular ? "default" : "outline"}
                           >
                             {tier.cta}
                           </CheckoutButton>
-                          <a href="https://calendar.app.google/TB83Ve6pahwVP9Jo9" target="_blank" rel="noopener noreferrer" className="block w-full text-center py-2 px-4 border border-gray-900 rounded-lg text-gray-600 hover:bg-gray-900 hover:text-white text-sm transition-colors">
+                          <a href="https://calendar.app.google/6QLJ5NshhCNhaafz7" target="_blank" rel="noopener noreferrer" className="block w-full text-center py-2 px-4 border border-gray-900 rounded-lg text-gray-600 hover:bg-gray-900 hover:text-white text-sm transition-colors">
                             📅 Agendar Demo Personalizada
                           </a>
                         </div>
@@ -316,6 +495,90 @@ export default function PricingPage() {
               )
             })}
           </div>
+            </>
+          )}
+
+          {/* Sector Plans */}
+          {selectedCategory === 'sector' && (
+            <>
+              <h2 className="text-3xl font-bold text-center mb-4 text-brand-navy">
+                Suscripción por Sector
+              </h2>
+              <p className="text-center text-gray-600 mb-8">
+                Elige el rango de fracciones arancelarias que necesitas
+              </p>
+
+              {/* Agrupar por rango */}
+              {['1-20', '21-40', '41-60'].map((range) => (
+                <div key={range} className="mb-12">
+                  <h3 className="text-2xl font-bold text-center mb-6 text-brand-coral">
+                    {range} Fracciones Arancelarias
+                  </h3>
+                  <div className="pricing-grid max-w-7xl mx-auto overflow-visible">
+                    {sectorPlans.filter(p => p.fractionsRange === range).map((tier) => (
+                      <Card
+                        key={tier.id}
+                        className="relative pricing-card business-card interactive-card layout-stable hover:border-brand-cyan/30"
+                      >
+                        <CardHeader className="text-center pb-4 px-4" style={{paddingTop: '1rem'}}>
+                          <div className="flex items-center justify-center mb-4">
+                            {tier.name === 'Trimestral' && <Clock className="w-8 h-8 text-brand-navy-dark" />}
+                            {tier.name === 'Semestral' && <BarChart3 className="w-8 h-8 text-brand-coral" />}
+                            {tier.name === 'Anual' && <Award className="w-8 h-8 text-brand-navy-dark" />}
+                          </div>
+                          <CardTitle className="heading-md text-brand-navy mb-3 px-3 text-center font-bold">{tier.name}</CardTitle>
+                          <CardDescription className="body-sm text-center px-3 min-h-[2rem] flex items-center justify-center leading-relaxed text-gray-600">
+                            {tier.period}
+                          </CardDescription>
+
+                          <div className="mt-8">
+                            <div className="text-3xl lg:text-4xl font-bold text-brand-navy leading-tight">
+                              <div className="break-words text-center px-2 text-brand-navy">
+                                {formatPrice(tier.priceUSD)}
+                              </div>
+                            </div>
+                          </div>
+                        </CardHeader>
+
+                        <CardContent className="flex-1 flex flex-col px-6 py-4">
+                          <div className="space-y-4 flex-1">
+                            <div className="space-y-4">
+                              <h4 className="body-md font-semibold text-center text-gray-700 flex items-center justify-center gap-2">
+                                ✨ Características incluidas:
+                              </h4>
+                              <div className="space-y-3">
+                                {tier.features.map((feature, index) => (
+                                  <div key={index} className="flex items-start body-sm bg-white rounded-lg p-3 shadow-sm border border-gray-100">
+                                    <CheckCircle className="h-4 w-4 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
+                                    <span className="leading-relaxed text-left text-gray-700">{feature}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="mt-6 pt-6 border-t border-gray-100">
+                            <CheckoutButton
+                              plan={tier.id}
+                              amount={tier.priceUSD}
+                              currency="USD"
+                              className="w-full h-12 body-md font-medium mb-3 bg-white border-2 border-gray-900 text-gray-600 hover:bg-gray-900 hover:text-white"
+                              variant="outline"
+                            >
+                              {tier.cta}
+                            </CheckoutButton>
+                            <a href="https://calendar.app.google/6QLJ5NshhCNhaafz7" target="_blank" rel="noopener noreferrer" className="block w-full text-center py-2 px-4 border border-gray-900 rounded-lg text-gray-600 hover:bg-gray-900 hover:text-white text-sm transition-colors">
+                              📅 Agendar Demo Personalizada
+                            </a>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
         </div>
         
         {/* Promoción especial */}
@@ -333,7 +596,7 @@ export default function PricingPage() {
         <div className="container mx-auto px-4">
           <div className="section-header">
             <h2 className="heading-xl text-gray-600 mb-4">
-              Métodos de pago colombianos
+              Métodos de pago mexicanos
             </h2>
             <p className="body-lg text-gray-700">
               Paga de la forma que prefieras con total seguridad
@@ -342,18 +605,27 @@ export default function PricingPage() {
           
           <div className="grid md:grid-cols-4 gap-6 max-w-4xl mx-auto">
             {paymentMethods.map((method, index) => (
-              <Card key={index} className="text-center business-card hover:border-brand-navy/30 transition-colors">
-                <CardContent className="pt-6">
-                  <div className="w-12 h-12 bg-brand-navy/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <method.icon className="w-6 h-6 text-brand-navy" />
+              <Card key={index} className="text-center business-card hover:border-brand-navy/30 transition-all hover:shadow-lg relative overflow-hidden group">
+                {method.available && (
+                  <div className="absolute top-3 right-3">
+                    <div className="w-6 h-6 bg-gradient-to-br from-green-400 to-emerald-600 rounded-full flex items-center justify-center shadow-md">
+                      <CheckCircle className="w-4 h-4 text-white fill-white" />
+                    </div>
                   </div>
-                  <h3 className="heading-sm mb-2">{method.name}</h3>
-                  <p className="body-sm text-gray-700">{method.description}</p>
+                )}
+                <CardContent className="pt-6 pb-8">
+                  <div className="w-14 h-14 bg-gradient-to-br from-brand-navy/10 to-brand-navy/5 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <method.icon className="w-7 h-7 text-brand-navy" />
+                  </div>
+                  <h3 className="heading-sm mb-2 text-gray-900">{method.name}</h3>
+                  <p className="body-sm text-gray-600">{method.description}</p>
                   {method.available && (
-                    <Badge variant="secondary" className="mt-3 text-green-600">
-                      <CheckCircle className="w-3 h-3 mr-1" />
-                      Disponible
-                    </Badge>
+                    <div className="mt-4 pt-4 border-t border-gray-100">
+                      <span className="text-xs font-medium text-green-600 flex items-center justify-center">
+                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5 animate-pulse"></span>
+                        Activo
+                      </span>
+                    </div>
                   )}
                 </CardContent>
               </Card>
@@ -372,7 +644,7 @@ export default function PricingPage() {
               </div>
               <div className="flex items-center">
                 <Globe className="h-4 w-4 mr-2 text-purple-500" />
-                Powered by Wompi
+                Powered by Stripe
               </div>
             </div>
           </div>
@@ -384,7 +656,7 @@ export default function PricingPage() {
         <div className="container mx-auto px-4">
           <div className="section-header">
             <h2 className="heading-xl text-gray-600 mb-4">
-              Lo que dicen las empresas colombianas
+              Lo que dicen las empresas mexicanas
             </h2>
             <p className="body-lg text-gray-700">
               Importadores, exportadores y traders que optimizan su comercio exterior con Finkargo
@@ -476,7 +748,7 @@ export default function PricingPage() {
                     ¿Cómo funciona?
                   </AccordionTrigger>
                   <AccordionContent className="text-gray-700">
-                    Analiza convierte los datos de comercio exterior que provienen de las aduanas en información valiosa a partir de tableros y gráficos personalizados e intuitivos que te permite identificar volúmenes de importaciones y/o exportaciones, mapear proveedores, precios de mercancía y costos asociados. Con esta información podrás tomar mejores decisiones y gestionar de manera ágil tus operaciones de importación.
+                    Analiza convierte los datos verificados de comercio exterior en información valiosa a partir de tableros y gráficos personalizados e intuitivos que te permite identificar volúmenes de importaciones y/o exportaciones, mapear proveedores, precios de mercancía y costos asociados. Con esta información podrás tomar mejores decisiones y gestionar de manera ágil tus operaciones de importación.
                   </AccordionContent>
                 </AccordionItem>
                 
@@ -508,7 +780,7 @@ export default function PricingPage() {
                     ¿Los precios incluyen IVA?
                   </AccordionTrigger>
                   <AccordionContent className="text-gray-700">
-                    Los precios mostrados no incluyen IVA. Para empresas colombianas se aplicará el IVA correspondiente según la legislación vigente.
+                    Los precios mostrados no incluyen IVA. Para empresas mexicanas se aplicará el IVA correspondiente según la legislación vigente.
                   </AccordionContent>
                 </AccordionItem>
                 
@@ -551,16 +823,16 @@ export default function PricingPage() {
             ¿Listo para comenzar?
           </h2>
           <p className="body-lg mb-8 max-w-2xl mx-auto" style={{color: '#ffffff'}}>
-            Únete a más de 160+ empresas colombianas que ya transformaron su estrategia de importación y exportación
+            Únete a más de 160+ empresas mexicanas que ya transformaron su estrategia de importación y exportación
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link href="/auth/signup">
               <Button size="lg" className="px-8 py-4 body-lg bg-white text-gray-900 hover:bg-gray-100 font-bold">
                 <Zap className="mr-2 h-5 w-5" />
-                Comenzar Gratis
+                Comenzar Ahora
               </Button>
             </Link>
-            <a href="https://calendar.app.google/TB83Ve6pahwVP9Jo9" target="_blank" rel="noopener noreferrer">
+            <a href="https://calendar.app.google/6QLJ5NshhCNhaafz7" target="_blank" rel="noopener noreferrer">
               <Button 
                 variant="outline" 
                 size="lg" 

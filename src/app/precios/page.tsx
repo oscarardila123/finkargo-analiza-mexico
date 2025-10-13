@@ -297,27 +297,24 @@ const paymentMethods = [
 const testimonials = [
   {
     name: "Gerente de Importaciones",
-    company: "SSANGYONG MOTOR MÉXICO SA",
+    company: "SUKARNE",
     role: "Equipo Comercial",
-    content: "Con el plan Professional identificamos proveedores de autopartes en Asia que nos ayudaron a reducir costos de importación en 18%. El retorno fue rápido.",
-    rating: 5,
-    plan: "Professional"
+    content: "Identificamos proveedores internacionales que nos ayudaron a reducir costos de importación en 18%. La plataforma nos dio ventaja competitiva en el mercado.",
+    rating: 5
   },
   {
-    name: "Coordinadora de Compras",
-    company: "ARGESA SAS",
-    role: "Departamento de Compras",
-    content: "La integración con nuestros sistemas mediante la API del plan Enterprise optimizó nuestros procesos de compras internacionales significativamente.",
-    rating: 5,
-    plan: "Enterprise"
+    name: "Coordinadora de Logística",
+    company: "SERVICIOS LOGÍSTICOS DYLO",
+    role: "Departamento de Operaciones",
+    content: "La integración con nuestros sistemas optimizó nuestros procesos de importación internacional significativamente. Los datos verificados son invaluables.",
+    rating: 5
   },
   {
     name: "Director Comercial",
-    company: "NEW AGE MÉXICO",
+    company: "VALIA TRADING CORP",
     role: "Equipo Directivo",
-    content: "Iniciamos con el plan Starter y rápidamente escalamos a Professional. Los datos verificados nos dieron ventaja competitiva.",
-    rating: 5,
-    plan: "Starter → Professional"
+    content: "Los datos verificados y el análisis de mercado nos dieron la información precisa que necesitábamos para tomar decisiones estratégicas acertadas.",
+    rating: 5
   }
 ]
 
@@ -468,7 +465,7 @@ export default function PricingPage() {
                     {/* CTA Button - Always at bottom */}
                     <div className="mt-6 pt-6 border-t border-gray-100">
                       {tier.id === 'starter' ? (
-                        <Link href="/auth/signup" className="block">
+                        <Link href="/auth/signup?from=/precios" className="block">
                           <Button className="w-full h-12 body-md font-medium bg-white border-2 border-gray-900 text-gray-600 hover:bg-gray-900 hover:text-white" variant="outline">
                             {tier.cta}
                           </Button>
@@ -675,15 +672,10 @@ export default function PricingPage() {
                   <p className="body-md text-gray-700 mb-4 italic">
                     "{testimonial.content}"
                   </p>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="heading-sm">{testimonial.name}</div>
-                      <div className="body-sm text-gray-700">{testimonial.role}</div>
-                      <div className="body-sm text-gray-700">{testimonial.company}</div>
-                    </div>
-                    <Badge variant="outline" className="text-xs">
-                      {testimonial.plan}
-                    </Badge>
+                  <div>
+                    <div className="heading-sm">{testimonial.name}</div>
+                    <div className="body-sm text-gray-700">{testimonial.role}</div>
+                    <div className="body-sm text-gray-700 font-semibold">{testimonial.company}</div>
                   </div>
                 </CardContent>
               </Card>
@@ -826,7 +818,7 @@ export default function PricingPage() {
             Únete a más de 160+ empresas mexicanas que ya transformaron su estrategia de importación y exportación
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/auth/signup">
+            <Link href="/auth/signup?from=/precios">
               <Button size="lg" className="px-8 py-4 body-lg bg-white text-gray-900 hover:bg-gray-100 font-bold">
                 <Zap className="mr-2 h-5 w-5" />
                 Comenzar Ahora

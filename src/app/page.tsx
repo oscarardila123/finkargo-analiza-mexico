@@ -208,7 +208,7 @@ export default function LandingPage() {
                 <Link href="/auth/signin">
                   <Button variant="ghost" className="text-secondary hover:bg-cyan-50 hover:text-brand-navy-dark transition-all">Iniciar Sesión</Button>
                 </Link>
-                <Link href="/auth/signup">
+                <Link href="/auth/signup?from=/precios">
                   <Button className="btn-primary-gradient text-white">Comenzar Ahora</Button>
                 </Link>
               </>
@@ -321,7 +321,7 @@ export default function LandingPage() {
                         Iniciar Sesión
                       </Button>
                     </Link>
-                    <Link href="/auth/signup" onClick={() => setMobileMenuOpen(false)}>
+                    <Link href="/auth/signup?from=/precios" onClick={() => setMobileMenuOpen(false)}>
                       <Button className="w-full btn-primary-gradient text-white">
                         Comenzar Ahora
                       </Button>
@@ -377,7 +377,7 @@ export default function LandingPage() {
             
             {/* CTA Buttons */}
             <div className="flex flex-col gap-4 sm:gap-6 justify-center items-center mb-8 sm:mb-16 px-4">
-              <Link href="/auth/signup" className="w-full sm:w-auto">
+              <Link href="/auth/signup?from=/precios" className="w-full sm:w-auto">
                 <Button size="lg" className="w-full sm:w-auto btn-primary-gradient text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold">
                   <Zap className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                   Comenzar Ahora
@@ -426,12 +426,12 @@ export default function LandingPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {[
-              { name: "SPRAY SOLUTIONS INT", city: "Bogotá", industry: "Soluciones Industriales", icon: "🏢" },
-              { name: "AUTOGERMANA SAS", city: "Bogotá", industry: "Automotriz", icon: "🚗" },
-              { name: "MEGA DISTRIBUIDORES SAS", city: "Bogotá", industry: "Distribución", icon: "📦" },
-              { name: "UMO S.A.S", city: "Bogotá", industry: "Industrial", icon: "🏭" },
-              { name: "DISAMETALES S.A.S", city: "Bogotá", industry: "Metalmecánica", icon: "⚙️" },
-              { name: "PRODUCABLES S.A.S", city: "Bogotá", industry: "Manufactura", icon: "🔧" }
+              { name: "I-DEAL SOURCING & TRADING", city: "San Francisco del Rincón", industry: "Comercio Internacional", icon: "🌐" },
+              { name: "LDR SOLUTIONS SA DE CV", city: "Zapopan", industry: "Vehículos Automotores", icon: "🚗" },
+              { name: "SUKARNE", city: "Culiacán", industry: "Industria Alimentaria", icon: "🥩" },
+              { name: "SERVICIOS LOGÍSTICOS DYLO", city: "Monterrey", industry: "Logística Internacional", icon: "📦" },
+              { name: "MAQUINARIA INTERTORITO", city: "Tlalnepantla", industry: "Maquinaria Pesada", icon: "🏗️" },
+              { name: "AVIANCA", city: "Ciudad de México", industry: "Aviación", icon: "✈️" }
             ].map((company, i) => (
               <div key={i} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 hover:border-brand-navy-dark/30">
                 <div className="flex items-center justify-between mb-4">
@@ -841,12 +841,12 @@ export default function LandingPage() {
                 </blockquote>
                 <div className="flex items-center">
                   <div className="w-12 h-12 bg-gradient-to-br from-brand-cyan/20 to-brand-cyan/10 rounded-xl flex items-center justify-center mr-4">
-                    <span className="font-bold text-brand-navy-dark">S</span>
+                    <span className="font-bold text-brand-navy-dark">ID</span>
                   </div>
                   <div>
                     <div className="font-semibold text-gray-600">Gerente de Compras</div>
-                    <div className="text-sm text-gray-600">SPRAY SOLUTIONS INT</div>
-                    <div className="text-xs text-brand-navy-dark font-medium">Ciudad de México, México</div>
+                    <div className="text-sm text-gray-600">I-DEAL SOURCING & TRADING</div>
+                    <div className="text-xs text-brand-navy-dark font-medium">San Francisco del Rincón, Guanajuato</div>
                   </div>
                 </div>
               </CardContent>
@@ -865,12 +865,12 @@ export default function LandingPage() {
                 </blockquote>
                 <div className="flex items-center">
                   <div className="w-12 h-12 bg-gradient-to-br from-brand-coral/20 to-brand-coral/10 rounded-xl flex items-center justify-center mr-4">
-                    <span className="font-bold text-brand-coral">AG</span>
+                    <span className="font-bold text-brand-coral">LDR</span>
                   </div>
                   <div>
                     <div className="font-semibold text-gray-600">Gerente de Importaciones</div>
-                    <div className="text-sm text-gray-600">AUTOGERMANA SAS</div>
-                    <div className="text-xs text-brand-coral font-medium">Ciudad de México, México</div>
+                    <div className="text-sm text-gray-600">LDR SOLUTIONS SA DE CV</div>
+                    <div className="text-xs text-brand-coral font-medium">Zapopan, Jalisco</div>
                   </div>
                 </div>
               </CardContent>
@@ -889,12 +889,12 @@ export default function LandingPage() {
                 </blockquote>
                 <div className="flex items-center">
                   <div className="w-12 h-12 bg-gradient-to-br from-brand-navy/20 to-brand-navy/10 rounded-xl flex items-center justify-center mr-4">
-                    <span className="font-bold text-brand-navy">MD</span>
+                    <span className="font-bold text-brand-navy">SD</span>
                   </div>
                   <div>
                     <div className="font-semibold text-gray-600">Gerente Financiero</div>
-                    <div className="text-sm text-gray-600">MEGA DISTRIBUIDORES SAS</div>
-                    <div className="text-xs text-brand-navy font-medium">Ciudad de México, México</div>
+                    <div className="text-sm text-gray-600">SEPULVEDA DISTRIBUIDORES</div>
+                    <div className="text-xs text-brand-navy font-medium">Apodaca, Nuevo León</div>
                   </div>
                 </div>
               </CardContent>
@@ -908,13 +908,13 @@ export default function LandingPage() {
         <div className="container-responsive">
           <div className="section-header">
             <Badge className="mb-6 px-6 py-3 bg-white border border-gray-900 text-gray-600 font-bold mx-auto shadow-lg">
-              💰 PRECIOS ESPECIALES COLOMBIA
+              💰 PRECIOS ESPECIALES MÉXICO
             </Badge>
             
             <h2 className="heading-xl text-gray-600 mb-6 font-bold">Tu aliado financiero a medida</h2>
             
             <p className="body-lg text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed font-medium">
-              Planes diseñados para empresas colombianas. Precios en COP, pagos locales, soporte en español.
+              Planes diseñados para empresas mexicanas. Precios en USD, pagos con tarjeta, soporte en español.
             </p>
             
             <div className="bg-gradient-to-r from-orange-50 via-yellow-50 to-orange-50 border border-orange-200 rounded-2xl p-8 max-w-5xl mx-auto mb-12 shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden">
@@ -1123,7 +1123,7 @@ export default function LandingPage() {
             con Finkargo Analiza. Tu éxito financiero comienza hoy.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
-            <Link href="/auth/signup">
+            <Link href="/auth/signup?from=/precios">
               <Button size="lg" className="px-10 py-5 text-lg bg-white text-blue-600 hover:bg-gray-100 shadow-2xl hover:shadow-3xl transition-all duration-300 font-semibold">
                 <Zap className="mr-3 h-6 w-6" />
                 Ser Mi Aliado

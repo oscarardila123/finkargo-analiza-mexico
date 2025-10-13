@@ -507,7 +507,7 @@ export default function FeaturesPage() {
             Únete a más de 160+ empresas Colombianas y Mexicanas que ya optimizan su comercio exterior con Finkargo Analiza
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/auth/signup">
+            <Link href="/auth/signup?from=/precios">
               <Button size="lg" className="px-8 py-4 text-lg bg-white text-primary hover:bg-gray-100">
                 Comenzar Ahora
               </Button>

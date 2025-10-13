@@ -47,7 +47,7 @@ const mockSuppliers: Supplier[] = [
     avgPrice: 45.50,
     lastImport: "2024-01-15",
     reliability: 4.8,
-    topImporters: ["DISAMETALES S.A.S", "PRODUCABLES S.A.S", "NEW AGE COLOMBIA"]
+    topImporters: ["MAQUINARIA INTERTORITO", "SERVICIOS LOGÍSTICOS DYLO", "LDR SOLUTIONS SA DE CV"]
   },
   {
     id: "2",
@@ -59,7 +59,7 @@ const mockSuppliers: Supplier[] = [
     avgPrice: 28.75,
     lastImport: "2024-01-20",
     reliability: 4.6,
-    topImporters: ["AVIANCA", "MEGA DISTRIBUIDORES SAS", "ARGESA SAS"]
+    topImporters: ["AVIANCA", "I-DEAL SOURCING & TRADING", "FLAMAS ORIENTALES S DE RL DE CV"]
   },
   {
     id: "3",
@@ -71,7 +71,7 @@ const mockSuppliers: Supplier[] = [
     avgPrice: 125.00,
     lastImport: "2024-01-22",
     reliability: 4.9,
-    topImporters: ["AUTOGERMANA SAS", "SSANGYONG MOTOR COLOMBIA SA", "UMO S.A.S"]
+    topImporters: ["LDR SOLUTIONS SA DE CV", "NISSAN MEXICANA SA DE CV", "MAQUINARIA INTERTORITO"]
   },
   {
     id: "4",
@@ -83,7 +83,7 @@ const mockSuppliers: Supplier[] = [
     avgPrice: 15.25,
     lastImport: "2024-01-18",
     reliability: 4.4,
-    topImporters: ["REFRICENTRO IMPORT SAS", "AVIANCA", "NEW AGE COLOMBIA"]
+    topImporters: ["SUKARNE", "VALIA TRADING CORP", "COMERCIALIZADORA NARECI SA DE CV"]
   },
 ]
 
@@ -332,7 +332,7 @@ export default function SuppliersPage() {
               {/* Top Importers */}
               <div>
                 <h5 className="text-xs font-medium text-gray-700 mb-1">
-                  Principales importadores colombianos:
+                  Principales importadores mexicanos:
                 </h5>
                 <p className="text-sm">{supplier.topImporters.slice(0, 2).join(", ")}</p>
               </div>

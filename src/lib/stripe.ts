@@ -76,7 +76,8 @@ export class StripeClient {
       console.log('Session data:', JSON.stringify(sessionData, null, 2))
 
       const session = await this.stripe.checkout.sessions.create({
-        payment_method_types: ['card', 'link'],
+        // Stripe automatically enables all available payment methods for the account
+        // including cards, Link, and any other methods enabled in the dashboard
         line_items: [
           {
             price_data: {

@@ -99,6 +99,8 @@ export async function POST(request: NextRequest) {
         paymentId: payment.id,
         companyId: user.company.id,
         userId: user.id,
+        planName: planName,
+        period: period || planId,
       },
     })
 

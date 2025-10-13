@@ -100,14 +100,31 @@ function PaymentSuccessContent() {
       const data = await response.json()
 
       if (!response.ok) {
-        // Session not found or expired - create a fallback payment view
-        console.warn('⚠️ Could not fetch session from Stripe, using fallback data')
+        // Session not found or expired - try to get from our database
+        console.warn('⚠️ Could not fetch session from Stripe, trying database')
 
+        if (paymentId) {
+          // Try to fetch from our database
+          try {
+            const dbResponse = await fetch(`/api/payments/${paymentId}`)
+            const dbData = await dbResponse.json()
+
+            if (dbResponse.ok && dbData.payment) {
+              setPayment(dbData.payment)
+              setLoading(false)
+              return
+            }
+          } catch (dbErr) {
+            console.error('Could not fetch from database either:', dbErr)
+          }
+        }
+
+        // Last resort: create basic fallback
         const fallbackPayment: PaymentDetails = {
           id: sessionId!,
           amount: parseFloat(searchParams.get('amount') || '0'),
           currency: 'USD',
-          reference: searchParams.get('reference') || paymentId || 'STRIPE_' + Date.now(),
+          reference: searchParams.get('reference') || paymentId || 'PAGO_COMPLETADO',
           status: 'COMPLETED',
           plan: searchParams.get('plan') || 'Plan Suscripción',
           billingCycle: searchParams.get('period') || 'semestral',

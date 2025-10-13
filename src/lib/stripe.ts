@@ -76,7 +76,7 @@ export class StripeClient {
       console.log('Session data:', JSON.stringify(sessionData, null, 2))
 
       const session = await this.stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
+        payment_method_types: ['card', 'link'],
         line_items: [
           {
             price_data: {

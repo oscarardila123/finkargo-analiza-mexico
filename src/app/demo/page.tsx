@@ -41,7 +41,7 @@ export default function DemoPage() {
               <span className="text-brand-navy-dark">en acción</span>
             </h1>
             <p className="body-lg text-gray-700 mb-8 max-w-3xl mx-auto px-4">
-              Descubre cómo empresas colombianas transforman su estrategia de comercio exterior 
+              Descubre cómo empresas mexicanas y colombianas transforman su estrategia de comercio exterior
               analizando a su competencia y los movimientos de sus proveedores.
             </p>
           
@@ -143,7 +143,7 @@ export default function DemoPage() {
               ¡Increíble! Ahora da el <span className="text-brand-navy-dark font-bold">siguiente paso</span>
             </h2>
             <p className="body-lg text-gray-600 mb-12 max-w-2xl mx-auto">
-              Has visto el poder de Finkargo Analiza. Únete a las 160+ empresas colombianas 
+              Has visto el poder de Finkargo Analiza. Únete a las 160+ empresas mexicanas y colombianas
               que ya transformaron su estrategia comercial.
             </p>
             
@@ -152,7 +152,7 @@ export default function DemoPage() {
                 <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
                   <Zap className="w-8 h-8 text-blue-600" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Comenzar Gratis</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Comenzar Ahora</h3>
                 <p className="text-gray-600 mb-6">
                   Empieza hoy mismo con 100 consultas gratuitas. No requiere tarjeta de crédito.
                 </p>
@@ -171,7 +171,7 @@ export default function DemoPage() {
                 <p className="text-gray-600 mb-6">
                   Agenda una sesión de 30 minutos adaptada a tu industria específica.
                 </p>
-                <a href="https://calendar.app.google/TB83Ve6pahwVP9Jo9" target="_blank" rel="noopener noreferrer">
+                <a href="https://calendar.app.google/6QLJ5NshhCNhaafz7" target="_blank" rel="noopener noreferrer">
                   <Button variant="outline" className="w-full py-3 border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white font-bold">
                     Agendar Demo VIP
                   </Button>
@@ -341,7 +341,7 @@ export default function DemoPage() {
                   <Users className="h-8 w-8 text-brand-coral" />
                 </div>
                 <h3 className="heading-sm mb-2 text-gray-600">Expertos Locales</h3>
-                <p className="body-sm text-gray-700">Equipo especializado en comercio exterior colombiano</p>
+                <p className="body-sm text-gray-700">Equipo especializado en comercio exterior</p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-brand-cyan/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -354,7 +354,7 @@ export default function DemoPage() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <div className="text-center">
-                <a href="https://calendar.app.google/TB83Ve6pahwVP9Jo9" target="_blank" rel="noopener noreferrer">
+                <a href="https://calendar.app.google/6QLJ5NshhCNhaafz7" target="_blank" rel="noopener noreferrer">
                   <Button size="lg" className="px-8 py-4 body-lg bg-brand-coral text-white hover:bg-brand-coral/90">
                     <span className="mr-2">📅</span>
                     Agendar Demo Personalizada
@@ -425,7 +425,7 @@ export default function DemoPage() {
                 </div>
                 <CardTitle className="text-3xl font-bold text-brand-navy mb-3">SPRAY SOLUTIONS INT</CardTitle>
                 <p className="text-lg text-gray-600 max-w-md mx-auto">Empresa especializada en soluciones industriales avanzadas</p>
-                <p className="text-sm text-brand-navy-dark font-medium mt-2">📍 Bogotá, Colombia</p>
+                <p className="text-sm text-brand-navy-dark font-medium mt-2">📍 Ciudad de México, México</p>
               </CardHeader>
               <CardContent className="py-12">
                 <div className="max-w-4xl mx-auto">
@@ -471,10 +471,10 @@ export default function DemoPage() {
             <Link href="/auth/signup">
               <Button size="lg" className="px-8 py-4 body-lg bg-white text-gray-900 hover:bg-gray-100 font-bold">
                 <Zap className="mr-2 h-5 w-5" />
-                Comenzar Gratis
+                Comenzar Ahora
               </Button>
             </Link>
-            <a href="https://calendar.app.google/TB83Ve6pahwVP9Jo9" target="_blank" rel="noopener noreferrer">
+            <a href="https://calendar.app.google/6QLJ5NshhCNhaafz7" target="_blank" rel="noopener noreferrer">
               <Button 
                 variant="outline" 
                 size="lg" 
@@ -489,7 +489,7 @@ export default function DemoPage() {
           <div className="flex items-center justify-center space-x-8 body-sm text-white/70 mt-8">
             <div className="flex items-center">
               <CheckCircle className="h-4 w-4 mr-2" />
-              Sin tarjeta de crédito
+              Acepta tarjetas de crédito
             </div>
             <div className="flex items-center">
               <CheckCircle className="h-4 w-4 mr-2" />

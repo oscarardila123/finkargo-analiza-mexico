@@ -13,7 +13,7 @@ export default function DatosSensiblesPage() {
             Autorización para el Tratamiento de Datos Sensibles
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Información sobre el tratamiento de datos sensibles por Finkargo Colombia S.A.S.
+            Información sobre el tratamiento de datos sensibles por Finkargo México
           </p>
         </div>
       </section>
@@ -33,7 +33,7 @@ export default function DatosSensiblesPage() {
 
             <div className="mb-8">
               <p className="mb-6">
-                Manifiesto que fui informado de que, en caso de recolección de mi información sensible, tengo derecho a, (i) contestar o no las preguntas que Finkargo Colombia S.A.S., sociedad comercial, debidamente constituida y válidamente existente de conformidad con las leyes de Colombia, identificada con NIT. 901.456.364-1 ("Finkargo") me formule; y (ii) entregar o no los datos solicitados por Finkargo.
+                Manifiesto que fui informado de que, en caso de recolección de mi información sensible, tengo derecho a, (i) contestar o no las preguntas que Finkargo México, S.A.P.I. de C.V., SOFOM, E.N.R., sociedad comercial debidamente constituida y válidamente existente de conformidad con las leyes de México ("Finkargo") me formule; y (ii) entregar o no los datos solicitados por Finkargo.
               </p>
               
               <p className="mb-8">
@@ -54,13 +54,13 @@ export default function DatosSensiblesPage() {
                 Por lo anterior, autorizo de forma explícita el tratamiento de mis datos sensibles a Finkargo, para que como responsable del tratamiento de mis datos personales, recolecte, almacene, use, suprima, transmita y/o transfiera a terceros, cuando sean requeridos como parte de la relación legal, comercial, contractual y/o cualquier otra que surja.
               </p>
               <p className="text-blue-700">
-                Así mismo, autorizo a que mi información sea almacenada y procesada en servidores dentro y fuera de Colombia.
+                Así mismo, autorizo a que mi información sea almacenada y procesada en servidores dentro y fuera de México.
               </p>
             </div>
 
             <h2 className="text-2xl font-bold text-gray-600 mb-6">Derechos del Titular</h2>
             <p className="mb-4">
-              Reconozco que he sido debidamente informado que mis derechos como Titular de Datos Personales son los establecidos en la Constitución Política y en la Ley 1581 de 2012, especialmente los siguientes:
+              Reconozco que he sido debidamente informado que mis derechos como Titular de Datos Personales son los establecidos en la Constitución Política y en la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, especialmente los siguientes:
             </p>
             
             <div className="grid md:grid-cols-1 gap-4 mb-8">
@@ -68,7 +68,7 @@ export default function DatosSensiblesPage() {
                 <li><strong>Acceso gratuito:</strong> Acceder en forma gratuita a los datos proporcionados que hayan sido objeto de tratamiento.</li>
                 <li><strong>Actualización y rectificación:</strong> Conocer, actualizar y rectificar mi información frente a datos parciales, inexactos, incompletos, fraccionados, que induzcan a error, o a aquellos cuyo tratamiento esté prohibido o no haya sido autorizado.</li>
                 <li><strong>Solicitud de prueba:</strong> Solicitar prueba de la autorización otorgada.</li>
-                <li><strong>Presentación de quejas:</strong> Presentar ante la Superintendencia de Industria y Comercio quejas por infracciones a lo dispuesto en la normatividad vigente.</li>
+                <li><strong>Presentación de quejas:</strong> Presentar ante el Instituto Nacional de Transparencia, Acceso a la Información y Protección de Datos Personales (INAI) quejas por infracciones a lo dispuesto en la normatividad vigente.</li>
                 <li><strong>Revocación:</strong> Revocar la autorización y/o solicitar la supresión del dato, siempre que no exista un deber legal o contractual que impida eliminarlos.</li>
                 <li><strong>Abstención:</strong> Abstenerme de responder las preguntas sobre Datos Sensibles.</li>
               </ul>

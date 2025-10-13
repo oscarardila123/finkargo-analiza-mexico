@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Calculate Colombian taxes if COP
+    // Calculate taxes if applicable
     let totalAmount = parseFloat(amount)
     let ivaAmount = 0
     let ivaRate = 0

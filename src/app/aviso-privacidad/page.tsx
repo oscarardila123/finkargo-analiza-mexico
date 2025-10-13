@@ -13,7 +13,7 @@ export default function AvisoPrivacidadPage() {
             Aviso de Privacidad
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Información sobre el tratamiento de sus datos personales por Finkargo Colombia S.A.S.
+            Información sobre el tratamiento de sus datos personales por Finkargo México
           </p>
         </div>
       </section>
@@ -25,7 +25,7 @@ export default function AvisoPrivacidadPage() {
             
             <div className="mb-8">
               <p className="mb-6">
-                De conformidad con lo dispuesto en la Ley Estatutaria 1581 de 2012 por la cual se dictan disposiciones generales para la protección de Datos Personales, sus decretos reglamentarios y demás normas que la modifiquen (la "Ley Aplicable"), Finkargo Colombia S.A.S., sociedad comercial, debidamente constituida y válidamente existente de conformidad con las leyes de Colombia, identificada con NIT. 901.456.364-1 ("Finkargo"), informa a sus trabajadores, clientes, proveedores y terceros y en general a todos los Titulares de información personal que hayan facilitado o que en el futuro faciliten sus datos, que estos serán incorporados en las Bases de Datos propiedad de Finkargo.
+                De conformidad con lo dispuesto en la Ley Federal de Protección de Datos Personales en Posesión de los Particulares y sus disposiciones reglamentarias (la "Ley Aplicable"), Finkargo México, S.A.P.I. de C.V., SOFOM, E.N.R., sociedad comercial debidamente constituida y válidamente existente de conformidad con las leyes de México ("Finkargo"), informa a sus trabajadores, clientes, proveedores y terceros y en general a todos los Titulares de información personal que hayan facilitado o que en el futuro faciliten sus datos, que estos serán incorporados en las Bases de Datos propiedad de Finkargo.
               </p>
               <p className="mb-6">
                 Finkargo podrá utilizar, sin previa autorización del Titular, información de carácter personal siempre y cuando la misma sea de naturaleza pública. Se deberá entender por Datos Personales Públicos son aquellos que se encuentran contenidos en documentos públicos, sentencias judiciales debidamente ejecutoriadas que no estén sometidos a reserva y los relativos al estado civil de las personas.
@@ -42,7 +42,7 @@ export default function AvisoPrivacidadPage() {
 
             <h3 className="text-xl font-bold text-gray-600 mb-4">Clientes/Usuarios</h3>
             <ul className="list-disc pl-6 space-y-1 mb-6">
-              <li>Otorgar facturas, pagarés y demás títulos valores, así como cualquier otro acto cuya circulación sea permitida por la legislación colombiana.</li>
+              <li>Otorgar facturas, pagarés y demás títulos valores, así como cualquier otro acto cuya circulación sea permitida por la legislación mexicana.</li>
               <li>Realizar operaciones de cesión de derechos económicos y/o de transferencia de Instrumentos de Pago (tal y como dicho término se define en el Contrato Marco para la Realización de Operaciones de Compraventa de Instrumento suscrito con Finkargo).</li>
               <li>Ejecutar de actividades para el análisis de riesgo operativo, financiero y de concentración por mercado.</li>
               <li>Realizar comparativas de similitudes en operaciones internacionales.</li>
@@ -51,7 +51,7 @@ export default function AvisoPrivacidadPage() {
               <li>Realizar encuestas de satisfacción y percepción sobre los servicios y productos ofrecidos por Finkargo.</li>
               <li>Tramitar y gestionar de peticiones, quejas, reclamos y solicitudes de los clientes y/o ciudadanos.</li>
               <li>Manejar información por parte de terceros para las gestiones comerciales, o servicios tercerizados por parte de Finkargo.</li>
-              <li>Realizar gestiones y/o trámites internos necesarios para acatar la legislación colombiana relacionados y/o derivados de los servicios y/o productos ofrecidos por Finkargo.</li>
+              <li>Realizar gestiones y/o trámites internos necesarios para acatar la legislación mexicana relacionados y/o derivados de los servicios y/o productos ofrecidos por Finkargo.</li>
               <li>Enviar información editorial, comercial, promocional, invitaciones o atenciones de Finkargo.</li>
               <li>Realizar estudios de mercado y hábitos de comportamiento.</li>
               <li>Efectuar consultas, reportes y actualizaciones en diferentes listas restrictivas y bancos de datos del comportamiento y crédito comercial.</li>
@@ -73,8 +73,8 @@ export default function AvisoPrivacidadPage() {
               <li>Realizar estudios y análisis estadísticos.</li>
               <li>Registrar y mantener datos históricos de la información de empleados y/o pensionados (activos o inactivos) en las Bases de Datos.</li>
               <li>Suministrar, compartir, enviar y entregar los Datos Personales del candidato y/o empleado para realizar actividades relacionadas con: estudios de seguridad, accidentes laborales, vinculación a seguridad social, encuestas de clima organizacional, entre otras.</li>
-              <li>Suministrar, compartir, enviar y entregar los Datos Personales del empleado a empresas filiales o vinculadas a Finkargo ubicadas en Colombia o cualquier otro país en el evento que dichas empresas requieran la información para el objeto social de Finkargo.</li>
-              <li>Dar cumplimiento a las obligaciones contraídas, con relación al pago de salarios, prestaciones sociales y demás retribuciones consagradas en el contrato de trabajo o según lo disponga la legislación colombiana.</li>
+              <li>Suministrar, compartir, enviar y entregar los Datos Personales del empleado a empresas filiales o vinculadas a Finkargo ubicadas en México o cualquier otro país en el evento que dichas empresas requieran la información para el objeto social de Finkargo.</li>
+              <li>Dar cumplimiento a las obligaciones contraídas, con relación al pago de salarios, prestaciones sociales y demás retribuciones consagradas en el contrato de trabajo o según lo disponga la legislación mexicana.</li>
               <li>Ofrecer programas de bienestar corporativo y planificar actividades empresariales, para el Titular y sus beneficiarios (hijos, cónyuge, compañero permanente).</li>
               <li>Respaldar las actividades de seguridad y salud en el trabajo, formación y promoción del personal, así como cualquier actividad enmarcada en el desarrollo de la organización y su equipo de trabajo.</li>
               <li>Emitir recomendaciones o referencias laborales una vez se culmine la relación contractual.</li>
@@ -101,7 +101,7 @@ export default function AvisoPrivacidadPage() {
               <li>Desarrollar actividades de mercadeo como: eventos, paneles y estudios de mercado.</li>
             </ul>
             <p className="mb-8">
-              Salvo por los Datos Personales de menores de edad, la información recolectada podrá ser transferida a terceros, siempre y cuando no contravenga los contratos establecidos entre las partes, a quienes se les exigirá los procedimientos de Tratamiento que establece la legislación colombiana.
+              Salvo por los Datos Personales de menores de edad, la información recolectada podrá ser transferida a terceros, siempre y cuando no contravenga los contratos establecidos entre las partes, a quienes se les exigirá los procedimientos de Tratamiento que establece la legislación mexicana.
             </p>
 
             <h2 className="text-2xl font-bold text-gray-600 mb-6">DERECHOS DEL TITULAR DE LA INFORMACIÓN</h2>
@@ -114,8 +114,8 @@ export default function AvisoPrivacidadPage() {
               <li>Conocer, actualizar y rectificar los Datos Personales que hayan sido proporcionados de manera parcial, inexacta, incompleta, fraccionada y/o que puedan inducir al error, y/o aquellos cuyo Tratamiento esté prohibido o no haya sido autorizado Para el ejercicio de estos derechos será necesario establecer previamente la identificación de la persona para evitar que terceros no autorizados accedan a los Datos Personales del Titular.</li>
               <li>Solicitar la copia de la Autorización otorgada a Finkargo salvo cuando el Tratamiento, de conformidad con la ley, no lo requiera.</li>
               <li>Recibir información sobre el uso que Finkargo ha dado a los Datos Personales del Titular.</li>
-              <li>Presentar ante la Superintendencia de Industria y Comercio ("SIC") quejas por infracciones a lo dispuesto en la ley y las demás normas que la modifiquen, adicionen o complementen.</li>
-              <li>Acceder a la solicitud de revocatoria de la Autorización y/o supresión del Dato Personal cuando la SIC haya determinado que en el Tratamiento por parte de Finkargo se ha incurrido en conductas contrarias a la Ley 1581 de 2012 o a la Constitución y, en ese sentido, revocar la Autorización y solicitar la supresión del Dato Personal. Sin perjuicio de lo anterior, la solicitud de supresión y la revocatoria de la Autorización no procederán cuando el Titular tenga un deber legal o contractual de permanecer en la Base de Datos de Finkargo como Responsable y/o Encargado del Tratamiento.</li>
+              <li>Presentar ante el Instituto Nacional de Transparencia, Acceso a la Información y Protección de Datos Personales ("INAI") quejas por infracciones a lo dispuesto en la ley y las demás normas que la modifiquen, adicionen o complementen.</li>
+              <li>Acceder a la solicitud de revocatoria de la Autorización y/o supresión del Dato Personal cuando el INAI haya determinado que en el Tratamiento por parte de Finkargo se ha incurrido en conductas contrarias a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares o a la Constitución y, en ese sentido, revocar la Autorización y solicitar la supresión del Dato Personal. Sin perjuicio de lo anterior, la solicitud de supresión y la revocatoria de la Autorización no procederán cuando el Titular tenga un deber legal o contractual de permanecer en la Base de Datos de Finkargo como Responsable y/o Encargado del Tratamiento.</li>
               <li>Abstenerse de responder las preguntas sobre Datos Personales Sensibles. El Titular de dichos Datos Personales Sensibles con la libertad de decidir si desea proporcionar o no esta información a Finkargo.</li>
             </ul>
 

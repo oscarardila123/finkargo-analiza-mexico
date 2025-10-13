@@ -13,7 +13,7 @@ export default function PoliticasPrivacidadPage() {
             Políticas de Privacidad
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Conoce cómo Finkargo Colombia S.A.S. protege y maneja tu información personal
+            Conoce cómo Finkargo México protege y maneja tu información personal
           </p>
         </div>
       </section>
@@ -25,7 +25,7 @@ export default function PoliticasPrivacidadPage() {
             
             <h2 className="text-2xl font-bold text-gray-600 mb-6">1. OBJETIVO</h2>
             <p className="mb-8">
-              El objetivo de esta Política de Privacidad (la "Política") es establecer los lineamientos legales y corporativos bajo los cuales Finkargo Colombia S.A.S. ("Finkargo") recolectará, almacenará, utilizará, y suprimirá los Datos Personales. Del mismo modo busca definir las finalidades del Tratamiento y se implementarán medidas de protección para asegurar que los Datos Personales proporcionados por los Titulares, se mantengan totalmente seguros de cualquier intento de manipulación por personal no autorizado.
+              El objetivo de esta Política de Privacidad (la "Política") es establecer los lineamientos legales y corporativos bajo los cuales Finkargo México, S.A.P.I. de C.V., SOFOM, E.N.R. ("Finkargo") recolectará, almacenará, utilizará, y suprimirá los Datos Personales. Del mismo modo busca definir las finalidades del Tratamiento y se implementarán medidas de protección para asegurar que los Datos Personales proporcionados por los Titulares, se mantengan totalmente seguros de cualquier intento de manipulación por personal no autorizado.
             </p>
 
             <h2 className="text-2xl font-bold text-gray-600 mb-6">2. ALCANCE</h2>
@@ -47,27 +47,26 @@ export default function PoliticasPrivacidadPage() {
               <p><strong>"Responsable del Tratamiento"</strong> significa Finkargo o a la persona natural o jurídica, pública o privada, que por sí misma o en asocio con otros, decida sobre la Base de Datos y/o el Tratamiento.</p>
               <p><strong>"Titular"</strong> significa la persona natural cuyos Datos Personales son objeto de Tratamiento.</p>
               <p><strong>"Tratamiento"</strong> significa cualquier operación o conjunto de operaciones sobre Datos Personales, tales como la recolección, almacenamiento, uso, circulación o supresión, así como también su Transferencia y/o Transmisión a terceros.</p>
-              <p><strong>"Transferencia"</strong> significa la transferencia de Datos Personales que tiene lugar cuando el Responsable y/o Encargado del Tratamiento, ubicado en Colombia, envía la información de los Datos Personales a un receptor, que a su vez es Responsable del Tratamiento y se encuentra dentro o fuera del país.</p>
+              <p><strong>"Transferencia"</strong> significa la transferencia de Datos Personales que tiene lugar cuando el Responsable y/o Encargado del Tratamiento, ubicado en México, envía la información de los Datos Personales a un receptor, que a su vez es Responsable del Tratamiento y se encuentra dentro o fuera del país.</p>
               <p><strong>"Transmisión"</strong> significa el Tratamiento que implica la comunicación a un tercero, Encargado del Tratamiento, cuando dicha comunicación tenga por objeto la realización de un Tratamiento por el Encargado en nombre y por cuenta del Responsable del Tratamiento, para cumplir con las finalidades de este último.</p>
             </div>
 
             <h2 className="text-2xl font-bold text-gray-600 mb-6">4. RESPONSABLE DEL TRATAMIENTO</h2>
             <div className="bg-gray-50 p-6 rounded-lg mb-8">
-              <p><strong>Razón social:</strong> Finkargo Colombia S.A.S</p>
-              <p><strong>Dirección:</strong> Cl. 87 No. 12-11, Bogotá D.C., Colombia</p>
+              <p><strong>Razón social:</strong> Finkargo México, S.A.P.I. de C.V., SOFOM, E.N.R.</p>
+              <p><strong>Dirección:</strong> Calle Montes Urales 424, Lomas – Virreyes, Lomas de Chapultepec, Ciudad de México, México</p>
               <p><strong>Correo:</strong> contacto@finkargo.com</p>
-              <p><strong>Dirección electrónica:</strong> https://www.finkargo.com/</p>
-              <p><strong>Teléfono:</strong> +57 318 594 6940</p>
+              <p><strong>Dirección electrónica:</strong> https://www.finkargo.com/mx/</p>
+              <p><strong>Teléfono:</strong> +52 55 1234 5678</p>
             </div>
 
             <h2 className="text-2xl font-bold text-gray-600 mb-6">5. MARCO NORMATIVO</h2>
             <ul className="list-disc pl-6 space-y-1 mb-8">
               <li>Norma ISO 27001 Tecnología de la Información. Técnicas de Seguridad. Sistema de Gestión de la Seguridad de la Información (SGSI).</li>
-              <li>Ley 1266 de 2008 "Disposiciones generales de habeas data – Datos financieros".</li>
-              <li>Ley 1581 de 2012 "Disposiciones generales para la protección de datos personales".</li>
-              <li>Circular Externa 003 de 2018 "Modificación de numerales de la circular única de la SIC relacionados con el registro nacional de bases de datos".</li>
-              <li>Ley 2157 de 2021" Ley de borrón y cuenta nueva".</li>
-              <li>Guía de responsabilidad demostrada de la SIC.</li>
+              <li>Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP).</li>
+              <li>Reglamento de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.</li>
+              <li>Lineamientos del Aviso de Privacidad establecidos por el INAI.</li>
+              <li>Disposiciones generales aplicables en materia de protección de datos personales en México.</li>
             </ul>
 
             <h2 className="text-2xl font-bold text-gray-600 mb-6">6. PRINCIPIOS PARA EL TRATAMIENTO</h2>
@@ -90,7 +89,7 @@ export default function PoliticasPrivacidadPage() {
 
             <h3 className="text-xl font-bold text-gray-600 mb-4">7.1. CLIENTES/USUARIOS</h3>
             <ul className="list-disc pl-6 space-y-1 mb-6">
-              <li>Otorgar facturas, pagarés y demás títulos valores, así como cualquier otro acto cuya circulación sea permitida por la legislación colombiana.</li>
+              <li>Otorgar facturas, pagarés y demás títulos valores, así como cualquier otro acto cuya circulación sea permitida por la legislación mexicana.</li>
               <li>Realizar operaciones de cesión de derechos económicos y/o de transferencia de Instrumentos de Pago (tal y como dicho término se define en el Contrato Marco para la Realización de Operaciones de Compraventa de Instrumento suscrito con Finkargo).</li>
               <li>Ejecutar de actividades para el análisis de riesgo operativo, financiero y de concentración por mercado.</li>
               <li>Realizar comparativas de similitudes en operaciones internacionales.</li>
@@ -99,7 +98,7 @@ export default function PoliticasPrivacidadPage() {
               <li>Realizar encuestas de satisfacción y percepción sobre los servicios y productos ofrecidos por Finkargo.</li>
               <li>Tramitar y gestionar de peticiones, quejas, reclamos y solicitudes de los clientes y/o ciudadanos.</li>
               <li>Manejar información por parte de terceros para las gestiones comerciales, o servicios tercerizados por parte de Finkargo.</li>
-              <li>Realizar gestiones y/o trámites internos necesarios para acatar la legislación colombiana relacionados y/o derivados de los servicios y/o productos ofrecidos por Finkargo.</li>
+              <li>Realizar gestiones y/o trámites internos necesarios para acatar la legislación mexicana relacionados y/o derivados de los servicios y/o productos ofrecidos por Finkargo.</li>
               <li>Enviar información editorial, comercial, promocional, invitaciones o atenciones de Finkargo.</li>
               <li>Realizar estudios de mercado y hábitos de comportamiento.</li>
               <li>Efectuar consultas, reportes y actualizaciones en diferentes listas restrictivas y bancos de datos del comportamiento y crédito comercial.</li>
@@ -121,8 +120,8 @@ export default function PoliticasPrivacidadPage() {
               <li>Realizar estudios y análisis estadísticos.</li>
               <li>Registrar y mantener datos históricos de la información de empleados y/o pensionados (activos o inactivos) en las Bases de Datos.</li>
               <li>Suministrar, compartir, enviar y entregar los Datos Personales del candidato y/o empleado para realizar actividades relacionadas con: estudios de seguridad, accidentes laborales, vinculación a seguridad social, encuestas de clima organizacional, entre otras.</li>
-              <li>Suministrar, compartir, enviar y entregar los Datos Personales del empleado a empresas filiales o vinculadas a Finkargo ubicadas en Colombia o cualquier otro país en el evento que dichas empresas requieran la información para el objeto social de Finkargo.</li>
-              <li>Dar cumplimiento a las obligaciones contraídas, con relación al pago de salarios, prestaciones sociales y demás retribuciones consagradas en el contrato de trabajo o según lo disponga la legislación colombiana.</li>
+              <li>Suministrar, compartir, enviar y entregar los Datos Personales del empleado a empresas filiales o vinculadas a Finkargo ubicadas en México o cualquier otro país en el evento que dichas empresas requieran la información para el objeto social de Finkargo.</li>
+              <li>Dar cumplimiento a las obligaciones contraídas, con relación al pago de salarios, prestaciones sociales y demás retribuciones consagradas en el contrato de trabajo o según lo disponga la legislación mexicana.</li>
               <li>Ofrecer programas de bienestar corporativo y planificar actividades empresariales, para el Titular y sus beneficiarios (hijos, cónyuge, compañero permanente).</li>
               <li>Respaldar las actividades de seguridad y salud en el trabajo, formación y promoción del personal, así como cualquier actividad enmarcada en el desarrollo de la organización y su equipo de trabajo.</li>
               <li>Emitir recomendaciones o referencias laborales una vez se culmine la relación contractual.</li>
@@ -149,7 +148,7 @@ export default function PoliticasPrivacidadPage() {
               <li>Desarrollar actividades de mercadeo como: eventos, paneles y estudios de mercado.</li>
             </ul>
             <p className="mb-8">
-              Salvo por los Datos Personales de menores de edad, según se establece en la Sección 7.5 de esta Política, la información recolectada en cumplimiento de esta Política, y en especial en los términos establecidos en esta Sección 7, podrá ser transferida a terceros, siempre y cuando no contravenga los contratos establecidos entre las partes, a quienes se les exigirá los procedimientos de Tratamiento que establece la legislación colombiana.
+              Salvo por los Datos Personales de menores de edad, según se establece en la Sección 7.5 de esta Política, la información recolectada en cumplimiento de esta Política, y en especial en los términos establecidos en esta Sección 7, podrá ser transferida a terceros, siempre y cuando no contravenga los contratos establecidos entre las partes, a quienes se les exigirá los procedimientos de Tratamiento que establece la legislación mexicana.
             </p>
 
             <h2 className="text-2xl font-bold text-gray-600 mb-6">8. DERECHOS DEL TITULAR</h2>
@@ -159,8 +158,8 @@ export default function PoliticasPrivacidadPage() {
               <li>Conocer, actualizar y rectificar los Datos Personales que hayan sido proporcionados de manera parcial, inexacta, incompleta, fraccionada y/o que puedan inducir al error, y/o aquellos cuyo Tratamiento esté prohibido o no haya sido autorizado Para el ejercicio de estos derechos será necesario establecer previamente la identificación de la persona para evitar que terceros no autorizados accedan a los Datos Personales del Titular.</li>
               <li>Solicitar la copia de la Autorización otorgada a Finkargo salvo cuando el Tratamiento, de conformidad con la ley, no lo requiera.</li>
               <li>Recibir información sobre el uso que Finkargo ha dado a los Datos Personales del Titular.</li>
-              <li>Presentar ante la Superintendencia de Industria y Comercio ("SIC") quejas por infracciones a lo dispuesto en la ley y las demás normas que la modifiquen, adicionen o complementen.</li>
-              <li>Acceder a la solicitud de revocatoria de la Autorización y/o supresión del Dato Personal cuando la SIC haya determinado que en el Tratamiento por parte de Finkargo se ha incurrido en conductas contrarias a la Ley 1581 de 2012 o a la Constitución y, en ese sentido, revocar la Autorización y solicitar la supresión del Dato Personal. Sin perjuicio de lo anterior, la solicitud de supresión y la revocatoria de la Autorización no procederán cuando el Titular tenga un deber legal o contractual de permanecer en la Base de Datos de Finkargo como Responsable y/o Encargado del Tratamiento.</li>
+              <li>Presentar ante el Instituto Nacional de Transparencia, Acceso a la Información y Protección de Datos Personales ("INAI") quejas por infracciones a lo dispuesto en la ley y las demás normas que la modifiquen, adicionen o complementen.</li>
+              <li>Acceder a la solicitud de revocatoria de la Autorización y/o supresión del Dato Personal cuando el INAI haya determinado que en el Tratamiento por parte de Finkargo se ha incurrido en conductas contrarias a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares o a la Constitución y, en ese sentido, revocar la Autorización y solicitar la supresión del Dato Personal. Sin perjuicio de lo anterior, la solicitud de supresión y la revocatoria de la Autorización no procederán cuando el Titular tenga un deber legal o contractual de permanecer en la Base de Datos de Finkargo como Responsable y/o Encargado del Tratamiento.</li>
               <li>Abstenerse de responder las preguntas sobre Datos Personales Sensibles. El Titular de dichos Datos Personales Sensibles con la libertad de decidir si desea proporcionar o no esta información a Finkargo.</li>
             </ul>
             
@@ -183,7 +182,7 @@ export default function PoliticasPrivacidadPage() {
               <li>Rectificar los Datos Personales cuando ello sea procedente.</li>
               <li>Tramitar las consultas y reclamos formulados en los términos señalados en la presente Política.</li>
               <li>Adoptar un manual interno de políticas y procedimientos para garantizar el adecuado cumplimiento de la ley y en especial, para la atención de Consultas y/o Reclamos.</li>
-              <li>Informar a la SIC cuando se presenten violaciones a los códigos de seguridad y existan riesgos en la administración de la información de los Titulares.</li>
+              <li>Informar al INAI cuando se presenten violaciones a los códigos de seguridad y existan riesgos en la administración de la información de los Titulares.</li>
             </ul>
 
             <h2 className="text-2xl font-bold text-gray-600 mb-6">10. ATENCIÓN DE PETICIONES, CONSULTAS Y/O RECLAMOS</h2>
@@ -267,8 +266,8 @@ export default function PoliticasPrivacidadPage() {
               </p>
               <p className="text-blue-700">
                 <strong>Email:</strong> contacto@finkargo.com<br/>
-                <strong>Teléfono:</strong> +57 318 594 6940<br/>
-                <strong>Dirección:</strong> Cl. 87 No. 12-11, Bogotá D.C., Colombia
+                <strong>Teléfono:</strong> +52 55 1234 5678<br/>
+                <strong>Dirección:</strong> Calle Montes Urales 424, Lomas – Virreyes, Ciudad de México, México
               </p>
             </div>
 

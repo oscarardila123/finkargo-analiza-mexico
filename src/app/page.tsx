@@ -48,7 +48,6 @@ interface PricingTier {
   id: string
   name: string
   period: string
-  priceCOP: number
   priceUSD: number
   popular?: boolean
   features: string[]
@@ -59,44 +58,40 @@ const pricingTiers: PricingTier[] = [
     id: "trimestral",
     name: "Trimestral",
     period: "3 meses",
-    priceCOP: 650000,
-    priceUSD: 163,
+    priceUSD: 1100,
     features: [
-      "Acceso completo a la plataforma",
-      "Análisis de competidores",
-      "Base de datos de proveedores",
-      "Reportes básicos",
-      "Soporte por email"
-    ]
-  },
-  {
-    id: "anual",
-    name: "Anual",
-    period: "12 meses",
-    priceCOP: 1000000,
-    priceUSD: 250,
-    popular: true,
-    features: [
-      "Todo lo del plan Trimestral",
-      "Alertas en tiempo real",
-      "Reportes avanzados",
-      "Análisis predictivo",
-      "Soporte prioritario WhatsApp",
-      "Descuentos especiales"
+      "Acceso completo a toda la base de datos",
+      "Todas las fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas ilimitadas a Excel",
+      "Soporte prioritario 24/7"
     ]
   },
   {
     id: "semestral",
     name: "Semestral",
     period: "6 meses",
-    priceCOP: 800000,
-    priceUSD: 200,
+    priceUSD: 2000,
     features: [
       "Todo lo del plan Trimestral",
-      "Análisis de mercado",
+      "Capacitaciones ilimitadas",
+      "Análisis de mercado avanzado",
       "Reportes personalizados",
+      "Soporte prioritario WhatsApp"
+    ]
+  },
+  {
+    id: "anual",
+    name: "Anual",
+    period: "12 meses",
+    priceUSD: 2900,
+    popular: true,
+    features: [
+      "Todo lo del plan Semestral",
+      "Asesoría estratégica trimestral",
+      "Análisis predictivo",
       "Consultas ilimitadas",
-      "Soporte telefónico"
+      "Descuentos especiales"
     ]
   }
 ]
@@ -104,11 +99,7 @@ const pricingTiers: PricingTier[] = [
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { data: session, status } = useSession()
-  
-  const formatPrice = (price: number) => {
-    return `$${price.toLocaleString('es-CO')}`
-  }
-  
+
   return (
     <div className="min-h-screen bg-white overflow-x-hidden w-full">
       {/* Header */}
@@ -218,7 +209,7 @@ export default function LandingPage() {
                   <Button variant="ghost" className="text-secondary hover:bg-cyan-50 hover:text-brand-navy-dark transition-all">Iniciar Sesión</Button>
                 </Link>
                 <Link href="/auth/signup">
-                  <Button className="btn-primary-gradient text-white">Comenzar Gratis</Button>
+                  <Button className="btn-primary-gradient text-white">Comenzar Ahora</Button>
                 </Link>
               </>
             )}
@@ -332,7 +323,7 @@ export default function LandingPage() {
                     </Link>
                     <Link href="/auth/signup" onClick={() => setMobileMenuOpen(false)}>
                       <Button className="w-full btn-primary-gradient text-white">
-                        Comenzar Gratis
+                        Comenzar Ahora
                       </Button>
                     </Link>
                   </>
@@ -349,7 +340,7 @@ export default function LandingPage() {
           <div className="text-center relative z-10 layout-stable">
             {/* Main Badge with Dark Text */}
             <Badge className="mb-6 sm:mb-8 px-4 sm:px-8 py-2 sm:py-3 bg-white border border-gray-800 text-gray-600 font-bold tracking-wide shadow-lg text-xs sm:text-sm">
-              🇨🇴 FINKARGO ANALIZA - TU ALIADO FINANCIERO
+              🇲🇽 FINKARGO ANALIZA - TU ALIADO FINANCIERO
             </Badge>
             
             {/* Main Heading with Strong Contrast */}
@@ -358,25 +349,25 @@ export default function LandingPage() {
               <br />
               <span className="text-gray-600 font-black">confiable y útil</span>
               <br />
-              <span className="text-gray-600 font-black">del importador colombiano</span>
+              <span className="text-gray-600 font-black">del importador mexicano</span>
             </h1>
             
             {/* Description with Dark Text */}
             <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-8 max-w-4xl mx-auto px-4 leading-relaxed font-medium">
-              Transforma tu estrategia de importación con inteligencia comercial avanzada. 
-              Analiza competidores, encuentra proveedores confiables y toma decisiones financieras inteligentes 
-              con datos oficiales de Aduanas.
+              Transforma tu estrategia de importación con inteligencia comercial avanzada.
+              Analiza competidores, encuentra proveedores confiables y toma decisiones financieras inteligentes
+              con datos verificados y confiables.
             </p>
             
             {/* Feature Badges with Dark Text */}
             <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-6 mb-8 sm:mb-12 px-4">
               <div className="flex items-center gap-2 bg-white px-3 sm:px-4 py-2 rounded-full border border-gray-200 shadow-sm w-full sm:w-auto justify-center">
                 <div className="w-3 h-3 bg-green-500 rounded-full flex-shrink-0"></div>
-                <span className="text-xs sm:text-sm font-bold text-gray-600">Datos de Aduanas Oficiales</span>
+                <span className="text-xs sm:text-sm font-bold text-gray-600">Datos Verificados y Confiables</span>
               </div>
               <div className="flex items-center gap-2 bg-white px-3 sm:px-4 py-2 rounded-full border border-gray-200 shadow-sm w-full sm:w-auto justify-center">
                 <div className="w-3 h-3 bg-green-500 rounded-full flex-shrink-0"></div>
-                <span className="text-xs sm:text-sm font-bold text-gray-600">Soporte 100% Colombia</span>
+                <span className="text-xs sm:text-sm font-bold text-gray-600">Soporte 100% México</span>
               </div>
               <div className="flex items-center gap-2 bg-white px-3 sm:px-4 py-2 rounded-full border border-gray-200 shadow-sm w-full sm:w-auto justify-center">
                 <div className="w-3 h-3 bg-green-500 rounded-full"></div>
@@ -389,7 +380,7 @@ export default function LandingPage() {
               <Link href="/auth/signup" className="w-full sm:w-auto">
                 <Button size="lg" className="w-full sm:w-auto btn-primary-gradient text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold">
                   <Zap className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-                  Comenzar Gratis
+                  Comenzar Ahora
                 </Button>
               </Link>
               <Link href="/demo" className="w-full sm:w-auto">
@@ -405,7 +396,7 @@ export default function LandingPage() {
             <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-6 px-4">
               <div className="flex items-center bg-white px-3 py-2 rounded-lg border border-gray-200 shadow-sm w-full sm:w-auto justify-center">
                 <CheckCircle className="h-4 w-4 text-green-600 mr-2 flex-shrink-0" />
-                <span className="text-xs sm:text-sm font-bold text-gray-600">Sin tarjeta de crédito</span>
+                <span className="text-xs sm:text-sm font-bold text-gray-600">Acepta tarjetas de crédito</span>
               </div>
               <div className="flex items-center bg-white px-3 py-2 rounded-lg border border-gray-200 shadow-sm w-full sm:w-auto justify-center">
                 <CheckCircle className="h-4 w-4 text-green-600 mr-2 flex-shrink-0" />
@@ -450,8 +441,8 @@ export default function LandingPage() {
                 <h4 className="font-semibold text-gray-600 mb-1">{company.name}</h4>
                 <p className="text-sm text-gray-600 mb-2">{company.industry}</p>
                 <div className="flex items-center gap-1 text-xs text-brand-navy-dark">
-                  <span>🇨🇴</span>
-                  <span className="font-medium">{company.city}, Colombia</span>
+                  <span>🇲🇽</span>
+                  <span className="font-medium">{company.city}, México</span>
                 </div>
               </div>
             ))}
@@ -501,8 +492,8 @@ export default function LandingPage() {
               <br />transforma tu estrategia comercial
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-4 leading-relaxed">
-              Descubre en 2 minutos cómo empresas líderes optimizan sus importaciones 
-              con inteligencia comercial avanzada y datos oficiales de Aduanas.
+              Descubre en 2 minutos cómo empresas líderes optimizan sus importaciones
+              con inteligencia comercial avanzada y datos verificados.
             </p>
           </div>
           
@@ -595,7 +586,7 @@ export default function LandingPage() {
               Tu aliado <span className="text-brand-navy-dark font-bold">confiable</span>, <span className="text-brand-coral font-bold">útil</span> y <span className="text-brand-navy font-bold">financiero</span>
             </h2>
             <p className="body-lg text-gray-600 max-w-4xl mx-auto px-4 leading-relaxed">
-              Finkargo Analiza combina datos oficiales de Aduanas, inteligencia artificial avanzada 
+              Finkargo Analiza combina datos verificados de comercio exterior, inteligencia artificial avanzada
               y experiencia local para ser el compañero ideal en cada decisión de importación que tomes.
             </p>
           </div>
@@ -609,7 +600,7 @@ export default function LandingPage() {
                 </div>
                 <CardTitle className="heading-lg text-brand-navy-dark mb-3">🔒 CONFIABLE</CardTitle>
                 <CardDescription className="text-gray-600 text-base leading-relaxed">
-                  Tu aliado de confianza con datos 100% oficiales y verificados por Aduanas
+                  Tu aliado de confianza con datos 100% verificados y confiables
                 </CardDescription>
               </CardHeader>
               <CardContent className="px-6">
@@ -620,7 +611,7 @@ export default function LandingPage() {
                     </div>
                     <div>
                       <p className="font-semibold text-gray-600">2M+ Registros Oficiales</p>
-                      <p className="text-sm text-gray-600">Base de datos de Aduanas certificada</p>
+                      <p className="text-sm text-gray-600">Base de datos verificada y confiable</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4 p-4 bg-brand-cyan/5 rounded-xl">
@@ -743,50 +734,50 @@ export default function LandingPage() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <Badge className="mb-6 px-6 py-3 bg-gradient-to-r from-brand-coral/10 to-brand-cyan/10 text-brand-coral border border-brand-coral/20 font-semibold">
-                🇨🇴 100% DISEÑADO PARA COLOMBIA
+                🇲🇽 100% DISEÑADO PARA MÉXICO
               </Badge>
               <h2 className="heading-xl text-gray-600 mb-8">
                 Diseñado específicamente
-                <br />para el <span className="text-brand-navy-dark">mercado colombiano</span>
+                <br />para el <span className="text-brand-navy-dark">mercado mexicano</span>
               </h2>
               <p className="body-lg text-gray-700 font-medium mb-8 text-justify">
                 No somos una herramienta genérica. Finkargo Analiza está construida desde cero 
-                para entender las particularidades del comercio exterior colombiano.
+                para entender las particularidades del comercio exterior mexicano.
               </p>
               <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-brand-navy/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                    <Award className="h-5 w-5 text-brand-navy" />
-                  </div>
-                  <div>
-                    <h3 className="heading-sm mb-2">Integración Aduanas Nativa</h3>
-                    <p className="body-md text-gray-700 text-justify">
-                      Única plataforma con acceso directo y autorizado a los sistemas de Aduanas. 
-                      Datos 100% oficiales y verificados.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <div className="w-8 h-8 bg-brand-navy/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                    <Users className="h-5 w-5 text-brand-navy" />
-                  </div>
-                  <div>
-                    <h3 className="heading-sm mb-2">Soporte Local Experto</h3>
-                    <p className="body-md text-gray-700 text-justify">
-                      Equipo especializado en Bogotá que entiende tu negocio, regulaciones locales 
-                      y particularidades del mercado colombiano.
-                    </p>
-                  </div>
-                </div>
                 <div className="flex items-start space-x-4">
                   <div className="w-8 h-8 bg-brand-navy/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
                     <BarChart3 className="h-5 w-5 text-brand-navy" />
                   </div>
                   <div>
-                    <h3 className="heading-sm mb-2">Análisis Sectorial Profundo</h3>
+                    <h3 className="heading-sm mb-2">Análisis de Mercado y Competencia</h3>
                     <p className="body-md text-gray-700 text-justify">
-                      Insights específicos por sectores clave: textil, agroindustria, tecnología, 
-                      químicos, manufacturero y más.
+                      Conoce tu participación en el mercado, ranking de competencia entre importadores
+                      y tendencias por proveedor, país de origen y posición arancelaria.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <div className="w-8 h-8 bg-brand-navy/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                    <Globe className="h-5 w-5 text-brand-navy" />
+                  </div>
+                  <div>
+                    <h3 className="heading-sm mb-2">Búsqueda de Proveedores Globales</h3>
+                    <p className="body-md text-gray-700 text-justify">
+                      Encuentra proveedores del exterior con información detallada de precios, productos,
+                      valores FOB y CIF, modalidad de transporte y agentes de aduana.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <div className="w-8 h-8 bg-brand-navy/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                    <Target className="h-5 w-5 text-brand-navy" />
+                  </div>
+                  <div>
+                    <h3 className="heading-sm mb-2">Apertura de Mercado Estratégica</h3>
+                    <p className="body-md text-gray-700 text-justify">
+                      Herramienta comercial para identificar nuevos prospectos y analizar costos
+                      operativos incluyendo fletes, seguros y gastos tributarios.
                     </p>
                   </div>
                 </div>
@@ -827,7 +818,7 @@ export default function LandingPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <Badge className="mb-6 px-6 py-3 bg-brand-navy-dark/10 text-brand-navy-dark border border-brand-navy-dark/20 mx-auto">
-              🇨🇴 CASOS DE ÉXITO COLOMBIA
+              🇲🇽 CASOS DE ÉXITO MÉXICO
             </Badge>
             <h2 className="heading-xl text-gray-600 mb-6">
               Tu aliado <span className="text-brand-navy-dark font-bold">confiable</span> desde 2022
@@ -855,7 +846,7 @@ export default function LandingPage() {
                   <div>
                     <div className="font-semibold text-gray-600">Gerente de Compras</div>
                     <div className="text-sm text-gray-600">SPRAY SOLUTIONS INT</div>
-                    <div className="text-xs text-brand-navy-dark font-medium">Bogotá, Colombia</div>
+                    <div className="text-xs text-brand-navy-dark font-medium">Ciudad de México, México</div>
                   </div>
                 </div>
               </CardContent>
@@ -879,7 +870,7 @@ export default function LandingPage() {
                   <div>
                     <div className="font-semibold text-gray-600">Gerente de Importaciones</div>
                     <div className="text-sm text-gray-600">AUTOGERMANA SAS</div>
-                    <div className="text-xs text-brand-coral font-medium">Bogotá, Colombia</div>
+                    <div className="text-xs text-brand-coral font-medium">Ciudad de México, México</div>
                   </div>
                 </div>
               </CardContent>
@@ -903,7 +894,7 @@ export default function LandingPage() {
                   <div>
                     <div className="font-semibold text-gray-600">Gerente Financiero</div>
                     <div className="text-sm text-gray-600">MEGA DISTRIBUIDORES SAS</div>
-                    <div className="text-xs text-brand-navy font-medium">Bogotá, Colombia</div>
+                    <div className="text-xs text-brand-navy font-medium">Ciudad de México, México</div>
                   </div>
                 </div>
               </CardContent>
@@ -1006,13 +997,10 @@ export default function LandingPage() {
                     <div className={`text-5xl font-black mb-2 ${
                       tier.popular ? 'text-brand-cyan' : 'text-brand-navy-dark'
                     }`}>
-                      {formatPrice(tier.priceCOP)}
+                      ${tier.priceUSD.toLocaleString('en-US')} USD
                     </div>
                     <div className="text-base font-semibold text-gray-600 bg-gradient-to-r from-gray-100 to-gray-50 px-4 py-2 rounded-full">
-                      🇨🇴 COP por {tier.period}
-                    </div>
-                    <div className="text-sm text-gray-500 bg-blue-50 px-3 py-1 rounded-full inline-block">
-                      💵 ≈ ${tier.priceUSD} USD
+                      por {tier.period}
                     </div>
                   </div>
                 </CardHeader>
@@ -1072,7 +1060,7 @@ export default function LandingPage() {
                       </div>
                       <div className="text-center">
                         <h4 className="font-bold text-gray-800 mb-2">🔒 Datos Certificados</h4>
-                        <p className="text-sm text-gray-600">Información oficial de Aduanas 100% verificada y segura</p>
+                        <p className="text-sm text-gray-600">Información 100% verificada, confiable y segura</p>
                       </div>
                     </div>
                   </div>
@@ -1083,8 +1071,8 @@ export default function LandingPage() {
                         <Users className="h-8 w-8 text-white" />
                       </div>
                       <div className="text-center">
-                        <h4 className="font-bold text-gray-800 mb-2">🇨🇴 Soporte Local</h4>
-                        <p className="text-sm text-gray-600">Atención en español con expertos colombianos</p>
+                        <h4 className="font-bold text-gray-800 mb-2">🇲🇽 Soporte Local</h4>
+                        <p className="text-sm text-gray-600">Atención en español con expertos mexicanos</p>
                       </div>
                     </div>
                   </div>
@@ -1128,17 +1116,17 @@ export default function LandingPage() {
           </Badge>
           <h2 className="heading-xl mb-6">
             ¿Listo para tener el <span className="text-orange-400 font-bold">aliado financiero</span>
-            <br />más <span className="text-white font-bold">confiable y útil</span> de Colombia?
+            <br />más <span className="text-white font-bold">confiable y útil</span> de México?
           </h2>
           <p className="body-lg mb-12 opacity-90 max-w-4xl mx-auto leading-relaxed">
-            Únete a las 160+ empresas colombianas que transformaron su estrategia de importación 
+            Únete a las 160+ empresas mexicanas que transformaron su estrategia de importación 
             con Finkargo Analiza. Tu éxito financiero comienza hoy.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
             <Link href="/auth/signup">
               <Button size="lg" className="px-10 py-5 text-lg bg-white text-blue-600 hover:bg-gray-100 shadow-2xl hover:shadow-3xl transition-all duration-300 font-semibold">
                 <Zap className="mr-3 h-6 w-6" />
-                Ser Mi Aliado Gratis
+                Ser Mi Aliado
               </Button>
             </Link>
             <a href="https://api.whatsapp.com/send?phone=573222235280&text=Hola%2C%20me%20interesa%20la%20herramienta%20de%20mercado.%20&utm_source=website&utm_medium=whatsapp" target="_blank" rel="noopener noreferrer">
@@ -1151,7 +1139,7 @@ export default function LandingPage() {
           
           {/* Dual Channel Strategy */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
-            <a href="https://calendar.app.google/TB83Ve6pahwVP9Jo9" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 px-8 py-4 bg-white/20 backdrop-blur-sm text-white border border-white/30 rounded-lg hover:bg-white/30 transition-all duration-300">
+            <a href="https://calendar.app.google/6QLJ5NshhCNhaafz7" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 px-8 py-4 bg-white/20 backdrop-blur-sm text-white border border-white/30 rounded-lg hover:bg-white/30 transition-all duration-300">
               <span className="text-xl">📅</span>
               <span className="font-medium">Agendar Demo (30 min)</span>
             </a>
@@ -1171,7 +1159,7 @@ export default function LandingPage() {
             <div className="grid md:grid-cols-3 gap-6">
               <div className="flex items-center justify-center gap-3">
                 <CheckCircle className="h-6 w-6 text-green-400" />
-                <span className="font-medium">14 días gratis, sin tarjeta</span>
+                <span className="font-medium">14 días de prueba gratuita</span>
               </div>
               <div className="flex items-center justify-center gap-3">
                 <CheckCircle className="h-6 w-6 text-green-400" />

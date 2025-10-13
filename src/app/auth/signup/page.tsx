@@ -71,7 +71,7 @@ export default function SignUpPage() {
       return
     }
     if (!formData.nit.trim()) {
-      setError("El NIT es obligatorio")
+      setError("El RFC es obligatorio")
       return
     }
     if (!formData.companyEmail.trim()) {
@@ -189,11 +189,11 @@ export default function SignUpPage() {
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="nit">NIT <span className="text-red-500">*</span></Label>
+          <Label htmlFor="nit">RFC <span className="text-red-500">*</span></Label>
           <Input
             id="nit"
             type="text"
-            placeholder="900123456-1"
+            placeholder="ABC123456XYZ"
             className="placeholder:text-gray-400"
             value={formData.nit}
             onChange={(e) => handleInputChange("nit", e.target.value)}
@@ -221,7 +221,7 @@ export default function SignUpPage() {
           <Input
             id="city"
             type="text"
-            placeholder="Bogotá"
+            placeholder="Ciudad de México"
             className="placeholder:text-gray-400"
             value={formData.city}
             onChange={(e) => handleInputChange("city", e.target.value)}
@@ -233,7 +233,7 @@ export default function SignUpPage() {
           <Input
             id="phone"
             type="tel"
-            placeholder="+57 300 123 4567"
+            placeholder="+52 55 1234 5678"
             className="placeholder:text-gray-400"
             value={formData.phone}
             onChange={(e) => handleInputChange("phone", e.target.value)}
@@ -286,7 +286,7 @@ export default function SignUpPage() {
         <Label htmlFor="address">Dirección</Label>
         <Textarea
           id="address"
-          placeholder="Carrera 15 #93-47, Oficina 501"
+          placeholder="Av. Paseo de la Reforma 250, Piso 5, Col. Juárez"
           className="placeholder:text-gray-400"
           value={formData.address}
           onChange={(e) => handleInputChange("address", e.target.value)}
@@ -342,13 +342,13 @@ export default function SignUpPage() {
                   <div className="w-8 h-8 bg-green-400 rounded-full flex items-center justify-center">
                     <Check className="w-5 h-5 text-white" />
                   </div>
-                  <span>14 días gratis sin tarjeta de crédito</span>
+                  <span>14 días de prueba gratuita</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-green-400 rounded-full flex items-center justify-center">
                     <Shield className="w-5 h-5 text-white" />
                   </div>
-                  <span>Datos de Aduanas 100% oficiales y seguros</span>
+                  <span>Datos 100% verificados y seguros</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-green-400 rounded-full flex items-center justify-center">

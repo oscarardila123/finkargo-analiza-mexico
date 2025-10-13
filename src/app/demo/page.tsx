@@ -61,7 +61,7 @@ export default function DemoPage() {
                       Explora <span className="bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">Finkargo Analiza</span> en Acción
                     </h3>
                     <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                      Interactúa con nuestra plataforma real. Descubre cómo empresas como SPRAY SOLUTIONS INT 
+                      Interactúa con nuestra plataforma real. Descubre cómo empresas como SUKARNE
                       optimizaron su cadena de suministro y mejoraron eficiencia operativa en 35%.
                     </p>
                   </div>
@@ -156,7 +156,7 @@ export default function DemoPage() {
                 <p className="text-gray-600 mb-6">
                   Empieza hoy mismo con 100 consultas gratuitas. No requiere tarjeta de crédito.
                 </p>
-                <Link href="/auth/signup">
+                <Link href="/auth/signup?from=/precios">
                   <Button className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold">
                     Crear Cuenta Gratis
                   </Button>
@@ -413,7 +413,7 @@ export default function DemoPage() {
               <span className="text-brand-navy-dark">destacado</span>
             </h2>
             <p className="body-lg text-gray-700">
-              Conoce cómo SPRAY SOLUTIONS INT optimizó sus importaciones internacionales
+              Conoce cómo SUKARNE optimizó sus importaciones internacionales
             </p>
           </div>
 
@@ -423,9 +423,9 @@ export default function DemoPage() {
                 <div className="w-20 h-20 bg-gradient-to-br from-brand-coral to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
                   <TrendingUp className="h-10 w-10 text-white" />
                 </div>
-                <CardTitle className="text-3xl font-bold text-brand-navy mb-3">SPRAY SOLUTIONS INT</CardTitle>
-                <p className="text-lg text-gray-600 max-w-md mx-auto">Empresa especializada en soluciones industriales avanzadas</p>
-                <p className="text-sm text-brand-navy-dark font-medium mt-2">📍 Ciudad de México, México</p>
+                <CardTitle className="text-3xl font-bold text-brand-navy mb-3">SUKARNE</CardTitle>
+                <p className="text-lg text-gray-600 max-w-md mx-auto">Empresa líder en la industria alimentaria y cárnica</p>
+                <p className="text-sm text-brand-navy-dark font-medium mt-2">📍 Culiacán, Sinaloa</p>
               </CardHeader>
               <CardContent className="py-12">
                 <div className="max-w-4xl mx-auto">
@@ -437,11 +437,11 @@ export default function DemoPage() {
                   <div className="border-t border-blue-200 pt-6">
                     <div className="flex items-center justify-center">
                       <div className="w-12 h-12 bg-gradient-to-br from-brand-navy to-blue-600 rounded-full flex items-center justify-center mr-4">
-                        <span className="font-bold text-white text-lg">S</span>
+                        <span className="font-bold text-white text-lg">SK</span>
                       </div>
                       <div className="text-center">
                         <p className="font-bold text-brand-navy text-lg">Gerente de Compras</p>
-                        <p className="text-brand-navy-dark font-medium">SPRAY SOLUTIONS INT</p>
+                        <p className="text-brand-navy-dark font-medium">SUKARNE</p>
                       </div>
                     </div>
                     <div className="text-center mt-4">
@@ -468,7 +468,7 @@ export default function DemoPage() {
             No esperes más. Comienza tu transformación digital hoy mismo con una cuenta gratuita
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/auth/signup">
+            <Link href="/auth/signup?from=/precios">
               <Button size="lg" className="px-8 py-4 body-lg bg-white text-gray-900 hover:bg-gray-100 font-bold">
                 <Zap className="mr-2 h-5 w-5" />
                 Comenzar Ahora

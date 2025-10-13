@@ -66,10 +66,10 @@ interface MarketAnalysis {
 const mockMarketAnalysis: MarketAnalysis = {
   topImporters: [
     { name: "AVIANCA", value: 2450000, percentage: 15.2, trend: 12.5 },
-    { name: "AUTOGERMANA SAS", value: 1890000, percentage: 11.7, trend: -3.2 },
+    { name: "LDR SOLUTIONS SA DE CV", value: 1890000, percentage: 11.7, trend: -3.2 },
     { name: "NISSAN MEXICANA SA DE CV", value: 1650000, percentage: 10.3, trend: 8.7 },
-    { name: "UMO S.A.S", value: 1320000, percentage: 8.2, trend: 22.1 },
-    { name: "DISAMETALES S.A.S", value: 1180000, percentage: 7.3, trend: -5.1 },
+    { name: "MAQUINARIA INTERTORITO", value: 1320000, percentage: 8.2, trend: 22.1 },
+    { name: "SERVICIOS LOGÍSTICOS DYLO", value: 1180000, percentage: 7.3, trend: -5.1 },
   ],
   topSuppliers: [
     { name: "Shenzhen Electronics Co.", country: "China", value: 3200000, percentage: 19.8 },
@@ -272,7 +272,7 @@ export default function ImportsPage() {
             <CardHeader>
               <CardTitle>Principales Importadores</CardTitle>
               <CardDescription>
-                Empresas colombianas con mayor volumen de importación en el sector seleccionado
+                Empresas mexicanas con mayor volumen de importación en el sector seleccionado
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -309,7 +309,7 @@ export default function ImportsPage() {
             <CardHeader>
               <CardTitle>Principales Proveedores Internacionales</CardTitle>
               <CardDescription>
-                Empresas extranjeras con mayor volumen de exportación a Colombia
+                Empresas extranjeras con mayor volumen de exportación a México
               </CardDescription>
             </CardHeader>
             <CardContent>

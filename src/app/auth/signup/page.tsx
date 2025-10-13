@@ -108,7 +108,7 @@ export default function SignUpPage() {
       })
 
       if (response.ok) {
-        router.push("/auth/signin?message=account-created")
+        router.push("/auth/signin?message=account-created&from=/precios")
       } else {
         const data = await response.json()
         setError(data.message || "Error al crear la cuenta")

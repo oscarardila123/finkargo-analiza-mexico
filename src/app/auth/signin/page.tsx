@@ -23,7 +23,7 @@ function SignInContent() {
   
   const router = useRouter()
   const searchParams = useSearchParams()
-  const from = searchParams.get("from") || "/"
+  const from = searchParams.get("from") || "/precios"
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -213,7 +213,7 @@ function SignInContent() {
 
           <div className="text-center">
             <span className="text-gray-600">¿No tienes cuenta? </span>
-            <Link href="/auth/signup" className="text-blue-600 font-semibold hover:text-blue-700 transition-colors">
+            <Link href="/auth/signup?from=/precios" className="text-blue-600 font-semibold hover:text-blue-700 transition-colors">
               Regístrate aquí
             </Link>
           </div>

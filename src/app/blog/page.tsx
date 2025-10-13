@@ -6,12 +6,12 @@ export default function BlogPage() {
   const blogPosts = [
     {
       id: 1,
-      title: "Simplifica tu Importación: guía Completa para aprovechar los TLC de Colombia",
+      title: "Simplifica tu Importación: guía Completa para aprovechar los TLC de México",
       date: "04 Aug",
       category: "Comercio Internacional",
       image: "/blog/simplifica-importacion.jpg",
-      excerpt: "Descubre cómo maximizar los beneficios de los Tratados de Libre Comercio de Colombia para optimizar tus procesos de importación.",
-      tags: ["TLC", "Importaciones", "Colombia"]
+      excerpt: "Descubre cómo maximizar los beneficios de los Tratados de Libre Comercio de México para optimizar tus procesos de importación.",
+      tags: ["TLC", "Importaciones", "México"]
     },
     {
       id: 2,
@@ -24,11 +24,11 @@ export default function BlogPage() {
     },
     {
       id: 3,
-      title: "¿Cómo mejorar tu estrategia de importación en Colombia usando datos?",
+      title: "¿Cómo mejorar tu estrategia de importación en México usando datos?",
       date: "10 Feb",
       category: "Tecnología y logística",
       image: "/blog/datos-importacion.jpg",
-      excerpt: "Aprende a utilizar datos de aduanas y analytics para tomar decisiones más inteligentes en tus operaciones de importación.",
+      excerpt: "Aprende a utilizar datos verificados y analytics para tomar decisiones más inteligentes en tus operaciones de importación.",
       tags: ["Datos", "Analytics", "Importaciones"]
     },
     {
@@ -42,9 +42,9 @@ export default function BlogPage() {
     },
     {
       id: 5,
-      title: "El Año Nuevo Chino no tiene que ser un dolor de cabeza: estrategias clave para importadores en México y Colombia",
+      title: "El Año Nuevo Chino no tiene que ser un dolor de cabeza: estrategias clave para importadores mexicanos",
       date: "21 Ene",
-      category: "Logística y transporte en Colombia",
+      category: "Logística y transporte",
       image: "/blog/ano-nuevo-chino.jpg",
       excerpt: "Planifica tus importaciones considerando el Año Nuevo Chino y evita interrupciones en tu cadena de suministro.",
       tags: ["China", "Planificación", "Cadena de Suministro"]
@@ -53,10 +53,10 @@ export default function BlogPage() {
 
   const categories = [
     "Comercio Internacional",
-    "Compras internacionales", 
+    "Compras internacionales",
     "Financiamiento y negocios",
     "Importaciones",
-    "Logística y transporte en Colombia",
+    "Logística y transporte",
     "Optimización de operaciones",
     "Tecnología y logística"
   ]
@@ -75,7 +75,7 @@ export default function BlogPage() {
             Insights, estrategias y conocimientos para optimizar tus operaciones de comercio internacional
           </p>
           <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            Mantente actualizado con las últimas tendencias, mejores prácticas y consejos expertos para importadores en Colombia y México.
+            Mantente actualizado con las últimas tendencias, mejores prácticas y consejos expertos para importadores mexicanos y de América Latina.
           </p>
         </div>
       </section>

@@ -13,156 +13,223 @@ export default function TerminosCondicionesPage() {
             Términos y Condiciones
           </h1>
           <p className="text-xl text-gray-600 mb-2">
-            Servicios Analiza
+            Finkargo Analiza México
           </p>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Acuerdo de Niveles de Servicio entre Finkargo Services S.A.S. y el Usuario
+            Términos y condiciones que regulan los servicios prestados por Finkargo México
           </p>
         </div>
       </section>
 
       {/* Content */}
       <section className="py-16">
-        <div className="container mx-auto px-4 max-w-4xl">
+        <div className="container mx-auto px-4 max-w-5xl">
           <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed">
-            
+
             <div className="bg-blue-50 p-6 rounded-lg border border-blue-200 mb-8">
-              <h2 className="text-2xl font-bold text-blue-800 mb-3">ACUERDO DE NIVELES DE SERVICIO</h2>
-              <p className="text-blue-700">
-                El presente acuerdo de niveles de servicio es celebrado entre <strong>FINKARGO SERVICES S.A.S.</strong> y el Usuario.
+              <p className="text-blue-800 mb-0">
+                El presente documento contiene los términos y condiciones (los "Términos y Condiciones")
+                que regulan los Servicios (según dicho término se define más adelante) prestados por Finkargo en el marco
+                del producto Finkargo Analiza.
               </p>
             </div>
 
-            <h2 className="text-2xl font-bold text-gray-600 mb-6">Artículo I - Servicio: Descripción, Alcance</h2>
-            
-            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección I.01 – Descripción del Servicio</h3>
-            <p className="mb-6">
-              Suscripción periódica a Servicios de Computación en la Nube y Conexos para consultas en línea de los movimientos de importación de Colombia desarrollado en la plataforma Power BI de Finkargo (la "Plataforma") (el "Servicio").
-            </p>
+            {/* CLÁUSULA I */}
+            <h2 className="text-2xl font-bold text-gray-600 mb-6 mt-12">CLÁUSULA I - INTERPRETACIÓN; DEFINICIONES</h2>
 
-            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección I.02 – Alcance del Servicio</h3>
-            <p className="mb-6">
-              Acceso en línea mediante usuario y contraseña por parte del Usuario a la Plataforma para acceder a información de importaciones desde enero del 2022 con actualizaciones mensuales de la información con corte a los dos (2) meses anteriores.
-            </p>
-
-            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección I.03 – Tiempo de entrega del Servicio</h3>
-            <p className="mb-8">
-              Para acceder al Servicio con la Plataforma genérica desarrollada, el tiempo de entrega será dentro de los siguientes tres (3) días hábiles.
-            </p>
-
-            <h2 className="text-2xl font-bold text-gray-600 mb-6">Artículo II - Obligaciones de las partes</h2>
-
-            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección II.01 – Obligaciones del Usuario</h3>
-            <ul className="list-disc pl-6 space-y-3 mb-6">
-              <li><strong>(a)</strong> Realizar el pago correspondiente por el Servicio adquirido con base en los términos de la Cotización.</li>
-              <li><strong>(b)</strong> No divulgar o compartir la información, reportes, informes o entregables producidos, extraídos, tomados y/o descargados desde la Plataforma o con ocasión de la prestación del Servicio, en ninguna circunstancia con ningún tercero distinto al Cliente.</li>
-              <li><strong>(c)</strong> Informar acerca de cualquier Incidente (como dicho término se define en la Sección 4.01(a)) dentro de la Plataforma con respecto a la información o falla del Servicio.</li>
-              <li><strong>(d)</strong> Asignar el(los) Encargados de la Plataforma (como dicho término se define en la Sección 3.02(a)).</li>
-            </ul>
-
-            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección II.02 – Obligaciones del Proveedor</h3>
-            <ul className="list-disc pl-6 space-y-3 mb-8">
-              <li><strong>(a)</strong> Prestar el Servicio oportunamente de acuerdo con el tiempo e información adquirida dentro de la Plataforma.</li>
-              <li><strong>(b)</strong> Prestar soporte técnico y consultoría en el uso de la Plataforma dentro de los tiempos indicados en el Artículo IV del presente Acuerdo.</li>
-              <li><strong>(c)</strong> Informar oportunamente al Usuario cuando la Plataforma presente fallas o inconsistencias y cuando hayan sido solucionadas.</li>
-              <li><strong>(d)</strong> Entregar al Usuario las credenciales necesarias para el acceso a la Plataforma según los Encargados designados.</li>
-            </ul>
-
-            <h2 className="text-2xl font-bold text-gray-600 mb-6">Artículo III - Controles: Medidas de Protección y Seguridad</h2>
-
-            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección III.01 – Controles</h3>
-            <p className="mb-6">
-              El acceso a la Plataforma se realizará con usuario y contraseña provistos por el Proveedor para cada Encargado informado por el Usuario, los cuales estarán disponibles en línea. Una vez adquiere el Servicio, el Usuario podrá acceder desde cualquier dispositivo a la Plataforma en cualquier momento del día durante el Periodo de Suscripción.
-            </p>
-
-            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección III.02 – Medidas de protección y seguridad</h3>
-            <ul className="list-disc pl-6 space-y-3 mb-8">
-              <li><strong>(a)</strong> Con el objetivo de controlar el acceso a la Plataforma y proteger los datos, el Usuario debe informar al Proveedor las personas encargadas del acceso a la misma, y de realizar solicitudes de soporte técnico. Para evitar cualquier duda, las Partes acuerdan que el Usuario deberá designar para dichas labores, como mínimo, a una (1) y máximo tres (3) persona(s), como encargado(s) principal(es), cada uno de los cuales deberá tener su respectivo suplente (el(los) "Encargado(s)").</li>
-              <li><strong>(b)</strong> Se asignará una contraseña inicial segura para el(los) encargados principales designados por el Usuario para acceder a la Plataforma, la cual deberá ser modificada de acuerdo con las políticas establecidas por Microsoft 365.</li>
-              <li><strong>(c)</strong> Para efectos de seguimiento, monitoreo de la Plataforma, calidad de la información y prestación del Servicio en general, se realizará una encuesta de satisfacción y se contará con soporte y servicio al cliente de lunes a viernes (siempre y cuando dichos días sean hábiles), de 8:00 am a 6:00 pm, hora Colombia.</li>
-            </ul>
-
-            <h2 className="text-2xl font-bold text-gray-600 mb-6">Artículo IV - Soporte</h2>
-
-            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección IV.01 – Procedimiento para solicitud de soporte</h3>
-            <ul className="list-disc pl-6 space-y-3 mb-6">
-              <li><strong>(a)</strong> El Usuario deberá, a través del Encargado designado por este, documentar los casos de soporte, reportar y hacer seguimiento a cualquier error, falla o desperfecto encontrado en el funcionamiento de la Plataforma (el "Incidente").</li>
-              <li><strong>(b)</strong> El Proveedor, a través del departamento correspondiente, pondrá a disposición del Usuario, un correo electrónico exclusivo para realizar las solicitudes de soporte en caso de Incidentes.</li>
-              <li><strong>(c)</strong> En estos casos, el Usuario, a través de su Encargado, deberá enviar al Proveedor, a través del correo electrónico exclusivo enunciado en la Sección 4.01(b) anterior, el reporte y descripción del caso y del Incidente, así como toda la documentación que lo respalda, para que el equipo de soporte del Proveedor pueda determinar el nivel de impacto, la criticidad y la causa origen del Incidente que se tiene en la Plataforma (el "Reporte"). El Reporte en mención debe incluir: (i) descripción del Incidente; (ii) pantallazos, capturas de pantalla o pruebas del Incidente (si da a lugar); (iii) descripción de cuál es el resultado esperado si no existiera el Incidente en la Plataforma.</li>
-              <li><strong>(d)</strong> Una vez el Usuario ha radicado el Reporte, el tiempo de respuesta por parte del Proveedor será de 24 horas hábiles, para que este envíe el diagnóstico de soporte de acuerdo con los niveles de soporte descritos en la Sección 4.02, y le comunique al Usuario las alternativas de solución del Incidente y el tiempo de recuperación del Servicio de acuerdo con los tiempos definidos en la Sección 4.03 (la "Respuesta de Diagnóstico").</li>
-              <li><strong>(e)</strong> El Proveedor iniciará con la implementación de solución del Incidente de acuerdo con el tiempo de recuperación establecido en la Respuesta de Diagnóstico, y dará respuesta oficial por correo electrónico informando la solución del Incidente (la "Comunicación de Solución").</li>
-              <li><strong>(f)</strong> El Usuario deberá dar respuesta a la Comunicación de Solución recibida por parte del Proveedor, dentro de los dos (2) días siguientes a su recepción, para cerrar el Incidente. Si transcurridos los dos (2) días siguientes a la recepción de la Comunicación de Solución, el Usuario no ha dado respuesta de confirmación y recibido, la misma se considerará aprobada de forma automática y el Incidente se entenderá resuelto.</li>
-            </ul>
-
-            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección IV.02 – Niveles de soporte</h3>
-            <div className="space-y-4 mb-6">
-              <p><strong>Nivel 1.</strong> Se considera soporte Nivel 1 a Reportes que estén relacionados con el acceso a la Plataforma y navegación, gestión de usuarios y contraseñas, configuración de software, o cualquier otra solicitud que tenga relación con soporte front-end.</p>
-              <p><strong>Nivel 2.</strong> Se considera soporte Nivel 2 a Reportes que tengan un mayor grado de complejidad con respecto a la navegación dentro de la plataforma, inconsistencia en la información, usabilidad de filtros, dashboards y gráficos.</p>
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 1.01 - Interpretación</h3>
+            <div className="mb-6 space-y-4">
+              <p><strong>(a)</strong> Estos Términos y Condiciones constituyen la regularización y gestión de la contratación de los Servicios por parte del Usuario (según dichos términos se define más adelante).</p>
+              <p><strong>(b)</strong> El Usuario reconoce, declara y acepta que, ya sea mediante, (i) la firma de los presentes Términos y Condiciones; y/o (ii) la contratación de los Servicios a través de la firma de la Cotización de Compra (según dicho término se define más adelante), se entenderá que el Usuario ha leído y aceptado los presentes Términos y Condiciones en su totalidad.</p>
+              <p><strong>(c)</strong> La referencia a cualquier Cláusula o Sección que en estos Términos y Condiciones se realice se entenderá como una referencia a la correspondiente Cláusula o Sección de los mismos.</p>
             </div>
 
-            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección IV.03 – Plazos de recuperación del Servicio y valores mínimos aceptables de los mismos</h3>
-            <div className="space-y-4 mb-6">
-              <p><strong>(a)</strong> En caso de que el Incidente sea por parte de la navegación de la Plataforma, siendo el proveedor de esta plataforma Microsoft 365, el Proveedor se acoge a los tiempos de recuperación de este.</p>
-              <p><strong>(b)</strong> Si el servicio de la Plataforma tiene un Incidente con respecto a la información y reporte desarrollado por el Proveedor, en los tiempos de respuesta y recuperación dependen de la criticidad del Incidente, categorizados de la siguiente manera:</p>
-              <ul className="list-disc pl-6 space-y-2">
-                <li><strong>Incidentes críticos:</strong> Cinco (5) días hábiles.</li>
-                <li><strong>Incidentes en funcionalidad del reporte:</strong> Uno (1) a tres (3) días hábiles.</li>
-                <li><strong>Incidentes no críticos:</strong> Cuatro (4) horas hábiles</li>
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 1.02 - Definiciones</h3>
+            <div className="mb-8 space-y-3 bg-gray-50 p-6 rounded-lg">
+              <p><strong>"Afiliadas"</strong> significa, en relación con cualquier persona moral, (a) cualquier subordinada, filial o subsidiaria, directa o indirecta, de tal persona moral; y (b) cualquier otra persona moral o física que directa o indirectamente controle a, sea controlada por, o se encuentre bajo control común con tal persona moral.</p>
+
+              <p><strong>"Botón de Soporte"</strong> significa el ícono de ayuda en la Plataforma a través del cual el Usuario podrá solicitar el soporte ante cualquier Incidente.</p>
+
+              <p><strong>"Compra de Reporte Único de Información"</strong> significa la compra realizada por el Usuario, a través de la Plataforma o de la manera que Finkargo mejor considere, del Reporte Único de Información.</p>
+
+              <p><strong>"Cotización de Compra"</strong> significa la cotización de compra enviada por Finkargo al Usuario para la adquisición de los Servicios durante la Suscripción Anual o la compra de uno o varios Reportes Únicos de Información, según aplique, en la cual Finkargo establecerá los términos de la prestación de los Servicios o la entrega de los Reportes Únicos de Información, según aplique, así como el Precio a pagar por ellos.</p>
+
+              <p><strong>"Credenciales"</strong> significa el usuario y contraseña que Finkargo proporciona al Usuario para acceder a la Plataforma, las cuales deberán ser actualizadas de tiempo en tiempo según indique la Plataforma al Usuario durante la Suscripción Anual.</p>
+
+              <p><strong>"Datos Personales"</strong> significa cualquier información concerniente a una persona física identificada o identificable de acuerdo a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.</p>
+
+              <p><strong>"Finkargo"</strong> significa, de manera indistinta, Finkargo México, S.A.P.I. de C.V., SOFOM, E.N.R. o cualquiera de sus Afiliadas.</p>
+
+              <p><strong>"Incidente"</strong> significa cualquier error, falla o desperfecto encontrado en el funcionamiento de la Plataforma.</p>
+
+              <p><strong>"Información"</strong> significa la información que, (a) arrojará la Plataforma al Usuario; y/o (b) es entregada por Finkargo al Usuario en los Reportes Únicos de Información, en ambos casos relativa a datos de México de importaciones, exportaciones y pedimentos de los años 2023 y 2024 y las actualizaciones a que haya lugar.</p>
+
+              <p><strong>"Plataforma"</strong> significa la infraestructura tecnológica desarrollada por Finkargo para que el Usuario acceda a consultar la Información y los datos constitutivos de ésta en tiempo real, con actualizaciones periódicas y la posibilidad de realizar búsquedas personalizadas según diversos criterios (i.e. fechas, tipos de productos, destinos, aranceles, etc.), disponible a través del sitio web <a href="https://www.finkargo.com/mx/" className="text-blue-600 hover:underline">https://www.finkargo.com/mx/</a> o a través de cualquier otro medio que Finkargo disponga.</p>
+
+              <p><strong>"Política de Privacidad"</strong> significa la política de privacidad de Finkargo disponible en <a href="https://www.finkargo.com/mx/politicas_privacidad_mx/" className="text-blue-600 hover:underline">https://www.finkargo.com/mx/politicas_privacidad_mx/</a>.</p>
+
+              <p><strong>"Precio"</strong> significa la contraprestación que deberá pagar el Usuario a Finkargo por la prestación de los Servicios o la Compra de Reportes Únicos de Información, según se establezca la Cotización de Compra correspondiente.</p>
+
+              <p><strong>"Reporte Único de Información"</strong> significa el reporte único de Información emitido por Finkargo con destino al Usuario de acuerdo con las especificaciones que para tales efectos entregue el Usuario a Finkargo a través de la Plataforma o cualquier otro medio que Finkargo determine para ello.</p>
+
+              <p><strong>"Servicios"</strong> significa los servicios de computación en la nube y funcionalidades relacionadas, a los cuales el Usuario tendrá acceso a través de la Plataforma, con el fin de realizar consultas relativas y/o relacionadas con la cadena de comercio exterior en México, incluyendo, pero sin limitarse, (a) datos estadísticos; (b) datos operativos; (c) información sobre transacciones comerciales; (d) documentación aduanera; y (e) registros de actividades logísticas vinculadas a dichos movimientos.</p>
+
+              <p><strong>"Suscripción Anual"</strong> significa la suscripción realizada por el Usuario en la Plataforma, por un periodo de 12 (doce) meses contados a partir del recibo por parte de Finkargo, a su entera satisfacción, del Precio por parte del Usuario.</p>
+
+              <p><strong>"Tratamiento"</strong> significa la obtención, uso, divulgación o almacenamiento de Datos Personales, por cualquier medio. El uso abarca cualquier acción de acceso, manejo, aprovechamiento, transferencia o disposición de datos personales.</p>
+
+              <p><strong>"Usuario"</strong> significa la persona física o moral a la que Finkargo le prestara los Servicios conforme a lo establecido en los presentes Términos y Condiciones.</p>
+            </div>
+
+            {/* CLÁUSULA II */}
+            <h2 className="text-2xl font-bold text-gray-600 mb-6 mt-12">CLÁUSULA II - SERVICIOS; COMPRA DE REPORTES ÚNICOS DE INFORMACIÓN</h2>
+
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 2.01 - Servicios</h3>
+            <div className="mb-6 space-y-4">
+              <p><strong>(a) Prestación de los Servicios.</strong> En el marco de la prestación de los Servicios y en virtud de la Suscripción Anual, Finkargo actúa única y exclusivamente como intermediario, ofreciendo al Usuario acceso a la Información a través de la Plataforma. Para evitar cualquier duda, se aclara la Compra de Reportes Únicos de Información por parte del Usuario no implica la prestación de los Servicios por parte de Finkargo al Usuario.</p>
+
+              <p><strong>(b) Alcance de los Servicios.</strong> Ante la adquisición de los Servicios por parte del Usuario, entendida ésta como el pago del Precio a Finkargo en los términos establecidos para ello en la Cotización de Compra correspondiente, Finkargo proporcionará al Usuario la Credenciales con las cuales éste podrá acceder a la Plataforma durante la Suscripción Anual.</p>
+
+              <p><strong>(c) Términos de la Suscripción Anual.</strong> Una vez culminado la Suscripción Anual, ésta no se renovará de manera automática y, por consiguiente, Finkargo no estará obligado a continuar con la prestación de los Servicios, desactivando así de manera automática las Credenciales y el acceso a la Plataforma. En caso de que el Usuario decida o se encuentre interesado en renovar los Servicios, deberá aceptar una nueva Cotización de Compra enviada por Finkargo y firmar los Términos y Condiciones, en caso de que estos hayan sido actualizados.</p>
+
+              <p><strong>(d) Suspensión de los Servicios.</strong></p>
+              <ul className="list-none pl-6 space-y-2">
+                <li><strong>(i)</strong> Salvo por los casos establecidos en la Sección 4.02 en los que Finkargo restituirá los días que el Usuario no pueda acceder a la Plataforma, mediante la firma de estos Términos y Condiciones, el Usuario reconoce, declara y acepta que Finkargo podrá suspender y/o interrumpir la prestación de los Servicios en cualquier momento y sin previo aviso al Usuario.</li>
+                <li><strong>(ii)</strong> En relación con lo establecido en la Sección 2.01(d)(i), bajo ningún motivo y/o circunstancia Finkargo será responsable por cualquier daño y/o perjuicio que pudiera derivar de la suspensión y/o interrupción de los Servicios. En ese sentido, el Usuario reconoce, declara y acepta que, en el supuesto anterior, Finkargo podrá, más no estará obligado a reembolso y/o compensación por la interrupción y/o suspensión de los Servicios, exceptuando lo previsto en la Sección 4.02.</li>
               </ul>
-              <p><strong>(c)</strong> El Proveedor se reserva la clasificación del Incidente de acuerdo con la criticidad.</p>
-              <p><strong>(d)</strong> Los tiempos expresados en la Sección 4.03(b) no incluyen el tiempo de espera de respuesta ante cualquier solicitud de información adicional por parte del Usuario.</p>
             </div>
 
-            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección IV.04 – Indicadores y forma de medición de indicadores de calidad del servicio</h3>
-            <ul className="list-disc pl-6 space-y-3 mb-8">
-              <li><strong>(a)</strong> El Servicio se encontrará disponible para acceso a consultas e información cinco (5) días hábiles a la semana con un 99% up-time, con una tasa de error del 10%.</li>
-              <li><strong>(b)</strong> El indicador de cumplimiento con los tiempos de respuesta indicados en este Artículo IV será del 90%.</li>
-            </ul>
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 2.02 - Terminación unilateral y anticipada de los Servicios</h3>
+            <p className="mb-6">Solo si es aplicable, el Usuario reconoce y acepta que, en caso en el que por cualquier motivo llegase a incumplir con cualquiera de las obligaciones contraídas bajo los Contratos, Finkargo podrá, sin previo aviso y sin responsabilidad alguna, dar por terminada la prestación de los Servicios.</p>
 
-            <h2 className="text-2xl font-bold text-gray-600 mb-6">Artículo V - Responsabilidad</h2>
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 2.03 - Reportes Únicos de Información</h3>
+            <p className="mb-8">En concordancia con lo establecido en la Sección 2.01(a), en caso de que el Usuario decida adquirir un Reporte Único de Información, lo establecido en la Sección 2.01(b) no será aplicable y por el contrario Finkargo entregará a Usuario, a través de los medios que considere pertinentes para ello y dentro de los 3 (tres) días hábiles siguientes a que el Usuario haya efectuado el pago del Precio establecido en la factura correspondiente al Reporte Único de Información que aplique. Para evitar cualquier duda, el Usuario declara, reconoce y acepta que en este caso Finkargo no entregará Credencial alguna al Usuario.</p>
 
-            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección V.01</h3>
-            <p className="mb-6">
-              En caso de que la Plataforma cuente con un Incidente que persista durante uno (1) o más días, se recompensará al Usuario prorrogando el tiempo de acceso a la Plataforma por el mismo tiempo de la duración del Incidente.
-            </p>
+            {/* CLÁUSULA III */}
+            <h2 className="text-2xl font-bold text-gray-600 mb-6 mt-12">CLÁUSULA III - INFORMACIÓN</h2>
 
-            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección V.02</h3>
-            <p className="mb-8">
-              En caso de que no se actualice la Plataforma durante más de noventa (90) días calendario, el Usuario tendrá derecho a solicitar el reembolso por la información que no haya sido recibida, siempre y cuando el valor de la suscripción haya sido pagado por anticipado.
-            </p>
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 3.01 - Origen de la Información; Responsabilidad de Finkargo</h3>
+            <div className="mb-6 space-y-4">
+              <p><strong>(a)</strong> El Usuario declara, reconoce y acepta que, (i) la totalidad de la Información proporcionada a través de la Plataforma al Usuario proviene de fuentes externas, entendidas éstas como proveedores de datos (nacionales y/o extranjeros), entidades gubernamentales, organismos internacionales y/o terceros proveedores de servicios (cada uno, de manera indistinta un "Proveedor Externo"); y (ii) en la provisión de dicha Información (tanto mediante la Plataforma como en los Reportes Únicos de Información), Finkargo actúa única y exclusivamente como intermediario y/o tercero para poner la misma a disposición del Usuario, sin que ello signifique y/o implique que Finkargo, bajo ningún motivo y/o circunstancia, es responsable por posibles errores, omisiones y/o inexactitudes de la Información y/o los datos contenidos en éstas, así como por la integridad, idoneidad, fiabilidad, disponibilidad y/o actualización de la Información y/o datos en mención, y/o la utilidad que ésta y/o los datos tenga para el Usuario (todas, de manera indistinta, conjunta o separadamente, las "Cualidades de la Información").</p>
 
-            <div className="bg-purple-50 p-6 rounded-lg border border-purple-200 mb-8">
-              <h2 className="text-2xl font-bold text-purple-800 mb-6">Artículo VI - Autorización general para el uso y el tratamiento de Datos Personales</h2>
+              <p><strong>(b)</strong> Para evitar cualquier duda, el Usuario declara, reconoce y acepta que, en ningún momento a partir de la aceptación de estos Términos y Condiciones por parte del Usuario, deberá entenderse que Finkargo funge, es, o actúa como fuente de origen de la Información.</p>
 
-              <h3 className="text-xl font-bold text-purple-700 mb-4">Sección VI.01 – Autorización general</h3>
-              <div className="space-y-4 text-purple-700">
-                <p><strong>(a)</strong> Finkargo es responsable de los Datos Personales del Usuario, y de toda la información a la cual tenga acceso en el marco de este Acuerdo, así como de los Datos Personales contenidos en los Anexos, formularios, facturas y demás documentos generados en el marco de ejecución del presente Acuerdo.</p>
-                <p><strong>(b)</strong> El Usuario autoriza de manera libre, voluntaria, previa, expresa, a Finkargo y sus Afiliadas, así como a Community EM Credit Fund SCA. SICAV-RAIF, Fiduciaria Scotiabank Colpatria S.A., Manejo Técnico de Información S.A. (y/o a quien, de tiempo en tiempo lleve a cabo las funciones de éste para con Finkargo a la Fecha de Firma) y Tecnología en Cuentas por Cobrar S.A.S. (y/o a quien, de tiempo en tiempo, lleve a cabo las funciones de éste para con Finkargo a la Fecha de Firma), para que en los términos legalmente establecidos, y durante la totalidad del Periodo de Suscripción (como dicho término se define en la Cotización), realice la recolección, almacenamiento, uso, circulación, supresión, transmisión, transferencia, y en general, el tratamiento de los Datos Personales que se ha procedido a entregar o que entregará, en virtud de las relaciones legales, contractuales, comerciales y/o de cualquier otra que surja, en desarrollo y ejecución de los fines descritos en este Acuerdo y/o en la Cotización.</p>
-                <p><strong>(c)</strong> El Usuario autoriza a Finkargo para que trate, transfiera o transmita los Datos Personales a terceros, como patrimonios autónomos, y/o beneficiarios de los mismos, incluso a países que no cuenten con los niveles adecuados de protección, con las finalidades establecidas en la Política de Privacidad disponible en www.finkargo.com. Dicha autorización se extiende durante la totalidad del tiempo en el que pueda llegar a consolidarse un vínculo o este persista por cualquier circunstancia que se encuentre relacionado con las finalidades para las cuales los Datos Personales, fueron inicialmente suministrados, incluyendo sin limitarse al Periodo de Suscripción (como dicho término se define en la Cotización).</p>
-                <p><strong>(d)</strong> Así mismo, en virtud de dicha autorización, Finkargo y sus Afiliadas podrán realizar las consultas, reportes y actualizaciones necesarias en diferentes listas restrictivas y bancos de datos, del comportamiento y crédito comercial, hábitos de pago, manejo de cuenta(s) bancaria(s) y en general el cumplimiento de las obligaciones pecuniarias.</p>
-                <p><strong>(e)</strong> El Usuario autoriza a Finkargo, o a quien represente sus derechos, a reportar, procesar, solicitar y divulgar a la Central de Información DATACREDITO, o a cualquier otra entidad que maneje o administre bases de datos con los mismos fines, toda la información referente a su comportamiento como clientes de Finkargo. Lo anterior implica que el cumplimiento o incumplimiento de sus obligaciones se reflejará en las mencionadas bases de datos, en donde se consignan de manera completa, todos los datos referentes a su actual y pasado comportamiento frente al sector financiero y, en general, al cumplimiento de sus obligaciones.</p>
-                <p><strong>(f)</strong> De igual forma, quienes suscriben este Acuerdo y/o Cotización, declaran que les ha sido informado y conoce los derechos que el ordenamiento legal conceden al titular de los Datos Personales; conocer, actualizar y rectificar Datos Personales frente a los responsables o encargados del tratamiento; estos derechos se podrán ejercer, entre otros, frente a datos parciales, inexactos, incompletos, fraccionados, que induzcan a error, o aquellos cuyo tratamiento esté expresamente prohibido o no haya sido autorizado. También manifiestan los firmantes conocer que, en los casos en que requieran ejercer los derechos anteriormente mencionados, la respectiva solicitud se puede realizar, (i) mediante el envío de una comunicación al correo notificaciones@finkargo.com; y/o (ii) a través de los mecanismos dispuestos para tal fin por Finkargo o sus Afiliadas, conforme a la Política de Privacidad disponible en www.finkargo.com.</p>
-              </div>
-
-              <h3 className="text-xl font-bold text-purple-700 mb-4 mt-6">Sección VI.02 – Autorización de consulta y reportes en centrales de riesgo</h3>
-              <div className="space-y-4 text-purple-700">
-                <p><strong>(a)</strong> En cumplimiento de lo previsto en la Ley Aplicable y, particularmente en la Ley 1266 de 2008, el Importador autoriza de manera expresa y voluntaria a Finkargo y sus Afiliadas a, durante la totalidad del Periodo de Suscripción (como dicho término se define en la Cotización), recopilar, custodiar, archivar, usar, validar, circular, registrar, suprimir, solicitar, suministrar, procesar, confirmar, tratar, analizar, divulgar o realizar consulta y reporte en los operadores de información legalmente constituidos (centrales de riesgo) del comportamiento crediticio, financiero y comercial del Importador, así como para verificar la información financiera, crediticia y comercial del Importador.</p>
-                <p><strong>(b)</strong> El Usuario autoriza a Finkargo a notificar el comportamiento del Usuario en relación con o derivado de las obligaciones previstas en la Cotización, de manera previa al reporte negativo previsto en la Sección 6.02(a), a las centrales de información a través de manera telefónica o cualquier mensaje de datos, incluyendo sin limitarse al correo electrónico, mensaje de texto y/o mensajería instantánea.</p>
-              </div>
+              <p><strong>(c)</strong> El Usuario manifiesta y reconoce que el acceso a la Información y el uso que le dé a ésta es y será única y exclusivamente bajo su propio riesgo; Finkargo bajo ningún motivo será responsable por cualquier pérdida, daño, perjuicio y/o costo que, de manera directa y/o indirecta, derive del uso, mal uso o interpretación de la Información suministrada al Usuario; incluyendo, pero sin limitarse a, daños directos, indirectos, incidentales, especiales, punitivos o consecuenciales, así como la pérdida de beneficios, ingresos, oportunidades comerciales, datos, o cualquier otro tipo de daño económico y/o no económico derivado del uso de la Información. Por consiguiente, el Usuario asume plena responsabilidad por cualquier decisión tomada con base en, derivada o resultante de la Información.</p>
             </div>
 
-            <div className="bg-red-50 p-6 rounded-lg border border-red-200">
-              <h2 className="text-2xl font-bold text-red-800 mb-6">Artículo VII - Causales de terminación del Servicio/Contrato</h2>
-              <p className="text-red-700 mb-4">El Usuario podrá dar por terminado el Servicio en caso de:</p>
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 3.02 - Reclamaciones sobre la Información</h3>
+            <p className="mb-6">El Usuario declara, reconoce y acepta que cualquier reclamación relacionada con y/o derivada de las Cualidades de la Información deberá ser única y exclusivamente dirigida a los Proveedores Externos. En este sentido, mediante la firma de los presentes Términos y Condiciones, el Usuario (a) exime a Finkargo de toda responsabilidad al respecto; y (b) renuncia al derecho de reclamar, demandar, denunciar y/o ejercer cualquier tipo de reclamación (ya sea de carácter administrativo, civil, penal o de cualquier tipo) a Finkargo por dichas Cualidades de la Información.</p>
 
-              <h3 className="text-xl font-bold text-red-700 mb-3">Sección VII.01</h3>
-              <p className="text-red-700 mb-4">
-                Incumplimiento por parte del Proveedor en las actualizaciones de información de la Plataforma por más de ciento veinte (120) días calendario.
-              </p>
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 3.03 - Información "as is"</h3>
+            <p className="mb-8">El Usuario declara, reconoce y acepta que la Información suministrada por Finkargo se proporcionará "as is" y/o "tal como está", entendiendo el Usuario que Finkargo, bajo ninguna circunstancia y/o motivo otorga garantía alguna, ya sea implícita y/o explicita, respecto de las Cualidades de la Información.</p>
 
-              <h3 className="text-xl font-bold text-red-700 mb-3">Sección VII.02</h3>
-              <p className="text-red-700">
-                Que la recuperación del Servicio en caso de Incidentes supere un (1) mes calendario.
+            {/* CLÁUSULA IV */}
+            <h2 className="text-2xl font-bold text-gray-600 mb-6 mt-12">CLÁUSULA IV - PLATAFORMA</h2>
+
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 4.01 - Acceso a la Plataforma</h3>
+            <div className="mb-6 space-y-4">
+              <p><strong>(a)</strong> El Usuario podrá acceder a la Plataforma en cualquier momento del día y desde cualquier dispositivo electrónico, sujetándose a los horarios y días hábiles establecidos en la Sección 6.01.</p>
+
+              <p><strong>(b)</strong> Con el objetivo de controlar el acceso a la Plataforma y proteger la Información, el Usuario debe informar a Finkargo, a través de los medios que para tales efetos Finkargo determine para ello, el nombre completo de las personas que vayan a tener acceso a la Plataforma. Además de cualquier otro dato que Finkargo requiera de tiempo en tiempo.</p>
+            </div>
+
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 4.02 - Actualización de la Plataforma</h3>
+            <p className="mb-8">Finkargo se reserva el derecho de modificar y actualizar la Plataforma, así como la Información en ella disponible, sin que para ello sea necesario informarle al Usuario. Sin perjuicio de lo anterior, en caso de fallas en la actualización de la Plataforma, que persistan por más de 90 (noventa) días naturales, el Usuario tendrá derecho a solicitar el reembolso por la Información que no haya sido recibida y acceder a la Plataforma por los días adicionales que sea necesario para efectos de recibir la Información en mención.</p>
+
+            {/* CLÁUSULA V */}
+            <h2 className="text-2xl font-bold text-gray-600 mb-6 mt-12">CLÁUSULA V - OBLIGACIONES DE LAS PARTES</h2>
+
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 5.01 - Obligaciones del Usuario</h3>
+            <div className="mb-6 space-y-3">
+              <p><strong>(a)</strong> Realizar el pago del Precio por los Servicios y/o el o los Reportes Únicos de Información adquiridos, de acuerdo con lo establecido en la Cotización de Compra correspondiente.</p>
+
+              <p><strong>(b)</strong> No divulgar, vender, ceder, transferir ni compartir, en ninguna circunstancia, la Información y/o el contenido generado, extraído, obtenido o descargado desde la Plataforma y/o los Reportes Únicos de Información, con terceros ajenos al Usuario, exceptuando a sus Afiliadas y/o empleados.</p>
+
+              <p><strong>(c)</strong> Informar acerca de cualquier Incidente, según lo establecido en la Cláusula VI.</p>
+            </div>
+
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 5.02 - Obligaciones de Finkargo</h3>
+            <div className="mb-8 space-y-3">
+              <p><strong>(a)</strong> Entregar al Usuario las Credenciales necesarias para el acceso a la Plataforma.</p>
+
+              <p><strong>(b)</strong> Prestar los Servicios oportunamente y/o entregar en tiempo al Usuario los Reportes Únicos de Información, según aplique.</p>
+
+              <p><strong>(c)</strong> Prestar soporte técnico y de consultoría en el uso de la Plataforma dentro de los tiempos indicados en la Sección 6.01.</p>
+
+              <p><strong>(d)</strong> Notificar de manera oportuna al Usuario sobre cualquier Incidente, así como informar cuando éste se haya resuelto.</p>
+            </div>
+
+            {/* CLÁUSULA VI */}
+            <h2 className="text-2xl font-bold text-gray-600 mb-6 mt-12">CLÁUSULA VI - MEDIDAS DE PROTECCIÓN Y SEGURIDAD; SOPORTE</h2>
+
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 6.01 - Disponibilidad de soporte</h3>
+            <p className="mb-6">Para efectos de hacer seguimiento y monitoreo a la Plataforma, el acceso a la Información y la prestación de los Servicios en general, Finkargo contará con soporte y servicio al Usuario de lunes a viernes (siempre y cuando dichos días sean hábiles en México), de 8:00 am a 6:00 pm, hora Ciudad de México.</p>
+
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 6.02 - Procedimiento para solicitud de soporte</h3>
+            <div className="mb-6 space-y-3">
+              <p><strong>(a)</strong> El Usuario deberá reportar, a través del Botón de Soporte en la Plataforma, cualquier Incidente, a más tardar dentro de las 24 (veinticuatro) horas hábiles siguientes a la ocurrencia de éste.</p>
+
+              <p><strong>(b)</strong> Para tales efectos, el Usuario deberá completar el formulario que arrojará el Botón de Soporte y adjuntar evidencia y documentación que lo respalde, para que el equipo de soporte de Finkargo pueda determinar el nivel de impacto, la criticidad y la causa origen del Incidente (el "Reporte de Incidente").</p>
+
+              <p><strong>(c)</strong> Una vez el Usuario haya radicado el Reporte de Incidente, el tiempo de respuesta por parte de Finkargo será de 24 (veinticuatro) horas hábiles para enviar el diagnóstico de soporte y comunicar al Usuario las alternativas de solución del Incidente y el tiempo de recuperación de los Servicios de acuerdo con los tiempos definidos en la respuesta correspondiente (la "Respuesta de Diagnóstico").</p>
+
+              <p><strong>(d)</strong> Finkargo llevará a cabo la implementación de la solución del Incidente de acuerdo con el tiempo de recuperación establecido en la Respuesta de Diagnóstico y dará respuesta oficial a través de correo electrónico informando la solución del Incidente (la "Comunicación de Solución").</p>
+
+              <p><strong>(e)</strong> Dentro de los 2 (dos) días hábiles siguientes al recibo de la Comunicación de Solución, el Usuario deberá dar respuesta a la Comunicación de Solución recibida por parte de Finkargo con el fin de cerrar el Incidente. Si transcurridos los 2 (dos) días hábiles siguientes a la recepción de la Comunicación de Solución, el Usuario no ha dado respuesta de confirmación y recibido, la misma se considerará aprobada de forma automática y el Incidente se entenderá resuelto.</p>
+            </div>
+
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 6.03 - Niveles de soporte</h3>
+            <div className="mb-6 space-y-3">
+              <p><strong>(a) Nivel 1.</strong> Se considera soporte Nivel 1 aquellos relativos a Reportes de Incidentes que estén relacionados con el acceso a la Plataforma y navegación, gestión de Credenciales, configuración de software, o cualquier otra solicitud que tenga relación con soporte front-end.</p>
+
+              <p><strong>(b) Nivel 2.</strong> Se considera soporte Nivel 2 aquellos relativos a Reportes de Incidentes que tengan un mayor grado de complejidad con respecto a la navegación dentro de la Plataforma, inconsistencia en la Información, usabilidad de filtros, dashboards y gráficos.</p>
+            </div>
+
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 6.04 - Plazos de recuperación de los Servicios y valores mínimos aceptables</h3>
+            <div className="mb-6 space-y-3">
+              <p><strong>(a)</strong> En caso de que el Incidente este de alguna manera relacionado con las Cualidades de la Información o se derive de éstas, Finkargo no es responsable bajo ningún motivo por ello toda vez que, conforme lo establece la Sección 3.01(a), la Información es proporcionada por Proveedores Externos y el Usuario deberá acogerse a los tiempos de recuperación y restablecimiento del Servicio, si es aplicable.</p>
+
+              <p><strong>(b)</strong> Si los Servicios tiene un Incidente distinto al contenido de la Información, los tiempos de respuesta y recuperación dependen de la criticidad del Incidente, categorizados de la siguiente manera:</p>
+              <ul className="list-none pl-6 space-y-2">
+                <li><strong>(i)</strong> Incidentes Nivel 1: 3 (tres) días hábiles.</li>
+                <li><strong>(ii)</strong> Incidentes Nivel 2: 5 (cinco) días hábiles.</li>
+              </ul>
+
+              <p><strong>(c)</strong> Finkargo, (i) se reserva la clasificación del Incidente de acuerdo con la criticidad del mismo según Finkargo así lo considere; y (ii) puede demorar más de los plazos establecidos en la Sección 6.04(b)(i) y, Sección 6.04(b)(ii) para dar respuesta y recuperación, sin que exista responsabilidad alguna para ella.</p>
+            </div>
+
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 6.05 - Indicadores y forma de medición de indicadores de calidad del Servicio</h3>
+            <p className="mb-6">Como regla general, los Servicios se encontrarán disponibles para acceso a consultas e información los 7 (siete) días de la semana; no obstante lo anterior, la Plataforma contará con una tasa de error del 10% (diez por ciento) en la que el Usuario podría no tener acceso a ésta.</p>
+
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 6.06 - Persistencia de Incidentes</h3>
+            <p className="mb-8">En caso de que la Plataforma cuente con un Incidente que persista durante 1 (uno) o más días hábiles, se recompensará al Usuario prorrogando el tiempo de acceso a la Plataforma por el mismo tiempo de la duración del Incidente.</p>
+
+            {/* CLÁUSULA VII */}
+            <h2 className="text-2xl font-bold text-gray-600 mb-6 mt-12">CLÁUSULA VII - MISCELÁNEOS</h2>
+
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 7.01 - Modificaciones</h3>
+            <p className="mb-6">Finkargo podrá limitar, ampliar o modificar a su entera discreción los presentes Términos y Condiciones, previo aviso por escrito al Usuario mediante publicación en la Plataforma. Si transcurridos 5 (cinco) días hábiles contados a partir de la fecha de publicación del respectivo aviso al Usuario en Plataforma, el Usuario no manifiesta expresamente su inconformidad a algún funcionario de Finkargo, se entenderá que acepta incondicionalmente dichas modificaciones, limitaciones, supresiones o adiciones. En caso de que el Usuario manifieste su inconformidad, será a única y entera discreción de Finkargo modificar y/o alterar los Términos y Condiciones.</p>
+
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 7.02 - Política de Datos Personales</h3>
+            <div className="mb-6 space-y-3">
+              <p><strong>(a)</strong> En la medida en que, en la adquisición del Servicio, Finkargo no captura, observa, trata, o almacena Datos Personales, sensibles, financieros, créditos, comerciales o de ningún tipo del Usuario, Finkargo no será responsable por el Tratamiento de éstos, independientemente de la calidad que provea el Usuario en la adquisición de los Servicios.</p>
+
+              <p><strong>(b)</strong> En el evento en que Finkargo realice el Tratamiento de los Datos Personales del Usuario, esto lo hará conforme al Aviso de Privacidad incluido en la Plataforma.</p>
+            </div>
+
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 7.03 - Indemnidad</h3>
+            <div className="mb-6 space-y-3">
+              <p><strong>(a)</strong> El Usuario mantendrá indemne a Finkargo y a sus representantes y/o empleados frente a cualquier costo, gasto o erogación incurridos por éstos con ocasión de la instauración de una demanda, reclamación, litigio, proceso, condena, pleito o acción legal de cualquier tipo, por parte de un Usuario o cualquiera de sus Afiliadas, representantes y/o empleados.</p>
+
+              <p><strong>(b)</strong> El concepto de costo, gasto o erogación, de forma enunciativa más no limitativa, incluye a, las pérdidas, obligaciones, erogaciones, tributos y costos razonables incurridos en la contratación de contadores, abogados y peritos, así como en el pago de honorarios legales, alojamiento y transporte, en la preparación de la defensa en una demanda, reclamación, litigio, proceso, condena, pleito o acción legal.</p>
+            </div>
+
+            <h3 className="text-xl font-bold text-gray-600 mb-4">Sección 7.04 - Ley y jurisdicción aplicable</h3>
+            <p className="mb-8">Para cualquier acción o reclamación, el lugar en el que se entienden aceptados los presentes Términos y Condiciones será la Ciudad de México y cualquier controversia que surja de su interpretación o aplicación, se someterá a las leyes aplicables en la Ciudad de México.</p>
+
+            <div className="bg-blue-50 p-6 rounded-lg border border-blue-200 mt-12">
+              <p className="text-blue-800 text-center font-semibold mb-0">
+                Acepto de manera irrevocable en todos y cada uno de sus términos el presente documento.
               </p>
             </div>
 

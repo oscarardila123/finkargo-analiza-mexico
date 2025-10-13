@@ -2,13 +2,16 @@ import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
-import { wompiClient } from "@/lib/wompi"
+import { stripeClient } from "@/lib/stripe"
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('🔵 Stripe checkout session - Start')
     const session = await getServerSession(authOptions)
-    
+    console.log('🔵 Session:', session?.user?.email)
+
     if (!session?.user?.id) {
+      console.log('❌ No session found')
       return NextResponse.json(
         { error: "No autorizado" },
         { status: 401 }
@@ -16,17 +19,16 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
+    console.log('🔵 Request body:', body)
     const {
       amount,
       planId,
-      currency,
-      paymentMethod,
-      customerData,
+      currency = 'mxn',
+      planName,
       period,
-      cardToken
     } = body
 
-    if (!amount || !planId || !currency || !paymentMethod) {
+    if (!amount || !planId || !planName) {
       return NextResponse.json(
         { error: "Faltan campos obligatorios" },
         { status: 400 }
@@ -46,67 +48,69 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Calculate Colombian taxes if COP
+    // Calculate taxes if applicable (Mexico IVA is 16%)
     let totalAmount = parseFloat(amount)
     let ivaAmount = 0
     let ivaRate = 0
-    
-    if (currency === 'COP') {
-      ivaRate = parseFloat(process.env.IVA_RATE || "0.19")
-      ivaAmount = wompiClient.calculateIVA(totalAmount, ivaRate)
-      totalAmount = wompiClient.calculateTotalWithIVA(totalAmount, ivaRate)
+
+    if (currency === 'mxn') {
+      ivaRate = parseFloat(process.env.IVA_RATE_MX || "0.16")
+      ivaAmount = stripeClient.calculateIVA(totalAmount, ivaRate)
+      totalAmount = stripeClient.calculateTotalWithIVA(totalAmount, ivaRate)
     }
-    
+
     // Generate payment reference
-    const reference = wompiClient.generateReference('FINKARGO_SUB')
+    const reference = stripeClient.generateReference('FINKARGO_SUB')
 
     // Create payment record in database
     const payment = await prisma.payment.create({
       data: {
         companyId: user.company.id,
         amount: totalAmount,
-        currency: currency,
+        currency: currency.toUpperCase(),
         status: 'PENDING',
-        provider: 'WOMPI',
-        paymentMethod: paymentMethod,
-        description: `Suscripción ${planId} - ${period || planId}`,
+        provider: 'STRIPE',
+        paymentMethod: 'card',
+        description: `Suscripción ${planName} - ${period || planId}`,
         metadata: {
           planId,
+          planName,
           period: period || planId,
           currency,
           subtotal: parseFloat(amount),
           ivaAmount,
           ivaRate,
           reference,
-          customerData,
         },
       },
     })
 
-    // Create Wompi payment data - Payment Link will be created
-    const wompiPaymentData = {
-      amount_in_cents: currency === 'COP' ? wompiClient.formatCOPAmount(totalAmount) : Math.round(totalAmount * 100),
-      currency: 'COP' as const,
-      customer_email: user.email,
+    // Create Stripe Checkout Session
+    const checkoutSession = await stripeClient.createCheckoutSession({
+      amount: totalAmount,
+      currency: currency as 'mxn' | 'usd',
+      customerEmail: user.email,
       reference: reference,
-      // No payment_method - let user choose in Wompi checkout
-      customer_data: {
-        full_name: customerData?.fullName || user.name || '',
-        phone_number: customerData?.phoneNumber || user.company.phone || '',
+      planId: planId,
+      planName: planName,
+      successUrl: `${process.env.NEXTAUTH_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}&payment_id=${payment.id}`,
+      cancelUrl: `${process.env.NEXTAUTH_URL}/precios?canceled=true`,
+      metadata: {
+        paymentId: payment.id,
+        companyId: user.company.id,
+        userId: user.id,
       },
-      redirect_url: `${process.env.NEXTAUTH_URL}/checkout/success?payment_id=${payment.id}`,
-    }
+    })
 
-    const wompiPayment = await wompiClient.createPayment(wompiPaymentData)
-
-    // Update payment with Wompi ID
+    // Update payment with Stripe session ID
     await prisma.payment.update({
       where: { id: payment.id },
       data: {
-        providerPaymentId: wompiPayment.id,
+        providerPaymentId: checkoutSession.id,
         metadata: {
           ...(payment.metadata as Record<string, unknown>),
-          wompiPayment,
+          stripeSessionId: checkoutSession.id,
+          stripeCheckoutUrl: checkoutSession.url,
         },
       },
     })
@@ -120,7 +124,9 @@ export async function POST(request: NextRequest) {
           paymentId: payment.id,
           amount: totalAmount,
           planId,
+          planName,
           period: period || planId,
+          provider: 'STRIPE',
         },
       },
     })
@@ -130,20 +136,19 @@ export async function POST(request: NextRequest) {
       payment: {
         id: payment.id,
         amount: totalAmount,
-        currency: 'COP',
+        currency: currency.toUpperCase(),
         reference,
-        wompiPaymentId: wompiPayment.id,
-        status: wompiPayment.status,
-        paymentMethod: paymentMethod,
-        checkoutUrl: wompiPayment.payment_link?.checkout_url || null,
+        stripeSessionId: checkoutSession.id,
+        status: 'PENDING',
+        checkoutUrl: checkoutSession.url,
       },
-      wompiPayment,
+      checkoutSession,
     })
 
   } catch (error) {
-    console.error('Payment creation error:', error)
+    console.error('Stripe checkout session creation error:', error)
     return NextResponse.json(
-      { error: "Error al crear el pago" },
+      { error: "Error al crear la sesión de pago" },
       { status: 500 }
     )
   }

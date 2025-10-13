@@ -35,7 +35,7 @@ interface Supplier {
   topImporters: string[]
 }
 
-// Mock data - in production this would come from your Aduanas database
+// Mock data - in production this would come from verified sources
 const mockSuppliers: Supplier[] = [
   {
     id: "1",

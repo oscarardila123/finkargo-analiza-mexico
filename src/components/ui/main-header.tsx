@@ -120,7 +120,7 @@ export function MainHeader() {
               </Link>
               <Link href="/auth/signin">
                 <Button className="bg-brand-navy hover:bg-brand-navy-dark text-white px-6 py-2 rounded-lg transition-colors shadow-lg hover:shadow-xl">
-                  Comenzar Gratis
+                  Comenzar Ahora
                 </Button>
               </Link>
             </>
@@ -209,7 +209,7 @@ export function MainHeader() {
                   </Link>
                   <Link href="/auth/signin" onClick={() => setMobileMenuOpen(false)}>
                     <Button className="w-full bg-brand-navy hover:bg-brand-navy-dark text-white">
-                      Comenzar Gratis
+                      Comenzar Ahora
                     </Button>
                   </Link>
                 </div>

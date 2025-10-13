@@ -1,4 +1,4 @@
-// Simple i18n implementation for Spanish (Colombia)
+// Simple i18n implementation for Spanish (México)
 export const translations = {
   common: {
     loading: 'Cargando...',
@@ -46,7 +46,7 @@ export const translations = {
   },
   imports: {
     title: 'Análisis de Importaciones',
-    description: 'Inteligencia de mercado basada en datos oficiales de Aduanas',
+    description: 'Inteligencia de mercado basada en datos verificados',
     totalValue: 'Valor Total CIF',
     activeImporters: 'Importadores Activos',
     originCountries: 'Países de Origen',
@@ -67,7 +67,7 @@ export const translations = {
     averagePrice: 'Precio promedio',
     reliability: 'Confiabilidad',
     lastImport: 'Última importación',
-    topImporters: 'Principales importadores colombianos',
+    topImporters: 'Principales importadores mexicanos',
     viewDetails: 'Ver Detalles',
     contact: 'Contactar',
   },
@@ -119,7 +119,7 @@ export const translations = {
     annualImports: 'Volumen anual importación (USD)',
   },
   currency: {
-    cop: 'COP',
+    mxn: 'MXN',
     usd: 'USD',
     eur: 'EUR',
   },
@@ -180,22 +180,22 @@ export function t(key: NestedTranslationKey): string {
   return typeof value === 'string' ? value : key
 }
 
-// Colombian specific formatting utilities
-export const colombianFormatters = {
-  currency: (amount: number, currency: 'COP' | 'USD' = 'COP') => {
-    return new Intl.NumberFormat('es-CO', {
+// Mexican specific formatting utilities
+export const mexicanFormatters = {
+  currency: (amount: number, currency: 'MXN' | 'USD' = 'MXN') => {
+    return new Intl.NumberFormat('es-MX', {
       style: 'currency',
       currency,
-      minimumFractionDigits: currency === 'COP' ? 0 : 2,
+      minimumFractionDigits: currency === 'MXN' ? 2 : 2,
     }).format(amount)
   },
   
   number: (value: number) => {
-    return new Intl.NumberFormat('es-CO').format(value)
+    return new Intl.NumberFormat('es-MX').format(value)
   },
-  
+
   percentage: (value: number) => {
-    return new Intl.NumberFormat('es-CO', {
+    return new Intl.NumberFormat('es-MX', {
       style: 'percent',
       minimumFractionDigits: 1,
       maximumFractionDigits: 1,
@@ -204,25 +204,25 @@ export const colombianFormatters = {
   
   date: (date: Date | string) => {
     const d = typeof date === 'string' ? new Date(date) : date
-    return new Intl.DateTimeFormat('es-CO', {
+    return new Intl.DateTimeFormat('es-MX', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
     }).format(d)
   },
-  
+
   dateShort: (date: Date | string) => {
     const d = typeof date === 'string' ? new Date(date) : date
-    return new Intl.DateTimeFormat('es-CO', {
+    return new Intl.DateTimeFormat('es-MX', {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
     }).format(d)
   },
-  
+
   dateTime: (date: Date | string) => {
     const d = typeof date === 'string' ? new Date(date) : date
-    return new Intl.DateTimeFormat('es-CO', {
+    return new Intl.DateTimeFormat('es-MX', {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',

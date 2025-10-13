@@ -1,9 +1,14 @@
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null
 
 export async function sendPasswordResetEmail(email: string, resetUrl: string) {
   try {
+    if (!resend) {
+      console.log('[DEV] Email sending disabled - no RESEND_API_KEY configured')
+      return { success: true, data: null }
+    }
+
     const { data, error } = await resend.emails.send({
       from: process.env.EMAIL_FROM || 'Finkargo Analiza <noreply@finkargo.com>',
       to: [email],
@@ -79,7 +84,7 @@ export async function sendPasswordResetEmail(email: string, resetUrl: string) {
               <p style="color: #6b7280; font-size: 14px; margin: 10px 0;">
                 <strong>Finkargo Analiza</strong><br>
                 Plataforma de Inteligencia Comercial<br>
-                🇨🇴 Hecho en Colombia
+                Operando en México
               </p>
               
               <div style="margin-top: 20px;">
@@ -117,6 +122,11 @@ export async function sendPasswordResetEmail(email: string, resetUrl: string) {
 
 export async function sendWelcomeEmail(email: string, name: string) {
   try {
+    if (!resend) {
+      console.log('[DEV] Email sending disabled - no RESEND_API_KEY configured')
+      return { success: true, data: null }
+    }
+
     const { data, error } = await resend.emails.send({
       from: process.env.EMAIL_FROM || 'Finkargo Analiza <noreply@finkargo.com>',
       to: [email],
@@ -140,35 +150,35 @@ export async function sendWelcomeEmail(email: string, name: string) {
             <h2 style="color: #2563eb; margin-top: 0;">¡Hola ${name}!</h2>
             
             <p style="font-size: 16px; margin-bottom: 20px;">
-              Te damos la bienvenida a <strong>Finkargo Analiza</strong>, la plataforma de inteligencia comercial más avanzada de Colombia.
+              Te damos la bienvenida a <strong>Finkargo Analiza</strong>, la plataforma de inteligencia comercial más avanzada de México.
             </p>
-            
+
             <p style="font-size: 16px; margin-bottom: 30px;">
-              Ahora tienes acceso a datos oficiales de Aduanas y herramientas de análisis que te ayudarán a tomar mejores decisiones comerciales.
+              ¡Estás a un solo paso de acceder a datos verificados y herramientas de análisis que transformarán tus decisiones comerciales!
             </p>
-            
+
             <div style="text-align: center; margin: 30px 0;">
-              <a href="${process.env.NEXTAUTH_URL}/dashboard" 
-                 style="background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%); 
-                        color: white; 
-                        text-decoration: none; 
-                        padding: 15px 30px; 
-                        border-radius: 8px; 
-                        font-weight: 600; 
-                        font-size: 16px;
+              <a href="${process.env.NEXTAUTH_URL}/precios"
+                 style="background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+                        color: white;
+                        text-decoration: none;
+                        padding: 15px 40px;
+                        border-radius: 8px;
+                        font-weight: 600;
+                        font-size: 18px;
                         display: inline-block;
                         box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);">
-                🚀 Acceder a mi dashboard
+                💎 Descubre el plan perfecto para ti
               </a>
             </div>
-            
+
             <div style="background: #f0f9ff; padding: 20px; border-radius: 8px; margin: 30px 0;">
-              <h3 style="color: #0369a1; margin-top: 0;">¿Qué puedes hacer ahora?</h3>
+              <h3 style="color: #0369a1; margin-top: 0;">¿Qué podrás hacer una vez elijas tu plan?</h3>
               <ul style="color: #0c4a6e; margin: 0; padding-left: 20px;">
-                <li>Analizar datos de importaciones y exportaciones</li>
-                <li>Generar reportes personalizados</li>
-                <li>Descubrir nuevos proveedores y mercados</li>
-                <li>Analizar a tu competencia</li>
+                <li>Analizar datos de importaciones y exportaciones en tiempo real</li>
+                <li>Generar reportes personalizados con información detallada</li>
+                <li>Descubrir nuevos proveedores y mercados estratégicos</li>
+                <li>Analizar a tu competencia y tendencias del mercado</li>
               </ul>
             </div>
             
@@ -178,7 +188,7 @@ export async function sendWelcomeEmail(email: string, name: string) {
               <p style="color: #6b7280; font-size: 14px; margin: 10px 0;">
                 <strong>Finkargo Analiza</strong><br>
                 Plataforma de Inteligencia Comercial<br>
-                🇨🇴 Hecho en Colombia
+                Operando en México
               </p>
               
               <div style="margin-top: 20px;">

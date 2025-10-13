@@ -32,14 +32,14 @@ export default function FeaturesPage() {
       <section className="py-8 sm:py-12 lg:py-16">
         <div className="container-responsive text-center">
           <Badge variant="secondary" className="mb-4 sm:mb-6 px-3 sm:px-4 py-2 text-xs sm:text-sm">
-            ⚡ La plataforma más avanzada de Colombia
+            ⚡ La plataforma más avanzada de México
           </Badge>
           <h1 className="text-2xl sm:text-3xl lg:text-5xl xl:text-6xl font-bold text-gray-600 mb-4 sm:mb-6 px-4 leading-tight">
             ¿Por qué elegir 
             <span className="text-gray-600 bg-clip-text bg-gradient-to-r from-primary to-secondary"> Finkargo Analiza?</span>
           </h1>
           <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 max-w-3xl mx-auto px-4 leading-relaxed">
-            La única plataforma que combina inteligencia artificial con datos oficiales de Aduanas para darte ventaja competitiva real
+            La única plataforma que combina inteligencia artificial con datos verificados de comercio exterior para darte ventaja competitiva real
           </p>
         </div>
       </section>
@@ -80,26 +80,26 @@ export default function FeaturesPage() {
             <Card className="border-0 shadow-xl hover:shadow-2xl transition-shadow">
               <CardHeader>
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                  <Database className="h-6 w-6 text-blue-600" />
+                  <BarChart3 className="h-6 w-6 text-blue-600" />
                 </div>
-                <CardTitle className="text-xl">Datos Oficiales de Aduanas</CardTitle>
+                <CardTitle className="text-xl">Análisis de Participación de Mercado</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 mb-4 text-justify">
-                  Acceso exclusivo a la base de datos más completa de importaciones y exportaciones de Colombia, actualizada mensualmente.
+                  Conoce tu posición en el mercado y el ranking de competencia entre importadores de tu sector.
                 </p>
                 <ul className="space-y-2">
                   <li className="flex items-center text-sm">
                     <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                    +2M registros de comercio exterior
+                    Ranking de competencia en tiempo real
                   </li>
                   <li className="flex items-center text-sm">
                     <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                    Actualización mensual automática
+                    Porcentaje de participación por sector
                   </li>
                   <li className="flex items-center text-sm">
                     <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                    Histórico de 2+ años
+                    Identificación de líderes del mercado
                   </li>
                 </ul>
               </CardContent>
@@ -108,26 +108,26 @@ export default function FeaturesPage() {
             <Card className="border-0 shadow-xl hover:shadow-2xl transition-shadow">
               <CardHeader>
                 <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                  <Target className="h-6 w-6 text-purple-600" />
+                  <Globe className="h-6 w-6 text-purple-600" />
                 </div>
-                <CardTitle className="text-xl">Analiza tu Competencia</CardTitle>
+                <CardTitle className="text-xl">Búsqueda de Proveedores Globales</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 mb-4 text-justify">
-                  Visualiza las importaciones, precios, fletes, entre otros, que pagan tus competidores y toma decisiones para reducir costos.
+                  Encuentra proveedores del exterior con información detallada de país de origen, precios y productos.
                 </p>
                 <ul className="space-y-2">
                   <li className="flex items-center text-sm">
                     <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                    Precios y fletes de competidores
+                    Base de datos de proveedores internacionales
                   </li>
                   <li className="flex items-center text-sm">
                     <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                    Reportes personalizados detallados
+                    Comparación de precios por país
                   </li>
                   <li className="flex items-center text-sm">
                     <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                    Decisiones basadas en datos reales
+                    Catálogo completo de productos
                   </li>
                 </ul>
               </CardContent>
@@ -136,26 +136,110 @@ export default function FeaturesPage() {
             <Card className="border-0 shadow-xl hover:shadow-2xl transition-shadow">
               <CardHeader>
                 <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                  <TrendingUp className="h-6 w-6 text-green-600" />
+                  <Database className="h-6 w-6 text-green-600" />
                 </div>
-                <CardTitle className="text-xl">Obtén Insights de Alto Impacto</CardTitle>
+                <CardTitle className="text-xl">Análisis Detallado de Importaciones</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 mb-4 text-justify">
-                  Identifica tu porcentaje de participación en tu sector y nuevas oportunidades en el mercado al evaluar a tus proveedores potenciales.
+                  Análisis completo de unidades, valores FOB y CIF, peso por importador, industria y país de origen.
                 </p>
                 <ul className="space-y-2">
                   <li className="flex items-center text-sm">
                     <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                    Participación de mercado en tiempo real
+                    Valores FOB y CIF declarados
                   </li>
                   <li className="flex items-center text-sm">
                     <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                    Identificación de oportunidades
+                    Análisis por posición arancelaria
                   </li>
                   <li className="flex items-center text-sm">
                     <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                    Evaluación de proveedores potenciales
+                    Desglose por país de origen
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-xl hover:shadow-2xl transition-shadow">
+              <CardHeader>
+                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+                  <TrendingUp className="h-6 w-6 text-orange-600" />
+                </div>
+                <CardTitle className="text-xl">Tendencias y Comportamiento</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600 mb-4 text-justify">
+                  Monitorea comportamiento y tendencias de importaciones por importador, proveedor, país y posición arancelaria.
+                </p>
+                <ul className="space-y-2">
+                  <li className="flex items-center text-sm">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                    Histórico de importaciones por empresa
+                  </li>
+                  <li className="flex items-center text-sm">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                    Tendencias de mercado en tiempo real
+                  </li>
+                  <li className="flex items-center text-sm">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                    Proyecciones y análisis predictivo
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-xl hover:shadow-2xl transition-shadow">
+              <CardHeader>
+                <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+                  <DollarSign className="h-6 w-6 text-red-600" />
+                </div>
+                <CardTitle className="text-xl">Costos Operativos Detallados</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600 mb-4 text-justify">
+                  Información completa de gastos tributarios, fletes, seguros, modalidad de transporte y agentes de aduana.
+                </p>
+                <ul className="space-y-2">
+                  <li className="flex items-center text-sm">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                    Fletes y seguros por operación
+                  </li>
+                  <li className="flex items-center text-sm">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                    Modalidades de transporte utilizadas
+                  </li>
+                  <li className="flex items-center text-sm">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                    Empresas de transporte y agentes
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-xl hover:shadow-2xl transition-shadow">
+              <CardHeader>
+                <div className="w-12 h-12 bg-cyan-100 rounded-lg flex items-center justify-center mb-4">
+                  <Target className="h-6 w-6 text-cyan-600" />
+                </div>
+                <CardTitle className="text-xl">Apertura de Mercado</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600 mb-4 text-justify">
+                  Herramienta comercial diseñada para apertura de mercado y búsqueda estratégica de nuevos prospectos.
+                </p>
+                <ul className="space-y-2">
+                  <li className="flex items-center text-sm">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                    Identificación de nuevos prospectos
+                  </li>
+                  <li className="flex items-center text-sm">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                    Análisis de oportunidades comerciales
+                  </li>
+                  <li className="flex items-center text-sm">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                    Estrategias de penetración de mercado
                   </li>
                 </ul>
               </CardContent>
@@ -196,7 +280,7 @@ export default function FeaturesPage() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-gray-600 text-center">
-                      Acceso directo a información verificada de Aduanas con actualizaciones automáticas.
+                      Acceso directo a información verificada de comercio exterior con actualizaciones automáticas.
                     </p>
                   </CardContent>
                 </Card>
@@ -276,10 +360,10 @@ export default function FeaturesPage() {
             </h1>
             <p className="text-xl font-bold text-gray-800 mb-4">Descubre. Compara. Decide.</p>
             <h2 className="text-3xl font-bold text-gray-800 mb-4">
-              Diseñado específicamente para el mercado colombiano
+              Diseñado específicamente para el mercado mexicano
             </h2>
             <p className="text-lg text-gray-600 max-w-4xl mx-auto">
-              No somos una herramienta genérica. Finkargo Analiza está construida desde cero para entender las particularidades del comercio exterior colombiano.
+              No somos una herramienta genérica. Finkargo Analiza está construida desde cero para entender las particularidades del comercio exterior mexicano.
             </p>
           </div>
           
@@ -357,7 +441,7 @@ export default function FeaturesPage() {
                     <div className="flex-1">
                       <h3 className="text-lg font-bold text-blue-700 mb-1">Expansión regional</h3>
                       <p className="text-sm text-gray-600 leading-relaxed">
-                        Compara mercados en Colombia y México. Replica estrategias exitosas en múltiples países.
+                        Compara mercados en México y otros países. Replica estrategias exitosas en múltiples mercados.
                       </p>
                     </div>
                   </div>
@@ -420,12 +504,12 @@ export default function FeaturesPage() {
             ¿Listo para transformar tu negocio?
           </h2>
           <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-            Únete a más de 160+ empresas colombianas que ya optimizan su comercio exterior con Finkargo Analiza
+            Únete a más de 160+ empresas Colombianas y Mexicanas que ya optimizan su comercio exterior con Finkargo Analiza
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link href="/auth/signup">
               <Button size="lg" className="px-8 py-4 text-lg bg-white text-primary hover:bg-gray-100">
-                Comenzar Gratis
+                Comenzar Ahora
               </Button>
             </Link>
             <Link href="/precios">

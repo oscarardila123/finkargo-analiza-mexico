@@ -3,23 +3,23 @@
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { 
-  Settings, 
-  TestTube, 
-  Rocket, 
-  Play, 
+import {
+  Settings,
+  TestTube,
+  Rocket,
+  Play,
   AlertTriangle,
   CheckCircle,
   ExternalLink
 } from "lucide-react"
 import { useState, useEffect } from "react"
 
-interface WompiStatusProps {
-  environment?: 'simulation' | 'sandbox' | 'production'
+interface StripeStatusProps {
+  environment?: 'test' | 'production'
   className?: string
 }
 
-export function WompiStatus({ environment = 'simulation', className }: WompiStatusProps) {
+export function StripeStatus({ environment = 'test', className }: StripeStatusProps) {
   const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
@@ -31,18 +31,10 @@ export function WompiStatus({ environment = 'simulation', className }: WompiStat
   }
 
   const environmentConfig = {
-    simulation: {
-      emoji: '🎭',
-      label: 'Simulación Local',
-      description: 'Pagos simulados para desarrollo',
-      color: 'bg-blue-50 text-blue-700 border-blue-200',
-      icon: Play,
-      status: 'info'
-    },
-    sandbox: {
+    test: {
       emoji: '🧪',
-      label: 'Sandbox (Pruebas)', 
-      description: 'API real de Wompi con datos de prueba',
+      label: 'Modo de Pruebas',
+      description: 'API real de Stripe con datos de prueba',
       color: 'bg-orange-50 text-orange-700 border-orange-200',
       icon: TestTube,
       status: 'warning'
@@ -74,7 +66,7 @@ export function WompiStatus({ environment = 'simulation', className }: WompiStat
           </Badge>
         </div>
         <CardDescription className="text-xs">
-          Ambiente actual de Wompi
+          Ambiente actual de Stripe
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-0">
@@ -83,18 +75,8 @@ export function WompiStatus({ environment = 'simulation', className }: WompiStat
             <div className="font-semibold text-sm mb-1">{config.label}</div>
             <div className="text-xs opacity-80">{config.description}</div>
           </div>
-          
-          {environment === 'simulation' && (
-            <div className="flex items-start gap-2 p-2 bg-blue-100 rounded-lg">
-              <CheckCircle className="h-4 w-4 text-blue-600 mt-0.5" />
-              <div className="text-xs">
-                <div className="font-medium text-blue-800">Desarrollo Local</div>
-                <div className="text-blue-600">Sin costos, pagos simulados</div>
-              </div>
-            </div>
-          )}
-          
-          {environment === 'sandbox' && (
+
+          {environment === 'test' && (
             <div className="flex items-start gap-2 p-2 bg-orange-100 rounded-lg">
               <AlertTriangle className="h-4 w-4 text-orange-600 mt-0.5" />
               <div className="text-xs">
@@ -103,7 +85,7 @@ export function WompiStatus({ environment = 'simulation', className }: WompiStat
               </div>
             </div>
           )}
-          
+
           {environment === 'production' && (
             <div className="flex items-start gap-2 p-2 bg-green-100 rounded-lg">
               <Rocket className="h-4 w-4 text-green-600 mt-0.5" />
@@ -114,27 +96,17 @@ export function WompiStatus({ environment = 'simulation', className }: WompiStat
             </div>
           )}
 
-          {(environment === 'sandbox' || environment === 'production') && (
-            <div className="pt-2 border-t border-current/20">
-              <Button 
-                size="sm" 
-                variant="outline" 
-                className="w-full h-7 text-xs"
-                onClick={() => window.open('https://comercios.wompi.co/', '_blank')}
-              >
-                <ExternalLink className="h-3 w-3 mr-1" />
-                Dashboard Wompi
-              </Button>
-            </div>
-          )}
-          
-          {environment === 'simulation' && (
-            <div className="pt-2 border-t border-current/20">
-              <div className="text-xs text-center opacity-75">
-                Para activar pagos reales, configura sandbox o producción
-              </div>
-            </div>
-          )}
+          <div className="pt-2 border-t border-current/20">
+            <Button
+              size="sm"
+              variant="outline"
+              className="w-full h-7 text-xs"
+              onClick={() => window.open('https://dashboard.stripe.com/', '_blank')}
+            >
+              <ExternalLink className="h-3 w-3 mr-1" />
+              Dashboard Stripe
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>

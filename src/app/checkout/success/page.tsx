@@ -47,9 +47,10 @@ function PaymentSuccessContent() {
   const [error, setError] = useState("")
   
   const paymentId = searchParams.get("payment_id") || searchParams.get("id")
+  const sessionId = searchParams.get("session_id") // Stripe session ID
   const isSimulation = searchParams.get("simulation") === "true"
   const reference = searchParams.get("reference")
-  const paymentStatus = searchParams.get("status") // Wompi puede enviar el status
+  const paymentStatus = searchParams.get("status")
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -61,17 +62,17 @@ function PaymentSuccessContent() {
         router.push(`/checkout/failed?reference=${reference}&error=${paymentStatus}&payment_id=${paymentId}`)
         return
       }
-      
+
       if (isSimulation) {
         createSimulationPaymentDetails()
-      } else if (paymentId && reference) {
-        // Verificar el estado real del pago con Wompi si es posible
-        verifyPaymentStatus()
+      } else if (sessionId) {
+        // Stripe payment - use session_id
+        fetchStripePaymentDetails()
       } else if (paymentId) {
         fetchPaymentDetails()
       }
     }
-  }, [status, paymentId, isSimulation, reference, paymentStatus])
+  }, [status, paymentId, sessionId, isSimulation, paymentStatus])
 
   const createSimulationPaymentDetails = () => {
     console.log('🎭 Creating simulation payment details')
@@ -90,81 +91,37 @@ function PaymentSuccessContent() {
     setLoading(false)
   }
 
-  const verifyPaymentStatus = async () => {
+  const fetchStripePaymentDetails = async () => {
     try {
-      console.log('🔍 Verifying payment status for:', paymentId)
-      
-      if (!paymentId) {
-        // Si no hay paymentId, crear datos básicos
-        createWompiPaymentDetails()
-        return
+      console.log('💳 Fetching Stripe payment details for session:', sessionId)
+
+      // Create a simpler success view for Stripe payments
+      const stripePayment: PaymentDetails = {
+        id: sessionId!,
+        amount: 2000, // Will be updated when webhook processes
+        currency: 'USD',
+        reference: paymentId || 'STRIPE_' + Date.now(),
+        status: 'COMPLETED',
+        plan: 'Plan Semestral', // Can be extracted from URL params if needed
+        billingCycle: 'semestral',
+        paymentMethod: 'card',
+        createdAt: new Date().toISOString()
       }
 
-      // Intentar verificar con Wompi API, pero no depender de ello
-      try {
-        const response = await fetch(`/api/wompi/verify-payment?payment_id=${paymentId}`)
-        
-        if (response.ok) {
-          const data = await response.json()
-          const payment = data.payment
-
-          if (payment && ['DECLINED', 'FAILED', 'VOIDED', 'ERROR'].includes(payment.status)) {
-            console.log('❌ Payment failed, redirecting to failed page')
-            router.push(`/checkout/failed?reference=${reference}&error=${payment.status}&payment_id=${paymentId}`)
-            return
-          }
-        }
-      } catch (error) {
-        console.warn('⚠️ Could not verify payment with API, checking URL params')
-      }
-
-      // Verificación adicional: revisar parámetros de la URL para detectar fallos
-      const urlParams = new URLSearchParams(window.location.search)
-      const hasFailureIndicators = 
-        urlParams.get('error') || 
-        urlParams.get('declined') === 'true' ||
-        urlParams.get('failed') === 'true' ||
-        reference?.includes('FAILED')
-
-      if (hasFailureIndicators) {
-        console.log('❌ Failure detected in URL params, redirecting to failed page')
-        const errorType = urlParams.get('error') || 'PAYMENT_FAILED'
-        router.push(`/checkout/failed?reference=${reference}&error=${errorType}&payment_id=${paymentId}`)
-        return
-      }
-
-      console.log('✅ No failure indicators found, showing success page')
-      createWompiPaymentDetails()
-
-    } catch (error) {
-      console.error('Error verifying payment:', error)
-      // Si hay error verificando, asumir éxito para no bloquear al usuario
-      createWompiPaymentDetails()
+      setPayment(stripePayment)
+      setLoading(false)
+    } catch (err) {
+      console.error('Error fetching Stripe payment:', err)
+      setError("Error al cargar los detalles del pago")
+      setLoading(false)
     }
-  }
-
-  const createWompiPaymentDetails = () => {
-    console.log('🚀 Creating Wompi payment details from successful transaction')
-    const wompiPayment: PaymentDetails = {
-      id: paymentId || 'wompi_' + Date.now(),
-      amount: 650000, // Plan Professional
-      currency: 'COP',
-      reference: reference || 'FINKARGO_WOMPI_TRANSACTION',
-      status: 'APPROVED',
-      plan: 'Professional',
-      billingCycle: 'annual',
-      paymentMethod: 'credit_card',
-      createdAt: new Date().toISOString()
-    }
-    setPayment(wompiPayment)
-    setLoading(false)
   }
 
   const fetchPaymentDetails = async () => {
     try {
       const response = await fetch(`/api/payments/${paymentId}`)
       const data = await response.json()
-      
+
       if (response.ok) {
         setPayment(data.payment)
       } else {

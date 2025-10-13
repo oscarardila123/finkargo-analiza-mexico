@@ -69,7 +69,7 @@ export function ResponsiveHeader({ currentPage = 'home' }: ResponsiveHeaderProps
           </Link>
           <Link href="/auth/signup">
             <Button className="btn-primary-gradient text-white">
-              Comenzar Gratis
+              Comenzar Ahora
             </Button>
           </Link>
         </div>
@@ -136,7 +136,7 @@ export function ResponsiveHeader({ currentPage = 'home' }: ResponsiveHeaderProps
               </Link>
               <Link href="/auth/signup" onClick={() => setMobileMenuOpen(false)}>
                 <Button className="w-full btn-primary-gradient text-white">
-                  Comenzar Gratis
+                  Comenzar Ahora
                 </Button>
               </Link>
             </div>

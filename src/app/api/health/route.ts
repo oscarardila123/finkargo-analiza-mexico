@@ -26,7 +26,7 @@ export async function GET() {
           nit TEXT UNIQUE,
           address TEXT,
           city TEXT,
-          country TEXT NOT NULL DEFAULT 'Colombia',
+          country TEXT NOT NULL DEFAULT 'México',
           phone TEXT,
           website TEXT,
           industry_type TEXT,

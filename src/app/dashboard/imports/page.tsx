@@ -62,12 +62,12 @@ interface MarketAnalysis {
   }>
 }
 
-// Mock data - in production this would come from Aduanas database
+// Mock data - in production this would come from verified sources
 const mockMarketAnalysis: MarketAnalysis = {
   topImporters: [
     { name: "AVIANCA", value: 2450000, percentage: 15.2, trend: 12.5 },
     { name: "AUTOGERMANA SAS", value: 1890000, percentage: 11.7, trend: -3.2 },
-    { name: "SSANGYONG MOTOR COLOMBIA SA", value: 1650000, percentage: 10.3, trend: 8.7 },
+    { name: "NISSAN MEXICANA SA DE CV", value: 1650000, percentage: 10.3, trend: 8.7 },
     { name: "UMO S.A.S", value: 1320000, percentage: 8.2, trend: 22.1 },
     { name: "DISAMETALES S.A.S", value: 1180000, percentage: 7.3, trend: -5.1 },
   ],
@@ -124,7 +124,7 @@ export default function ImportsPage() {
         <div>
           <h1 className="text-3xl font-bold">Análisis de Importaciones</h1>
           <p className="text-gray-700">
-            Inteligencia de mercado basada en datos oficiales de Aduanas
+            Inteligencia de mercado basada en datos verificados
           </p>
         </div>
         <div className="flex items-center space-x-2">

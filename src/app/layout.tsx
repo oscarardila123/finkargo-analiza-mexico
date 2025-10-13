@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Finkargo Analiza - Inteligencia Comercial para Colombia",
-  description: "Plataforma B2B SaaS de inteligencia de mercado basada en datos de aduanas colombianas para importadores, exportadores y agentes de carga.",
-  keywords: "inteligencia comercial, importaciones Colombia, exportaciones, Aduanas, proveedores internacionales, análisis de mercado",
+  title: "Finkargo Analiza - Inteligencia Comercial para México",
+  description: "Plataforma B2B SaaS de inteligencia de mercado con datos verificados de comercio exterior para importadores, exportadores y agentes de carga en México.",
+  keywords: "inteligencia comercial, importaciones México, exportaciones, proveedores internacionales, análisis de mercado, comercio exterior México",
   icons: {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },
@@ -35,9 +35,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <head>
-        <script src="https://checkout.wompi.co/widget.js"></script>
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

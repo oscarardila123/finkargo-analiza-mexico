@@ -95,17 +95,27 @@ function PaymentSuccessContent() {
     try {
       console.log('💳 Fetching Stripe payment details for session:', sessionId)
 
-      // Create a simpler success view for Stripe payments
+      // Fetch session details from Stripe via API
+      const response = await fetch(`/api/stripe/session/${sessionId}`)
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Error fetching session')
+      }
+
+      const session = data.session
+
+      // Extract payment details from Stripe session
       const stripePayment: PaymentDetails = {
-        id: sessionId!,
-        amount: 2000, // Will be updated when webhook processes
-        currency: 'USD',
-        reference: paymentId || 'STRIPE_' + Date.now(),
+        id: session.id,
+        amount: session.amount_total ? session.amount_total / 100 : 0, // Stripe returns cents
+        currency: (session.currency || 'USD').toUpperCase(),
+        reference: session.metadata?.reference || paymentId || 'STRIPE_' + Date.now(),
         status: 'COMPLETED',
-        plan: 'Plan Semestral', // Can be extracted from URL params if needed
-        billingCycle: 'semestral',
-        paymentMethod: 'card',
-        createdAt: new Date().toISOString()
+        plan: session.metadata?.planName || 'Plan Suscripción',
+        billingCycle: session.metadata?.period || 'semestral',
+        paymentMethod: session.payment_method_types?.[0] || 'card',
+        createdAt: new Date(session.created * 1000).toISOString()
       }
 
       setPayment(stripePayment)

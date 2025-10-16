@@ -120,17 +120,62 @@ export async function sendPasswordResetEmail(email: string, resetUrl: string) {
   }
 }
 
-export async function sendWelcomeEmail(email: string, name: string) {
+export async function sendWelcomeEmail(email: string, name: string, isComceMember: boolean = false) {
   try {
     if (!resend) {
       console.log('[DEV] Email sending disabled - no RESEND_API_KEY configured')
       return { success: true, data: null }
     }
 
+    // COMCE discount section HTML (only shown if user is COMCE member)
+    const comceSection = isComceMember ? `
+      <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+                  padding: 25px;
+                  border-radius: 12px;
+                  margin: 30px 0;
+                  text-align: center;
+                  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);">
+        <h3 style="color: white; margin: 0 0 15px 0; font-size: 22px;">
+          🎁 ¡Beneficio Exclusivo Socio COMCE!
+        </h3>
+        <p style="color: rgba(255,255,255,0.95); font-size: 16px; margin-bottom: 20px;">
+          Como socio COMCE, tienes acceso a un <strong>descuento especial del 15%</strong> en todos nuestros planes.
+        </p>
+        <div style="background: white;
+                    padding: 20px;
+                    border-radius: 8px;
+                    display: inline-block;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+          <p style="color: #059669; margin: 0 0 10px 0; font-size: 14px; font-weight: 600;">
+            TU CÓDIGO DE DESCUENTO:
+          </p>
+          <div style="background: #f0fdf4;
+                      border: 2px dashed #10b981;
+                      padding: 15px 30px;
+                      border-radius: 6px;">
+            <p style="color: #047857;
+                      margin: 0;
+                      font-size: 28px;
+                      font-weight: bold;
+                      letter-spacing: 2px;
+                      font-family: monospace;">
+              COMCE15
+            </p>
+          </div>
+          <p style="color: #6b7280; margin: 15px 0 0 0; font-size: 12px;">
+            Válido en todos los planes hasta el 31 de diciembre de 2025
+          </p>
+        </div>
+        <p style="color: rgba(255,255,255,0.9); font-size: 14px; margin: 20px 0 0 0;">
+          💡 Usa este código al momento de suscribirte para aplicar tu descuento automáticamente
+        </p>
+      </div>
+    ` : '';
+
     const { data, error } = await resend.emails.send({
       from: process.env.EMAIL_FROM || 'Finkargo Analiza <noreply@finkargo.com>',
       to: [email],
-      subject: '¡Bienvenido a Finkargo Analiza! 🎉',
+      subject: isComceMember ? '¡Bienvenido a Finkargo Analiza! 🎉 Tu código COMCE está listo' : '¡Bienvenido a Finkargo Analiza! 🎉',
       html: `
         <!DOCTYPE html>
         <html lang="es">
@@ -156,6 +201,8 @@ export async function sendWelcomeEmail(email: string, name: string) {
             <p style="font-size: 16px; margin-bottom: 30px;">
               ¡Estás a un solo paso de acceder a datos verificados y herramientas de análisis que transformarán tus decisiones comerciales!
             </p>
+
+            ${comceSection}
 
             <div style="text-align: center; margin: 30px 0;">
               <a href="${process.env.NEXTAUTH_URL}/precios"

@@ -465,82 +465,79 @@ function CheckoutSimpleContent() {
 
                 <Separator />
 
-                {/* Coupon Section - Only show for annual plans */}
-                {planId === 'anual' && (
-                  <>
-                    <div>
-                      <h3 className="font-semibold mb-4 flex items-center gap-2">
-                        <Tag className="h-5 w-5 text-blue-600" />
-                        Cupón de descuento
-                      </h3>
-                      
-                      {!appliedCoupon ? (
-                        <div className="space-y-3">
-                          <div className="flex gap-2">
-                            <Input
-                              placeholder="Ingresa tu código de cupón"
-                              value={couponCode}
-                              onChange={(e) => setCouponCode(e.target.value)}
-                              onKeyPress={(e) => e.key === 'Enter' && handleApplyCoupon()}
-                              disabled={couponLoading}
-                              className="flex-1"
-                            />
-                            <Button
-                              onClick={handleApplyCoupon}
-                              disabled={couponLoading || !couponCode.trim()}
-                              variant="outline"
-                              className="min-w-[100px]"
-                            >
-                              {couponLoading ? (
-                                <Loader2 className="h-4 w-4 animate-spin" />
-                              ) : (
-                                'Aplicar'
-                              )}
-                            </Button>
-                          </div>
-                          
-                          {couponError && (
-                            <div className="text-sm text-red-600 flex items-center gap-1">
-                              <AlertCircle className="h-4 w-4" />
-                              {couponError}
-                            </div>
+                {/* Coupon Section - Available for all plans */}
+                <div>
+                  <h3 className="font-semibold mb-4 flex items-center gap-2">
+                    <Tag className="h-5 w-5 text-blue-600" />
+                    Cupón de descuento
+                  </h3>
+
+                  {!appliedCoupon ? (
+                    <div className="space-y-3">
+                      <div className="flex gap-2">
+                        <Input
+                          placeholder="Ingresa tu código de cupón"
+                          value={couponCode}
+                          onChange={(e) => setCouponCode(e.target.value)}
+                          onKeyPress={(e) => e.key === 'Enter' && handleApplyCoupon()}
+                          disabled={couponLoading}
+                          className="flex-1"
+                        />
+                        <Button
+                          onClick={handleApplyCoupon}
+                          disabled={couponLoading || !couponCode.trim()}
+                          variant="outline"
+                          className="min-w-[100px]"
+                        >
+                          {couponLoading ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                          ) : (
+                            'Aplicar'
                           )}
-                        </div>
-                      ) : (
-                        <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                          <div className="flex justify-between items-start">
-                            <div>
-                              <div className="flex items-center gap-2 mb-1">
-                                <CheckCircle className="h-5 w-5 text-green-600" />
-                                <span className="font-medium text-green-900">
-                                  ¡Cupón aplicado exitosamente!
-                                </span>
-                              </div>
-                              <p className="text-sm text-green-700">
-                                {appliedCoupon.description}
-                              </p>
-                              <div className="mt-2 flex items-center gap-2">
-                                <Percent className="h-4 w-4 text-green-600" />
-                                <span className="text-lg font-bold text-green-900">
-                                  {appliedCoupon.discount}% de descuento
-                                </span>
-                              </div>
-                            </div>
-                            <Button
-                              onClick={handleRemoveCoupon}
-                              variant="ghost"
-                              size="sm"
-                              className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                            >
-                              Quitar
-                            </Button>
-                          </div>
+                        </Button>
+                      </div>
+
+                      {couponError && (
+                        <div className="text-sm text-red-600 flex items-center gap-1">
+                          <AlertCircle className="h-4 w-4" />
+                          {couponError}
                         </div>
                       )}
                     </div>
-                    <Separator />
-                  </>
-                )}
+                  ) : (
+                    <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <CheckCircle className="h-5 w-5 text-green-600" />
+                            <span className="font-medium text-green-900">
+                              ¡Cupón aplicado exitosamente!
+                            </span>
+                          </div>
+                          <p className="text-sm text-green-700">
+                            {appliedCoupon.description}
+                          </p>
+                          <div className="mt-2 flex items-center gap-2">
+                            <Percent className="h-4 w-4 text-green-600" />
+                            <span className="text-lg font-bold text-green-900">
+                              {appliedCoupon.discount}% de descuento
+                            </span>
+                          </div>
+                        </div>
+                        <Button
+                          onClick={handleRemoveCoupon}
+                          variant="ghost"
+                          size="sm"
+                          className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                        >
+                          Quitar
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <Separator />
 
                 {/* Order Summary */}
                 <div>

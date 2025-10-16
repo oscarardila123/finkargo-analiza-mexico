@@ -23,6 +23,8 @@ export async function POST(request: NextRequest) {
       industryType,
       companySize,
       annualImportValue,
+      isComceMember,
+      comceMemberNumber,
     } = body
 
     if (!name || !email || !password || !companyName || !companyEmail) {
@@ -85,6 +87,8 @@ export async function POST(request: NextRequest) {
           industryType: industryType || null,
           companySize: (companySize as CompanySize) || "SMALL",
           annualImportValue: annualImportValue ? parseFloat(annualImportValue) : null,
+          isComceMember: isComceMember || false,
+          comceMemberNumber: comceMemberNumber || null,
         },
       })
 
@@ -141,7 +145,13 @@ export async function POST(request: NextRequest) {
     })
 
     // Send welcome email asynchronously (don't block the response)
-    sendWelcomeEmail(result.user.email, result.user.name).catch((error) => {
+    // Include COMCE discount code only if user is a COMCE member
+    const includeComceInfo = result.company.isComceMember && result.company.comceMemberNumber
+    sendWelcomeEmail(
+      result.user.email,
+      result.user.name,
+      includeComceInfo
+    ).catch((error) => {
       console.error('Failed to send welcome email:', error)
       // Don't fail the registration if email fails
     })

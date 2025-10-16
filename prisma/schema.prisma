@@ -85,9 +85,11 @@ model Company {
   annualImportValue Float?            @map("annual_import_value")
   subscriptionId    String?           @unique @map("subscription_id")
   isActive          Boolean           @default(true) @map("is_active")
+  isComceMember     Boolean           @default(false) @map("is_comce_member")
+  comceMemberNumber String?           @map("comce_member_number")
   createdAt         DateTime          @default(now()) @map("created_at")
   updatedAt         DateTime          @updatedAt @map("updated_at")
-  
+
   users             User[]
   subscription      Subscription?
   reports           Report[]

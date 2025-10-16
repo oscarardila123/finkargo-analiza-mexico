@@ -28,6 +28,8 @@ export default function SignUpPage() {
     industryType: "",
     companySize: "",
     annualImportValue: "",
+    isComceMember: false,
+    comceMemberNumber: "",
   })
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
@@ -35,13 +37,16 @@ export default function SignUpPage() {
   
   const router = useRouter()
 
-  const handleInputChange = (name: string, value: string) => {
-    setFormData(prev => ({ ...prev, [name]: value }))
+  const handleInputChange = (name: string, value: string | boolean) => {
+    setFormData(prev => ({
+      ...prev,
+      [name]: name === 'isComceMember' ? value === 'true' || value === true : value
+    }))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     if (step === 1) {
       // Validaciones del paso 1
       if (!formData.name.trim()) {
@@ -60,8 +65,36 @@ export default function SignUpPage() {
         setError("La contraseña debe tener al menos 8 caracteres")
         return
       }
-      setStep(2)
+
+      // Validar si el correo ya existe
+      setIsLoading(true)
       setError("")
+
+      try {
+        const response = await fetch("/api/auth/check-email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: formData.email }),
+        })
+
+        const data = await response.json()
+
+        if (data.exists) {
+          setError(data.message || "Este correo electrónico ya está registrado")
+          setIsLoading(false)
+          return
+        }
+
+        // Si el correo no existe, avanzar al paso 2
+        setStep(2)
+        setError("")
+      } catch {
+        setError("Error al verificar el correo electrónico")
+      } finally {
+        setIsLoading(false)
+      }
       return
     }
 
@@ -92,6 +125,10 @@ export default function SignUpPage() {
     }
     if (!formData.companySize.trim()) {
       setError("El tamaño de empresa es obligatorio")
+      return
+    }
+    if (formData.isComceMember && !formData.comceMemberNumber.trim()) {
+      setError("El número de socio COMCE es obligatorio")
       return
     }
 
@@ -292,6 +329,40 @@ export default function SignUpPage() {
           onChange={(e) => handleInputChange("address", e.target.value)}
           rows={2}
         />
+      </div>
+
+      {/* COMCE Member Section */}
+      <div className="space-y-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <div className="flex items-center space-x-3">
+          <input
+            type="checkbox"
+            id="isComceMember"
+            checked={formData.isComceMember}
+            onChange={(e) => handleInputChange("isComceMember", e.target.checked)}
+            className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          />
+          <Label htmlFor="isComceMember" className="font-semibold text-gray-900 cursor-pointer">
+            Soy Socio COMCE
+          </Label>
+        </div>
+
+        {formData.isComceMember && (
+          <div className="space-y-2 ml-8 mt-3">
+            <Label htmlFor="comceMemberNumber">Número de socio COMCE <span className="text-red-500">*</span></Label>
+            <Input
+              id="comceMemberNumber"
+              type="text"
+              placeholder="Ej: COMCE-12345"
+              className="placeholder:text-gray-400"
+              value={formData.comceMemberNumber}
+              onChange={(e) => handleInputChange("comceMemberNumber", e.target.value)}
+              required={formData.isComceMember}
+            />
+            <p className="text-xs text-blue-700">
+              ✨ Como socio COMCE, recibirás un código de descuento especial del 15% en tu correo de bienvenida
+            </p>
+          </div>
+        )}
       </div>
     </div>
   )

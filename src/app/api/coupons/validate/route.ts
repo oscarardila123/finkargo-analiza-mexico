@@ -6,7 +6,7 @@ const COUPONS = {
   'FK2025-ANALIZA-X7K9M-3QP8N-PREMIUM': {
     discount: 50,
     description: 'Cliente Finkargo Premium - 50% de descuento',
-    appliesTo: ['anual'], // Solo aplica a planes anuales
+    appliesTo: ['trimestral', 'full-trimestral', 'semestral', 'full-semestral', 'anual', 'full-anual'], // Aplica a todos los planes
     maxUses: 100,
     expiresAt: new Date('2025-12-31'),
     type: 'existing_customer'
@@ -15,10 +15,19 @@ const COUPONS = {
   'ANALIZA10': {
     discount: 10,
     description: 'Promoción redes sociales - 10% de descuento',
-    appliesTo: ['anual'], // Solo aplica a planes anuales
+    appliesTo: ['trimestral', 'full-trimestral', 'semestral', 'full-semestral', 'anual', 'full-anual'], // Aplica a todos los planes
     maxUses: 500,
     expiresAt: new Date('2025-12-31'),
     type: 'social_media'
+  },
+  // Cupón 15% para socios COMCE - Aplica a TODOS los planes (full access y por sector)
+  'COMCE15': {
+    discount: 15,
+    description: 'Socio COMCE - 15% de descuento exclusivo',
+    appliesTo: 'ALL', // Especial: aplica a cualquier plan
+    maxUses: 1000,
+    expiresAt: new Date('2025-12-31'),
+    type: 'comce_member'
   }
 }
 
@@ -64,11 +73,11 @@ export async function POST(req: NextRequest) {
     }
 
     // Validar si el cupón aplica al plan seleccionado
-    if (!coupon.appliesTo.includes(planId)) {
+    if (coupon.appliesTo !== 'ALL' && !coupon.appliesTo.includes(planId)) {
       return NextResponse.json(
-        { 
-          valid: false, 
-          error: 'Este cupón solo aplica a planes anuales' 
+        {
+          valid: false,
+          error: 'Este cupón no es válido para el plan seleccionado'
         },
         { status: 400 }
       )

@@ -66,18 +66,18 @@ export default function DemoPage() {
                     </p>
                   </div>
                   
-                  {/* Improved demo container with better aspect ratio */}
-                  <div className="relative z-10 bg-black rounded-2xl overflow-hidden shadow-inner" style={{aspectRatio: '16/10', minHeight: '500px'}}>
-                    <div 
-                      className="w-full h-full"
+                  {/* Improved demo container with better aspect ratio and responsiveness */}
+                  <div className="relative z-10 bg-black rounded-2xl overflow-hidden shadow-inner w-full" style={{paddingBottom: '62.5%', position: 'relative'}}>
+                    <div
+                      className="absolute inset-0 w-full h-full"
                       dangerouslySetInnerHTML={{
                         __html: `<iframe
-                          src="https://finkargo.storylane.io/share/ypfww7pp2fs4"
-                          class="w-full h-full border-0"
+                          src="https://finkargo.storylane.io/share/zngdcmnca7gj"
+                          class="absolute top-0 left-0 w-full h-full border-0"
                           allow="fullscreen; autoplay; encrypted-media"
                           loading="lazy"
-                          title="Finkargo Analiza - Demo Interactivo"
-                          style="border: none; min-height: 500px;">
+                          title="Finkargo Analiza México - Demo Interactivo"
+                          style="border: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
                         </iframe>`
                       }}
                     />

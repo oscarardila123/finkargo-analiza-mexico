@@ -121,21 +121,49 @@ git push origin feature/your-feature-name
 # Create PR to development branch
 ```
 
-### Deploy to Staging
+## 🚨 DEPLOYMENT PROCEDURE - MANDATORY FLOW
+
+### ⚠️ IMPORTANT: Always follow this exact order
+**NEVER deploy directly to main/production without validating in staging first!**
+
+### Step 1: Deploy to Staging (ALWAYS FIRST)
 ```bash
+# 1. Prepare database for PostgreSQL
+# Edit prisma/schema.prisma: change provider from "sqlite" to "postgresql"
+
+# 2. Regenerate Prisma client
+npx prisma generate
+
+# 3. Commit and deploy to staging
+git add .
+git commit -m "feat: your changes description
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>"
+
 git checkout staging
-git merge development
+git merge development  # or commit directly to staging
 git push origin staging
-# Verify changes at https://finkargo-analiza-c.vercel.app
 ```
 
-### Deploy to Production
+### Step 2: Validate in Staging (REQUIRED)
 ```bash
+# Open and test: https://finkargo-analiza-c.vercel.app
+# ✅ Verify all changes work correctly
+# ✅ Test all modified features
+# ✅ Confirm no errors in console
+```
+
+### Step 3: Deploy to Production (ONLY AFTER VALIDATION)
+```bash
+# Only proceed if staging validation is successful!
 git checkout main
 git merge staging
 git tag -a v1.x.x -m "Release version x.x.x"
 git push origin main --tags
-# Verify changes at https://finkargo-analiza.vercel.app
+
+# Verify: https://finkargo-analiza.vercel.app
 ```
 
 ### Hotfix for Production

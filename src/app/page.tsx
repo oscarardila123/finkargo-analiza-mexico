@@ -335,26 +335,25 @@ export default function LandingPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="py-8 sm:py-12 lg:py-16 bg-gradient-section dots-decoration">
-        <div className="container-responsive">
-          <div className="text-center relative z-10 layout-stable">
-            {/* Main Badge with Dark Text */}
-            <Badge className="mb-6 sm:mb-8 px-4 sm:px-8 py-2 sm:py-3 bg-white border border-gray-800 text-gray-600 font-bold tracking-wide shadow-lg text-xs sm:text-sm">
+      <section className="py-8 sm:py-12 lg:py-16 relative overflow-hidden hero-gradient-animated">
+
+        <div className="container-responsive relative z-10">
+          <div className="text-center layout-stable">
+            {/* Main Badge with White Text */}
+            <Badge className="mb-6 sm:mb-8 px-4 sm:px-8 py-2 sm:py-3 bg-white/20 backdrop-blur-sm border border-white/30 text-white font-bold tracking-wide shadow-lg text-xs sm:text-sm">
               🇲🇽 FINKARGO ANALIZA - TU ALIADO FINANCIERO
             </Badge>
-            
-            {/* Main Heading with Strong Contrast */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-gray-600 mb-6 px-4 max-w-5xl mx-auto font-bold leading-tight">
-              El aliado financiero,
+
+            {/* Main Heading with White Text */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-white mb-6 px-4 max-w-5xl mx-auto font-bold leading-tight">
+              El aliado para tus operaciones
               <br />
-              <span className="text-gray-600 font-black">confiable y útil</span>
-              <br />
-              <span className="text-gray-600 font-black">del importador mexicano</span>
+              <span className="text-white font-black">de comercio exterior</span>
             </h1>
-            
-            {/* Description with Dark Text */}
-            <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-8 max-w-4xl mx-auto px-4 leading-relaxed font-medium">
-              Transforma tu estrategia de importación con inteligencia comercial avanzada.
+
+            {/* Description with White Text */}
+            <p className="text-base sm:text-lg lg:text-xl text-white/95 mb-8 max-w-4xl mx-auto px-4 leading-relaxed font-medium">
+              Transforma tu estrategia de comercio exterior con inteligencia comercial avanzada.
               Analiza competidores, encuentra proveedores confiables y toma decisiones financieras inteligentes
               con datos verificados y confiables.
             </p>
@@ -378,13 +377,13 @@ export default function LandingPage() {
             {/* CTA Buttons */}
             <div className="flex flex-col gap-4 sm:gap-6 justify-center items-center mb-8 sm:mb-16 px-4">
               <Link href="/auth/signup?from=/precios" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full sm:w-auto btn-primary-gradient text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold">
+                <Button size="lg" className="w-full sm:w-auto bg-white hover:bg-gray-50 text-blue-600 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-200">
                   <Zap className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                   Comenzar Ahora
                 </Button>
               </Link>
               <Link href="/demo" className="w-full sm:w-auto">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg border-2 border-gray-900 bg-white text-gray-600 hover:bg-gray-900 hover:text-white font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+                <Button variant="outline" size="lg" className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg border-2 border-white bg-white/10 backdrop-blur-sm text-white hover:bg-white hover:text-blue-600 font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
                   <Play className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                   <span className="hidden sm:inline">Ver Demo en Vivo (2 min)</span>
                   <span className="sm:hidden">Ver Demo (2 min)</span>
@@ -433,7 +432,7 @@ export default function LandingPage() {
               { name: "MAQUINARIA INTERTORITO", city: "Tlalnepantla", industry: "Maquinaria Pesada", icon: "🏗️" },
               { name: "AVIANCA", city: "Ciudad de México", industry: "Aviación", icon: "✈️" }
             ].map((company, i) => (
-              <div key={i} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 hover:border-brand-navy-dark/30">
+              <div key={i} className="bg-white rounded-xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:border-brand-navy-dark/30">
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-2xl">{company.icon}</span>
                   <Badge className="bg-green-100 text-green-700 text-xs">ACTIVO</Badge>
@@ -448,15 +447,15 @@ export default function LandingPage() {
             ))}
           </div>
           
-          <div className="mt-16 bg-gradient-to-r from-brand-cyan/10 via-white to-brand-coral/10 rounded-2xl p-8 max-w-4xl mx-auto">
+          <div className="mt-16 bg-gradient-to-r from-brand-cyan/10 via-white to-brand-coral/10 rounded-2xl p-8 max-w-4xl mx-auto shadow-lg">
             <div className="grid md:grid-cols-4 gap-8 text-center">
               <div>
                 <div className="text-3xl font-bold text-brand-navy-dark mb-2">160+</div>
                 <p className="text-sm text-gray-600">Empresas Activas</p>
               </div>
               <div>
-                <div className="text-3xl font-bold text-brand-coral mb-2">$2.5B</div>
-                <p className="text-sm text-gray-600">COP Ahorrados</p>
+                <div className="text-3xl font-bold text-brand-coral mb-2">$2M</div>
+                <p className="text-sm text-gray-600">USD Ahorrados</p>
               </div>
               <div>
                 <div className="text-3xl font-bold text-brand-navy mb-2">98%</div>
@@ -492,7 +491,7 @@ export default function LandingPage() {
               <br />transforma tu estrategia comercial
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-4 leading-relaxed">
-              Descubre en 2 minutos cómo empresas líderes optimizan sus importaciones
+              Descubre en 2 minutos cómo empresas líderes optimizan sus operaciones
               con inteligencia comercial avanzada y datos verificados.
             </p>
           </div>
@@ -765,7 +764,7 @@ export default function LandingPage() {
                     <h3 className="heading-sm mb-2">Búsqueda de Proveedores Globales</h3>
                     <p className="body-md text-gray-700 text-justify">
                       Encuentra proveedores del exterior con información detallada de precios, productos,
-                      valores FOB y CIF, modalidad de transporte y agentes de aduana.
+                      valores FOB, modalidad de transporte y agentes de aduana.
                     </p>
                   </div>
                 </div>
@@ -821,10 +820,10 @@ export default function LandingPage() {
               🇲🇽 CASOS DE ÉXITO MÉXICO
             </Badge>
             <h2 className="heading-xl text-gray-600 mb-6">
-              Tu aliado <span className="text-brand-navy-dark font-bold">confiable</span> desde 2022
+              Tu aliado <span className="text-brand-navy-dark font-bold">confiable</span> desde 2024
             </h2>
             <p className="body-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Más de 160 empresas colombianas confían en Finkargo como su aliado financiero para importaciones inteligentes
+              Más de 160 empresas mexicanas confían en Finkargo como su aliado financiero para importaciones inteligentes
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -1106,10 +1105,7 @@ export default function LandingPage() {
       </section>
 
       {/* Strong CTA Section */}
-      <section className="py-12 bg-gradient-to-br from-blue-600 via-cyan-500 to-purple-600 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="absolute top-0 left-0 w-96 h-96 bg-orange-400/20 rounded-full blur-3xl -translate-x-48 -translate-y-48"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl translate-x-48 translate-y-48"></div>
+      <section className="py-12 hero-gradient-animated text-white relative overflow-hidden">
         <div className="container-responsive text-center relative z-10">
           <Badge className="mb-8 px-8 py-4 bg-white/10 text-white border border-white/20 mx-auto">
             🚀 TU ALIADO FINANCIERO TE ESPERA

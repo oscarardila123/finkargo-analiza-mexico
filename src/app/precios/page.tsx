@@ -731,7 +731,7 @@ export default function PricingPage() {
                     ¿Para qué sirve Analiza?
                   </AccordionTrigger>
                   <AccordionContent className="text-gray-700">
-                    Esta herramienta de inteligencia de mercado te ayuda a visualizar información actualizada y precisa sobre el mercado e industria de tu interés. Así podrás tomar decisiones informadas en cuanto a proveedores, estrategias de sourcing y gestión de riesgos.
+                    Esta herramienta de inteligencia de mercado te ayuda a visualizar información actualizada y precisa sobre el mercado e industria de tu interés. Así podrás tomar decisiones informadas en cuanto a proveedores, clientes, estrategias de sourcing y gestión de riesgos.
                   </AccordionContent>
                 </AccordionItem>
                 
@@ -784,17 +784,8 @@ export default function PricingPage() {
                     Te notificaremos cuando te acerques al límite. Puedes actualizar tu plan o comprar paquetes adicionales.
                   </AccordionContent>
                 </AccordionItem>
-                
+
                 <AccordionItem value="item-7">
-                  <AccordionTrigger className="text-left text-lg font-semibold">
-                    ¿Ofrecen descuentos para startups?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-gray-700">
-                    Sí, tenemos descuentos especiales para startups y ONGs. Contáctanos para conocer los requisitos y beneficios.
-                  </AccordionContent>
-                </AccordionItem>
-                
-                <AccordionItem value="item-8">
                   <AccordionTrigger className="text-left text-lg font-semibold">
                     ¿Hay soporte técnico incluido?
                   </AccordionTrigger>
@@ -809,7 +800,7 @@ export default function PricingPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-16 bg-gradient-to-r from-blue-900 to-blue-600 text-white">
+      <section className="py-16 hero-gradient-animated text-white relative overflow-hidden">
         <div className="container mx-auto px-4 text-center">
           <h2 className="heading-xl mb-6 font-bold" style={{color: '#ffffff'}}>
             ¿Listo para comenzar?

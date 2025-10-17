@@ -38,7 +38,7 @@ export default async function DashboardPage() {
     totalValue: {
       value: "$2.4M",
       trend: { value: 8.1, isPositive: true },
-      description: "Valor CIF total"
+      description: "Valor FOB total"
     },
     activeSuppliers: {
       value: "89",
@@ -261,7 +261,7 @@ export default async function DashboardPage() {
           <CardHeader>
             <CardTitle>Tendencias de Importación</CardTitle>
             <CardDescription>
-              Valores CIF de los últimos 12 meses
+              Valores FOB de los últimos 12 meses
             </CardDescription>
           </CardHeader>
           <CardContent>

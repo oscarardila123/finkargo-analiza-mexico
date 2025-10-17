@@ -893,3 +893,38 @@
 .hover\:bg-brand-navy-dark:hover {
   background-color: #1e293b \!important;
 }
+
+/* Animated gradient background for hero section - VERY VISIBLE */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.hero-gradient-animated {
+  background: linear-gradient(
+    -45deg,
+    #2563eb,
+    #06b6d4,
+    #3b82f6,
+    #8b5cf6,
+    #ec4899,
+    #2563eb
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 6s ease infinite;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .hero-gradient-animated {
+    animation: none;
+    background: linear-gradient(135deg, #2563eb 0%, #06b6d4 50%, #8b5cf6 100%);
+  }
+}

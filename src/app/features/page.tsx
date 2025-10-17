@@ -142,12 +142,12 @@ export default function FeaturesPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 mb-4 text-justify">
-                  Análisis completo de unidades, valores FOB y CIF, peso por importador, industria y país de origen.
+                  Análisis completo de unidades, valores FOB, peso por importador, industria y país de origen.
                 </p>
                 <ul className="space-y-2">
                   <li className="flex items-center text-sm">
                     <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                    Valores FOB y CIF declarados
+                    Valores FOB declarados
                   </li>
                   <li className="flex items-center text-sm">
                     <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
@@ -498,7 +498,7 @@ export default function FeaturesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-primary to-secondary text-white">
+      <section className="py-16 hero-gradient-animated text-white relative overflow-hidden">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">
             ¿Listo para transformar tu negocio?

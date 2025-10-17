@@ -47,7 +47,7 @@ export const translations = {
   imports: {
     title: 'Análisis de Importaciones',
     description: 'Inteligencia de mercado basada en datos verificados',
-    totalValue: 'Valor Total CIF',
+    totalValue: 'Valor Total FOB',
     activeImporters: 'Importadores Activos',
     originCountries: 'Países de Origen',
     tariffPositions: 'Posiciones Arancelarias',

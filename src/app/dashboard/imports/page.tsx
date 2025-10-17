@@ -203,7 +203,7 @@ export default function ImportsPage() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Valor Total CIF</CardTitle>
+            <CardTitle className="text-sm font-medium">Valor Total FOB</CardTitle>
             <DollarSign className="h-4 w-4 text-gray-700" />
           </CardHeader>
           <CardContent>
@@ -344,7 +344,7 @@ export default function ImportsPage() {
             <CardHeader>
               <CardTitle>Productos Más Importados</CardTitle>
               <CardDescription>
-                Productos con mayor volumen de importación por valor CIF
+                Productos con mayor volumen de importación por valor FOB
               </CardDescription>
             </CardHeader>
             <CardContent>

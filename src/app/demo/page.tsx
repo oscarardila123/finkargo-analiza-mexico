@@ -457,7 +457,7 @@ export default function DemoPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-blue-900 to-blue-600 text-white">
+      <section className="py-16 hero-gradient-animated text-white relative overflow-hidden">
         <div className="container mx-auto px-4 text-center">
           <h2 className="heading-xl mb-6 font-bold" style={{color: '#ffffff'}}>
             ¿Listo para

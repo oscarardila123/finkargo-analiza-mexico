@@ -19,7 +19,7 @@ export function MainFooter() {
                 </div>
               </div>
               <p className="text-gray-600 mb-4 leading-relaxed">
-                El aliado financiero, confiable y útil del importador mexicano desde 2024.
+                El aliado financiero, confiable y útil del comercio exterior mexicano desde 2024.
               </p>
               <p className="text-gray-600 font-medium">
                 🇲🇽 Operando en México

@@ -148,12 +148,6 @@ export default function LandingPage() {
                     <span className="text-xs text-gray-600">Seguro de carga</span>
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild className="cursor-pointer p-0 focus:bg-transparent">
-                  <Link href="/productos/verifica" className="flex flex-col gap-1 px-3 py-3 rounded-md hover:bg-blue-50 transition-colors">
-                    <span className="text-sm font-semibold text-gray-900">Verifica</span>
-                    <span className="text-xs text-gray-600">Verificación de proveedores</span>
-                  </Link>
-                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </nav>
@@ -318,14 +312,6 @@ export default function LandingPage() {
                     <div className="font-semibold text-gray-900">Protege</div>
                     <div className="text-xs text-gray-600">Seguro de carga</div>
                   </Link>
-                  <Link
-                    href="/productos/verifica"
-                    className="block py-3 px-4 rounded-lg transition-all hover:bg-blue-50"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <div className="font-semibold text-gray-900">Verifica</div>
-                    <div className="text-xs text-gray-600">Verificación de proveedores</div>
-                  </Link>
                 </div>
               </div>
               <div className="border-t border-gray-200 pt-4 space-y-2">
@@ -424,7 +410,7 @@ export default function LandingPage() {
 
             {/* Description with White Text */}
             <p className="text-base sm:text-lg lg:text-xl text-white/95 mb-10 sm:mb-12 max-w-4xl mx-auto px-4 leading-relaxed font-medium">
-              Transforma tu estrategia de comercio exterior con un reporte interactivo que combina inteligencia comercial avanzada, análisis de competidores, búsqueda de proveedores confiables y toma decisiones financieras inteligentes con datos verificados y confiables.
+              Transforma tu estrategia de comercio exterior con un reporte interactivo que combina inteligencia comercial avanzada, análisis de competidores, búsqueda de proveedores y clientes confiables y toma decisiones financieras inteligentes con datos verificados y confiables.
             </p>
 
             {/* CTA Buttons */}

@@ -123,12 +123,6 @@ export default function PagaPage() {
                     <span className="text-xs text-gray-600">Seguro de carga</span>
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild className="cursor-pointer p-0 focus:bg-transparent">
-                  <Link href="/productos/verifica" className="flex flex-col gap-1 px-3 py-3 rounded-md hover:bg-blue-50 transition-colors">
-                    <span className="text-sm font-semibold text-gray-900">Verifica</span>
-                    <span className="text-xs text-gray-600">Verificación de proveedores</span>
-                  </Link>
-                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </nav>
@@ -214,14 +208,6 @@ export default function PagaPage() {
                     <div className="font-semibold text-gray-900">Protege</div>
                     <div className="text-xs text-gray-600">Seguro de carga</div>
                   </Link>
-                  <Link
-                    href="/productos/verifica"
-                    className="block py-3 px-4 rounded-lg transition-all hover:bg-blue-50"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <div className="font-semibold text-gray-900">Verifica</div>
-                    <div className="text-xs text-gray-600">Verificación de proveedores</div>
-                  </Link>
                 </div>
               </div>
             </div>
@@ -240,7 +226,7 @@ export default function PagaPage() {
               Financiamiento flexible para importadores que se atreven
             </h1>
             <p className="text-xl text-white/95 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Cupo rotativo hasta USD $2.7 millones para pagar hasta el 70% de facturas internacionales
+              Crédito revolvente hasta USD $3 millones para pagar hasta el 70% de facturas internacionales
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="https://app.finkargo.com.mx/auth/signup?utm_source=web_principal&utm_medium=enlacemx" target="_blank" rel="noopener noreferrer">
@@ -333,8 +319,8 @@ export default function PagaPage() {
                 <CheckCircle className="h-5 w-5 text-blue-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-lg mb-2">Línea de crédito rotativa</h3>
-                <p className="text-gray-600">Usa tu cupo las veces que necesites durante el periodo contratado</p>
+                <h3 className="font-semibold text-lg mb-2">Línea de crédito revolvente</h3>
+                <p className="text-gray-600">Usa tu crédito las veces que necesites durante el periodo contratado</p>
               </div>
             </div>
 
@@ -380,7 +366,7 @@ export default function PagaPage() {
                 Requisitos para aplicar
               </h2>
               <p className="text-xl text-gray-600">
-                Solicita tu cupo si cumples con estos requisitos básicos
+                Solicita tu crédito si cumples con estos requisitos básicos
               </p>
             </div>
 
@@ -437,7 +423,7 @@ export default function PagaPage() {
             {[
               {
                 step: "1",
-                title: "Solicita tu cupo",
+                title: "Solicita tu crédito",
                 description: "Completa el formulario en nuestra plataforma"
               },
               {

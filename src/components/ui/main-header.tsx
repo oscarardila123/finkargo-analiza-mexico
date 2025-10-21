@@ -48,6 +48,32 @@ export function MainHeader() {
           <Link href="/demo" className="body-md text-secondary hover:text-brand-navy-dark transition-colors">
             Demo
           </Link>
+          <DropdownMenu>
+            <DropdownMenuTrigger className="body-md text-secondary hover:text-brand-navy-dark transition-colors flex items-center gap-1 outline-none">
+              Otros productos
+              <ChevronDown className="h-4 w-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-80 p-3 shadow-xl border border-gray-100">
+              <DropdownMenuItem asChild className="cursor-pointer p-0 focus:bg-transparent">
+                <Link href="/productos/paga" className="flex flex-col gap-1 px-3 py-3 rounded-md hover:bg-blue-50 transition-colors">
+                  <span className="text-sm font-semibold text-gray-900">Paga</span>
+                  <span className="text-xs text-gray-600">Adelanto a proveedores</span>
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild className="cursor-pointer p-0 focus:bg-transparent">
+                <Link href="/productos/integra" className="flex flex-col gap-1 px-3 py-3 rounded-md hover:bg-blue-50 transition-colors">
+                  <span className="text-sm font-semibold text-gray-900">Integra</span>
+                  <span className="text-xs text-gray-600">Logística Internacional</span>
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild className="cursor-pointer p-0 focus:bg-transparent">
+                <Link href="/productos/protege" className="flex flex-col gap-1 px-3 py-3 rounded-md hover:bg-blue-50 transition-colors">
+                  <span className="text-sm font-semibold text-gray-900">Protege</span>
+                  <span className="text-xs text-gray-600">Seguro de carga</span>
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </nav>
         
         {/* Desktop Auth Buttons */}
@@ -143,29 +169,60 @@ export function MainHeader() {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-200">
+        <div className="lg:hidden bg-white border-t border-gray-200 shadow-lg">
           <div className="container-responsive py-4 space-y-4">
-            <Link 
-              href="/features" 
+            <Link
+              href="/features"
               className="block body-md text-secondary hover:text-brand-navy-dark transition-colors py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Beneficios
             </Link>
-            <Link 
-              href="/precios" 
+            <Link
+              href="/precios"
               className="block body-md text-secondary hover:text-brand-navy-dark transition-colors py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Precios
             </Link>
-            <Link 
-              href="/demo" 
+            <Link
+              href="/demo"
               className="block body-md text-secondary hover:text-brand-navy-dark transition-colors py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Demo
             </Link>
+            <div className="border-t border-gray-200 pt-4 pb-4">
+              <div className="px-4 pb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                Otros productos
+              </div>
+              <div className="space-y-1">
+                <Link
+                  href="/productos/paga"
+                  className="block py-3 px-4 rounded-lg transition-all hover:bg-blue-50"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <div className="font-semibold text-gray-900">Paga</div>
+                  <div className="text-xs text-gray-600">Adelanto a proveedores</div>
+                </Link>
+                <Link
+                  href="/productos/integra"
+                  className="block py-3 px-4 rounded-lg transition-all hover:bg-blue-50"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <div className="font-semibold text-gray-900">Integra</div>
+                  <div className="text-xs text-gray-600">Logística Internacional</div>
+                </Link>
+                <Link
+                  href="/productos/protege"
+                  className="block py-3 px-4 rounded-lg transition-all hover:bg-blue-50"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <div className="font-semibold text-gray-900">Protege</div>
+                  <div className="text-xs text-gray-600">Seguro de carga</div>
+                </Link>
+              </div>
+            </div>
             
             <div className="pt-4 border-t border-gray-200 space-y-2">
               {session ? (

@@ -80,12 +80,6 @@ export default function IntegraPage() {
                     <span className="text-xs text-gray-600">Seguro de carga</span>
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild className="cursor-pointer p-0 focus:bg-transparent">
-                  <Link href="/productos/verifica" className="flex flex-col gap-1 px-3 py-3 rounded-md hover:bg-blue-50 transition-colors">
-                    <span className="text-sm font-semibold text-gray-900">Verifica</span>
-                    <span className="text-xs text-gray-600">Verificación de proveedores</span>
-                  </Link>
-                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </nav>
@@ -170,14 +164,6 @@ export default function IntegraPage() {
                   >
                     <div className="font-semibold text-gray-900">Protege</div>
                     <div className="text-xs text-gray-600">Seguro de carga</div>
-                  </Link>
-                  <Link
-                    href="/productos/verifica"
-                    className="block py-3 px-4 rounded-lg transition-all hover:bg-blue-50"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <div className="font-semibold text-gray-900">Verifica</div>
-                    <div className="text-xs text-gray-600">Verificación de proveedores</div>
                   </Link>
                 </div>
               </div>

@@ -124,6 +124,38 @@ export default function LandingPage() {
             <Link href="/demo" className="body-md text-secondary hover:text-brand-navy-dark transition-colors">
               Demo
             </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="body-md text-secondary hover:text-brand-navy-dark transition-colors flex items-center gap-1 outline-none">
+                Otros productos
+                <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-80 p-3 shadow-xl border border-gray-100">
+                <DropdownMenuItem asChild className="cursor-pointer p-0 focus:bg-transparent">
+                  <Link href="/productos/paga" className="flex flex-col gap-1 px-3 py-3 rounded-md hover:bg-blue-50 transition-colors">
+                    <span className="text-sm font-semibold text-gray-900">Paga</span>
+                    <span className="text-xs text-gray-600">Adelanto a proveedores</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="cursor-pointer p-0 focus:bg-transparent">
+                  <Link href="/productos/integra" className="flex flex-col gap-1 px-3 py-3 rounded-md hover:bg-blue-50 transition-colors">
+                    <span className="text-sm font-semibold text-gray-900">Integra</span>
+                    <span className="text-xs text-gray-600">Logística Internacional</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="cursor-pointer p-0 focus:bg-transparent">
+                  <Link href="/productos/protege" className="flex flex-col gap-1 px-3 py-3 rounded-md hover:bg-blue-50 transition-colors">
+                    <span className="text-sm font-semibold text-gray-900">Protege</span>
+                    <span className="text-xs text-gray-600">Seguro de carga</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="cursor-pointer p-0 focus:bg-transparent">
+                  <Link href="/productos/verifica" className="flex flex-col gap-1 px-3 py-3 rounded-md hover:bg-blue-50 transition-colors">
+                    <span className="text-sm font-semibold text-gray-900">Verifica</span>
+                    <span className="text-xs text-gray-600">Verificación de proveedores</span>
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </nav>
           
           {/* Desktop Auth Buttons */}
@@ -250,13 +282,52 @@ export default function LandingPage() {
               >
                 Precios
               </Link>
-              <Link 
-                href="/demo" 
+              <Link
+                href="/demo"
                 className="block py-3 px-4 text-gray-700 hover:bg-gray-50 hover:text-brand-navy-dark rounded-lg transition-all"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Demo
               </Link>
+              <div className="border-t border-gray-200 pt-4 pb-4">
+                <div className="px-4 pb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  Otros productos
+                </div>
+                <div className="space-y-1">
+                  <Link
+                    href="/productos/paga"
+                    className="block py-3 px-4 rounded-lg transition-all hover:bg-blue-50"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <div className="font-semibold text-gray-900">Paga</div>
+                    <div className="text-xs text-gray-600">Adelanto a proveedores</div>
+                  </Link>
+                  <Link
+                    href="/productos/integra"
+                    className="block py-3 px-4 rounded-lg transition-all hover:bg-blue-50"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <div className="font-semibold text-gray-900">Integra</div>
+                    <div className="text-xs text-gray-600">Logística Internacional</div>
+                  </Link>
+                  <Link
+                    href="/productos/protege"
+                    className="block py-3 px-4 rounded-lg transition-all hover:bg-blue-50"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <div className="font-semibold text-gray-900">Protege</div>
+                    <div className="text-xs text-gray-600">Seguro de carga</div>
+                  </Link>
+                  <Link
+                    href="/productos/verifica"
+                    className="block py-3 px-4 rounded-lg transition-all hover:bg-blue-50"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <div className="font-semibold text-gray-900">Verifica</div>
+                    <div className="text-xs text-gray-600">Verificación de proveedores</div>
+                  </Link>
+                </div>
+              </div>
               <div className="border-t border-gray-200 pt-4 space-y-2">
                 {session ? (
                   <>
@@ -341,7 +412,7 @@ export default function LandingPage() {
           <div className="text-center layout-stable">
             {/* Main Badge with White Text */}
             <Badge className="mb-6 sm:mb-8 px-4 sm:px-8 py-2 sm:py-3 bg-white/20 backdrop-blur-sm border border-white/30 text-white font-bold tracking-wide shadow-lg text-xs sm:text-sm">
-              🇲🇽 FINKARGO ANALIZA - TU ALIADO FINANCIERO
+              🇲🇽 FINKARGO ANALIZA
             </Badge>
 
             {/* Main Heading with White Text */}
@@ -352,28 +423,10 @@ export default function LandingPage() {
             </h1>
 
             {/* Description with White Text */}
-            <p className="text-base sm:text-lg lg:text-xl text-white/95 mb-8 max-w-4xl mx-auto px-4 leading-relaxed font-medium">
-              Transforma tu estrategia de comercio exterior con inteligencia comercial avanzada.
-              Analiza competidores, encuentra proveedores confiables y toma decisiones financieras inteligentes
-              con datos verificados y confiables.
+            <p className="text-base sm:text-lg lg:text-xl text-white/95 mb-10 sm:mb-12 max-w-4xl mx-auto px-4 leading-relaxed font-medium">
+              Transforma tu estrategia de comercio exterior con un reporte interactivo que combina inteligencia comercial avanzada, análisis de competidores, búsqueda de proveedores confiables y toma decisiones financieras inteligentes con datos verificados y confiables.
             </p>
-            
-            {/* Feature Badges with Dark Text */}
-            <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-6 mb-8 sm:mb-12 px-4">
-              <div className="flex items-center gap-2 bg-white px-3 sm:px-4 py-2 rounded-full border border-gray-200 shadow-sm w-full sm:w-auto justify-center">
-                <div className="w-3 h-3 bg-green-500 rounded-full flex-shrink-0"></div>
-                <span className="text-xs sm:text-sm font-bold text-gray-600">Datos Verificados y Confiables</span>
-              </div>
-              <div className="flex items-center gap-2 bg-white px-3 sm:px-4 py-2 rounded-full border border-gray-200 shadow-sm w-full sm:w-auto justify-center">
-                <div className="w-3 h-3 bg-green-500 rounded-full flex-shrink-0"></div>
-                <span className="text-xs sm:text-sm font-bold text-gray-600">Soporte 100% México</span>
-              </div>
-              <div className="flex items-center gap-2 bg-white px-3 sm:px-4 py-2 rounded-full border border-gray-200 shadow-sm w-full sm:w-auto justify-center">
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span className="text-sm font-bold text-gray-600">160+ Empresas Confían</span>
-              </div>
-            </div>
-            
+
             {/* CTA Buttons */}
             <div className="flex flex-col gap-4 sm:gap-6 justify-center items-center mb-8 sm:mb-16 px-4">
               <Link href="/auth/signup?from=/precios" className="w-full sm:w-auto">
@@ -418,7 +471,7 @@ export default function LandingPage() {
               📈 MÁS DE 160 EMPRESAS CONFÍAN
             </Badge>
             <h3 className="heading-lg text-gray-600 mb-4">
-              El aliado financiero preferido por <span className="text-brand-navy-dark font-bold">empresas líderes</span>
+              El aliado en comercio exterior preferido por <span className="text-brand-navy-dark font-bold">empresas líderes</span>
             </h3>
             <p className="text-gray-600">Desde startups hasta corporaciones, somos el aliado confiable para importaciones inteligentes</p>
           </div>
@@ -823,7 +876,7 @@ export default function LandingPage() {
               Tu aliado <span className="text-brand-navy-dark font-bold">confiable</span> desde 2024
             </h2>
             <p className="body-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Más de 160 empresas mexicanas confían en Finkargo como su aliado financiero para importaciones inteligentes
+              Más de 160 empresas mexicanas confían en Finkargo como su aliado en comercio exterior para operaciones inteligentes
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -910,7 +963,7 @@ export default function LandingPage() {
               💰 PRECIOS ESPECIALES MÉXICO
             </Badge>
             
-            <h2 className="heading-xl text-gray-600 mb-6 font-bold">Tu aliado financiero a medida</h2>
+            <h2 className="heading-xl text-gray-600 mb-6 font-bold">Tu aliado en comercio exterior a medida</h2>
             
             <p className="body-lg text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed font-medium">
               Planes diseñados para empresas mexicanas. Precios en USD, pagos con tarjeta, soporte en español.
@@ -936,13 +989,22 @@ export default function LandingPage() {
                   </div>
                 </div>
                 <div className="text-center">
-                  <p className="text-orange-700 text-lg leading-relaxed">
-                    Si superaste tu uso con nuestro <span className="font-bold text-orange-800">cupo de Finkargo en USD $80.000</span>
+                  <p className="text-orange-700 text-lg leading-relaxed mb-3">
+                    Si superaste tu uso con nuestro <span className="font-bold text-orange-800">crédito de Finkargo en USD $80.000</span>
                   </p>
                   <div className="mt-4 p-4 bg-gradient-to-r from-orange-100 to-yellow-100 rounded-xl border border-orange-200">
                     <p className="text-2xl font-bold text-orange-800 mb-2">💰 50% DE DESCUENTO</p>
                     <p className="text-orange-700 font-medium">En tu activación anual</p>
                   </div>
+                  <p className="text-sm text-gray-600 mt-4 italic">
+                    Sí, Finkargo también brinda financiamiento
+                  </p>
+                  <Link href="/productos/paga" className="inline-block mt-4">
+                    <Button variant="outline" className="border-orange-500 text-orange-700 hover:bg-orange-50">
+                      Quiero saber más
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -1111,7 +1173,7 @@ export default function LandingPage() {
             🚀 TU ALIADO FINANCIERO TE ESPERA
           </Badge>
           <h2 className="heading-xl mb-6">
-            ¿Listo para tener el <span className="text-orange-400 font-bold">aliado financiero</span>
+            ¿Listo para tener el <span className="text-orange-400 font-bold">aliado en comercio exterior</span>
             <br />más <span className="text-white font-bold">confiable y útil</span> de México?
           </h2>
           <p className="body-lg mb-12 opacity-90 max-w-4xl mx-auto leading-relaxed">

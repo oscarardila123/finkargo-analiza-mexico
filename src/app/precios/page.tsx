@@ -581,9 +581,18 @@ export default function PricingPage() {
         {/* Promoción especial */}
         <div className="max-w-4xl mx-auto mt-12 px-4">
           <div className="bg-gradient-to-r from-purple-100 to-pink-100 border-2 border-purple-200 rounded-2xl p-8 text-center shadow-lg">
-            <p className="text-lg font-semibold text-gray-800">
-              Si superaste tu uso con nuestro cupo de Finkargo en <span className="text-2xl font-bold text-purple-600">USD 80.000</span> tienes <span className="text-2xl font-bold text-green-600">50%</span> de descuento en tu activación anual
+            <p className="text-lg font-semibold text-gray-800 mb-3">
+              Si superaste tu uso con nuestro crédito de Finkargo en <span className="text-2xl font-bold text-purple-600">USD 80.000</span> tienes <span className="text-2xl font-bold text-green-600">50%</span> de descuento en tu activación anual
             </p>
+            <p className="text-sm text-gray-600 italic mb-4">
+              Sí, Finkargo también brinda financiamiento
+            </p>
+            <Link href="/productos/paga">
+              <Button variant="outline" className="border-purple-500 text-purple-700 hover:bg-purple-50">
+                Quiero saber más
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

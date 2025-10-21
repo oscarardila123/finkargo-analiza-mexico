@@ -67,7 +67,7 @@ export default function DemoPage() {
                   </div>
                   
                   {/* Improved demo container with better aspect ratio and responsiveness */}
-                  <div className="relative z-10 bg-black rounded-2xl overflow-hidden shadow-inner w-full" style={{paddingBottom: '62.5%', position: 'relative'}}>
+                  <div className="relative z-10 bg-black rounded-2xl overflow-hidden shadow-inner w-full min-h-[600px] md:min-h-0" style={{paddingBottom: '62.5%', position: 'relative'}}>
                     <div
                       className="absolute inset-0 w-full h-full"
                       dangerouslySetInnerHTML={{
@@ -81,6 +81,21 @@ export default function DemoPage() {
                         </iframe>`
                       }}
                     />
+                  </div>
+
+                  {/* Mobile helper button */}
+                  <div className="md:hidden mt-4 text-center">
+                    <a
+                      href="https://finkargo.storylane.io/share/zngdcmnca7gj"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block"
+                    >
+                      <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3">
+                        Abrir Demo en Pantalla Completa
+                      </Button>
+                    </a>
+                    <p className="text-xs text-gray-600 mt-2">Para mejor experiencia en móvil</p>
                   </div>
                   
                   {/* Enhanced features and guide section */}

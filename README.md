@@ -5,7 +5,7 @@
 **Finkargo Analiza** is a comprehensive B2B SaaS platform that provides business intelligence and market analysis for international trade in Colombia. The platform leverages Colombian customs data from Aduanas to deliver actionable insights for importers, exporters, freight forwarders, and customs agents.
 
 ### 🎯 Value Proposition
-*"El aliado financiero, confiable y útil del importador"* (The reliable, trustworthy, and useful financial ally for importers)
+*"El aliado en comercio exterior, confiable y útil del importador"* (The reliable, trustworthy, and useful ally for foreign trade operations)
 
 ## 🏗️ Technical Architecture
 

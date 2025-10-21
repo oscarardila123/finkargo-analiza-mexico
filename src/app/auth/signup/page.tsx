@@ -406,7 +406,7 @@ export default function SignUpPage() {
                 <span className="text-cyan-300">comercio exterior</span>
               </h1>
               <p className="text-xl opacity-90">
-                Tu aliado financiero confiable para importaciones inteligentes
+                Tu aliado en comercio exterior confiable para operaciones inteligentes
               </p>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">

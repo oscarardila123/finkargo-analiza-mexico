@@ -19,7 +19,7 @@ export function MainFooter() {
                 </div>
               </div>
               <p className="text-gray-600 mb-4 leading-relaxed">
-                El aliado financiero, confiable y útil del comercio exterior mexicano desde 2024.
+                El aliado en comercio exterior, confiable y útil para empresas mexicanas desde 2024.
               </p>
               <p className="text-gray-600 font-medium">
                 🇲🇽 Operando en México
@@ -66,7 +66,7 @@ export function MainFooter() {
           <div className="border-t border-gray-700 mt-12 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-gray-600 text-sm">
-                &copy; 2024 Finkargo Analiza - El aliado financiero del importador mexicano
+                &copy; 2024 Finkargo Analiza - El aliado en comercio exterior de empresas mexicanas
               </p>
               <div className="flex items-center gap-6 text-sm">
                 <span className="text-brand-navy-dark font-medium">🇲🇽 Ciudad de México, México</span>

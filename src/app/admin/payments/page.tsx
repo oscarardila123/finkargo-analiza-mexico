@@ -119,30 +119,6 @@ export default function PaymentsManagement() {
   // Removed client-side filtering - now handled by API
   const filteredPayments = payments
 
-  // Keep the rest of dateFilter logic for display purposes (if needed)
-  const dummyDateCheck = () => {
-    let matchesDate = true
-    if (dateFilter !== 'all') {
-      const today = new Date()
-
-      switch (dateFilter) {
-        case 'today':
-          // matchesDate = paymentDate.toDateString() === today.toDateString()
-          break
-        case 'week':
-          const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)
-          matchesDate = paymentDate >= weekAgo
-          break
-        case 'month':
-          const monthAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000)
-          matchesDate = paymentDate >= monthAgo
-          break
-      }
-    }
-
-    return matchesSearch && matchesStatus && matchesDate
-  })
-
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('es-CO', {
       style: 'currency',

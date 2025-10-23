@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { Search, Filter, Download, RefreshCw, CreditCard, DollarSign, TrendingUp, AlertTriangle } from 'lucide-react'
+import { Pagination } from '@/components/ui/pagination'
 
 interface Payment {
   id: string
@@ -24,6 +25,13 @@ interface Payment {
     name: string
     email: string
   }
+}
+
+interface PaginationData {
+  total: number
+  page: number
+  limit: number
+  totalPages: number
 }
 
 const statusLabels = {
@@ -53,27 +61,53 @@ export default function PaymentsManagement() {
   const [selectedPayment, setSelectedPayment] = useState<Payment | null>(null)
   const [showPaymentModal, setShowPaymentModal] = useState(false)
 
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(20)
+  const [pagination, setPagination] = useState<PaginationData>({
+    total: 0,
+    page: 1,
+    limit: 20,
+    totalPages: 1
+  })
+
+  // Load payments when filters or pagination changes
   useEffect(() => {
     loadPayments()
-  }, [])
+  }, [currentPage, itemsPerPage, searchTerm, statusFilter, dateFilter])
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [searchTerm, statusFilter, dateFilter])
 
   const loadPayments = async () => {
     try {
-      const response = await fetch('/api/admin/payments')
-      
+      setLoading(true)
+      const params = new URLSearchParams({
+        page: currentPage.toString(),
+        limit: itemsPerPage.toString(),
+        search: searchTerm,
+        status: statusFilter,
+        dateFilter: dateFilter
+      })
+
+      const response = await fetch(`/api/admin/payments?${params}`)
+
       if (!response.ok) {
         throw new Error('Error al cargar pagos')
       }
 
       const data = await response.json()
-      
+
       if (data.success && data.payments) {
         setPayments(data.payments)
+        setPagination(data.pagination)
       } else {
         console.error('Formato de respuesta inválido:', data)
         setPayments([])
       }
-      
+
       setLoading(false)
     } catch (error) {
       console.error('Error loading payments:', error)
@@ -82,21 +116,18 @@ export default function PaymentsManagement() {
     }
   }
 
-  const filteredPayments = payments.filter(payment => {
-    const matchesSearch = payment.company.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         payment.customerEmail?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         payment.wompiReference?.toLowerCase().includes(searchTerm.toLowerCase())
-    
-    const matchesStatus = statusFilter === 'all' || payment.status === statusFilter
+  // Removed client-side filtering - now handled by API
+  const filteredPayments = payments
 
+  // Keep the rest of dateFilter logic for display purposes (if needed)
+  const dummyDateCheck = () => {
     let matchesDate = true
     if (dateFilter !== 'all') {
-      const paymentDate = new Date(payment.createdAt)
       const today = new Date()
-      
+
       switch (dateFilter) {
         case 'today':
-          matchesDate = paymentDate.toDateString() === today.toDateString()
+          // matchesDate = paymentDate.toDateString() === today.toDateString()
           break
         case 'week':
           const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)
@@ -293,7 +324,7 @@ export default function PaymentsManagement() {
       <div className="bg-white rounded-lg shadow-sm border">
         <div className="p-6 border-b">
           <h2 className="text-lg font-semibold text-gray-900">
-            Pagos ({filteredPayments.length})
+            Pagos ({pagination.total})
           </h2>
         </div>
         <div className="overflow-x-auto">
@@ -364,6 +395,19 @@ export default function PaymentsManagement() {
             </tbody>
           </table>
         </div>
+
+        {/* Pagination */}
+        {pagination.totalPages > 1 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={pagination.totalPages}
+            totalItems={pagination.total}
+            itemsPerPage={itemsPerPage}
+            onPageChange={setCurrentPage}
+            onItemsPerPageChange={setItemsPerPage}
+            showItemsPerPage={true}
+          />
+        )}
       </div>
 
       {/* Payment Detail Modal */}

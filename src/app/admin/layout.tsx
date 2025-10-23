@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 import Link from "next/link"
-import { Users, CreditCard, Settings, BarChart3, Home, Calendar } from "lucide-react"
+import { Users, CreditCard, Settings, BarChart3, Home, Calendar, Building2, Activity } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Panel de Administración - Finkargo Analiza",
@@ -24,13 +24,28 @@ const navItems = [
   },
   {
     href: "/admin/subscriptions",
-    label: "Suscripciones", 
+    label: "Suscripciones",
     icon: Calendar
+  },
+  {
+    href: "/admin/companies",
+    label: "Empresas",
+    icon: Building2
   },
   {
     href: "/admin/payments",
     label: "Pagos",
     icon: CreditCard
+  },
+  {
+    href: "/admin/analytics",
+    label: "Analytics",
+    icon: BarChart3
+  },
+  {
+    href: "/admin/audit-logs",
+    label: "Auditoría",
+    icon: Activity
   },
   {
     href: "/admin/settings",

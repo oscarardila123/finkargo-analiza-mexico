@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { Search, Filter, Calendar, DollarSign, Users, TrendingUp, AlertCircle } from 'lucide-react'
+import { Pagination } from '@/components/ui/pagination'
 
 interface Subscription {
   id: string
@@ -28,6 +29,13 @@ interface Subscription {
     status: string
     createdAt: string
   }[]
+}
+
+interface PaginationData {
+  total: number
+  page: number
+  limit: number
+  totalPages: number
 }
 
 const planLabels = {
@@ -63,27 +71,53 @@ export default function SubscriptionsManagement() {
   const [planFilter, setPlanFilter] = useState<string>('all')
   const [selectedSubscription, setSelectedSubscription] = useState<Subscription | null>(null)
 
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(20)
+  const [pagination, setPagination] = useState<PaginationData>({
+    total: 0,
+    page: 1,
+    limit: 20,
+    totalPages: 1
+  })
+
+  // Load subscriptions when filters or pagination changes
   useEffect(() => {
     loadSubscriptions()
-  }, [])
+  }, [currentPage, itemsPerPage, searchTerm, statusFilter, planFilter])
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [searchTerm, statusFilter, planFilter])
 
   const loadSubscriptions = async () => {
     try {
-      const response = await fetch('/api/admin/subscriptions')
-      
+      setLoading(true)
+      const params = new URLSearchParams({
+        page: currentPage.toString(),
+        limit: itemsPerPage.toString(),
+        search: searchTerm,
+        status: statusFilter,
+        plan: planFilter
+      })
+
+      const response = await fetch(`/api/admin/subscriptions?${params}`)
+
       if (!response.ok) {
         throw new Error('Error al cargar suscripciones')
       }
 
       const data = await response.json()
-      
+
       if (data.success && data.subscriptions) {
         setSubscriptions(data.subscriptions)
+        setPagination(data.pagination)
       } else {
         console.error('Formato de respuesta inválido:', data)
         setSubscriptions([])
       }
-      
+
       setLoading(false)
     } catch (error) {
       console.error('Error loading subscriptions:', error)
@@ -115,29 +149,15 @@ export default function SubscriptionsManagement() {
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24))
   }
 
-  const filteredSubscriptions = subscriptions.filter(subscription => {
-    const matchesSearch = subscription.company.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         subscription.company.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         subscription.company.users.some(user => 
-                           user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           user.name.toLowerCase().includes(searchTerm.toLowerCase())
-                         )
-    
-    // Check for expiring soon (within 30 days)
-    const isExpiringSoon = () => {
-      if (subscription.status !== 'ACTIVE') return false
-      const daysUntilExpiry = getDaysUntilExpiry(subscription.currentPeriodEnd)
-      return daysUntilExpiry <= 30 && daysUntilExpiry > 0
-    }
-    
-    const matchesStatus = statusFilter === 'all' || 
-                         subscription.status === statusFilter ||
-                         (statusFilter === 'EXPIRING_SOON' && isExpiringSoon())
-    
-    const matchesPlan = planFilter === 'all' || subscription.plan === planFilter
+  // Removed client-side filtering - now handled by API
+  const filteredSubscriptions = subscriptions
 
-    return matchesSearch && matchesStatus && matchesPlan
-  })
+  // Helper function for display purposes
+  const isExpiringSoon = (subscription: Subscription) => {
+    if (subscription.status !== 'ACTIVE') return false
+    const daysUntilExpiry = getDaysUntilExpiry(subscription.currentPeriodEnd)
+    return daysUntilExpiry <= 30 && daysUntilExpiry > 0
+  }
 
 
   const getTotalRevenue = () => {
@@ -362,6 +382,19 @@ export default function SubscriptionsManagement() {
             </tbody>
           </table>
         </div>
+
+        {/* Pagination */}
+        {pagination.totalPages > 1 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={pagination.totalPages}
+            totalItems={pagination.total}
+            itemsPerPage={itemsPerPage}
+            onPageChange={setCurrentPage}
+            onItemsPerPageChange={setItemsPerPage}
+            showItemsPerPage={true}
+          />
+        )}
       </div>
 
       {/* Modal de detalles */}

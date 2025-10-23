@@ -7,68 +7,55 @@ import { Switch } from '@/components/ui/switch'
 interface SystemSettings {
   // General Settings
   siteName: string
-  siteDescription: string
+  siteDescription: string | null
   maintenanceMode: boolean
   registrationEnabled: boolean
-  
+
   // Authentication Settings
-  emailVerificationRequired: boolean
-  passwordMinLength: number
-  sessionTimeout: number
-  
+  requireEmailVerification: boolean
+  minPasswordLength: number
+  sessionTimeoutHours: number
+
   // Subscription Settings
-  trialDays: number
+  trialPeriodDays: number
   maxUsersPerCompany: number
   defaultReportsLimit: number
-  
+
   // Payment Settings
   wompiSandboxMode: boolean
   paymentRetryAttempts: number
-  
+
   // Email Settings
-  emailProvider: 'RESEND' | 'SMTP'
+  emailProvider: string
   emailFromName: string
   emailFromAddress: string
-  
+
   // Security Settings
   maxLoginAttempts: number
   lockoutDurationMinutes: number
-  requireMfa: boolean
 }
 
 export default function SystemSettings() {
   const [settings, setSettings] = useState<SystemSettings>({
-    // General Settings
     siteName: 'Finkargo Analiza',
-    siteDescription: 'Plataforma de Inteligencia Comercial',
+    siteDescription: '',
     maintenanceMode: false,
     registrationEnabled: true,
-    
-    // Authentication Settings  
-    emailVerificationRequired: false,
-    passwordMinLength: 8,
-    sessionTimeout: 24,
-    
-    // Subscription Settings
-    trialDays: 14,
+    requireEmailVerification: false,
+    minPasswordLength: 8,
+    sessionTimeoutHours: 24,
+    trialPeriodDays: 14,
     maxUsersPerCompany: 10,
     defaultReportsLimit: 5,
-    
-    // Payment Settings
-    wompiSandboxMode: false,
+    wompiSandboxMode: true,
     paymentRetryAttempts: 3,
-    
-    // Email Settings
-    emailProvider: 'RESEND',
+    emailProvider: 'resend',
     emailFromName: 'Finkargo Analiza',
     emailFromAddress: 'noreply@finkargo.com',
-    
-    // Security Settings
     maxLoginAttempts: 5,
-    lockoutDurationMinutes: 15,
-    requireMfa: false
+    lockoutDurationMinutes: 15
   })
-  
+
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
@@ -79,26 +66,48 @@ export default function SystemSettings() {
 
   const loadSettings = async () => {
     try {
-      // TODO: Implement API endpoint to get system settings
-      // For now, using default values
+      const response = await fetch('/api/admin/settings')
+
+      if (!response.ok) {
+        throw new Error('Error al cargar configuración')
+      }
+
+      const data = await response.json()
+
+      if (data.success && data.settings) {
+        setSettings(data.settings)
+      }
+
       setLoading(false)
     } catch (error) {
       console.error('Error loading settings:', error)
+      setMessage({ type: 'error', text: 'Error al cargar la configuración' })
       setLoading(false)
     }
   }
 
   const handleSave = async () => {
     setSaving(true)
+    setMessage(null)
     try {
-      // TODO: Implement API endpoint to save system settings
-      console.log('Saving settings:', settings)
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      setMessage({ type: 'success', text: 'Configuración guardada exitosamente' })
-      setTimeout(() => setMessage(null), 3000)
+      const response = await fetch('/api/admin/settings', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(settings)
+      })
+
+      if (!response.ok) {
+        throw new Error('Error al guardar configuración')
+      }
+
+      const data = await response.json()
+
+      if (data.success) {
+        setMessage({ type: 'success', text: 'Configuración guardada exitosamente' })
+        setTimeout(() => setMessage(null), 3000)
+      }
     } catch (error) {
       console.error('Error saving settings:', error)
       setMessage({ type: 'error', text: 'Error al guardar la configuración' })
@@ -191,7 +200,7 @@ export default function SystemSettings() {
               <textarea
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 rows={3}
-                value={settings.siteDescription}
+                value={settings.siteDescription || ''}
                 onChange={(e) => handleSettingChange('siteDescription', e.target.value)}
               />
             </div>
@@ -234,8 +243,8 @@ export default function SystemSettings() {
                 <p className="text-xs text-gray-500">Requiere verificar email al registrarse</p>
               </div>
               <Switch
-                checked={settings.emailVerificationRequired}
-                onCheckedChange={(checked) => handleSettingChange('emailVerificationRequired', checked)}
+                checked={settings.requireEmailVerification}
+                onCheckedChange={(checked) => handleSettingChange('requireEmailVerification', checked)}
               />
             </div>
 
@@ -248,8 +257,8 @@ export default function SystemSettings() {
                 min="6"
                 max="20"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                value={settings.passwordMinLength}
-                onChange={(e) => handleSettingChange('passwordMinLength', parseInt(e.target.value))}
+                value={settings.minPasswordLength}
+                onChange={(e) => handleSettingChange('minPasswordLength', parseInt(e.target.value))}
               />
             </div>
 
@@ -262,8 +271,8 @@ export default function SystemSettings() {
                 min="1"
                 max="168"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                value={settings.sessionTimeout}
-                onChange={(e) => handleSettingChange('sessionTimeout', parseInt(e.target.value))}
+                value={settings.sessionTimeoutHours}
+                onChange={(e) => handleSettingChange('sessionTimeoutHours', parseInt(e.target.value))}
               />
             </div>
 
@@ -300,8 +309,8 @@ export default function SystemSettings() {
                 min="7"
                 max="30"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                value={settings.trialDays}
-                onChange={(e) => handleSettingChange('trialDays', parseInt(e.target.value))}
+                value={settings.trialPeriodDays}
+                onChange={(e) => handleSettingChange('trialPeriodDays', parseInt(e.target.value))}
               />
             </div>
 

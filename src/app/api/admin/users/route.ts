@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
   try {
     // Verificar que el usuario esté autenticado y sea admin
     const session = await getServerSession(authOptions)
-    
+
     if (!session || (session.user as any)?.role !== 'ADMIN') {
       return NextResponse.json(
         { error: 'No autorizado' },
@@ -15,14 +15,47 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Obtener todos los usuarios con sus empresas
+    // Obtener parámetros de paginación y filtrado
+    const searchParams = request.nextUrl.searchParams
+    const page = parseInt(searchParams.get('page') || '1')
+    const limit = parseInt(searchParams.get('limit') || '20')
+    const search = searchParams.get('search') || ''
+    const roleFilter = searchParams.get('role') || 'all'
+
+    // Construir el filtro where
+    const where: any = {}
+
+    // Filtro de búsqueda
+    if (search) {
+      where.OR = [
+        { name: { contains: search, mode: 'insensitive' } },
+        { email: { contains: search, mode: 'insensitive' } },
+        { company: { name: { contains: search, mode: 'insensitive' } } }
+      ]
+    }
+
+    // Filtro por rol
+    if (roleFilter !== 'all') {
+      where.role = roleFilter
+    }
+
+    // Contar total de registros
+    const totalUsers = await prisma.user.count({ where })
+
+    // Calcular skip
+    const skip = (page - 1) * limit
+
+    // Obtener usuarios paginados
     const users = await prisma.user.findMany({
+      where,
       include: {
         company: true
       },
       orderBy: {
         createdAt: 'desc'
-      }
+      },
+      skip,
+      take: limit
     })
 
     // Formatear los datos para el frontend
@@ -44,7 +77,12 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       success: true,
       users: formattedUsers,
-      total: formattedUsers.length
+      pagination: {
+        total: totalUsers,
+        page,
+        limit,
+        totalPages: Math.ceil(totalUsers / limit)
+      }
     })
   } catch (error) {
     console.error('Error fetching users:', error)

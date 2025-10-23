@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { Search, Filter, MoreVertical, Shield, Eye, Edit3, Ban } from 'lucide-react'
+import { Pagination } from '@/components/ui/pagination'
 
 interface User {
   id: string
@@ -16,6 +17,13 @@ interface User {
     id: string
     name: string
   }
+}
+
+interface PaginationData {
+  total: number
+  page: number
+  limit: number
+  totalPages: number
 }
 
 const roleLabels = {
@@ -39,6 +47,16 @@ export default function UsersManagement() {
   const [selectedUser, setSelectedUser] = useState<User | null>(null)
   const [showRoleModal, setShowRoleModal] = useState(false)
 
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(20)
+  const [pagination, setPagination] = useState<PaginationData>({
+    total: 0,
+    page: 1,
+    limit: 20,
+    totalPages: 1
+  })
+
   // Verificar si el usuario actual puede gestionar roles
   const canManageUsers = session?.user?.email === 'oscaralejo06@hotmail.com' || session?.user?.role === 'ADMIN'
 
@@ -48,19 +66,33 @@ export default function UsersManagement() {
       window.location.href = '/admin'
       return
     }
-    loadUsers()
   }, [canManageUsers])
+
+  // Load users when filters or pagination changes
+  useEffect(() => {
+    if (canManageUsers) {
+      loadUsers()
+    }
+  }, [canManageUsers, currentPage, itemsPerPage, searchTerm, roleFilter])
 
   const loadUsers = async () => {
     try {
-      const response = await fetch('/api/admin/users')
-      
+      setLoading(true)
+      const params = new URLSearchParams({
+        page: currentPage.toString(),
+        limit: itemsPerPage.toString(),
+        search: searchTerm,
+        role: roleFilter
+      })
+
+      const response = await fetch(`/api/admin/users?${params}`)
+
       if (!response.ok) {
         throw new Error('Error al cargar usuarios')
       }
 
       const data = await response.json()
-      
+
       if (data.success && data.users) {
         // Mapear los usuarios para asegurar que la empresa tenga el formato correcto
         const mappedUsers = data.users.map((user: any) => ({
@@ -71,11 +103,12 @@ export default function UsersManagement() {
           }
         }))
         setUsers(mappedUsers)
+        setPagination(data.pagination)
       } else {
         console.error('Formato de respuesta inválido:', data)
         setUsers([])
       }
-      
+
       setLoading(false)
     } catch (error) {
       console.error('Error loading users:', error)
@@ -84,15 +117,10 @@ export default function UsersManagement() {
     }
   }
 
-  const filteredUsers = users.filter(user => {
-    const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         user.company.name.toLowerCase().includes(searchTerm.toLowerCase())
-    
-    const matchesRole = roleFilter === 'all' || user.role === roleFilter
-
-    return matchesSearch && matchesRole
-  })
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [searchTerm, roleFilter])
 
   const handleChangeRole = async (userId: string, newRole: 'ADMIN' | 'ANALYST' | 'VIEWER') => {
     try {
@@ -243,7 +271,7 @@ export default function UsersManagement() {
       <div className="bg-white rounded-lg shadow-sm border">
         <div className="p-6 border-b">
           <h2 className="text-lg font-semibold text-gray-900">
-            Usuarios ({filteredUsers.length})
+            Usuarios ({pagination.total})
           </h2>
         </div>
         <div className="overflow-x-auto">
@@ -271,7 +299,7 @@ export default function UsersManagement() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {filteredUsers.map((user) => (
+              {users.map((user) => (
                 <tr key={user.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div>
@@ -325,6 +353,19 @@ export default function UsersManagement() {
             </tbody>
           </table>
         </div>
+
+        {/* Pagination */}
+        {pagination.totalPages > 1 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={pagination.totalPages}
+            totalItems={pagination.total}
+            itemsPerPage={itemsPerPage}
+            onPageChange={setCurrentPage}
+            onItemsPerPageChange={setItemsPerPage}
+            showItemsPerPage={true}
+          />
+        )}
       </div>
 
       {/* Role Change Modal */}

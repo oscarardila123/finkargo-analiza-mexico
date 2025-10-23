@@ -325,3 +325,38 @@ enum ReportStatus {
   COMPLETED
   FAILED
 }
+
+model SystemSettings {
+  id                    String   @id @default(cuid())
+  // General Settings
+  siteName              String   @default("Finkargo Analiza") @map("site_name")
+  siteDescription       String?  @map("site_description")
+  maintenanceMode       Boolean  @default(false) @map("maintenance_mode")
+  registrationEnabled   Boolean  @default(true) @map("registration_enabled")
+
+  // Authentication Settings
+  requireEmailVerification Boolean @default(false) @map("require_email_verification")
+  minPasswordLength     Int      @default(8) @map("min_password_length")
+  sessionTimeoutHours   Int      @default(24) @map("session_timeout_hours")
+  maxLoginAttempts      Int      @default(5) @map("max_login_attempts")
+  lockoutDurationMinutes Int     @default(15) @map("lockout_duration_minutes")
+
+  // Subscription Settings
+  trialPeriodDays       Int      @default(14) @map("trial_period_days")
+  maxUsersPerCompany    Int      @default(10) @map("max_users_per_company")
+  defaultReportsLimit   Int      @default(5) @map("default_reports_limit")
+
+  // Payment Settings
+  wompiSandboxMode      Boolean  @default(true) @map("wompi_sandbox_mode")
+  paymentRetryAttempts  Int      @default(3) @map("payment_retry_attempts")
+
+  // Email Settings
+  emailProvider         String   @default("resend") @map("email_provider")
+  emailFromName         String   @default("Finkargo Analiza") @map("email_from_name")
+  emailFromAddress      String   @default("noreply@finkargo.com") @map("email_from_address")
+
+  updatedAt             DateTime @updatedAt @map("updated_at")
+  updatedBy             String?  @map("updated_by")
+
+  @@map("system_settings")
+}

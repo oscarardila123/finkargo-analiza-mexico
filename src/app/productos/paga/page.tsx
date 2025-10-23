@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { BrandIcon } from "@/components/ui/brand-icon"
 import { MainFooter } from "@/components/ui/main-footer"
+import { MainHeader } from "@/components/ui/main-header"
 import { useState, useEffect } from "react"
 import {
   DropdownMenu,
@@ -79,141 +80,7 @@ export default function PagaPage() {
   return (
     <div className="min-h-screen bg-white overflow-x-hidden w-full">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-sm bg-white/95">
-        <div className="container-responsive h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-3">
-            <BrandIcon size="md" />
-            <div>
-              <span className="heading-sm text-brand-navy">Finkargo</span>
-            </div>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
-            <Link href="/" className="body-md text-secondary hover:text-brand-navy-dark transition-colors">
-              Inicio
-            </Link>
-            <Link href="/features" className="body-md text-secondary hover:text-brand-navy-dark transition-colors">
-              Beneficios
-            </Link>
-            <Link href="/precios" className="body-md text-secondary hover:text-brand-navy-dark transition-colors">
-              Precios
-            </Link>
-            <DropdownMenu>
-              <DropdownMenuTrigger className="body-md text-secondary hover:text-brand-navy-dark transition-colors flex items-center gap-1 outline-none">
-                Otros productos
-                <ChevronDown className="h-4 w-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-80 p-3 shadow-xl border border-gray-100">
-                <DropdownMenuItem asChild className="cursor-pointer p-0 focus:bg-transparent">
-                  <Link href="/productos/paga" className="flex flex-col gap-1 px-3 py-3 rounded-md hover:bg-blue-50 transition-colors">
-                    <span className="text-sm font-semibold text-gray-900">Paga</span>
-                    <span className="text-xs text-gray-600">Adelanto a proveedores</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild className="cursor-pointer p-0 focus:bg-transparent">
-                  <Link href="/productos/integra" className="flex flex-col gap-1 px-3 py-3 rounded-md hover:bg-blue-50 transition-colors">
-                    <span className="text-sm font-semibold text-gray-900">Integra</span>
-                    <span className="text-xs text-gray-600">Logística Internacional</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild className="cursor-pointer p-0 focus:bg-transparent">
-                  <Link href="/productos/protege" className="flex flex-col gap-1 px-3 py-3 rounded-md hover:bg-blue-50 transition-colors">
-                    <span className="text-sm font-semibold text-gray-900">Protege</span>
-                    <span className="text-xs text-gray-600">Seguro de carga</span>
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </nav>
-
-          {/* Desktop Auth Buttons */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <Link href="/auth/signin">
-              <Button variant="ghost" className="text-secondary hover:bg-cyan-50 hover:text-brand-navy-dark transition-all">Iniciar Sesión</Button>
-            </Link>
-            <Link href="/auth/signup">
-              <Button className="btn-primary-gradient text-white">Comenzar Ahora</Button>
-            </Link>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="lg:hidden">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2"
-            >
-              {mobileMenuOpen ? (
-                <X className="h-6 w-6 text-brand-navy-dark" />
-              ) : (
-                <Menu className="h-6 w-6 text-brand-navy-dark" />
-              )}
-            </Button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation Menu */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden bg-white border-t border-gray-200 shadow-lg">
-            <div className="container-responsive py-4 space-y-4">
-              <Link
-                href="/"
-                className="block py-3 px-4 text-gray-700 hover:bg-gray-50 hover:text-brand-navy-dark rounded-lg transition-all"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Inicio
-              </Link>
-              <Link
-                href="/features"
-                className="block py-3 px-4 text-gray-700 hover:bg-gray-50 hover:text-brand-navy-dark rounded-lg transition-all"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Beneficios
-              </Link>
-              <Link
-                href="/precios"
-                className="block py-3 px-4 text-gray-700 hover:bg-gray-50 hover:text-brand-navy-dark rounded-lg transition-all"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Precios
-              </Link>
-              <div className="border-t border-gray-200 pt-4 pb-4">
-                <div className="px-4 pb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                  Otros productos
-                </div>
-                <div className="space-y-1">
-                  <Link
-                    href="/productos/paga"
-                    className="block py-3 px-4 rounded-lg transition-all hover:bg-blue-50"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <div className="font-semibold text-gray-900">Paga</div>
-                    <div className="text-xs text-gray-600">Adelanto a proveedores</div>
-                  </Link>
-                  <Link
-                    href="/productos/integra"
-                    className="block py-3 px-4 rounded-lg transition-all hover:bg-blue-50"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <div className="font-semibold text-gray-900">Integra</div>
-                    <div className="text-xs text-gray-600">Logística Internacional</div>
-                  </Link>
-                  <Link
-                    href="/productos/protege"
-                    className="block py-3 px-4 rounded-lg transition-all hover:bg-blue-50"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <div className="font-semibold text-gray-900">Protege</div>
-                    <div className="text-xs text-gray-600">Seguro de carga</div>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </header>
+      <MainHeader />
 
       {/* Hero Section */}
       <section className="py-16 lg:py-24 relative overflow-hidden hero-gradient-animated">

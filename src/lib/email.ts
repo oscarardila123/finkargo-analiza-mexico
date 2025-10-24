@@ -129,47 +129,51 @@ export async function sendWelcomeEmail(email: string, name: string, isComceMembe
 
     // COMCE discount section HTML (only shown if user is COMCE member)
     const comceSection = isComceMember ? `
-      <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-                  padding: 25px;
-                  border-radius: 12px;
-                  margin: 30px 0;
-                  text-align: center;
-                  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);">
-        <h3 style="color: white; margin: 0 0 15px 0; font-size: 22px;">
-          🎁 ¡Beneficio Exclusivo Socio COMCE!
-        </h3>
-        <p style="color: rgba(255,255,255,0.95); font-size: 16px; margin-bottom: 20px;">
-          Como socio COMCE, tienes acceso a un <strong>descuento especial del 15%</strong> en todos nuestros planes.
-        </p>
-        <div style="background: white;
-                    padding: 20px;
-                    border-radius: 8px;
-                    display: inline-block;
-                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
-          <p style="color: #059669; margin: 0 0 10px 0; font-size: 14px; font-weight: 600;">
-            TU CÓDIGO DE DESCUENTO:
-          </p>
-          <div style="background: #f0fdf4;
-                      border: 2px dashed #10b981;
-                      padding: 15px 30px;
-                      border-radius: 6px;">
-            <p style="color: #047857;
-                      margin: 0;
-                      font-size: 28px;
-                      font-weight: bold;
-                      letter-spacing: 2px;
-                      font-family: monospace;">
-              COMCE15
+      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin: 30px 0;">
+        <tr>
+          <td style="background-color: #10b981;
+                     padding: 25px;
+                     border-radius: 12px;
+                     text-align: center;">
+            <h3 style="color: white; margin: 0 0 15px 0; font-size: 22px;">
+              🎁 ¡Beneficio Exclusivo Socio COMCE!
+            </h3>
+            <p style="color: white; font-size: 16px; margin-bottom: 20px;">
+              Como socio COMCE, tienes acceso a un <strong>descuento especial del 15%</strong> en todos nuestros planes.
             </p>
-          </div>
-          <p style="color: #6b7280; margin: 15px 0 0 0; font-size: 12px;">
-            Válido en todos los planes hasta el 31 de diciembre de 2025
-          </p>
-        </div>
-        <p style="color: rgba(255,255,255,0.9); font-size: 14px; margin: 20px 0 0 0;">
-          💡 Usa este código al momento de suscribirte para aplicar tu descuento automáticamente
-        </p>
-      </div>
+            <table cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto;">
+              <tr>
+                <td style="background-color: white;
+                           padding: 20px;
+                           border-radius: 8px;">
+                  <p style="color: #059669; margin: 0 0 10px 0; font-size: 14px; font-weight: 600;">
+                    TU CÓDIGO DE DESCUENTO:
+                  </p>
+                  <div style="background-color: #f0fdf4;
+                              border: 2px dashed #10b981;
+                              padding: 15px 30px;
+                              border-radius: 6px;">
+                    <p style="color: #047857;
+                              margin: 0;
+                              font-size: 28px;
+                              font-weight: bold;
+                              letter-spacing: 2px;
+                              font-family: monospace;">
+                      COMCE15
+                    </p>
+                  </div>
+                  <p style="color: #6b7280; margin: 15px 0 0 0; font-size: 12px;">
+                    Válido en todos los planes hasta el 31 de diciembre de 2025
+                  </p>
+                </td>
+              </tr>
+            </table>
+            <p style="color: white; font-size: 14px; margin: 20px 0 0 0;">
+              💡 Usa este código al momento de suscribirte para aplicar tu descuento automáticamente
+            </p>
+          </td>
+        </tr>
+      </table>
     ` : '';
 
     const { data, error } = await resend.emails.send({
@@ -185,11 +189,15 @@ export async function sendWelcomeEmail(email: string, name: string, isComceMembe
           <title>Bienvenido a Finkargo Analiza</title>
         </head>
         <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <div style="background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
-            <h1 style="color: white; margin: 0; font-size: 28px; font-weight: bold;">
-              🎉 ¡Bienvenido a Finkargo Analiza!
-            </h1>
-          </div>
+          <table cellpadding="0" cellspacing="0" border="0" width="100%">
+            <tr>
+              <td style="background-color: #2563eb; padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+                <h1 style="color: white; margin: 0; font-size: 28px; font-weight: bold;">
+                  🎉 ¡Bienvenido a Finkargo Analiza!
+                </h1>
+              </td>
+            </tr>
+          </table>
           
           <div style="background: white; padding: 40px; border-radius: 0 0 10px 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
             <h2 style="color: #2563eb; margin-top: 0;">¡Hola ${name}!</h2>
@@ -205,18 +213,26 @@ export async function sendWelcomeEmail(email: string, name: string, isComceMembe
             ${comceSection}
 
             <div style="text-align: center; margin: 30px 0;">
-              <a href="${process.env.NEXTAUTH_URL}/precios"
-                 style="background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
-                        color: white;
-                        text-decoration: none;
-                        padding: 15px 40px;
-                        border-radius: 8px;
-                        font-weight: 600;
-                        font-size: 18px;
-                        display: inline-block;
-                        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);">
-                💎 Descubre el plan perfecto para ti
-              </a>
+              <table cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto;">
+                <tr>
+                  <td style="background-color: #2563eb;
+                             color: white;
+                             text-decoration: none;
+                             padding: 15px 40px;
+                             border-radius: 8px;
+                             font-weight: 600;
+                             font-size: 18px;
+                             text-align: center;">
+                    <a href="${process.env.NEXTAUTH_URL}/precios"
+                       style="color: white;
+                              text-decoration: none;
+                              display: block;
+                              font-weight: 600;">
+                      💎 Descubre el plan perfecto para ti
+                    </a>
+                  </td>
+                </tr>
+              </table>
             </div>
 
             <div style="background: #f0f9ff; padding: 20px; border-radius: 8px; margin: 30px 0;">

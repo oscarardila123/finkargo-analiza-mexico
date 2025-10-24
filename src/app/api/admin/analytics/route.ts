@@ -46,22 +46,22 @@ export async function GET(request: NextRequest) {
       prisma.report.count()
     ])
 
-    // Calcular ingresos totales
-    const paymentsData = await prisma.payment.findMany({
+    // Calcular ingresos totales usando agregación
+    const totalRevenueResult = await prisma.payment.aggregate({
       where: { status: 'COMPLETED' },
-      select: { amount: true }
+      _sum: { amount: true }
     })
-    const totalRevenue = paymentsData.reduce((sum, payment) => sum + payment.amount, 0)
+    const totalRevenue = totalRevenueResult._sum.amount || 0
 
-    // Ingresos del período
-    const periodPayments = await prisma.payment.findMany({
+    // Ingresos del período usando agregación
+    const periodRevenueResult = await prisma.payment.aggregate({
       where: {
         status: 'COMPLETED',
         paidAt: { gte: startDate }
       },
-      select: { amount: true }
+      _sum: { amount: true }
     })
-    const periodRevenue = periodPayments.reduce((sum, payment) => sum + payment.amount, 0)
+    const periodRevenue = periodRevenueResult._sum.amount || 0
 
     // Crecimiento de usuarios por día
     const userGrowth = await getUserGrowthData(periodDays)
@@ -100,30 +100,8 @@ export async function GET(request: NextRequest) {
       take: 10
     })
 
-    // Top empresas por ingresos
-    const companiesWithRevenue = await prisma.company.findMany({
-      include: {
-        payments: {
-          where: { status: 'COMPLETED' },
-          select: { amount: true }
-        },
-        _count: {
-          select: { users: true, reports: true }
-        }
-      }
-    })
-
-    const topCompaniesByRevenue = companiesWithRevenue
-      .map(company => ({
-        id: company.id,
-        name: company.name,
-        email: company.email,
-        revenue: company.payments.reduce((sum, p) => sum + p.amount, 0),
-        userCount: company._count.users,
-        reportCount: company._count.reports
-      }))
-      .sort((a, b) => b.revenue - a.revenue)
-      .slice(0, 10)
+    // Top empresas por ingresos - optimizado con agregación
+    const topCompaniesByRevenue = await getTopCompaniesByRevenue()
 
     // Reportes generados por mes
     const reportsGenerated = await getReportsGeneratedByMonth(6) // últimos 6 meses
@@ -255,145 +233,215 @@ export async function GET(request: NextRequest) {
 }
 
 async function getUserGrowthData(days: number) {
+  const startDate = new Date()
+  startDate.setDate(startDate.getDate() - days)
+
+  // Obtener usuarios creados en el período
+  const users = await prisma.user.findMany({
+    where: { createdAt: { gte: startDate } },
+    select: { createdAt: true },
+    orderBy: { createdAt: 'asc' }
+  })
+
+  // Obtener total de usuarios existentes antes del período para calcular acumulado
+  const usersBeforePeriod = await prisma.user.count({
+    where: { createdAt: { lt: startDate } }
+  })
+
+  // Agrupar por fecha
+  const dataMap = new Map<string, number>()
+  users.forEach(user => {
+    const date = user.createdAt.toISOString().split('T')[0]
+    dataMap.set(date, (dataMap.get(date) || 0) + 1)
+  })
+
+  // Construir serie temporal completa
   const data: Array<{ date: string; count: number; cumulative: number }> = []
-  const today = new Date()
+  let cumulative = usersBeforePeriod
 
   for (let i = days - 1; i >= 0; i--) {
-    const date = new Date(today)
+    const date = new Date()
     date.setDate(date.getDate() - i)
-    const startOfDay = new Date(date.getFullYear(), date.getMonth(), date.getDate())
-    const endOfDay = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
-
-    const count = await prisma.user.count({
-      where: {
-        createdAt: {
-          gte: startOfDay,
-          lt: endOfDay
-        }
-      }
-    })
-
-    const cumulative = await prisma.user.count({
-      where: {
-        createdAt: { lte: endOfDay }
-      }
-    })
-
-    data.push({
-      date: startOfDay.toISOString().split('T')[0],
-      count,
-      cumulative
-    })
+    const dateStr = date.toISOString().split('T')[0]
+    const count = dataMap.get(dateStr) || 0
+    cumulative += count
+    data.push({ date: dateStr, count, cumulative })
   }
 
   return data
 }
 
 async function getCompanyGrowthData(days: number) {
+  const startDate = new Date()
+  startDate.setDate(startDate.getDate() - days)
+
+  // Obtener empresas creadas en el período
+  const companies = await prisma.company.findMany({
+    where: { createdAt: { gte: startDate } },
+    select: { createdAt: true },
+    orderBy: { createdAt: 'asc' }
+  })
+
+  // Obtener total de empresas existentes antes del período para calcular acumulado
+  const companiesBeforePeriod = await prisma.company.count({
+    where: { createdAt: { lt: startDate } }
+  })
+
+  // Agrupar por fecha
+  const dataMap = new Map<string, number>()
+  companies.forEach(company => {
+    const date = company.createdAt.toISOString().split('T')[0]
+    dataMap.set(date, (dataMap.get(date) || 0) + 1)
+  })
+
+  // Construir serie temporal completa
   const data: Array<{ date: string; count: number; cumulative: number }> = []
-  const today = new Date()
+  let cumulative = companiesBeforePeriod
 
   for (let i = days - 1; i >= 0; i--) {
-    const date = new Date(today)
+    const date = new Date()
     date.setDate(date.getDate() - i)
-    const startOfDay = new Date(date.getFullYear(), date.getMonth(), date.getDate())
-    const endOfDay = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
-
-    const count = await prisma.company.count({
-      where: {
-        createdAt: {
-          gte: startOfDay,
-          lt: endOfDay
-        }
-      }
-    })
-
-    const cumulative = await prisma.company.count({
-      where: {
-        createdAt: { lte: endOfDay }
-      }
-    })
-
-    data.push({
-      date: startOfDay.toISOString().split('T')[0],
-      count,
-      cumulative
-    })
+    const dateStr = date.toISOString().split('T')[0]
+    const count = dataMap.get(dateStr) || 0
+    cumulative += count
+    data.push({ date: dateStr, count, cumulative })
   }
 
   return data
 }
 
 async function getRevenueByDay(days: number) {
+  const startDate = new Date()
+  startDate.setDate(startDate.getDate() - days)
+
+  // Obtener pagos completados en el período
+  const payments = await prisma.payment.findMany({
+    where: {
+      status: 'COMPLETED',
+      paidAt: { gte: startDate }
+    },
+    select: { amount: true, paidAt: true },
+    orderBy: { paidAt: 'asc' }
+  })
+
+  // Obtener total de ingresos antes del período para calcular acumulado
+  const revenueBeforePeriodResult = await prisma.payment.aggregate({
+    where: {
+      status: 'COMPLETED',
+      paidAt: { lt: startDate }
+    },
+    _sum: { amount: true }
+  })
+  const revenueBeforePeriod = revenueBeforePeriodResult._sum.amount || 0
+
+  // Agrupar por fecha
+  const dataMap = new Map<string, number>()
+  payments.forEach(payment => {
+    if (payment.paidAt) {
+      const date = payment.paidAt.toISOString().split('T')[0]
+      dataMap.set(date, (dataMap.get(date) || 0) + payment.amount)
+    }
+  })
+
+  // Construir serie temporal completa
   const data: Array<{ date: string; amount: number; cumulative: number }> = []
-  const today = new Date()
+  let cumulative = revenueBeforePeriod
 
   for (let i = days - 1; i >= 0; i--) {
-    const date = new Date(today)
+    const date = new Date()
     date.setDate(date.getDate() - i)
-    const startOfDay = new Date(date.getFullYear(), date.getMonth(), date.getDate())
-    const endOfDay = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
-
-    const payments = await prisma.payment.findMany({
-      where: {
-        status: 'COMPLETED',
-        paidAt: {
-          gte: startOfDay,
-          lt: endOfDay
-        }
-      },
-      select: { amount: true }
-    })
-
-    const amount = payments.reduce((sum, p) => sum + p.amount, 0)
-
-    const cumulativePayments = await prisma.payment.findMany({
-      where: {
-        status: 'COMPLETED',
-        paidAt: { lte: endOfDay }
-      },
-      select: { amount: true }
-    })
-
-    const cumulative = cumulativePayments.reduce((sum, p) => sum + p.amount, 0)
-
-    data.push({
-      date: startOfDay.toISOString().split('T')[0],
-      amount,
-      cumulative
-    })
+    const dateStr = date.toISOString().split('T')[0]
+    const amount = dataMap.get(dateStr) || 0
+    cumulative += amount
+    data.push({ date: dateStr, amount, cumulative })
   }
 
   return data
 }
 
 async function getReportsGeneratedByMonth(months: number) {
-  const data: Array<{ month: string; count: number }> = []
   const today = new Date()
+  const startDate = new Date(today.getFullYear(), today.getMonth() - months + 1, 1)
 
+  // Obtener todos los reportes en el período
+  const reports = await prisma.report.findMany({
+    where: { createdAt: { gte: startDate } },
+    select: { createdAt: true },
+    orderBy: { createdAt: 'asc' }
+  })
+
+  // Agrupar por mes
+  const dataMap = new Map<string, number>()
+  reports.forEach(report => {
+    const monthKey = `${report.createdAt.getFullYear()}-${String(report.createdAt.getMonth() + 1).padStart(2, '0')}`
+    dataMap.set(monthKey, (dataMap.get(monthKey) || 0) + 1)
+  })
+
+  // Construir serie temporal completa
+  const data: Array<{ month: string; count: number }> = []
   for (let i = months - 1; i >= 0; i--) {
     const date = new Date(today.getFullYear(), today.getMonth() - i, 1)
-    const startOfMonth = new Date(date.getFullYear(), date.getMonth(), 1)
-    const endOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 1)
-
-    const count = await prisma.report.count({
-      where: {
-        createdAt: {
-          gte: startOfMonth,
-          lt: endOfMonth
-        }
-      }
-    })
-
+    const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`
     const monthName = new Intl.DateTimeFormat('es-CO', { month: 'short', year: 'numeric' }).format(date)
-
-    data.push({
-      month: monthName,
-      count
-    })
+    const count = dataMap.get(monthKey) || 0
+    data.push({ month: monthName, count })
   }
 
   return data
+}
+
+async function getTopCompaniesByRevenue() {
+  // Usar SQL raw para obtener top empresas por ingresos de forma eficiente
+  const companiesRevenue = await prisma.$queryRaw<Array<{
+    company_id: string
+    total_revenue: number
+  }>>`
+    SELECT
+      p."company_id",
+      CAST(SUM(p.amount) AS FLOAT) as total_revenue
+    FROM "payments" p
+    WHERE p.status = 'COMPLETED'
+    GROUP BY p."company_id"
+    ORDER BY total_revenue DESC
+    LIMIT 10
+  `
+
+  // Obtener datos de las empresas
+  const companyIds = companiesRevenue.map(r => r.company_id)
+
+  const companies = await prisma.company.findMany({
+    where: { id: { in: companyIds } },
+    include: {
+      _count: {
+        select: { users: true, reports: true }
+      }
+    }
+  })
+
+  // Combinar datos
+  const companyMap = new Map(companies.map(c => [c.id, c]))
+
+  return companiesRevenue
+    .map(rev => {
+      const company = companyMap.get(rev.company_id)
+      if (!company) return null
+      return {
+        id: company.id,
+        name: company.name,
+        email: company.email,
+        revenue: rev.total_revenue,
+        userCount: company._count.users,
+        reportCount: company._count.reports
+      }
+    })
+    .filter(c => c !== null) as Array<{
+      id: string
+      name: string
+      email: string
+      revenue: number
+      userCount: number
+      reportCount: number
+    }>
 }
 
 async function getRecentActivity() {

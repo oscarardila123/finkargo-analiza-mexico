@@ -45,3 +45,4 @@ next-env.d.ts
 # prisma database files
 *.db
 *.db-journal
+migrations/

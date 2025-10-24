@@ -4,7 +4,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -81,7 +81,7 @@ model Company {
   phone             String?
   website           String?
   industryType      String?           @map("industry_type")
-  companySize       CompanySize       @default(SMALL) @map("company_size")
+  companySize       CompanySize?      @map("company_size")
   annualImportValue Float?            @map("annual_import_value")
   subscriptionId    String?           @unique @map("subscription_id")
   isActive          Boolean           @default(true) @map("is_active")

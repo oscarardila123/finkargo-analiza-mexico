@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
           phone: phone || null,
           website: website || null,
           industryType: industryType || null,
-          companySize: (companySize as CompanySize) || "SMALL",
+          companySize: companySize ? (companySize as CompanySize) : null,
           annualImportValue: annualImportValue ? parseFloat(annualImportValue) : null,
           isComceMember: isComceMember || false,
           comceMemberNumber: comceMemberNumber || null,

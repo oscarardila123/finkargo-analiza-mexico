@@ -7,8 +7,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
 import { Loader2, Sparkles, Shield, Check, Home } from "lucide-react"
 import { BrandIcon } from "@/components/ui/brand-icon"
 
@@ -21,13 +19,9 @@ export default function SignUpPage() {
     companyName: "",
     companyEmail: "",
     nit: "",
-    address: "",
     city: "",
     phone: "",
     website: "",
-    industryType: "",
-    companySize: "",
-    annualImportValue: "",
     isComceMember: false,
     comceMemberNumber: "",
   })
@@ -117,14 +111,6 @@ export default function SignUpPage() {
     }
     if (!formData.phone.trim()) {
       setError("El teléfono es obligatorio")
-      return
-    }
-    if (!formData.industryType.trim()) {
-      setError("El tipo de industria es obligatorio")
-      return
-    }
-    if (!formData.companySize.trim()) {
-      setError("El tamaño de empresa es obligatorio")
       return
     }
     if (formData.isComceMember && !formData.comceMemberNumber.trim()) {
@@ -277,58 +263,6 @@ export default function SignUpPage() {
             required
           />
         </div>
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="industryType">Tipo de industria <span className="text-red-500">*</span></Label>
-        <Input
-          id="industryType"
-          type="text"
-          placeholder="Ej: Textil, Alimentos, Tecnología"
-          className="placeholder:text-gray-400"
-          value={formData.industryType}
-          onChange={(e) => handleInputChange("industryType", e.target.value)}
-          required
-        />
-      </div>
-
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <Label htmlFor="companySize">Tamaño de empresa <span className="text-red-500">*</span></Label>
-          <Select value={formData.companySize} onValueChange={(value) => handleInputChange("companySize", value)} required>
-            <SelectTrigger className="placeholder:text-gray-400">
-              <SelectValue placeholder="Seleccionar" />
-            </SelectTrigger>
-            <SelectContent className="z-[9999] bg-white border border-gray-200 shadow-xl">
-              <SelectItem value="SMALL">Pequeña (&lt; $100K USD)</SelectItem>
-              <SelectItem value="MEDIUM">Mediana ($100K - $1M USD)</SelectItem>
-              <SelectItem value="LARGE">Grande (&gt; $1M USD)</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="annualImportValue">Volumen anual importación (USD)</Label>
-          <Input
-            id="annualImportValue"
-            type="number"
-            placeholder="500000"
-            className="placeholder:text-gray-400"
-            value={formData.annualImportValue}
-            onChange={(e) => handleInputChange("annualImportValue", e.target.value)}
-          />
-        </div>
-      </div>
-
-      <div className="space-y-2 mb-6">
-        <Label htmlFor="address">Dirección</Label>
-        <Textarea
-          id="address"
-          placeholder="Av. Paseo de la Reforma 250, Piso 5, Col. Juárez"
-          className="placeholder:text-gray-400"
-          value={formData.address}
-          onChange={(e) => handleInputChange("address", e.target.value)}
-          rows={2}
-        />
       </div>
 
       {/* COMCE Member Section */}

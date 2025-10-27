@@ -90,6 +90,8 @@ export async function GET() {
       { error: "Error interno del servidor" },
       { status: 500 }
     )
+  } finally {
+    await prisma.$disconnect()
   }
 }
 
@@ -169,7 +171,7 @@ export async function PUT(request: NextRequest) {
           action: 'SUBSCRIPTION_CANCELLED',
           metadata: {
             subscriptionId: updatedSubscription.id,
-            cancelledAt: new Date().toISOString(),
+            canceledAt: new Date().toISOString(),
           },
         },
       })

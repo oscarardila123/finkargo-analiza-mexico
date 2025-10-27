@@ -38,5 +38,7 @@ export async function POST(req: NextRequest) {
       { error: 'Error al verificar el correo electrónico' },
       { status: 500 }
     )
+  } finally {
+    await prisma.$disconnect()
   }
 }

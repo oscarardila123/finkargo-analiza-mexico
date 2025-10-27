@@ -153,5 +153,7 @@ export async function POST(request: NextRequest) {
       { error: "Error al crear la sesión de pago" },
       { status: 500 }
     )
+  } finally {
+    await prisma.$disconnect()
   }
 }

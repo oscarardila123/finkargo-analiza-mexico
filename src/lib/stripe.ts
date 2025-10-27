@@ -39,27 +39,41 @@ export class StripeClient {
   constructor() {
     const environment = process.env.STRIPE_ENVIRONMENT?.trim() || 'test'
 
+    // Validación explícita de variables de entorno
+    const secretKey = process.env.STRIPE_SECRET_KEY
+    const publicKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
+
+    if (!secretKey) {
+      console.error('❌ Falta STRIPE_SECRET_KEY en el entorno')
+      throw new Error(`Stripe secret key not configured for ${environment} environment`)
+    }
+    if (!publicKey) {
+      console.error('❌ Falta NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY en el entorno')
+      throw new Error('Stripe public key not configured')
+    }
+    if (!webhookSecret) {
+      console.warn('⚠️ Falta STRIPE_WEBHOOK_SECRET en el entorno (solo necesario para webhooks)')
+    }
+
     this.config = {
-      secretKey: process.env.STRIPE_SECRET_KEY!,
-      publicKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
-      webhookSecret: process.env.STRIPE_WEBHOOK_SECRET || ''
+      secretKey,
+      publicKey,
+      webhookSecret: webhookSecret || ''
     }
 
     console.log('🔧 Stripe Client Init:', {
       environment,
       hasSecretKey: !!this.config.secretKey,
-      secretKeyPrefix: this.config.secretKey?.substring(0, 10)
+      secretKeyPrefix: this.config.secretKey?.substring(0, 10),
+      hasPublicKey: !!this.config.publicKey,
+      hasWebhookSecret: !!this.config.webhookSecret
     })
 
-    // Validate credentials
-    if (!this.config.secretKey) {
-      throw new Error(`Stripe secret key not configured for ${environment} environment`)
-    }
-
-    // Initialize Stripe with API version
+    // Inicializar Stripe con versión de API válida
     this.stripe = new Stripe(this.config.secretKey, {
-      apiVersion: '2024-12-18.acacia',
-      typescript: true,
+        apiVersion: '2024-12-18.acacia',
+        typescript: true,
     })
 
     console.log('✅ Stripe Client initialized successfully')

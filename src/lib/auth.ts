@@ -98,6 +98,8 @@ export const authOptions: NextAuthOptions = {
     error: "/auth/error",
     verifyRequest: "/auth/verify-request",
   },
+  // NextAuth requires a secret in production
+  secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days

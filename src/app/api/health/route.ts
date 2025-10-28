@@ -113,6 +113,10 @@ export async function GET() {
         query_result: serializedResult,
         tables: tablesStatus
       },
+      auth: {
+        NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET ? "Set" : "Not set",
+        NEXTAUTH_URL: process.env.NEXTAUTH_URL
+      },
       environment: process.env.NODE_ENV,
       env: getEnvSnapshot(),
       timestamp: new Date().toISOString()

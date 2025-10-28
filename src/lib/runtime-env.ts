@@ -1,5 +1,5 @@
 // Centralized runtime environment detection helpers
-// Supports Vercel, AWS Amplify, generic Node, and manual override via APP_ENV
+// Supports AWS Amplify, generic Node, and manual override via APP_ENV
 
 export type AppEnv = 'development' | 'preview' | 'staging' | 'production'
 
@@ -11,10 +11,9 @@ function normalize(val?: string | null): string | undefined {
   return val?.trim().toLowerCase() || undefined
 }
 
-// Detect hosting platform
-export function getPlatform(): 'vercel' | 'amplify' | 'node' {
-  if (process.env.VERCEL) return 'vercel'
-  if (truthy(process.env.AMPLIFY_BRANCH) || truthy(process.env.AWS_BRANCH) || truthy(process.env.AWS_REGION)) return 'amplify'
+// Detect hosting platform (Amplify-only or generic Node)
+export function getPlatform(): 'amplify' | 'node' {
+  if (truthy(process.env.AMPLIFY_BRANCH) || truthy(process.env.AWS_BRANCH) || truthy(process.env.AWS_REGION) || truthy(process.env.AMPLIFY_ENV)) return 'amplify'
   return 'node'
 }
 
@@ -26,15 +25,8 @@ export function getAppEnv(): AppEnv {
     return appEnv
   }
 
-  // Next: platform-specific signals
+  // Next: platform-specific signals (Amplify)
   const platform = getPlatform()
-
-  if (platform === 'vercel') {
-    const vercelEnv = normalize(process.env.VERCEL_ENV)
-    if (vercelEnv === 'production') return 'production'
-    if (vercelEnv === 'preview') return 'preview'
-    if (vercelEnv === 'development') return 'development'
-  }
 
   if (platform === 'amplify') {
     // Amplify exposes various vars: AMPLIFY_BRANCH, AWS_BRANCH, AMPLIFY_ENV, USER_BRANCH
@@ -89,8 +81,6 @@ export function getEnvSnapshot() {
     raw: {
       NODE_ENV: process.env.NODE_ENV,
       APP_ENV: process.env.APP_ENV,
-      VERCEL_ENV: process.env.VERCEL_ENV,
-      VERCEL: process.env.VERCEL,
       AMPLIFY_ENV: process.env.AMPLIFY_ENV,
       AMPLIFY_BRANCH: process.env.AMPLIFY_BRANCH,
       AWS_BRANCH: process.env.AWS_BRANCH,

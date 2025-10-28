@@ -85,8 +85,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       status: "diagnostic_complete",
       environment: {
-        NODE_ENV: process.env.NODE_ENV,
-        VERCEL_ENV: process.env.VERCEL_ENV
+        NODE_ENV: process.env.NODE_ENV
       },
       env: getEnvSnapshot(),
       database: {
@@ -111,8 +110,7 @@ export async function GET(request: NextRequest) {
       message: "Diagnostic failed",
       error: error instanceof Error ? error.message : "Unknown error",
       environment: {
-        NODE_ENV: process.env.NODE_ENV,
-        VERCEL_ENV: process.env.VERCEL_ENV
+        NODE_ENV: process.env.NODE_ENV
       },
       timestamp: new Date().toISOString()
     }, { status: 500 })

@@ -6,7 +6,7 @@ import { isProduction, getEnvSnapshot } from "@/lib/runtime-env"
 export async function GET() {
   // If query param setup=true, try to create tables first
   try {
-    const url = new URL(process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
+    const url = new URL('http://localhost:3000')
     const searchParams = new URLSearchParams(url.search)
     
     if (searchParams.get('setup') === 'true' && process.env.NODE_ENV === 'production') {

@@ -119,7 +119,6 @@ export async function POST(request: NextRequest) {
         status: "success",
         message: "Database schema created successfully",
         environment: process.env.NODE_ENV,
-        vercel_env: process.env.VERCEL_ENV,
         timestamp: new Date().toISOString()
       })
       
@@ -130,7 +129,6 @@ export async function POST(request: NextRequest) {
         message: "Database setup failed",
         error: error instanceof Error ? error.message : "Unknown error",
         environment: process.env.NODE_ENV,
-        vercel_env: process.env.VERCEL_ENV,
         timestamp: new Date().toISOString()
       }, { status: 500 })
     }

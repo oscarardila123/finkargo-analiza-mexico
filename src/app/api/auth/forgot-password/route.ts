@@ -53,7 +53,5 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Error in forgot password:", error)
     return NextResponse.json({ message: "Internal server error" }, { status: 500 })
-  } finally {
-    await prisma.$disconnect()
   }
 }

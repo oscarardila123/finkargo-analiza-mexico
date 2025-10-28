@@ -1,5 +1,5 @@
 // Script to initialize PostgreSQL database in production/staging
-const { PrismaClient } = require('@prisma/client')
+const { PrismaClient } = require('../generated/prisma')
 
 async function initProductionDb() {
   // Only run this in production/staging environments

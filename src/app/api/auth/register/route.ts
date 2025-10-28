@@ -209,7 +209,5 @@ export async function POST(request: NextRequest) {
       { message: "Error interno del servidor" },
       { status: 500 }
     )
-  } finally {
-    await prisma.$disconnect()
   }
 }

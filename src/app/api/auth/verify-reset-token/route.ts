@@ -72,7 +72,5 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error("Error verifying reset token:", error)
     return NextResponse.json({ message: "Internal server error" }, { status: 500 })
-  } finally {
-    await prisma.$disconnect()
   }
 }

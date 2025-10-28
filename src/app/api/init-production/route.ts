@@ -68,7 +68,5 @@ export async function POST(request: NextRequest) {
       error: error instanceof Error ? error.message : "Unknown error",
       timestamp: new Date().toISOString()
     }, { status: 500 })
-  } finally {
-    await prisma.$disconnect()
   }
 }

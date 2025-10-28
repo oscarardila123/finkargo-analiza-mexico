@@ -6,7 +6,7 @@ const COUPONS = {
   'FK2025-ANALIZA-X7K9M-3QP8N-PREMIUM': {
     discount: 50,
     description: 'Cliente Finkargo Premium - 50% de descuento',
-    appliesTo: ['trimestral', 'full-trimestral', 'semestral', 'full-semestral', 'anual', 'full-anual'], // Aplica a todos los planes
+    appliesTo: 'ALL', // Aplica a todos los planes (full access y por sector)
     maxUses: 100,
     expiresAt: new Date('2025-12-31'),
     type: 'existing_customer'
@@ -15,7 +15,7 @@ const COUPONS = {
   'ANALIZA10': {
     discount: 10,
     description: 'Promoción redes sociales - 10% de descuento',
-    appliesTo: ['trimestral', 'full-trimestral', 'semestral', 'full-semestral', 'anual', 'full-anual'], // Aplica a todos los planes
+    appliesTo: 'ALL', // Aplica a todos los planes (full access y por sector)
     maxUses: 500,
     expiresAt: new Date('2025-12-31'),
     type: 'social_media'

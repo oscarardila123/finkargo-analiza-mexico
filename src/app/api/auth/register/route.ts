@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs"
 import { prisma } from "@/lib/prisma"
 import { CompanySize } from "@/generated/prisma"
 import { sendWelcomeEmail } from "@/lib/email"
+import { createHubSpotRegistration } from "@/lib/hubspot"
 
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
@@ -166,6 +167,33 @@ export async function POST(request: NextRequest) {
     ).catch((error) => {
       console.error('Failed to send welcome email:', error)
     })
+
+    // Create contact and company in HubSpot for lead tracking
+    // This is non-blocking - registration will succeed even if HubSpot fails
+    try {
+      console.log('📤 Creating HubSpot registration for:', result.user.email)
+      const hubspotResult = await createHubSpotRegistration({
+        name: result.user.name || '',
+        email: result.user.email,
+        phone: phone || undefined,
+        companyName: result.company.name,
+        companyEmail: result.company.email,
+        nit: result.company.nit || undefined,
+        city: result.company.city || undefined,
+        website: result.company.website || undefined,
+        country: result.company.country || 'México',
+      })
+
+      if (hubspotResult.contactId) {
+        console.log('✅ HubSpot contact created:', hubspotResult.contactId)
+      }
+      if (hubspotResult.companyId) {
+        console.log('✅ HubSpot company created:', hubspotResult.companyId)
+      }
+    } catch (hubspotError) {
+      // IMPORTANT: Do not fail registration if HubSpot fails
+      console.error('❌ Error creating HubSpot registration:', hubspotError)
+    }
 
     return NextResponse.json({
       message: "Cuenta creada exitosamente",

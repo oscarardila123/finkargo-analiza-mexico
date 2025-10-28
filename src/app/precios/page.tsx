@@ -436,6 +436,9 @@ export default function PricingPage() {
                           {formatPrice(tier.priceUSD)}
                         </div>
                       </div>
+                      <p className="text-xs text-gray-500 text-center mt-2">
+                        + IVA se cargará en el checkout
+                      </p>
                     </div>
                   </CardHeader>
 
@@ -534,6 +537,9 @@ export default function PricingPage() {
                                 {formatPrice(tier.priceUSD)}
                               </div>
                             </div>
+                            <p className="text-xs text-gray-500 text-center mt-2">
+                              + IVA se cargará en el checkout
+                            </p>
                           </div>
                         </CardHeader>
 

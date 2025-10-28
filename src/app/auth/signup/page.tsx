@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Loader2, Sparkles, Shield, Check, Home } from "lucide-react"
+import { Loader2, Sparkles, Shield, Check, Home, Eye, EyeOff } from "lucide-react"
 import { BrandIcon } from "@/components/ui/brand-icon"
 
 export default function SignUpPage() {
@@ -25,6 +25,8 @@ export default function SignUpPage() {
     isComceMember: false,
     comceMemberNumber: "",
   })
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
   const [step, setStep] = useState(1)
@@ -171,27 +173,55 @@ export default function SignUpPage() {
       </div>
       <div className="space-y-2">
         <Label htmlFor="password">Contraseña <span className="text-red-500">*</span></Label>
-        <Input
-          id="password"
-          type="password"
-          placeholder="Mínimo 8 caracteres"
-          className="placeholder:text-gray-400"
-          value={formData.password}
-          onChange={(e) => handleInputChange("password", e.target.value)}
-          required
-        />
+        <div className="relative">
+          <Input
+            id="password"
+            type={showPassword ? "text" : "password"}
+            placeholder="Mínimo 8 caracteres"
+            className="placeholder:text-gray-400 pr-10"
+            value={formData.password}
+            onChange={(e) => handleInputChange("password", e.target.value)}
+            required
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+            tabIndex={-1}
+          >
+            {showPassword ? (
+              <EyeOff className="h-4 w-4" />
+            ) : (
+              <Eye className="h-4 w-4" />
+            )}
+          </button>
+        </div>
       </div>
       <div className="space-y-2">
         <Label htmlFor="confirmPassword">Confirmar contraseña <span className="text-red-500">*</span></Label>
-        <Input
-          id="confirmPassword"
-          type="password"
-          placeholder="Confirma tu contraseña"
-          className="placeholder:text-gray-400"
-          value={formData.confirmPassword}
-          onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
-          required
-        />
+        <div className="relative">
+          <Input
+            id="confirmPassword"
+            type={showConfirmPassword ? "text" : "password"}
+            placeholder="Confirma tu contraseña"
+            className="placeholder:text-gray-400 pr-10"
+            value={formData.confirmPassword}
+            onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
+            required
+          />
+          <button
+            type="button"
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+            tabIndex={-1}
+          >
+            {showConfirmPassword ? (
+              <EyeOff className="h-4 w-4" />
+            ) : (
+              <Eye className="h-4 w-4" />
+            )}
+          </button>
+        </div>
       </div>
     </div>
   )

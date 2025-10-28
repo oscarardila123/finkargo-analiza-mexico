@@ -150,6 +150,156 @@ const plans: Record<string, PlanDetails> = {
       "Capacitaciones ilimitadas",
       "Asesoría estratégica trimestral"
     ]
+  },
+  // Sector Plans 1-20
+  "sector-1-20-trimestral": {
+    id: "sector-1-20-trimestral",
+    name: "Sector 1-20 Fracciones - Trimestral",
+    period: "3 meses",
+    priceCOP: 0,
+    priceUSD: 650,
+    icon: Target,
+    description: "Perfecto para sectores específicos",
+    features: [
+      "1-20 fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas a Excel",
+      "Consultas ilimitadas",
+      "Soporte en línea 24/7"
+    ]
+  },
+  "sector-1-20-semestral": {
+    id: "sector-1-20-semestral",
+    name: "Sector 1-20 Fracciones - Semestral",
+    period: "6 meses",
+    priceCOP: 0,
+    priceUSD: 1100,
+    icon: Target,
+    description: "Perfecto para sectores específicos",
+    features: [
+      "1-20 fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas a Excel",
+      "Consultas ilimitadas",
+      "Soporte en línea 24/7"
+    ]
+  },
+  "sector-1-20-anual": {
+    id: "sector-1-20-anual",
+    name: "Sector 1-20 Fracciones - Anual",
+    period: "12 meses",
+    priceCOP: 0,
+    priceUSD: 1500,
+    icon: Target,
+    description: "Perfecto para sectores específicos",
+    features: [
+      "1-20 fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas ilimitadas a Excel",
+      "Consultas ilimitadas",
+      "Soporte en línea 24/7",
+      "Capacitaciones incluidas"
+    ]
+  },
+  // Sector Plans 21-40
+  "sector-21-40-trimestral": {
+    id: "sector-21-40-trimestral",
+    name: "Sector 21-40 Fracciones - Trimestral",
+    period: "3 meses",
+    priceCOP: 0,
+    priceUSD: 800,
+    icon: Target,
+    description: "Perfecto para sectores específicos",
+    features: [
+      "21-40 fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas a Excel",
+      "Consultas ilimitadas",
+      "Soporte en línea 24/7"
+    ]
+  },
+  "sector-21-40-semestral": {
+    id: "sector-21-40-semestral",
+    name: "Sector 21-40 Fracciones - Semestral",
+    period: "6 meses",
+    priceCOP: 0,
+    priceUSD: 1550,
+    icon: Target,
+    description: "Perfecto para sectores específicos",
+    features: [
+      "21-40 fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas a Excel",
+      "Consultas ilimitadas",
+      "Soporte en línea 24/7"
+    ]
+  },
+  "sector-21-40-anual": {
+    id: "sector-21-40-anual",
+    name: "Sector 21-40 Fracciones - Anual",
+    period: "12 meses",
+    priceCOP: 0,
+    priceUSD: 1900,
+    icon: Target,
+    description: "Perfecto para sectores específicos",
+    features: [
+      "21-40 fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas ilimitadas a Excel",
+      "Consultas ilimitadas",
+      "Soporte en línea 24/7",
+      "Capacitaciones incluidas"
+    ]
+  },
+  // Sector Plans 41-60
+  "sector-41-60-trimestral": {
+    id: "sector-41-60-trimestral",
+    name: "Sector 41-60 Fracciones - Trimestral",
+    period: "3 meses",
+    priceCOP: 0,
+    priceUSD: 900,
+    icon: Target,
+    description: "Perfecto para sectores específicos",
+    features: [
+      "41-60 fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas a Excel",
+      "Consultas ilimitadas",
+      "Soporte en línea 24/7"
+    ]
+  },
+  "sector-41-60-semestral": {
+    id: "sector-41-60-semestral",
+    name: "Sector 41-60 Fracciones - Semestral",
+    period: "6 meses",
+    priceCOP: 0,
+    priceUSD: 1980,
+    icon: Target,
+    description: "Perfecto para sectores específicos",
+    features: [
+      "41-60 fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas a Excel",
+      "Consultas ilimitadas",
+      "Soporte en línea 24/7"
+    ]
+  },
+  "sector-41-60-anual": {
+    id: "sector-41-60-anual",
+    name: "Sector 41-60 Fracciones - Anual",
+    period: "12 meses",
+    priceCOP: 0,
+    priceUSD: 2500,
+    icon: Target,
+    description: "Perfecto para sectores específicos",
+    features: [
+      "41-60 fracciones arancelarias",
+      "Actualizaciones mensuales",
+      "Descargas ilimitadas a Excel",
+      "Consultas ilimitadas",
+      "Soporte en línea 24/7",
+      "Capacitaciones incluidas"
+    ]
   }
 }
 
@@ -197,9 +347,12 @@ function CheckoutSimpleContent() {
   const currency = (searchParams.get("currency") as "COP" | "USD") || "USD"
   const baseAmount = Number(searchParams.get("amount")) || plans[planId]?.priceUSD || 1100
   
-  // Calculate amount with discount
+  // Calculate amount with discount and IVA
+  const IVA_RATE = 0.16 // 16% IVA for México
   const discount = appliedCoupon ? (baseAmount * appliedCoupon.discount / 100) : 0
-  const amount = baseAmount - discount
+  const subtotal = baseAmount - discount
+  const iva = subtotal * IVA_RATE
+  const amount = subtotal + iva // Total amount including IVA
 
   const selectedPlan = plans[planId]
 
@@ -289,14 +442,17 @@ function CheckoutSimpleContent() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          amount: amount, // Amount with discount applied
+          amount: amount, // Total amount with IVA included
           planId: planId,
           planName: selectedPlan.name,
           currency: currency.toLowerCase(),
           period: selectedPlan.period,
           couponCode: appliedCoupon?.code || null,
           originalAmount: baseAmount,
-          discountPercentage: appliedCoupon?.discount || 0
+          discountPercentage: appliedCoupon?.discount || 0,
+          subtotal: subtotal, // Amount after discount, before IVA
+          iva: iva, // IVA amount (16%)
+          ivaRate: IVA_RATE // IVA rate for reference
         }),
       })
 
@@ -400,6 +556,9 @@ function CheckoutSimpleContent() {
                   )}
                   <p className="text-gray-600 mt-2">
                     Facturación por {selectedPlan.period}
+                  </p>
+                  <p className="text-sm text-gray-500 mt-1">
+                    IVA incluido
                   </p>
                 </div>
               </CardHeader>
@@ -547,17 +706,28 @@ function CheckoutSimpleContent() {
                       <span className="text-gray-600">Plan {selectedPlan.name}</span>
                       <span className="font-medium">{formatCurrency(baseAmount)}</span>
                     </div>
-                    
+
                     {appliedCoupon && (
-                      <>
-                        <div className="flex justify-between text-green-600">
-                          <span>Descuento ({appliedCoupon.discount}%)</span>
-                          <span className="font-medium">-{formatCurrency(discount)}</span>
-                        </div>
-                        <Separator className="my-2" />
-                      </>
+                      <div className="flex justify-between text-green-600">
+                        <span>Descuento ({appliedCoupon.discount}%)</span>
+                        <span className="font-medium">-{formatCurrency(discount)}</span>
+                      </div>
                     )}
-                    
+
+                    {appliedCoupon && (
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Subtotal</span>
+                        <span className="font-medium">{formatCurrency(subtotal)}</span>
+                      </div>
+                    )}
+
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">IVA (16%)</span>
+                      <span className="font-medium">{formatCurrency(iva)}</span>
+                    </div>
+
+                    <Separator className="my-2" />
+
                     <div className="flex justify-between text-lg font-bold">
                       <span>Total a pagar</span>
                       <span className="text-blue-600">{formatCurrency(amount)}</span>

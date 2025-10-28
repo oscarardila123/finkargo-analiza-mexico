@@ -92,7 +92,28 @@
     margin: 0;
     padding: 0;
   }
-  
+
+  /* Softer text selection color */
+  *::selection {
+    background-color: #dbeafe !important; /* Very light blue-100 */
+    color: #1e3a8a !important; /* Dark blue-900 for better contrast */
+  }
+
+  *::-moz-selection {
+    background-color: #dbeafe !important;
+    color: #1e3a8a !important;
+  }
+
+  ::selection {
+    background-color: #dbeafe !important;
+    color: #1e3a8a !important;
+  }
+
+  ::-moz-selection {
+    background-color: #dbeafe !important;
+    color: #1e3a8a !important;
+  }
+
   .font-mono {
     font-family: 'IBM Plex Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
   }

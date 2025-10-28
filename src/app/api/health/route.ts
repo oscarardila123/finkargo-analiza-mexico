@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 import { Client } from "pg"
+import { isProduction, getEnvSnapshot } from "@/lib/runtime-env"
 
 export async function GET() {
   // If query param setup=true, try to create tables first
@@ -113,6 +114,7 @@ export async function GET() {
         tables: tablesStatus
       },
       environment: process.env.NODE_ENV,
+      env: getEnvSnapshot(),
       timestamp: new Date().toISOString()
     })
   } catch (error) {

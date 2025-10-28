@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
+import { isProduction, getEnvSnapshot } from "@/lib/runtime-env"
 
 export async function POST(request: NextRequest) {
   try {
@@ -9,15 +10,12 @@ export async function POST(request: NextRequest) {
     await prisma.$connect()
     console.log("Database connection successful")
     
-    // Check if we're in production/staging environment
-    const isProd = process.env.NODE_ENV === 'production' || process.env.VERCEL_ENV === 'production' || process.env.VERCEL_ENV === 'preview'
-    
-    if (!isProd) {
+    // Check if we're in production/staging environment (centralized)
+    if (!isProduction()) {
       return NextResponse.json({
         status: "skipped",
-        message: "Database setup skipped in development environment",
-        environment: process.env.NODE_ENV,
-        vercel_env: process.env.VERCEL_ENV
+        message: "Database setup skipped outside production/staging",
+        env: getEnvSnapshot(),
       })
     }
     

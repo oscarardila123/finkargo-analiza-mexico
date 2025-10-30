@@ -165,6 +165,7 @@ async function updateHubSpotContactByEmail(
  */
 export async function createHubSpotCompany(properties: {
   name: string
+  email?: string
   domain?: string
   city?: string
   phone?: string
@@ -182,10 +183,12 @@ export async function createHubSpotCompany(properties: {
     // Mapear nit a tax_id___final (propiedad estándar de HubSpot)
     const hubspotProperties: Record<string, any> = {
       name: properties.name,
+      // NOTA: Companies en HubSpot NO tienen propiedad "email", solo Contacts
       domain: properties.domain,
       city: properties.city,
       phone: properties.phone,
-      country: properties.country,
+      country: properties.country, // Country/Region (string)
+      pais: properties.country,    // País de la compañía (dropdown) - Para visualización en HubSpot
       // Propiedad para disparar workflow de creación de Deal en funnel de Analiza
       form_nueva_landing_analiza: true,
     }
@@ -194,6 +197,9 @@ export async function createHubSpotCompany(properties: {
     if (properties.nit) {
       hubspotProperties.tax_id___final = properties.nit
     }
+
+    // Log detallado para debugging (después de agregar NIT)
+    console.log('📋 HubSpot company properties:', JSON.stringify(hubspotProperties, null, 2))
 
     let response = await fetch(`${HUBSPOT_API_BASE}/crm/v3/objects/companies`, {
       method: 'POST',
@@ -322,6 +328,7 @@ export async function createHubSpotRegistration(userData: {
   // Create company
   const company = await createHubSpotCompany({
     name: userData.companyName,
+    email: userData.companyEmail,
     domain: userData.website,
     city: userData.city,
     phone: userData.phone,

@@ -83,6 +83,7 @@ export async function POST(request: NextRequest) {
           nit: nit || null,
           address: address || null,
           city: city || null,
+          country: "México", // País para plataforma México
           phone: phone || null,
           website: website || null,
           industryType: industryType || null,

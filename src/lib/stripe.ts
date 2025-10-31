@@ -33,36 +33,65 @@ interface StripeCheckoutSession {
 }
 
 export class StripeClient {
-  private stripe: Stripe
+  private stripe: Stripe | undefined
   private config: StripeConfig
 
   constructor() {
     const environment = process.env.STRIPE_ENVIRONMENT?.trim() || 'test'
 
+    // Lectura de variables sin fallar al importar
+    const secretKey = process.env.STRIPE_SECRET_KEY || ''
+    const publicKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ''
+    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || ''
+
     this.config = {
-      secretKey: process.env.STRIPE_SECRET_KEY!,
-      publicKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
-      webhookSecret: process.env.STRIPE_WEBHOOK_SECRET || ''
+      secretKey,
+      publicKey,
+      webhookSecret
     }
 
-    console.log('🔧 Stripe Client Init:', {
-      environment,
-      hasSecretKey: !!this.config.secretKey,
-      secretKeyPrefix: this.config.secretKey?.substring(0, 10)
-    })
+    // Logs seguros en no-producción
+    if (process.env.NODE_ENV !== 'production') {
+      const mask = (v: string) => (v ? `${v.substring(0, 8)}...` : 'undefined')
+      // eslint-disable-next-line no-console
+      console.log('🔧 Stripe Client Config:', {
+        environment,
+        hasSecretKey: !!this.config.secretKey,
+        secretKeyPrefix: mask(this.config.secretKey),
+        hasPublicKey: !!this.config.publicKey,
+        publicKeyPrefix: mask(this.config.publicKey),
+        hasWebhookSecret: !!this.config.webhookSecret,
+      })
+    }
 
-    // Validate credentials
     if (!this.config.secretKey) {
-      throw new Error(`Stripe secret key not configured for ${environment} environment`)
+      // eslint-disable-next-line no-console
+      console.warn('❌ Falta STRIPE_SECRET_KEY en el entorno. El cliente se inicializará de forma diferida y los métodos que requieran Stripe fallarán con mensaje controlado.')
+    }
+    if (!this.config.publicKey) {
+      // eslint-disable-next-line no-console
+      console.warn('⚠️ Falta NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY (requerida para el frontend).')
+    }
+    if (!this.config.webhookSecret) {
+      // eslint-disable-next-line no-console
+      console.warn('⚠️ Falta STRIPE_WEBHOOK_SECRET (solo necesario para webhooks).')
     }
 
-    // Initialize Stripe with API version
-    this.stripe = new Stripe(this.config.secretKey, {
+    // No inicializamos Stripe aquí si falta la clave; se hará en ensureStripe()
+  }
+
+  private ensureStripe(): Stripe {
+    if (this.stripe) return this.stripe
+    const key = this.config.secretKey || process.env.STRIPE_SECRET_KEY || ''
+    if (!key) {
+      throw new Error('Stripe no está configurado: falta STRIPE_SECRET_KEY en el entorno')
+    }
+    this.config.secretKey = key
+    this.stripe = new Stripe(key, {
       apiVersion: '2024-12-18.acacia',
       typescript: true,
     })
-
-    console.log('✅ Stripe Client initialized successfully')
+    return this.stripe
   }
 
   /**
@@ -72,10 +101,11 @@ export class StripeClient {
     sessionData: CreateCheckoutSessionRequest
   ): Promise<StripeCheckoutSession> {
     try {
+      const stripe = this.ensureStripe()
       console.log('🚀 Creating Stripe Checkout Session')
       console.log('Session data:', JSON.stringify(sessionData, null, 2))
 
-      const session = await this.stripe.checkout.sessions.create({
+      const session = await stripe.checkout.sessions.create({
         // Stripe automatically enables all available payment methods for the account
         // including cards, Link, and any other methods enabled in the dashboard
         line_items: [
@@ -131,7 +161,8 @@ export class StripeClient {
    */
   async getCheckoutSession(sessionId: string): Promise<Stripe.Checkout.Session> {
     try {
-      const session = await this.stripe.checkout.sessions.retrieve(sessionId)
+      const stripe = this.ensureStripe()
+      const session = await stripe.checkout.sessions.retrieve(sessionId)
       return session
     } catch (error) {
       console.error('❌ Error retrieving checkout session:', error)
@@ -144,7 +175,8 @@ export class StripeClient {
    */
   async getPaymentIntent(paymentIntentId: string): Promise<Stripe.PaymentIntent> {
     try {
-      const paymentIntent = await this.stripe.paymentIntents.retrieve(paymentIntentId)
+      const stripe = this.ensureStripe()
+      const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId)
       return paymentIntent
     } catch (error) {
       console.error('❌ Error retrieving payment intent:', error)
@@ -165,7 +197,8 @@ export class StripeClient {
         return JSON.parse(payload.toString())
       }
 
-      const event = this.stripe.webhooks.constructEvent(
+      const stripe = this.ensureStripe()
+      const event = stripe.webhooks.constructEvent(
         payload,
         signature,
         this.config.webhookSecret

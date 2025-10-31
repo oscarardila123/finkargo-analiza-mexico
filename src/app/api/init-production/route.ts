@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
+import { isProduction, getEnvSnapshot } from "@/lib/runtime-env"
 
 export async function POST(request: NextRequest) {
-  // Only allow this in production/staging
-  if (process.env.NODE_ENV === 'development') {
+  // Only allow this in production/staging (centralized)
+  if (!isProduction()) {
     return NextResponse.json({
       status: "skipped",
-      message: "Production init skipped in development"
+      message: "Production init skipped outside production",
+      env: getEnvSnapshot(),
     })
   }
 

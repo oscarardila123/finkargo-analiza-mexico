@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
+import { getEnvSnapshot } from "@/lib/runtime-env"
 
 export async function GET(request: NextRequest) {
   try {
@@ -7,7 +8,8 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({
         status: "skipped",
         message: "Staging diagnostic skipped in development",
-        environment: process.env.NODE_ENV
+        environment: process.env.NODE_ENV,
+        env: getEnvSnapshot(),
       })
     }
 
@@ -83,9 +85,9 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       status: "diagnostic_complete",
       environment: {
-        NODE_ENV: process.env.NODE_ENV,
-        VERCEL_ENV: process.env.VERCEL_ENV
+        NODE_ENV: process.env.NODE_ENV
       },
+      env: getEnvSnapshot(),
       database: {
         connection: "successful",
         version: dbVersion,
@@ -108,8 +110,7 @@ export async function GET(request: NextRequest) {
       message: "Diagnostic failed",
       error: error instanceof Error ? error.message : "Unknown error",
       environment: {
-        NODE_ENV: process.env.NODE_ENV,
-        VERCEL_ENV: process.env.VERCEL_ENV
+        NODE_ENV: process.env.NODE_ENV
       },
       timestamp: new Date().toISOString()
     }, { status: 500 })

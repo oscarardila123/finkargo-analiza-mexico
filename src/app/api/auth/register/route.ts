@@ -5,11 +5,13 @@ import { CompanySize } from "@/generated/prisma"
 import { sendWelcomeEmail } from "@/lib/email"
 import { createHubSpotRegistration } from "@/lib/hubspot"
 
+function isValidEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}
+
 export async function POST(request: NextRequest) {
   try {
-    console.log('🔧 Registration attempt started')
     const body = await request.json()
-    console.log('🔧 Request body received')
     const {
       name,
       email,
@@ -28,40 +30,58 @@ export async function POST(request: NextRequest) {
       comceMemberNumber,
     } = body
 
-    if (!name || !email || !password || !companyName || !companyEmail) {
+    // Validaciones estrictas de campos requeridos
+    if (
+      typeof name !== 'string' || !name.trim() ||
+      typeof email !== 'string' || !email.trim() ||
+      typeof password !== 'string' || !password.trim() ||
+      typeof companyName !== 'string' || !companyName.trim() ||
+      typeof companyEmail !== 'string' || !companyEmail.trim()
+    ) {
       return NextResponse.json(
-        { message: "Faltan campos obligatorios" },
+        { message: "Faltan campos obligatorios o son inválidos" },
+        { status: 400 }
+      )
+    }
+    if (!isValidEmail(email) || !isValidEmail(companyEmail)) {
+      return NextResponse.json(
+        { message: "Formato de correo electrónico inválido" },
+        { status: 400 }
+      )
+    }
+    if (password.length < 8) {
+      return NextResponse.json(
+        { message: "La contraseña debe tener al menos 8 caracteres" },
         { status: 400 }
       )
     }
 
-    const existingUser = await prisma.user.findUnique({
-      where: { email }
-    })
+    // Normalizar emails para evitar duplicados
+    const normalizedEmail = email.trim().toLowerCase()
+    const normalizedCompanyEmail = companyEmail.trim().toLowerCase()
 
+    const existingUser = await prisma.user.findUnique({
+      where: { email: normalizedEmail }
+    })
     if (existingUser) {
       return NextResponse.json(
         { message: "Ya existe un usuario con este correo electrónico" },
         { status: 400 }
       )
     }
-
     const existingCompany = await prisma.company.findUnique({
-      where: { email: companyEmail }
+      where: { email: normalizedCompanyEmail }
     })
-
     if (existingCompany) {
       return NextResponse.json(
         { message: "Ya existe una empresa con este correo electrónico" },
         { status: 400 }
       )
     }
-
-    if (nit) {
+    if (nit && typeof nit === 'string' && nit.trim()) {
       const existingNit = await prisma.company.findUnique({
-        where: { nit }
+        where: { nit: nit.trim() }
       })
-
       if (existingNit) {
         return NextResponse.json(
           { message: "Ya existe una empresa con este NIT" },
@@ -71,29 +91,27 @@ export async function POST(request: NextRequest) {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10)
-
     const trialEndDate = new Date()
-    trialEndDate.setDate(trialEndDate.getDate() + 14) // 14 days trial
+    trialEndDate.setDate(trialEndDate.getDate() + 14)
 
     const result = await prisma.$transaction(async (tx) => {
       const company = await tx.company.create({
         data: {
-          name: companyName,
-          email: companyEmail,
-          nit: nit || null,
-          address: address || null,
-          city: city || null,
+          name: companyName.trim(),
+          email: normalizedCompanyEmail,
+          nit: nit && typeof nit === 'string' ? nit.trim() : null,
+          address: address && typeof address === 'string' ? address.trim() : null,
+          city: city && typeof city === 'string' ? city.trim() : null,
           country: "México", // País para plataforma México
-          phone: phone || null,
-          website: website || null,
-          industryType: industryType || null,
+          phone: phone && typeof phone === 'string' ? phone.trim() : null,
+          website: website && typeof website === 'string' ? website.trim() : null,
+          industryType: industryType && typeof industryType === 'string' ? industryType.trim() : null,
           companySize: companySize ? (companySize as CompanySize) : null,
           annualImportValue: annualImportValue ? parseFloat(annualImportValue) : null,
-          isComceMember: isComceMember || false,
-          comceMemberNumber: comceMemberNumber || null,
+          isComceMember: Boolean(isComceMember),
+          comceMemberNumber: comceMemberNumber && typeof comceMemberNumber === 'string' ? comceMemberNumber.trim() : null,
         },
       })
-
       const subscription = await tx.subscription.create({
         data: {
           companyId: company.id,
@@ -102,25 +120,22 @@ export async function POST(request: NextRequest) {
           currentPeriodStart: new Date(),
           currentPeriodEnd: trialEndDate,
           trialEndsAt: trialEndDate,
-          reportsLimit: 5, // Trial limit
+          reportsLimit: 5,
         },
       })
-
       await tx.company.update({
         where: { id: company.id },
         data: { subscriptionId: subscription.id },
       })
-
       const user = await tx.user.create({
         data: {
-          name,
-          email,
+          name: name.trim(),
+          email: normalizedEmail,
           password: hashedPassword,
-          role: "VIEWER", // New users start as VIEWER, only admin can upgrade
+          role: "VIEWER",
           companyId: company.id,
         },
       })
-
       await tx.companyActivity.create({
         data: {
           companyId: company.id,
@@ -131,7 +146,6 @@ export async function POST(request: NextRequest) {
           },
         },
       })
-
       await tx.userActivity.create({
         data: {
           userId: user.id,
@@ -142,20 +156,17 @@ export async function POST(request: NextRequest) {
           },
         },
       })
-
       return { user, company, subscription }
     })
 
-    // Send welcome email asynchronously (don't block the response)
-    // Include COMCE discount code only if user is a COMCE member
+    // Enviar email de bienvenida de forma asíncrona
     const includeComceInfo = result.company.isComceMember && result.company.comceMemberNumber
     sendWelcomeEmail(
       result.user.email,
-      result.user.name,
+      result.user.name || '',
       includeComceInfo
     ).catch((error) => {
       console.error('Failed to send welcome email:', error)
-      // Don't fail the registration if email fails
     })
 
     // Create contact and company in HubSpot for lead tracking

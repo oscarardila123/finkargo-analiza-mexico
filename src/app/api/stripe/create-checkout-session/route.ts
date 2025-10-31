@@ -48,6 +48,22 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Early env validation for Stripe
+    if (!process.env.STRIPE_SECRET_KEY || !process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
+      const mask = (v?: string) => (v ? `${v.substring(0, 8)}...` : 'undefined')
+      console.error('❌ Configuración de Stripe incompleta:', {
+        hasSecretKey: !!process.env.STRIPE_SECRET_KEY,
+        secretKeyPrefix: mask(process.env.STRIPE_SECRET_KEY),
+        hasPublicKey: !!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+        publicKeyPrefix: mask(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY),
+        environment: process.env.STRIPE_ENVIRONMENT || 'test'
+      })
+      return NextResponse.json(
+        { error: "Configuración de Stripe incompleta en el entorno" },
+        { status: 500 }
+      )
+    }
+
     // Calculate taxes if applicable (Mexico IVA is 16%)
     let totalAmount = parseFloat(amount)
     let ivaAmount = 0

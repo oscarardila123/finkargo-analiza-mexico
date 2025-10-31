@@ -13,4 +13,4 @@ function generateSecret() {
 
 console.log('\n🔐 Generated NEXTAUTH_SECRET:\n')
 console.log(generateSecret())
-console.log('\n✅ Copy this value to your Vercel environment variables\n')
+console.log('\n✅ Copia este valor en las Variables de Entorno de tu entorno de AWS Amplify (Backend)\n')

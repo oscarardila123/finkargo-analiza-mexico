@@ -1,23 +1,22 @@
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
+import { Client } from "pg"
+import { isProduction, getEnvSnapshot } from "@/lib/runtime-env"
 
 export async function GET() {
   // If query param setup=true, try to create tables first
   try {
-    const url = new URL(process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
+    const url = new URL('http://localhost:3000')
     const searchParams = new URLSearchParams(url.search)
     
     if (searchParams.get('setup') === 'true' && process.env.NODE_ENV === 'production') {
       console.log('Attempting to create tables...')
       
-      const { Client } = require('pg')
       const client = new Client({
         connectionString: process.env.DATABASE_URL,
         ssl: { rejectUnauthorized: false }
       })
-      
       await client.connect()
-      
       await client.query(`
         CREATE TABLE IF NOT EXISTS companies (
           id TEXT PRIMARY KEY,
@@ -38,7 +37,6 @@ export async function GET() {
           updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
       `)
-      
       await client.query(`
         CREATE TABLE IF NOT EXISTS users (
           id TEXT PRIMARY KEY,
@@ -55,7 +53,6 @@ export async function GET() {
           updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
       `)
-      
       await client.query(`
         CREATE TABLE IF NOT EXISTS subscriptions (
           id TEXT PRIMARY KEY,
@@ -76,7 +73,6 @@ export async function GET() {
           updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
       `)
-      
       await client.end()
       console.log('Tables created successfully')
     }
@@ -85,42 +81,30 @@ export async function GET() {
   }
   try {
     const dbUrl = process.env.DATABASE_URL
-    
-    // Try to connect to the database
     await prisma.$connect()
-    
-    // Try a simple query
     const result = await prisma.$queryRaw`SELECT 1 as test`
-    
-    // Convert BigInt to string for JSON serialization
     const serializedResult = JSON.parse(JSON.stringify(result, (key, value) =>
       typeof value === 'bigint' ? value.toString() : value
     ))
-    
-    // Test if tables exist
-    let tablesStatus = {}
-    
+    const tablesStatus: Record<string, string> = {}
     try {
       await prisma.company.findFirst()
       tablesStatus.companies = "accessible"
     } catch (error) {
       tablesStatus.companies = error instanceof Error ? error.message : "error"
     }
-    
     try {
       await prisma.user.findFirst()
       tablesStatus.users = "accessible"
     } catch (error) {
       tablesStatus.users = error instanceof Error ? error.message : "error"
     }
-    
     try {
       await prisma.subscription.findFirst()
       tablesStatus.subscriptions = "accessible"
     } catch (error) {
       tablesStatus.subscriptions = error instanceof Error ? error.message : "error"
     }
-    
     return NextResponse.json({
       status: "healthy",
       database: {
@@ -129,7 +113,12 @@ export async function GET() {
         query_result: serializedResult,
         tables: tablesStatus
       },
+      auth: {
+        NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET ? "Set" : "Not set",
+        NEXTAUTH_URL: process.env.NEXTAUTH_URL
+      },
       environment: process.env.NODE_ENV,
+      env: getEnvSnapshot(),
       timestamp: new Date().toISOString()
     })
   } catch (error) {

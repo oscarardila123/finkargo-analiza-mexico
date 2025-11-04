@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { Loader2, AlertCircle, BarChart3, RefreshCw, Sparkles, ExternalLink, Maximize2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 
@@ -15,6 +16,8 @@ export default function StreamlitReportViewer({
   isAdmin,
   reportType = 'imports'
 }: StreamlitReportViewerProps) {
+  const pathname = usePathname()
+  const isFullscreen = pathname?.includes('/fullscreen')
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
   const [iframeKey, setIframeKey] = useState(0)
@@ -67,7 +70,7 @@ export default function StreamlitReportViewer({
   }
 
   return (
-    <div className="w-full relative bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+    <div className={`w-full relative bg-white overflow-hidden ${isFullscreen ? 'h-screen' : 'rounded-2xl shadow-lg border border-gray-200'}`}>
       {/* Estado de Carga */}
       {isLoading && (
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 via-cyan-50 to-purple-50 z-10">
@@ -182,26 +185,26 @@ export default function StreamlitReportViewer({
         allow="camera; microphone; clipboard-write"
         sandbox="allow-same-origin allow-scripts allow-forms allow-downloads allow-popups allow-popups-to-escape-sandbox"
         style={{
-          height: '1400px',
-          minHeight: '1400px',
+          height: isFullscreen ? '100vh' : '1400px',
+          minHeight: isFullscreen ? '100vh' : '1400px',
         }}
       />
 
       {/* Botón Ver en Pantalla Completa */}
-      {!isLoading && !hasError && (
+      {!isLoading && !hasError && !isFullscreen && (
         <a
-          href={reportUrl}
+          href="/reporte/fullscreen"
           target="_blank"
           rel="noopener noreferrer"
-          className="absolute top-4 right-4 z-20 flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-brand-navy to-blue-600 hover:from-brand-navy-dark hover:to-blue-700 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-sm"
+          className="absolute top-6 right-6 z-[100] inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-sm whitespace-nowrap"
         >
-          <Maximize2 className="h-4 w-4" />
-          Ver en Pantalla Completa
+          <Maximize2 className="h-5 w-5 flex-shrink-0" />
+          <span className="font-bold">Ver en Pantalla Completa</span>
         </a>
       )}
 
       {/* Info Bar */}
-      {!isLoading && !hasError && (
+      {!isLoading && !hasError && !isFullscreen && (
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-brand-navy/10 via-brand-navy/5 to-transparent p-3 text-center backdrop-blur-sm">
           <div className="flex items-center justify-center gap-2">
             <Sparkles className="h-3 w-3 text-brand-cyan" />

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Loader2, AlertCircle, BarChart3, RefreshCw, Sparkles } from 'lucide-react'
+import { Loader2, AlertCircle, BarChart3, RefreshCw, Sparkles, ExternalLink, Maximize2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 
 interface StreamlitReportViewerProps {
@@ -67,7 +67,7 @@ export default function StreamlitReportViewer({
   }
 
   return (
-    <div className="h-full w-full relative bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+    <div className="w-full relative bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-200">
       {/* Estado de Carga */}
       {isLoading && (
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 via-cyan-50 to-purple-50 z-10">
@@ -175,16 +175,30 @@ export default function StreamlitReportViewer({
       <iframe
         key={iframeKey}
         src={reportUrl}
-        className="w-full h-full border-0"
+        className="w-full border-0"
         title="Reporte de Analiza - Streamlit"
         onLoad={handleIframeLoad}
         onError={handleIframeError}
         allow="camera; microphone; clipboard-write"
         sandbox="allow-same-origin allow-scripts allow-forms allow-downloads allow-popups allow-popups-to-escape-sandbox"
         style={{
-          minHeight: 'calc(100vh - 180px)',
+          height: '1400px',
+          minHeight: '1400px',
         }}
       />
+
+      {/* Botón Ver en Pantalla Completa */}
+      {!isLoading && !hasError && (
+        <a
+          href={reportUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute top-4 right-4 z-20 flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-brand-navy to-blue-600 hover:from-brand-navy-dark hover:to-blue-700 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-sm"
+        >
+          <Maximize2 className="h-4 w-4" />
+          Ver en Pantalla Completa
+        </a>
+      )}
 
       {/* Info Bar */}
       {!isLoading && !hasError && (
@@ -198,7 +212,7 @@ export default function StreamlitReportViewer({
           </div>
           <p className="text-xs text-gray-600 mt-1">
             ¿Tienes problemas visualizando el reporte? <a
-              href="https://api.whatsapp.com/send?phone=5215544332211&text=Hola%2C%20tengo%20problemas%20visualizando%20mi%20reporte%20de%20Analiza"
+              href="https://api.whatsapp.com/send?phone=573222235280&text=Hola%2C%20tengo%20problemas%20visualizando%20mi%20reporte%20de%20Analiza"
               target="_blank"
               rel="noopener noreferrer"
               className="text-brand-navy hover:underline font-medium"

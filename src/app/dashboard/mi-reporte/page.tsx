@@ -147,7 +147,7 @@ export default async function MiReportePage() {
 
       {/* Streamlit Report Viewer Card */}
       <div className="business-card-elevated p-4 relative">
-        <div className="relative z-10" style={{minHeight: '800px'}}>
+        <div className="relative z-10">
           <StreamlitReportViewer
             email={user.email}
             isAdmin={isAdmin}

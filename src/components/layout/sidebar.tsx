@@ -6,6 +6,7 @@ import { ClientOnly } from "@/components/ui/client-only"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { BrandIcon } from "@/components/ui/brand-icon"
 import {
   BarChart3,
   Building2,
@@ -33,13 +34,19 @@ const navigation = [
     description: "Resumen general"
   },
   {
+    name: "Mi Reporte de Analiza",
+    href: "/dashboard/mi-reporte",
+    icon: BarChart3,
+    description: "Reporte personalizado"
+  },
+  {
     name: "Análisis de Importaciones",
     href: "/dashboard/imports",
     icon: Package,
     description: "Datos de importación"
   },
   {
-    name: "Análisis de Exportaciones", 
+    name: "Análisis de Exportaciones",
     href: "/dashboard/exports",
     icon: Globe,
     description: "Datos de exportación"
@@ -112,15 +119,15 @@ export function Sidebar({ className }: SidebarProps) {
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="flex items-center h-16 px-6 border-b border-gray-200">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">F</span>
+            <Link href="/dashboard" className="flex items-center space-x-3 w-full">
+              <div className="w-10 h-10 bg-white border-2 border-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
+                <BrandIcon size="md" />
               </div>
-              <div>
-                <h2 className="text-lg font-semibold text-gray-900">Finkargo</h2>
-                <p className="text-xs text-gray-500">Analiza</p>
+              <div className="flex items-baseline">
+                <h2 className="text-lg font-bold text-brand-navy">Analiza</h2>
+                <p className="text-xs text-gray-600 font-medium ml-1">de Finkargo</p>
               </div>
-            </div>
+            </Link>
           </div>
 
           {/* Navigation */}

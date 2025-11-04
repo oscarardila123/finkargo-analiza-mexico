@@ -39,7 +39,7 @@ const nextConfig: NextConfig = {
               "img-src 'self' data: https: blob:",
               "font-src 'self' https://fonts.gstatic.com",
               "connect-src 'self' https://api.anthropic.com https://accounts.google.com https://www.googleapis.com",
-              "frame-src 'self' https://drive.google.com https://docs.google.com https://accounts.google.com https://finkargo.storylane.io",
+              "frame-src 'self' https://drive.google.com https://docs.google.com https://accounts.google.com https://finkargo.storylane.io https://analiza-production.finkargo.com.mx https://analizaexp-production.finkargo.com.mx",
               "frame-ancestors 'self'",
               "object-src 'none'",
               "base-uri 'self'",

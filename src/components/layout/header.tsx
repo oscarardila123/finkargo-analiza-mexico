@@ -29,7 +29,7 @@ export function Header() {
   }
 
   return (
-    <header className="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6 lg:px-8">
+    <header className="bg-white border-b border-gray-200 h-14 flex items-center justify-between px-6 lg:px-8 shadow-sm">
       <div className="flex items-center space-x-4">
         <div className="lg:hidden w-16" /> {/* Spacer for mobile menu button */}
         <div>
@@ -44,9 +44,9 @@ export function Header() {
 
       <div className="flex items-center space-x-4">
         {/* Notifications */}
-        <Button variant="ghost" size="icon" className="relative">
+        <Button variant="ghost" size="icon" className="relative rounded-full">
           <Bell className="h-5 w-5" />
-          <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+          <span className="absolute -top-1 -right-1 h-4 w-4 bg-brand-coral text-white text-xs rounded-full flex items-center justify-center">
             3
           </span>
         </Button>
@@ -54,10 +54,10 @@ export function Header() {
         {/* User menu */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-10 px-3 gap-2">
-              <Avatar className="h-8 w-8">
+            <Button variant="ghost" className="h-10 px-3 gap-2 rounded-full">
+              <Avatar className="h-8 w-8 border-2 border-brand-cyan/30 shadow-sm">
                 <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || ""} />
-                <AvatarFallback className="bg-primary text-white text-sm">
+                <AvatarFallback className="bg-brand-navy text-white text-xs font-bold flex items-center justify-center">
                   {session?.user?.name ? getInitials(session.user.name) : "U"}
                 </AvatarFallback>
               </Avatar>
@@ -127,13 +127,14 @@ function getPageTitle(pathname: string): string {
     "/dashboard/suppliers": "Descubrimiento de Proveedores",
     "/dashboard/competitors": "Análisis de Competidores",
     "/dashboard/reports": "Reportes",
+    "/dashboard/mi-reporte": "Mi Reporte de Analiza",
     "/dashboard/company": "Mi Empresa",
     "/dashboard/users": "Usuarios",
     "/dashboard/settings": "Configuración",
     "/dashboard/profile": "Mi Perfil",
     "/dashboard/subscription": "Suscripción",
   }
-  
+
   return titleMap[pathname] || "Dashboard"
 }
 

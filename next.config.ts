@@ -34,11 +34,11 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://accounts.google.com https://apis.google.com",
+              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://accounts.google.com https://apis.google.com https://www.googletagmanager.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "img-src 'self' data: https: blob:",
               "font-src 'self' https://fonts.gstatic.com",
-              "connect-src 'self' https://api.anthropic.com https://accounts.google.com https://www.googleapis.com",
+              "connect-src 'self' https://api.anthropic.com https://accounts.google.com https://www.googleapis.com https://www.googletagmanager.com https://www.google-analytics.com",
               "frame-src 'self' https://drive.google.com https://docs.google.com https://accounts.google.com https://finkargo.storylane.io https://analiza-production.finkargo.com.mx https://analizaexp-production.finkargo.com.mx",
               "frame-ancestors 'self'",
               "object-src 'none'",

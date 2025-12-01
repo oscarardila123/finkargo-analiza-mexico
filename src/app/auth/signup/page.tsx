@@ -22,9 +22,31 @@ export default function SignUpPage() {
     city: "",
     phone: "",
     website: "",
+    salesAdvisor: "",
     isComceMember: false,
     comceMemberNumber: "",
   })
+
+  // Lista de asesores comerciales
+  const salesAdvisors = [
+    "Carlos Ospina Real",
+    "Samuel Wong",
+    "Daniel Gonzalez Soto",
+    "Daniel Herrera",
+    "Levi Jimenez",
+    "Jose David Rojas",
+    "Juan Pablo Sioufi",
+    "Emmanuel Gonzalez",
+    "Victor Moreno",
+    "Orianny Paolini",
+    "Miriam Valdes",
+    "Gerardo Guerrero",
+    "Carlos Buzali",
+    "Andres Felipe Iraizoz",
+    "Alonso Sánchez",
+    "Sergio Zamora",
+    "No recibí ayuda comercial",
+  ]
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -293,6 +315,27 @@ export default function SignUpPage() {
             required
           />
         </div>
+      </div>
+
+      {/* Sales Advisor Section */}
+      <div className="space-y-2">
+        <Label htmlFor="salesAdvisor">¿Recibiste ayuda de un asesor comercial?</Label>
+        <select
+          id="salesAdvisor"
+          value={formData.salesAdvisor}
+          onChange={(e) => handleInputChange("salesAdvisor", e.target.value)}
+          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          <option value="">Selecciona una opción</option>
+          {salesAdvisors.map((advisor) => (
+            <option key={advisor} value={advisor}>
+              {advisor}
+            </option>
+          ))}
+        </select>
+        <p className="text-xs text-gray-500">
+          Si un asesor comercial te ayudó a conocer Finkargo Analiza, selecciónalo aquí
+        </p>
       </div>
 
       {/* COMCE Member Section */}

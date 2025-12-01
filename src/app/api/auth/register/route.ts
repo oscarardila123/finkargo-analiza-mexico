@@ -28,6 +28,7 @@ export async function POST(request: NextRequest) {
       annualImportValue,
       isComceMember,
       comceMemberNumber,
+      salesAdvisor,
     } = body
 
     // Validaciones estrictas de campos requeridos
@@ -110,6 +111,7 @@ export async function POST(request: NextRequest) {
           annualImportValue: annualImportValue ? parseFloat(annualImportValue) : null,
           isComceMember: Boolean(isComceMember),
           comceMemberNumber: comceMemberNumber && typeof comceMemberNumber === 'string' ? comceMemberNumber.trim() : null,
+          salesAdvisor: salesAdvisor && typeof salesAdvisor === 'string' ? salesAdvisor.trim() : null,
         },
       })
       const subscription = await tx.subscription.create({

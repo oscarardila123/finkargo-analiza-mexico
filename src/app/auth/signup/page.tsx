@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { signIn } from "next-auth/react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -155,7 +156,20 @@ export default function SignUpPage() {
       })
 
       if (response.ok) {
-        router.push("/auth/signin?message=account-created&from=/precios")
+        // Auto-login después del registro exitoso
+        const signInResult = await signIn("credentials", {
+          email: formData.email,
+          password: formData.password,
+          redirect: false,
+        })
+
+        if (signInResult?.ok) {
+          // Redirigir a página transitoria para tracking de GTM
+          router.push("/auth/registro-exitoso")
+        } else {
+          // Si falla el auto-login, redirigir al login tradicional
+          router.push("/auth/signin?message=account-created&from=/precios")
+        }
       } else {
         const data = await response.json()
         setError(data.message || "Error al crear la cuenta")
